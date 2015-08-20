@@ -1,0 +1,11 @@
+proj.ios_mac/
+proj.win10/
+proj.win32/
+proj.win8.1-universal/
+
+proj.android/
+!proj.android/jni/Android.mk
+!proj.android/jni/Application.mk
+
+*.user
+
