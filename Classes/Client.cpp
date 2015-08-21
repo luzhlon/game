@@ -1,7 +1,7 @@
 #include "Client.h"
 
 Client *Client::s_client = nullptr;
-char *Client::s_serverIP = "127.0.0.1"; //"192.168.191.2";
+char *Client::s_serverIP = "192.168.191.2";
 int Client::s_serverPort = 4321;
 net_pkg Client::s_pkg;
 Client::handler Client::s_handlers[MESSAGE::Max_number];

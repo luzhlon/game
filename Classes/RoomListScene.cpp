@@ -13,7 +13,7 @@ Scene *RoomListScene::createScene() {
 }
 
 bool RoomListScene::init() {
-    auto layer = loadLayer("chooseroom_scene.csb");
+    auto layer = loadLayer("room_list_scene.csb");
     auto layout = getLayout(layer);
 
     CC_ASSERT(layout); //load layout failure

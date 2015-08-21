@@ -1,0 +1,12 @@
+<Solution>
+  <PropertyGroup Name="room_list_scene" Version="2.3.2.0" Type="CocosStudio" />
+  <SolutionFolder>
+    <Group ctype="ResourceGroup">
+      <RootFolder Name=".">
+        <Project Name="room_list_scene.csd" Type="Scene" />
+        <Image Name="HelloWorld.png" />
+        <Project Name="room_list_layer.csd" Type="Layer" />
+      </RootFolder>
+    </Group>
+  </SolutionFolder>
+</Solution>

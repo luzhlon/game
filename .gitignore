@@ -7,6 +7,8 @@ proj.android/
 !proj.android/jni/Android.mk
 !proj.android/jni/Application.mk
 
+Resources/scene/*/src
+
 *.user
 *.sdf
 

@@ -48,10 +48,7 @@
     <ClCompile Include="..\Classes\Soldier.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\stdafx.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\test.cpp">
+    <ClCompile Include="..\Classes\SceneLayer.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
