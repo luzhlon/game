@@ -155,10 +155,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\RoleScene.cpp" />
     <ClCompile Include="..\Classes\RoomListScene.cpp" />
     <ClCompile Include="..\Classes\RoomScene.cpp" />
+    <ClCompile Include="..\Classes\SceneLayer.cpp" />
     <ClCompile Include="..\Classes\SettingScene.cpp" />
     <ClCompile Include="..\Classes\Soldier.cpp" />
-    <ClCompile Include="..\Classes\stdafx.cpp" />
-    <ClCompile Include="..\Classes\test.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

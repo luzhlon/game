@@ -73,7 +73,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     register_all_packages();
 
-    FileUtils::getInstance()->addSearchPath("scene");
+    FileUtils::getInstance()->addSearchPath("scene/dialog_scene/res");
+	FileUtils::getInstance()->addSearchPath("scene/menu_scene/res");
+	FileUtils::getInstance()->addSearchPath("scene/room_list_scene/res");
+	FileUtils::getInstance()->addSearchPath("scene/role_scene/res");
+	FileUtils::getInstance()->addSearchPath("scene/setting_scene/res");
 
     // create a scene. it's an autorelease object
     //auto scene = GameScene::createScene();

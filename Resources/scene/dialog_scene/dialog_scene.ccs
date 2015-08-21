@@ -1,0 +1,12 @@
+<Solution>
+  <PropertyGroup Name="dialog_scene" Version="2.3.2.0" Type="CocosStudio" />
+  <SolutionFolder>
+    <Group ctype="ResourceGroup">
+      <RootFolder Name=".">
+        <Project Name="dialog_scene.csd" Type="Scene" />
+        <Image Name="HelloWorld.png" />
+        <Project Name="dialog_layer.csd" Type="Layer" />
+      </RootFolder>
+    </Group>
+  </SolutionFolder>
+</Solution>

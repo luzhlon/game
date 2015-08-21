@@ -14,7 +14,7 @@ public:
 
     void onStartClick(Ref *);
     void onLeaveClick(Ref *);
-    void onEnter();
+    void onEnter() override;
 private:
     TextField *m_editName;
 };

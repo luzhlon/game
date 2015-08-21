@@ -34,27 +34,28 @@ public:
 
     bool send(char *, int);
     inline bool sendMsg(net_pkg *pkg, int size) {
+		pkg->len = size;
         return send((char*)pkg, size);
     }
     inline void copy_data(void *data, int size) {
         if(data)
             memcpy(s_pkg.data, data, size);
     }
-    bool sendMsg(unsigned short msg, int arg1,
-                 int data_size = 0, void *data = nullptr) {
-        copy_data(data, data_size);
-        s_pkg.arg1 = arg1;
-        s_pkg.msg = msg;
-        return sendMsg(&s_pkg, data ? NET_PKG_SIZE + data_size : NET_PKG_SIZE_2);
-    }
     inline bool sendMsg(unsigned short msg, int arg1, char *str) {
         return sendMsg(msg, arg1, strlen(str) + 1, str);
     }
-    bool sendMsg(unsigned short msg, int data_size = 0, void *data = nullptr) {
+    inline bool sendMsg(unsigned short msg, int data_size = 0, void *data = nullptr) {
         copy_data(data, data_size);
         s_pkg.msg = msg;
         return sendMsg(&s_pkg, data ? NET_PKG_SIZE + data_size : NET_PKG_SIZE_2);
     }
+	inline bool sendMsg(unsigned short msg, int arg1,
+		int data_size = 0, void *data = nullptr) {
+		copy_data(data, data_size);
+		s_pkg.arg1 = arg1;
+		s_pkg.msg = msg;
+		return sendMsg(&s_pkg, data ? NET_PKG_SIZE + data_size : NET_PKG_SIZE_2);
+	}
     inline bool sendMsg(unsigned short msg, const char *str) {
         return sendMsg(msg, strlen(str) + 1, (void *)str);
     }
