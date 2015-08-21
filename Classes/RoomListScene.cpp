@@ -1,5 +1,6 @@
+﻿#include "RoomListScene.h"
+#include "Dialog.h"
 #include "cocostudio/CocoStudio.h"
-#include "RoomListScene.h"
 
 using namespace cocostudio;
 
@@ -18,28 +19,37 @@ bool RoomListScene::init() {
 
     CC_ASSERT(layout); //load layout failure
 
-    setButtonClickCallback(layout, "button_createroom", CC_CALLBACK_1(RoomListScene::onCreateClick, this));
-    setButtonClickCallback(layout, "button_join", CC_CALLBACK_1(RoomListScene::onEnterClick, this));
-    setButtonClickCallback(layout, "button_back", CC_CALLBACK_1(RoomListScene::onLeaveClick, this));
+    setButtonClickCallback(layout, "button_create", CC_CALLBACK_1(RoomListScene::onCreateClick, this));
+    setButtonClickCallback(layout, "button_enter", CC_CALLBACK_1(RoomListScene::onEnterClick, this));
+    setButtonClickCallback(layout, "button_back", CC_CALLBACK_1(RoomListScene::onBackClick, this));
     //*
-    m_listRoom = static_cast<ListView *>(Helper::seekWidgetByName(layout, "listview_roomlist"));
+    m_listRoom = static_cast<ListView *>(Helper::seekWidgetByName(layout, "list_room"));
 
     return true;
 }
 
 void RoomListScene::onEnter() {
-
+	Layer::onEnter();
+	//获取房间列表
+	//
 }
 
 void RoomListScene::onCreateClick(Ref *ref) {
-
+	auto dlg = Dialog::getInstance();
+	dlg->caption()->setString("创建房间");
+	dlg->content_t()->setVisible(false);
+	dlg->content_e()->setText("输入房间名称");
+	dlg->setCallback(Dialog::Callback([this](Dialog *dlg, bool ok) {
+		log("房间名：%s OK:%d", dlg->content_e()->getString(), ok);
+	}));
+	dlg->Popup(this);
 }
 
 void RoomListScene::onEnterClick(Ref *ref) {
 
 }
 
-void RoomListScene::onLeaveClick(Ref *ref) {
+void RoomListScene::onBackClick(Ref *ref) {
     log("leave room list");
     Director::getInstance()->popScene();
 }

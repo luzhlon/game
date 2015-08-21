@@ -2,7 +2,7 @@
 
 
 #ifdef WIN32
-    #include "StdAfx.h"
+    //#include "StdAfx.h"
 	#pragma comment(lib, "wsock32")
 #endif
 

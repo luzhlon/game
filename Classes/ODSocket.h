@@ -9,12 +9,13 @@
 #ifndef _ODSOCKET_H_
 #define _ODSOCKET_H_
 
+#include <stdio.h>
+
 #ifdef WIN32
 	#include <winsock.h>
 	typedef int				socklen_t;
 #else
 //#include "cocos2d.h"
-#include <stdio.h>
 	#include <sys/socket.h>
 	#include <netinet/in.h>
 	#include <netdb.h>
