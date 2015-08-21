@@ -6,6 +6,7 @@
         <Project Name="room_list_scene.csd" Type="Scene" />
         <Image Name="HelloWorld.png" />
         <Project Name="room_list_layer.csd" Type="Layer" />
+        <Project Name="list_item.csd" Type="Node" />
       </RootFolder>
     </Group>
   </SolutionFolder>
