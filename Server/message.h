@@ -21,11 +21,33 @@ struct net_pkg : mini_net_pkg {
     char data[MAX_PKG_LENGTH]; //额外的数据
 }; //数据包
 
+#define MEMBER_FLAG_READY (0x01)
+#define MEMBER_FLAG_TEAM (0x02)
+
 struct room_member {
-    unsigned char m_ready = 0;
+    unsigned char m_flag = 0;
     unsigned char m_room_id;
     unsigned short m_role_id;
     char m_name[MAX_MEMBER_NAME_LEN];
+
+    inline void set_ready_0() {
+        m_flag &= ~MEMBER_FLAG_READY;
+    }
+    inline void set_ready_1() {
+        m_flag |= MEMBER_FLAG_READY;
+    }
+    inline void set_team_0() {
+        m_flag &= ~MEMBER_FLAG_TEAM;
+    }
+    inline void set_team_1() {
+        m_flag |= MEMBER_FLAG_TEAM;
+    }
+    inline bool get_ready() {
+        return static_cast<bool>(m_flag & MEMBER_FLAG_READY);
+    }
+    inline bool get_team() {
+        return static_cast<bool>(m_flag & MEMBER_FLAG_TEAM);
+    }
 }; //房间成员
 
 struct room_state {
@@ -48,10 +70,10 @@ namespace MESSAGE {
         create_room, //创建房间
         join_room , //加入房间
         quit_room , //退出房间
-        room_members,
-        start_game,
-        toggle_ready,
-        toggle_team,
+        room_members, //房间成员信息
+        start_game, //开始游戏
+        set_ready, //设置准备状态
+        set_team, //设置队伍
 
         Max_number //消息的最大数目
     }; //主连接消息

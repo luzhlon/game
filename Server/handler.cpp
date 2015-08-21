@@ -57,6 +57,26 @@ MsgHandler::MsgHandler() {
     HANDLER(start_game) {
         self->member()->room()->broadcast(pkg);
     };
+    HANDLER(set_ready) {
+        auto room = self->member()->room();
+        if(!room) return;
+        if(pkg->arg1) {
+            self->member()->set_ready_1();
+            room->broadMembers();
+        } else {
+            self->member()->set_ready_0();
+        }
+    };
+    HANDLER(set_team) {
+        auto room = self->member()->room();
+        if(!room) return;
+        if(room->setTeam(self->member(), pkg->arg1)) {
+            self->Reply(pkg, 1);
+            room->broadMembers();
+        } else {
+            self->Reply(pkg, 0, room->error());
+        }
+    };
 }
 
 MsgHandler::~MsgHandler() {

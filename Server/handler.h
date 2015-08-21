@@ -64,7 +64,7 @@ private:
     QTcpSocket *m_socket; //此处理器持有的socket
     Handler *m_handlers = nullptr; //处理器向量表
     Member * m_member; //此处理器对应的用户
-    int      m_maxNumber = 0;  //消息的最大数目
+    //int      m_maxNumber = 0;  //消息的最大数目
     bool     m_end = false; //表明是否要结束处理
     net_pkg  m_buf; //接收的数据包缓冲区
 };

@@ -9,22 +9,28 @@
 
 class Room {
 public:
-    static QHash<QString, Room *> g_room;
-    static bool exist(char *name);
-    static QList<QString> list();
+    static QHash<QString, Room *> g_room; //
+    static inline Room *getRoom(char *name) { //获取一个房间，不存在则返回nullptr
+        return g_room[name];
+    }
+    static inline QList<QString> list() { //返回房间链表
+        return g_room.keys();
+    }
 
-    Room(char *name);
+    Room(char *name); //
     ~Room();
     
-    inline char *name() {
+    inline char *name() { //房间名称
         return m_name;
     }
-    inline char *error() {
+    inline char *error() { //上一个错误消息
         return m_err;
     }
 
+    int  for_member_id(Member *); //遍历成员，获得room id
     bool add(Member *meb); //添加成员
     bool remove(Member *meb); //移除成员
+    bool setTeam(Member *, int ); //设置属于哪一队
 
     void broadMembers(); //广播成员列表
 

@@ -29,9 +29,6 @@ public:
         return m_err;
     }
 
-    inline void Ready();
-    inline void unReady();
-
     bool join_room(char *room);
     bool quit_room();
 

@@ -5,24 +5,12 @@
 
 QHash<QString, Room *> Room::g_room;
 
-bool Room::exist(char *name) {
-    if(g_room[name]) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-QList<QString> Room::list() {
-    return g_room.keys();
-}
-
 Room::Room(char *name) {
     if(strlen(name) >= MAX_ROOM_NAME_LEN) {
         m_err = "room name is too long";
         return;
-    } //room name is too long
-    if(Room::exist(name)) { //room existed
+    } //房间名称太长
+    if(Room::getRoom(name)) { //房间已经存在
         m_err = "room existed";
         return;
     }
@@ -39,35 +27,30 @@ bool Room::add(Member *meb) {
     for(Member *m = nullptr; //找一个空位置加入成员
         i < MAX_ROOM_MEMBERS; i++) {
         m = m_members[i];
-        if(!m) {
+        if(!m) {  //success
             m_members[i] = meb;
             meb->m_room_id = i;
-            break;
+            meb->m_room = this; //设置成员的所属房间为自己
+            qDebug() << "Room:" << m_name << "," << meb->m_name << "joined.";
+            broadMembers(); //广播房间中的成员信息
+            return true;
         }
     }
-    if(i == MAX_ROOM_MEMBERS) { //没有空位置
-        m_err = "room is full";
-        return false;
-    }
-    //Success
-    meb->m_room = this; //设置成员的所属房间为自己
-    qDebug() << "Room:" << m_name << "," << meb->m_name << "joined.";
-    broadMembers(); //
-    return true;
+    //房间已经满员了
+    m_err = "room is full";
+    return false;
 }
 
 bool Room::remove(Member *meb) {
-    bool ret = true;
-    if(meb == m_members[meb->m_room_id]) {
-        m_members[meb->m_room_id] = nullptr;
-        qDebug() << "Room:" << m_name << "," << meb->m_name << " quited.";
-    }
-    else {
+    auto r_id = for_member_id(meb);
+    if(error()) {
         m_err = "no this member";
-        ret = false;
+        return false;
     }
-    broadMembers(); //
-    return ret;
+    m_members[r_id] = nullptr;
+    broadMembers(); //广播房间中的成员信息
+    qDebug() << "Room:" << m_name << "," << meb->m_name << " quited.";
+    return true;
 }
 
 void Room::broadMembers() {
@@ -81,15 +64,38 @@ void Room::broadMembers() {
         auto m = m_members[i] ;
         if(m) {
             pkg.arg1 ++; //成员数
-            meb[i].m_ready = m->m_ready; //成员是否已准备好
-            meb[i].m_role_id = m->m_role_id; //成员的角色ID
+            memcpy(&meb[i], m, sizeof(room_member));
             strcpy(meb[i].m_name, m->m_name); // 成员的名字
         } else {
-            meb[i].m_ready = 0;
-            meb[i].m_role_id = 0;
+            memset(&meb[i], 0, sizeof(room_member)); //此位置清零
         }
     }
     size_t size = sizeof(room_member) * MAX_ROOM_MEMBERS;
-    //memcpy(pkg.data, meb, size);
     broadcast(&pkg, meb, size);
+}
+
+int Room::for_member_id(Member *meb) {
+    for(int i = 0; i < MAX_ROOM_MEMBERS; i++) {
+        if(m_members[i] == meb) {
+            m_err = nullptr;
+            return i;
+        }
+    }
+    m_err = "no this member";
+}
+
+bool Room::setTeam(Member *meb, int team) {
+    int r_id = for_member_id(meb);
+    if(error()) {
+        return false;
+    }
+    for(int i = team % 2; i < MAX_ROOM_MEMBERS; i += 2) {
+        if(!m_members[i]) {
+            m_members[i] = m_members[r_id];
+            m_members[r_id] = nullptr;
+            return true;
+        }
+    }
+    m_err = "object team is full";
+    return false;
 }
