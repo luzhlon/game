@@ -136,6 +136,7 @@ set(GAME_SRC
   Classes/RoomScene.cpp
   Classes/RoomListScene.cpp
   Classes/Soldier.cpp
+  Classes/Dialog.cpp
   Classes/Client.cpp
   Classes/ODSocket.cpp
   ${PLATFORM_SPECIFIC_SRC}

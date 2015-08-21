@@ -102,8 +102,7 @@ bool MsgHandler::authenticate() {
 
 void MsgHandler::loopHandle() {
     while(true) {
-        int len = Recv();
-        if(len <= 0) {
+        if(!Recv()) {
             qDebug() << "Connect " << member()->m_name
                      << "quited:" << m_socket->errorString();
             break;
@@ -125,22 +124,23 @@ void MsgHandler::handle(net_pkg *p) {
     }
 }
 
-int MsgHandler::Recv(char *buf) {
+bool MsgHandler::Recv(char *buf) {
     buf = buf ? buf : (char *)&m_buf;
     auto pkg = (net_pkg *)buf;
     int rev_size = 1;
     //阻塞直到可读
     while(!m_socket->waitForReadyRead()); 
     rev_size = m_socket->read(buf, MAX_PKG_LENGTH + NET_PKG_SIZE);
-    if(rev_size <= 0) { return rev_size; }
+    if(rev_size <= 0) { return false; }
     Q_ASSERT(pkg->len < MAX_PKG_LENGTH);
     //循环接收保证获取数据完整
     for(int n = pkg->len - rev_size; n > 0; ) {
         while(!m_socket->waitForReadyRead()); //阻塞直到可读
         rev_size = m_socket->read((buf += rev_size), n);
-        if(rev_size <= 0) { return rev_size; }
+        if(rev_size <= 0) { return false; }
         n -= rev_size;
     }
+    return true;
 }
 
 int MsgHandler::_Reply(net_pkg *p, int size) {

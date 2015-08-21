@@ -23,7 +23,7 @@ public:
         m_end = end;
     }
 
-    int Recv(char *buf = 0); //接收用户消息
+    bool Recv(char *buf = 0); //接收用户消息
     int _Reply(net_pkg *p, int size); //回复用户
     inline int Reply(net_pkg *p) {
         return _Reply(p, NET_PKG_SIZE_1);
