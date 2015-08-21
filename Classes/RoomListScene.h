@@ -14,7 +14,7 @@ public:
 
     void onCreateClick(Ref *);
     void onEnterClick(Ref *);
-    void onLeaveClick(Ref *);
+    void onBackClick(Ref *);
 
     void onEnter();
 
