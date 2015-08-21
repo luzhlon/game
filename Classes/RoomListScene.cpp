@@ -38,9 +38,10 @@ void RoomListScene::onCreateClick(Ref *ref) {
 	auto dlg = Dialog::getInstance();
 	dlg->caption()->setString("创建房间");
 	dlg->content_t()->setVisible(false);
-	dlg->content_e()->setText("输入房间名称");
-	dlg->setCallback(Dialog::Callback([this](Dialog *dlg, bool ok) {
-		log("房间名：%s OK:%d", dlg->content_e()->getString(), ok);
+    dlg->content_e()->setPlaceHolder("输入房间名称"); //
+    dlg->setCallback(Dialog::Callback([this](Dialog *d, bool ok) {
+        cocos2d::log("房间名：%s OK:%d",
+                         d->content_e()->getString().c_str(), ok);
 	}));
 	dlg->Popup(this);
 }
