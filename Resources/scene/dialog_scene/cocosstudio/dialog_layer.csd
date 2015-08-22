@@ -12,10 +12,10 @@
               <AbstractNodeData Name="layout_dialog" ActionTag="-1421382354" Tag="12" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="144.0000" RightMargin="144.0000" TopMargin="96.0000" BottomMargin="96.0000" TouchEnable="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
                 <Size X="672.0000" Y="448.0000" />
                 <Children>
-                  <AbstractNodeData Name="button_ok" ActionTag="-1761896103" Tag="115" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="464.6465" RightMargin="72.9534" TopMargin="352.0385" BottomMargin="51.1615" TouchEnable="True" FontSize="36" ButtonText="确定" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+                  <AbstractNodeData Name="button_ok" ActionTag="-1761896103" Tag="115" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="464.6208" RightMargin="72.9792" TopMargin="352.0384" BottomMargin="51.1616" TouchEnable="True" FontSize="36" ButtonText="确定" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
                     <Size X="134.4000" Y="44.8000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                    <Position X="531.8466" Y="73.5615" />
+                    <Position X="531.8208" Y="73.5616" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.7914" Y="0.1642" />
@@ -42,10 +42,10 @@
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="110" G="110" B="110" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="text_caption" ActionTag="-531396900" Tag="14" Rotation="0.2693" RotationSkewX="0.2693" RotationSkewY="0.2482" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="269.6695" RightMargin="282.3305" TopMargin="35.1437" BottomMargin="388.8563" FontSize="36" LabelText="CAPTION" HorizontalAlignmentType="HT_Center" VerticalAlignmentType="VT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="text_caption" ActionTag="-531396900" Tag="14" Rotation="0.2693" RotationSkewX="0.2693" RotationSkewY="0.2482" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="266.6832" RightMargin="279.3168" TopMargin="29.1296" BottomMargin="382.8704" FontSize="36" LabelText="CAPTION" HorizontalAlignmentType="HT_Center" VerticalAlignmentType="VT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                     <Size X="126.0000" Y="36.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                    <Position X="329.6695" Y="400.8563" />
+                    <Position X="329.6832" Y="400.8704" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.4906" Y="0.8948" />
@@ -64,10 +64,10 @@
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="110" G="110" B="110" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="edit_content" ActionTag="-552391187" Tag="16" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="75.8412" RightMargin="58.5588" TopMargin="83.5601" BottomMargin="140.4399" TouchEnable="True" FontSize="24" IsCustomSize="True" LabelText="" PlaceHolderText="EDIT" MaxLengthText="10" ctype="TextFieldObjectData">
+                  <AbstractNodeData Name="edit_content" ActionTag="-552391187" Tag="16" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="75.8688" RightMargin="58.5312" TopMargin="83.5520" BottomMargin="140.4480" TouchEnable="True" FontSize="24" IsCustomSize="True" LabelText="" PlaceHolderText="EDIT" MaxLengthText="10" ctype="TextFieldObjectData">
                     <Size X="537.6000" Y="224.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                    <Position X="344.6412" Y="252.4399" />
+                    <Position X="344.6688" Y="252.4480" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.5129" Y="0.5635" />
