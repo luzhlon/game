@@ -6,6 +6,7 @@
         <Project Name="role_scene.csd" Type="Scene" />
         <Image Name="HelloWorld.png" />
         <Project Name="role_layer.csd" Type="Layer" />
+        <Project Name="role_page.csd" Type="Layer" />
       </RootFolder>
     </Group>
   </SolutionFolder>
