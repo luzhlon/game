@@ -13,6 +13,9 @@ Member::Member(char *name, MsgHandler *handler) {
         m_err = "nick name existed";
         return;
     }
+    //
+    m_err = g_check_name(name);
+    if(m_err) return;
     strcpy(m_name, name);
     m_handler = handler;
     g_member[name] = this;

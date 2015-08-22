@@ -23,7 +23,7 @@ public:
     inline char *name() { //房间名称
         return m_name;
     }
-    inline char *error() { //上一个错误消息
+    inline const char *error() { //上一个错误消息
         return m_err;
     }
 
@@ -47,7 +47,7 @@ public:
 
 protected:
     char m_name[MAX_ROOM_NAME_LEN]; //房间名称
-    char *m_err = nullptr; //上一个错误
+    const char *m_err = nullptr; //上一个错误
     Member *m_members[MAX_ROOM_MEMBERS] = { nullptr }; //成员列表
     //Member *m_master = nullptr; //房间主人
 };

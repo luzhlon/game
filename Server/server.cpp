@@ -2,24 +2,14 @@
 #include "server.h"
 
 //一个连接处理线程分配一个处理器
-ConnectThread::ConnectThread(MsgHandler *handler) {
-    m_sock = handler->m_socket;
-    m_handler = handler;
+ConnectThread::ConnectThread(QTcpSocket *sock) {
+    m_sock = sock;
 }
 
 void ConnectThread::run() {
-    /*
-        m_sock->write("Hello client\n");
-        m_sock->flush();
-        // */
-    m_handler->loopHandle();
-    /*
-    if(m_handler->authenticate()) {
-        m_handler->loopHandle();//认证通过，进入事件处理循环
-    } else {
-        qDebug() << "Authenticate failure.";
-    } // */
-    delete m_handler;
+    auto handler = new MsgHandler(m_sock);
+
+    handler->loopHandle();
 }
 
 void WorkThread::run() {
@@ -33,9 +23,8 @@ void WorkThread::run() {
             qDebug() << "New client:";
             QTcpSocket *sock = m_server->nextPendingConnection();
             qDebug() << sock->peerAddress().toIPv4Address() << "\n";
-            auto handler = new MsgHandler(); //分配一个处理器给连接处理线程
-            handler->m_socket = sock;
-            auto thread = new ConnectThread(handler); 
+
+            auto thread = new ConnectThread(sock);
             thread->start(); //运行连接处理线程
         } else { //accept failure
             qDebug() << "Quit listening.\n";

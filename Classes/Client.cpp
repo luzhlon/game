@@ -1,7 +1,7 @@
 #include "Client.h"
 
 Client *Client::s_client = nullptr;
-char *Client::s_serverIP = "192.168.191.2";
+char *Client::s_serverIP = SERVER_IP;
 int Client::s_serverPort = 4321;
 net_pkg Client::s_pkg;
 Client::handler Client::s_handlers[MESSAGE::Max_number];
@@ -31,6 +31,7 @@ bool Client::connectSever() {
 }
 
 void Client::start() {
+    if(isConnected()) return;
     m_thread = new std::thread(&Client::threadRecv, this);
     m_thread->detach();
     cocos2d::Director::getInstance()->getScheduler()->schedule(

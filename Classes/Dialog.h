@@ -27,7 +27,25 @@ public:
 	inline void Popup(Node *parent) {
 		parent->addChild(m_layer);
 	}
-	inline void Exit() {
+    void Popup_t(Node *parent,
+                  const string& caption,
+                  const string& content) {
+        m_caption->setString(caption);
+        m_edit_cont->setVisible(false);
+        m_text_cont->setString(content);
+        m_text_cont->setVisible(true);
+        Popup(parent);
+    }
+    void Popup_e(Node *parent,
+                  const string& caption,
+                  const string& holder = nullptr) {
+        m_caption->setString(caption);
+        m_text_cont->setVisible(false);
+        m_edit_cont->setPlaceHolder(holder);
+        m_edit_cont->setVisible(true);
+        Popup(parent);
+    }
+    inline void Exit() {
 		m_layer->removeFromParent();
 	}
 	

@@ -32,16 +32,16 @@ bool RoleScene::init() {
 void RoleScene::onEnter() {
 	Layer::onEnter();
 
-	auto clt = Client::getInstance();
-    if(!clt->isConnected()) clt->start();
+    Client::getInstance()->start();
 	//认证是否成功
     HANDLER(authentication) = Client::handler([](net_pkg *pkg) {
 		if (pkg->arg1) { //成功，进入房间列表
-			log("authentication success");
+            log("[Auth success]");
 			Director::getInstance()->pushScene(RoomListScene::createScene());
 		}
-        else
-            log("authentication failure");
+        else {
+            log("[Auth failure]: %s", pkg->data);
+        }
     });
 }
 

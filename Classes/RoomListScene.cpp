@@ -1,5 +1,6 @@
 ﻿#include "RoomListScene.h"
 #include "Dialog.h"
+#include "Client.h"
 #include "cocostudio/CocoStudio.h"
 
 using namespace cocostudio;
@@ -11,6 +12,17 @@ Scene *RoomListScene::createScene() {
     scene->addChild(layer);
 
     return scene;
+}
+
+Widget *RoomListScene::Item::create(const string& str) {
+    auto node = CSLoader::createNode("list_item.csb");
+    auto layout = static_cast<Layout *>(node->getChildByName("layout"));
+    CC_ASSERT(layout);
+    layout->removeFromParent();
+    auto label = static_cast<Text *>
+            (Helper::seekWidgetByName(layout, "text_item"));
+    label->setString(str);
+    return layout;
 }
 
 bool RoomListScene::init() {
@@ -30,24 +42,66 @@ bool RoomListScene::init() {
 
 void RoomListScene::onEnter() {
 	Layer::onEnter();
-	//获取房间列表
-	//
+    //set timer
+    schedule([this](float lt) {
+        updateRoomList();
+    }, 1.0f, "timer");
+    //房间列表
+    //updateRoomList();
+}
+
+void RoomListScene::onExit() {
+    Layer::onExit();
+    //unset timer
+    unschedule("timer");
+}
+
+void RoomListScene::updateRoomList() {
+    auto clt = Client::getInstance();
+    HANDLER(room_list) =
+            Client::handler([this](net_pkg *pkg) {
+            m_listRoom->removeAllItems();
+            char *p = pkg->data;
+            log("[Room num:] %d", pkg->arg1);
+            for(int i = 0; i < pkg->arg1; i++) {
+                log("[Room:] %s", p);
+                //auto item = RoomListScene::Item::create(p);
+                //m_listRoom->insertCustomItem(item, i);
+                auto item = Text::create();
+                item->setString(p);
+                m_listRoom->pushBackCustomItem(item);
+                p += strlen(p) + 1;
+            }
+    });
+    clt->sendMsg(MESSAGE::room_list, 0);
 }
 
 void RoomListScene::onCreateClick(Ref *ref) {
 	auto dlg = Dialog::getInstance();
-	dlg->caption()->setString("创建房间");
-	dlg->content_t()->setVisible(false);
-    dlg->content_e()->setPlaceHolder("输入房间名称"); //
     dlg->setCallback(Dialog::Callback([this](Dialog *d, bool ok) {
+        auto name = d->content_e()->getString();
         cocos2d::log("房间名：%s OK:%d",
-                         d->content_e()->getString().c_str(), ok);
-	}));
-	dlg->Popup(this);
+                         name.c_str(), ok);
+        if(name.empty()) {
+            cocos2d::log("房间名is empty.");
+            return;
+        }
+        HANDLER(create_room) = Client::handler(
+                         [](net_pkg *pkg) {
+                        //uncomplete
+                             if(pkg->arg1) {
+                                 log("create room success");
+                             } else {
+                                 log("create room success");
+                             }
+                         });
+        Client::getInstance()->sendMsg(MESSAGE::create_room, name.c_str());
+    }));
+    dlg->Popup_e(this, "创建房间", "Room name");
 }
 
 void RoomListScene::onEnterClick(Ref *ref) {
-
+    //uncomplete
 }
 
 void RoomListScene::onBackClick(Ref *ref) {

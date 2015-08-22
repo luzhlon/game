@@ -7,6 +7,10 @@ class RoomListScene : public SceneLayer
 {
 public:
     static Scene *createScene();
+    class Item {
+    public:
+        static Widget *create(const string& str);
+    };
 
     virtual bool init();
 
@@ -16,7 +20,10 @@ public:
     void onEnterClick(Ref *);
     void onBackClick(Ref *);
 
-    void onEnter();
+    void onEnter() override;
+    void onExit() override;
+
+    void updateRoomList();
 
 private:
     Button *m_btnCreate;
