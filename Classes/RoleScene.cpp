@@ -34,6 +34,26 @@ bool RoleScene::init() {
 }
 
 bool RoleScene::loadPages() {
+    auto node = CSLoader::createNode("role_page.csb");
+    auto layout = static_cast<Layout*>
+            (node->getChildByName("layout"));
+    CC_ASSERT(layout);
+    //layout->removeFromParent();
+    for(int i = 0; i < Soldier::SoldierNumber; i++) {
+        //Layout *layout;
+        auto l = static_cast<Layout*>(layout->clone());
+        auto s = Soldier::s_soldiers[i];
+        auto size = m_pageSprite->getSize();
+        l->setSize(size);
+        l->setPosition(Vec2(size.width / 2.f, size.height / 2.f));
+
+        size = l->getSize();
+        s->setPosition(Vec2(size.width / 2.f, size.height / 2.f));
+
+        l->addChild(s);
+        l->removeFromParent();
+        m_pageSprite->addPage(l);
+    }
     return true;
 }
 
@@ -41,6 +61,9 @@ void RoleScene::onEnter() {
 	Layer::onEnter();
 
     if(Soldier::loadAllSoldier()) {
+        log("<LoadAll> success.");
+        loadPages();
+    } else {
         log("<LoadAll> failure.");
     }
     Client::getInstance()->start();

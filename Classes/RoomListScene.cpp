@@ -67,6 +67,8 @@ void RoomListScene::updateRoomList() {
             for(int i = 0; i < pkg->arg1; i++) {
                 log("[Room:] %s", p);
                 auto item = RoomListScene::Item::create(p);
+                auto size = m_listRoom->getSize();
+                item->setSize(Size(size.width * 0.8f, size.height * 0.2f));
                 m_listRoom->pushBackCustomItem(item);
                 p += strlen(p) + 1;
             }
