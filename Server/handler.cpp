@@ -109,6 +109,7 @@ void MsgHandler::onDisconnected() {
     qDebug() << "[Connect:] "
              << (m_member ? member()->name() : m_socket->peerName())
              << "disconnected.";
+    endHandle(true);
     //delete this;
     //QThread::currentThread()->exit();
 }

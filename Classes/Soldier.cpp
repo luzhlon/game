@@ -1,6 +1,7 @@
 #include "Soldier.h"
 #include "math.h"
 
+/*
 char *Soldier::angle_str[8] = { "right", "ur", "up", "ul", "left", "dl", "down", "dr" };
 float Soldier::step_long = 10.0;
 
@@ -77,6 +78,10 @@ void Soldier::MoveTo(Vec2 vec) {
 	m_sprite->stopAllActions();
 	m_sprite->runAction(Animate::create(m_animation[angle]));
 	runAction(cocos2d::MoveBy::create(delta.getLength()/8, delta));
+} // */
+
+bool Soldier::loadAllSoldier() {
+    return true;
 }
 
 void Soldier::attack(int id){

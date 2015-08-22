@@ -23,7 +23,7 @@ public:
 	inline TextField* content_e() {
 		return m_edit_cont;
 	}
-	//µ¯³ö¶Ô»°¿ò
+	//å¼¹å‡ºå¯¹è¯æ¡†
 	inline void Popup(Node *parent) {
 		parent->addChild(m_layer);
 	}
@@ -50,11 +50,11 @@ public:
 	}
 	
 private:
-	Node *m_layer; //¶Ô»°¿ò²ã
-	Text *m_caption; //¶Ô»°¿ò±êÌâ
-	Text *m_text_cont; //¶Ô»°¿òÄÚÈİ(ÎÄ±¾¿ò)
-	TextField *m_edit_cont; //¶Ô»°¿òÄÚÈİ(±à¼­¿ò)
-	Callback m_callback; //¶Ô»°¿òÍË³öÊ±µÄ»Øµ÷¶ÔÏó
+	Node *m_layer; //å¯¹è¯æ¡†å±‚
+	Text *m_caption; //å¯¹è¯æ¡†æ ‡é¢˜
+	Text *m_text_cont; //å¯¹è¯æ¡†å†…å®¹(æ–‡æœ¬æ¡†)
+	TextField *m_edit_cont; //å¯¹è¯æ¡†å†…å®¹(ç¼–è¾‘æ¡†)
+	Callback m_callback; //å¯¹è¯æ¡†é€€å‡ºæ—¶çš„å›è°ƒå¯¹è±¡
 
 	void onOkClick(Ref *);
 	void onCancelClick(Ref *);
