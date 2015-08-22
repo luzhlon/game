@@ -14,6 +14,8 @@ Room::Room(char *name) {
         m_err = "room existed";
         return;
     }
+    m_err = g_check_name(name);
+    if(m_err) return;
     strcpy(m_name, name); //
     g_room[m_name] = this; //从哈希表中加入自己
 }

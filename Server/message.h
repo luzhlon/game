@@ -1,6 +1,8 @@
 #ifndef __MESSAGE_H__
 #define __MESSAGE_H__
 
+#include <iostream>
+
 //包的最大长度
 #define MAX_PKG_LENGTH 10240
 //房间成员昵称名字的最大长度
@@ -77,6 +79,18 @@ namespace MESSAGE {
 
         Max_number //消息的最大数目
     }; //主连接消息
+}
+
+static const char *g_check_name(char *name) {
+    std::string str = name;
+    if(str.empty()) {
+        return "Empty name";
+    }
+    if((str.find(' ') != std::string::npos) ||
+            (str.find("　") != std::string::npos)) {
+        return "Contain space character";
+    }
+    return nullptr;
 }
 
 #endif

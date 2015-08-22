@@ -1,14 +1,7 @@
 #include "HorseSoldier.h"
 
-HorseSoldier::HorseSoldier()
-{
-	m_type = "qm2";
-}
-
-HorseSoldier::~HorseSoldier()
-{
-}
-
 bool HorseSoldier::init() {
-	return Soldier::init();
+    m_sprite = Sprite::createWithTexture();
+    addChild(m_sprite);
+    return true;
 }

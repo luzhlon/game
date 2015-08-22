@@ -127,6 +127,8 @@ endif( WIN32 )
 
 set(GAME_SRC
   Classes/AppDelegate.cpp
+  Classes/ManSoldier.cpp
+  Classes/WomanSoldier.cpp
   Classes/HorseSoldier.cpp
   Classes/SceneLayer.cpp
   Classes/GameScene.cpp

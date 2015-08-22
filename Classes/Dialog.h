@@ -23,20 +23,38 @@ public:
 	inline TextField* content_e() {
 		return m_edit_cont;
 	}
-	//µ¯³ö¶Ô»°¿ò
+	//å¼¹å‡ºå¯¹è¯æ¡†
 	inline void Popup(Node *parent) {
 		parent->addChild(m_layer);
 	}
-	inline void Exit() {
+    void Popup_t(Node *parent,
+                  const string& caption,
+                  const string& content) {
+        m_caption->setString(caption);
+        m_edit_cont->setVisible(false);
+        m_text_cont->setString(content);
+        m_text_cont->setVisible(true);
+        Popup(parent);
+    }
+    void Popup_e(Node *parent,
+                  const string& caption,
+                  const string& holder = nullptr) {
+        m_caption->setString(caption);
+        m_text_cont->setVisible(false);
+        m_edit_cont->setPlaceHolder(holder);
+        m_edit_cont->setVisible(true);
+        Popup(parent);
+    }
+    inline void Exit() {
 		m_layer->removeFromParent();
 	}
 	
 private:
-	Node *m_layer; //¶Ô»°¿ò²ã
-	Text *m_caption; //¶Ô»°¿ò±êÌâ
-	Text *m_text_cont; //¶Ô»°¿òÄÚÈİ(ÎÄ±¾¿ò)
-	TextField *m_edit_cont; //¶Ô»°¿òÄÚÈİ(±à¼­¿ò)
-	Callback m_callback; //¶Ô»°¿òÍË³öÊ±µÄ»Øµ÷¶ÔÏó
+	Node *m_layer; //å¯¹è¯æ¡†å±‚
+	Text *m_caption; //å¯¹è¯æ¡†æ ‡é¢˜
+	Text *m_text_cont; //å¯¹è¯æ¡†å†…å®¹(æ–‡æœ¬æ¡†)
+	TextField *m_edit_cont; //å¯¹è¯æ¡†å†…å®¹(ç¼–è¾‘æ¡†)
+	Callback m_callback; //å¯¹è¯æ¡†é€€å‡ºæ—¶çš„å›è°ƒå¯¹è±¡
 
 	void onOkClick(Ref *);
 	void onCancelClick(Ref *);

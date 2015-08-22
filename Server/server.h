@@ -6,12 +6,12 @@ class MsgHandler;
 
 //连接处理线程
 class ConnectThread : public QThread {
+public:
+    ConnectThread(QTcpSocket *);
+    void run() Q_DECL_OVERRIDE;
+
 private:
     QTcpSocket *m_sock; //socket
-    MsgHandler *m_handler; //消息处理器
-public:
-    ConnectThread(MsgHandler *handler);
-    void run() Q_DECL_OVERRIDE;
 };
 
 //工作处理线程

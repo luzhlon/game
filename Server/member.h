@@ -25,7 +25,7 @@ public:
     inline char *name() {
         return m_name;
     }
-    inline char *error() {
+    inline const char *error() {
         return m_err;
     }
 
@@ -38,7 +38,7 @@ private:
 
     Room *m_room = nullptr; //所属房间
     MsgHandler *m_handler; //对应的处理器
-    char *m_err = nullptr;
+    const char *m_err = nullptr;
 };
 
 #endif // MEMBER_H

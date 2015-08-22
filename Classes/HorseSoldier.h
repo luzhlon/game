@@ -6,9 +6,6 @@
 class HorseSoldier : public Soldier
 {
 public:
-	HorseSoldier();
-	~HorseSoldier();
-
     virtual bool init();
 
 	CREATE_FUNC(HorseSoldier);

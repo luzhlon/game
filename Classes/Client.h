@@ -11,9 +11,11 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "windows.h"
 #define sleep Sleep
+#define SERVER_IP "192.168.191.2"
 #else
 #include "unistd.h"
 #define sleep usleep
+#define SERVER_IP "127.0.0.1"
 #endif
 
 #define MAX_BLOCK_MSG_NUM 16
@@ -24,6 +26,7 @@ class Client : public cocos2d::Ref
 {
 public:
     typedef std::function<void (net_pkg *)> handler;
+    typedef unsigned int data_size_t;
     static Client *getInstance();
     static char *s_serverIP;
     static int s_serverPort;
@@ -42,27 +45,26 @@ public:
             memcpy(s_pkg.data, data, size);
     }
     inline bool sendMsg(unsigned short msg, int arg1, char *str) {
-        return sendMsg(msg, arg1, strlen(str) + 1, str);
+        auto len = strlen(str) + 1;
+        memcpy(s_pkg.data, str, len);
+        return sendMsg(&s_pkg, NET_PKG_SIZE + len);
     }
-    inline bool sendMsg(unsigned short msg, int data_size = 0, void *data = nullptr) {
+    inline bool sendMsg(unsigned short msg,
+                        data_size_t data_size, void *data = nullptr) {
         copy_data(data, data_size);
         s_pkg.msg = msg;
         return sendMsg(&s_pkg, data ? NET_PKG_SIZE + data_size : NET_PKG_SIZE_2);
     }
-	inline bool sendMsg(unsigned short msg, int arg1,
-		int data_size = 0, void *data = nullptr) {
-		copy_data(data, data_size);
+    inline bool sendMsg(unsigned short msg, int arg1) {
 		s_pkg.arg1 = arg1;
 		s_pkg.msg = msg;
-		return sendMsg(&s_pkg, data ? NET_PKG_SIZE + data_size : NET_PKG_SIZE_2);
+        return sendMsg(&s_pkg, NET_PKG_SIZE_1);
 	}
     inline bool sendMsg(unsigned short msg, const char *str) {
-        return sendMsg(msg, strlen(str) + 1, (void *)str);
+        return sendMsg(msg,
+                       static_cast<data_size_t>(strlen(str) + 1),
+                       (void *)str);
     }
-    inline bool sendMsg(unsigned short msg, char *str) {
-        return sendMsg(msg, strlen(str) + 1, (void *)str);
-    }
-
     inline net_pkg *getMsg() {
         return m_pkg;
     }
