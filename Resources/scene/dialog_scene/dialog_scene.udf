@@ -7,5 +7,14 @@
         <LastRunType Value="Windows" />
       </Value>
     </Item>
+    <Item Key="TabsParamsKey">
+      <Value ctype="TabsInfo">
+        <OpenedDocuments>
+          <FilePathData Path="dialog_scene.csd" />
+          <FilePathData Path="dialog_layer.csd" />
+        </OpenedDocuments>
+        <ActiveDocument Path="dialog_layer.csd" />
+      </Value>
+    </Item>
   </Properties>
 </UserData>

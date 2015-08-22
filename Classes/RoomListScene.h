@@ -18,6 +18,7 @@ public:
 
     void onCreateClick(Ref *);
     void onEnterClick(Ref *);
+    void onUpdateClick(Ref *);
     void onBackClick(Ref *);
 
     void onEnter() override;

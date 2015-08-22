@@ -25,7 +25,7 @@ bool RoleScene::init() {
     setButtonClickCallback(layout, "button_back", CC_CALLBACK_1(RoleScene::onLeaveClick, this));
 
     m_editName = static_cast<TextField *>(Helper::seekWidgetByName(layout, "edit_name"));
-
+	
     return true;
 }
 

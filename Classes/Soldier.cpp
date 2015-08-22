@@ -1,5 +1,8 @@
 #include "Soldier.h"
 #include "math.h"
+#include "WomanSoldier.h"
+#include "ManSoldier.h"
+#include "HorseSoldier.h"
 
 /*
 char *Soldier::angle_str[8] = { "right", "ur", "up", "ul", "left", "dl", "down", "dr" };
@@ -80,12 +83,11 @@ void Soldier::MoveTo(Vec2 vec) {
 	runAction(cocos2d::MoveBy::create(delta.getLength()/8, delta));
 } // */
 
+Soldier *Soldier::s_soldiers[Soldier::SoldierNumber];
+
 bool Soldier::loadAllSoldier() {
+	s_soldiers[0] = HorseSoldier::create();
+	s_soldiers[1] = ManSoldier::create();
+	s_soldiers[2] = WomanSoldier::create();
     return true;
-}
-
-void Soldier::attack(int id){
-}
-
-void Soldier:: update(float dt){
 }

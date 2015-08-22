@@ -43,17 +43,18 @@ bool RoomListScene::init() {
 void RoomListScene::onEnter() {
 	Layer::onEnter();
     //set timer
+	/*
     schedule([this](float lt) {
         updateRoomList();
-    }, 1.0f, "timer");
+    }, 1.0f, "timer"); // */
     //房间列表
-    //updateRoomList();
+    updateRoomList();
 }
 
 void RoomListScene::onExit() {
     Layer::onExit();
     //unset timer
-    unschedule("timer");
+    //unschedule("timer");
 }
 
 void RoomListScene::updateRoomList() {
@@ -65,10 +66,7 @@ void RoomListScene::updateRoomList() {
             log("[Room num:] %d", pkg->arg1);
             for(int i = 0; i < pkg->arg1; i++) {
                 log("[Room:] %s", p);
-                //auto item = RoomListScene::Item::create(p);
-                //m_listRoom->insertCustomItem(item, i);
-                auto item = Text::create();
-                item->setString(p);
+                auto item = RoomListScene::Item::create(p);
                 m_listRoom->pushBackCustomItem(item);
                 p += strlen(p) + 1;
             }
@@ -96,12 +94,17 @@ void RoomListScene::onCreateClick(Ref *ref) {
                              }
                          });
         Client::getInstance()->sendMsg(MESSAGE::create_room, name.c_str());
+		updateRoomList();
     }));
     dlg->Popup_e(this, "创建房间", "Room name");
 }
 
 void RoomListScene::onEnterClick(Ref *ref) {
     //uncomplete
+}
+
+void RoomListScene::onUpdateClick(Ref *) {
+	updateRoomList();
 }
 
 void RoomListScene::onBackClick(Ref *ref) {

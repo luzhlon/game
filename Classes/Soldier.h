@@ -15,7 +15,7 @@ class Soldier : public Node
     static int   Vec2Angle(float x, float y); // */
 public:
 	CREATE_FUNC(Soldier);
-	virtual bool init();
+	//virtual bool init();
 
     enum { SoldierNumber = 3 };
     static Soldier *s_soldiers[SoldierNumber];
