@@ -86,8 +86,13 @@ void Soldier::MoveTo(Vec2 vec) {
 Soldier *Soldier::s_soldiers[Soldier::SoldierNumber];
 
 bool Soldier::loadAllSoldier() {
-	s_soldiers[0] = HorseSoldier::create();
-	s_soldiers[1] = ManSoldier::create();
-	s_soldiers[2] = WomanSoldier::create();
-    return true;
+    static bool loaded = false;
+    if(loaded) return true;
+    loaded = (s_soldiers[0] = HorseSoldier::create());
+    loaded = loaded && (s_soldiers[0] = HorseSoldier::create());
+    loaded = loaded && (s_soldiers[1] = ManSoldier::create());
+    if(loaded) {
+        return true;
+    }
+    return false;
 }

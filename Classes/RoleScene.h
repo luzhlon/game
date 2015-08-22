@@ -12,11 +12,14 @@ public:
 
     virtual bool init();
 
+    bool loadPages();
+
     void onStartClick(Ref *);
     void onLeaveClick(Ref *);
     void onEnter() override;
 private:
     TextField *m_editName;
+    PageView *m_pageSprite;
 };
 
 #endif // __ROLESCENE_H__

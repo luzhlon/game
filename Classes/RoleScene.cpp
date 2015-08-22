@@ -1,6 +1,7 @@
 #include "RoleScene.h"
 #include "RoomListScene.h"
 #include "Client.h"
+#include "Soldier.h"
 #include "cocostudio/CocoStudio.h"
 
 using namespace cocostudio;
@@ -24,18 +25,28 @@ bool RoleScene::init() {
     setButtonClickCallback(layout, "button_start", CC_CALLBACK_1(RoleScene::onStartClick, this));
     setButtonClickCallback(layout, "button_back", CC_CALLBACK_1(RoleScene::onLeaveClick, this));
 
-    m_editName = static_cast<TextField *>(Helper::seekWidgetByName(layout, "edit_name"));
+    m_editName = static_cast<TextField *>
+            (Helper::seekWidgetByName(layout, "edit_name"));
+    m_pageSprite = static_cast<PageView*>
+            (Helper::seekWidgetByName(layout, "page_sprite"));
 	
+    return true;
+}
+
+bool RoleScene::loadPages() {
     return true;
 }
 
 void RoleScene::onEnter() {
 	Layer::onEnter();
 
+    if(Soldier::loadAllSoldier()) {
+        log("<LoadAll> failure.");
+    }
     Client::getInstance()->start();
-	//»œ÷§ «∑Ò≥…π¶
+	//ËÆ§ËØÅÊòØÂê¶ÊàêÂäü
     HANDLER(authentication) = Client::handler([](net_pkg *pkg) {
-		if (pkg->arg1) { //≥…π¶£¨Ω¯»Î∑øº‰¡–±Ì
+		if (pkg->arg1) { //ÊàêÂäüÔºåËøõÂÖ•ÊàøÈó¥ÂàóË°®
             log("[Auth success]");
 			Director::getInstance()->pushScene(RoomListScene::createScene());
 		}
@@ -50,7 +61,7 @@ void RoleScene::onStartClick(Ref *ref) {
         log("Connect server failure.");
         return;
     }
-	if (m_editName->getString().empty()) { //Í«≥∆≤ªƒ‹Œ™ø’
+	if (m_editName->getString().empty()) { //ÊòµÁß∞‰∏çËÉΩ‰∏∫Á©∫
 		log("nick name is empty");
 		return;
 	}

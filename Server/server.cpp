@@ -7,9 +7,8 @@ ConnectThread::ConnectThread(QTcpSocket *sock) {
 }
 
 void ConnectThread::run() {
-    auto handler = new MsgHandler(m_sock);
-
-    handler->loopHandle();
+    MsgHandler handler(m_sock);
+    handler.loopHandle();
 }
 
 void WorkThread::run() {
