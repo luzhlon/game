@@ -9,10 +9,10 @@
           <AbstractNodeData Name="layout" ActionTag="-221050760" Tag="7" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" TouchEnable="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
             <Size X="960.0000" Y="640.0000" />
             <Children>
-              <AbstractNodeData Name="button_start" ActionTag="-1899834832" Tag="8" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="512.9187" RightMargin="255.0813" TopMargin="497.2819" BottomMargin="65.9181" TouchEnable="True" FontSize="36" ButtonText="开始" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="button_start" ActionTag="-1899834832" Tag="8" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="512.9280" RightMargin="255.0720" TopMargin="497.2800" BottomMargin="65.9200" TouchEnable="True" FontSize="36" ButtonText="开始" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
                 <Size X="192.0000" Y="76.8000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="608.9187" Y="104.3181" />
+                <Position X="608.9280" Y="104.3200" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.6343" Y="0.1630" />
@@ -24,10 +24,10 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="button_back" ActionTag="634757975" Tag="9" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="738.6016" RightMargin="29.3984" TopMargin="497.4189" BottomMargin="65.7811" TouchEnable="True" FontSize="36" ButtonText="返回" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="button_back" ActionTag="634757975" Tag="9" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="738.6240" RightMargin="29.3760" TopMargin="497.4080" BottomMargin="65.7920" TouchEnable="True" FontSize="36" ButtonText="返回" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
                 <Size X="192.0000" Y="76.8000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="834.6016" Y="104.1811" />
+                <Position X="834.6240" Y="104.1920" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.8694" Y="0.1628" />
@@ -39,10 +39,10 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="edit_name" ActionTag="1954766141" Tag="11" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="179.3164" RightMargin="492.6836" TopMargin="520.8159" BottomMargin="55.1841" TouchEnable="True" FontSize="36" IsCustomSize="True" LabelText="" PlaceHolderText="Nick Name" MaxLengthText="10" ctype="TextFieldObjectData">
+              <AbstractNodeData Name="edit_name" ActionTag="1954766141" Tag="11" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="179.3280" RightMargin="492.6720" TopMargin="520.8320" BottomMargin="55.1680" TouchEnable="True" FontSize="36" IsCustomSize="True" LabelText="" PlaceHolderText="Nick Name" MaxLengthText="10" ctype="TextFieldObjectData">
                 <Size X="288.0000" Y="64.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="323.3164" Y="87.1841" />
+                <Position X="323.3280" Y="87.1680" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.3368" Y="0.1362" />
@@ -59,13 +59,13 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="page_sprite" ActionTag="1220741963" Tag="15" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="59.0961" RightMargin="36.9039" TopMargin="20.1167" BottomMargin="235.8833" TouchEnable="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ScrollDirectionType="0" ctype="PageViewObjectData">
+              <AbstractNodeData Name="page_sprite" ActionTag="1220741963" Tag="15" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="47.1559" RightMargin="48.8441" TopMargin="26.0861" BottomMargin="229.9139" TouchEnable="True" ClipAble="True" BackColorAlpha="134" ComboBoxIndex="1" ColorAngle="90.0000" ScrollDirectionType="0" ctype="PageViewObjectData">
                 <Size X="864.0000" Y="384.0000" />
                 <AnchorPoint />
-                <Position X="59.0961" Y="235.8833" />
+                <Position X="47.1559" Y="229.9139" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.0616" Y="0.3686" />
+                <PrePosition X="0.0491" Y="0.3592" />
                 <PreSize X="0.9000" Y="0.6000" />
                 <SingleColor A="255" R="150" G="150" B="100" />
                 <FirstColor A="255" R="150" G="150" B="100" />
