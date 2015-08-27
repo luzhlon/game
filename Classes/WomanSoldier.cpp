@@ -5,7 +5,6 @@ bool WomanSoldier::init() {
 	m_sprite = Sprite3D::create("test.c3b");
 	m_sprite->setRotation3D(Vec3(180.f , 180.f, 180.f));
 	m_sprite->setScale(2.f);
-	m_sprite->setPosition(g_frame_size / 2.f);
 
 	m_anim_walk = Animation3D::create("test.c3b");
 	m_anim_throw = Animation3D::create("throw.c3b");

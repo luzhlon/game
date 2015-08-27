@@ -17,6 +17,8 @@ public:
     virtual ~AppDelegate();
 
     virtual void initGLContextAttrs();
+	void exitGame();
+	void toPrevious();
 
     /**
     @brief    Implement Director and Scene init code here.
@@ -37,10 +39,18 @@ public:
     */
     virtual void applicationWillEnterForeground();
 
-    Size _frameSize;
-};
+    static Size _frameSize;
 
-static Size g_frame_size;
+	inline static const Size &size() {
+		return _frameSize;
+	}
+	inline static float width() {
+		return _frameSize.width;
+	}
+	inline static float height() {
+		return _frameSize.height;
+	}
+};
 
 #endif // _APP_DELEGATE_H_
 

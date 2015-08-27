@@ -65,6 +65,9 @@ bool GameScene::init()
     //*
     soldier = WomanSoldier::create();
     addSoldier(m_map, soldier);
+	/*
+	auto  move = MoveBy::create(5.f, Vec2(300.f, 300.f));
+	soldier->runAction(move);
     // */
 
     return true;
@@ -98,9 +101,9 @@ void GameScene::scaleMap(Vec2 focu, float n) {
 // */
 
 void GameScene::addSoldier(TMXTiledMap* map,Soldier *msoldier) { //将士兵添加到map中
-    msoldier->setPosition(Vec2(g_frame_size.width / 1.5, g_frame_size.height / 1.5));
+    msoldier->setPosition(Vec2(AppDelegate::width() / 2.f, AppDelegate::height() / 2.f));
     map->addChild(msoldier);
-    //m_map->reorderChild(msoldier, 3);
+    m_map->reorderChild(msoldier, 3);
 }
 
 void GameScene::onTouchMoved(Touch* touch, Event* event) {
@@ -150,9 +153,13 @@ void GameScene::loadUIlayer(Node *scene_node) {
 
     setClickCallback(layout, "button_1", [this](Ref *ref) {
         log("[log Control]button_1 clicked.");
+		auto s = (WomanSoldier *)soldier;
+		s->action_throw();
                      });
     setClickCallback(layout, "button_2", [this](Ref *ref) {
         log("[log Control]button_2 clicked.");
+		auto s = (WomanSoldier *)soldier;
+		s->action_walk();
                      });
 
     addChild(m_layer_ui);
