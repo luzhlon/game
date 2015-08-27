@@ -84,6 +84,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
     _file->addSearchPath("scene/room_list_scene/res");
     _file->addSearchPath("scene/role_scene/res");
     _file->addSearchPath("scene/setting_scene/res");
+	_file->addSearchPath("sprite/girl");
+
+	g_frame_size = Director::getInstance()->getWinSize();
 
     // create a scene. it's an autorelease object
     auto scene = GameScene::createScene();

@@ -14,13 +14,14 @@ public:
     void loadUIlayer(Node *); //
 
     void addSoldier(TMXTiledMap* map, Soldier *soldier);
+	/*
     void scaleMap(Vec2 focu, float n = 1);  //缩放地图
     void prepMoveMap(); //准备移动地图
     void begainMoveMap(Vec2 delta); //开始移动地图
     bool borderDetected();
     const Vec2& mouse2map(Vec2 &mouse); //鼠标位置TO地图位置
-    const Vec2& getMapSize();
     const Vec2& getLeftDownPos();
+	// */
 
     virtual bool init();
 

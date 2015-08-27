@@ -25,7 +25,7 @@ public:
     //virtual void MoveTo(Vec2 vec);
 	//virtual void MoveTo(int nStep, int angle) = 0;
 protected:
-	Sprite* m_sprite;
+	Sprite3D* m_sprite;
 	int m_id = 0;//ID是这个对象的唯一的标识
 	int m_hp;//当前HP
 	int m_hp_max;//HP最大值

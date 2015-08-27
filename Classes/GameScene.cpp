@@ -1,5 +1,6 @@
+#include "AppDelegate.h"
 #include "GameScene.h"
-#include "HorseSoldier.h"
+#include "WomanSoldier.h"
 #include "cocostudio/CocoStudio.h"
 
 using namespace cocostudio;
@@ -15,23 +16,24 @@ Scene* GameScene::createScene() {
     return scene;
 }
 
-EventListenerTouchOneByOne *touch_listener;
-HorseSoldier *soldier;
+WomanSoldier *soldier;
 
 void GameScene::loadMapLayer(Node *scene_node) {
     m_layer_map = scene_node->getChildByTag(1);
     CC_ASSERT(m_layer_map);
     m_layer_map->removeFromParent();
 
+    m_map = TMXTiledMap::create("map/map.tmx");
+	/*
     m_scroll = extension::ScrollView::create
             (Director::getInstance()->getWinSize() + Size(30, 20));
-    m_map = TMXTiledMap::create("map/map.tmx");
     m_scroll->setDirection(extension::ScrollView::Direction::BOTH);
     m_scroll->setMinScale(0.5);
     m_scroll->setMaxScale(1.2);
     m_scroll->setContentSize(m_map->getContentSize());
     m_scroll->addChild(m_map);
-    m_layer_map->addChild(m_scroll);
+	// */
+    m_layer_map->addChild(m_map);
 
     addChild(m_layer_map);
 }
@@ -47,7 +49,7 @@ bool GameScene::init()
     loadMapLayer(node);
     loadUIlayer(node);
 
-    //*
+    /*
     //鼠标监听
     auto mouse_listener = EventListenerMouse::create();
     mouse_listener->onMouseScroll = CC_CALLBACK_1(GameScene::onMouseScroll, this);
@@ -58,26 +60,19 @@ bool GameScene::init()
     touch_listener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
     touch_listener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(touch_listener, this);
+	// */
 
-    /*
-    soldier = HorseSoldier::create();
+    //*
+    soldier = WomanSoldier::create();
     addSoldier(m_map, soldier);
     // */
 
     return true;
 }
 
+/*
 const Vec2& GameScene::getLeftDownPos() {
     return pos_down;
-}
-
-const Vec2& GameScene::getMapSize() {
-    static Vec2 map_size;
-    auto size = m_map->getContentSize();
-    auto scale = m_scroll->getZoomScale();
-    map_size.x = size.width * scale;
-    map_size.y = size.height * scale;
-    return map_size;
 }
 
 const Vec2& GameScene::mouse2map(Vec2 &pos_mouse) {
@@ -95,16 +90,17 @@ const Vec2& GameScene::mouse2map(Vec2 &pos_mouse) {
 void GameScene::scaleMap(Vec2 focu, float n) {
     float old_scale = m_scroll->getZoomScale();
     float new_scale = old_scale + scale_cell * n;
-    auto size = getMapSize();
+    //auto size = getMapSize();
     m_scroll->setZoomScale(new_scale, true);
 
     //log("Current Scale: %1.2f, Map size: %.2f,%.2f , Mouse postion: %.2f,%.2f ", new_scale, m_map->getMapSize().width, m_map->getMapSize().height, e->getCursorX(), e->getCursorY());
 }
+// */
 
 void GameScene::addSoldier(TMXTiledMap* map,Soldier *msoldier) { //将士兵添加到map中
-    //msoldier->setPosition(Vec2(view_size.x / 2, view_size.y / 2));
+    msoldier->setPosition(Vec2(g_frame_size.width / 1.5, g_frame_size.height / 1.5));
     map->addChild(msoldier);
-    m_map->reorderChild(msoldier, 3);
+    //m_map->reorderChild(msoldier, 3);
 }
 
 void GameScene::onTouchMoved(Touch* touch, Event* event) {
@@ -133,13 +129,13 @@ void GameScene::onTouchEnded(Touch* touch, Event* event) {
     mouse_down = false;
     //soldier->MoveTo(touch->getLocation());
     Vec2 v = touch->getLocation();
-    soldier->setPosition(mouse2map(v));
+    //soldier->setPosition(mouse2map(v));
 }
 
 void GameScene::onMouseScroll(Event* event) {
     EventMouse *e = (EventMouse *)event;
     float fscrol = e->getScrollY();
-    scaleMap(e->getLocation(), fscrol);
+    //scaleMap(e->getLocation(), fscrol);
 }
 
 void GameScene::loadUIlayer(Node *scene_node) {

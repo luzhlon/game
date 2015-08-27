@@ -6,8 +6,14 @@
         <Project Name="menu_scene.csd" Type="Scene" />
         <Image Name="HelloWorld.png" />
         <Project Name="menu_layer.csd" Type="Layer" />
-        <Project Name="Scene3D.csd" Type="Scene3D" />
-        <Sprite3DFile Name="test.c3b" />
+        <Image Name="Button_Normal.png" />
+        <PlistInfo Name="map.csi" Type="Plist" />
+        <Image Name="1.png" />
+        <Image Name="2.png" />
+        <Image Name="3.png" />
+        <Image Name="4.png" />
+        <Image Name="5.png" />
+        <Image Name="6.png" />
       </RootFolder>
     </Group>
   </SolutionFolder>

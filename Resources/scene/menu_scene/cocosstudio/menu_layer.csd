@@ -6,7 +6,7 @@
       <ObjectData Name="Layer" Tag="884" ctype="GameLayerObjectData">
         <Size X="960.0000" Y="640.0000" />
         <Children>
-          <AbstractNodeData Name="layout" ActionTag="-1090766279" Tag="2" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" TouchEnable="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="960" Scale9Height="640" ctype="PanelObjectData">
+          <AbstractNodeData Name="layout" ActionTag="-1090766279" Tag="2" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" TopMargin="-2.2917" BottomMargin="2.2917" TouchEnable="True" BackColorAlpha="128" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="960" Scale9Height="640" ctype="PanelObjectData">
             <Size X="960.0000" Y="640.0000" />
             <Children>
               <AbstractNodeData Name="button_single" ActionTag="-1338182835" Tag="885" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="682.9440" RightMargin="85.0560" TopMargin="70.9760" BottomMargin="492.2240" TouchEnable="True" FontSize="36" ButtonText="单人游戏" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
@@ -71,10 +71,10 @@
               </AbstractNodeData>
             </Children>
             <AnchorPoint />
-            <Position />
+            <Position Y="2.2917" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition />
+            <PrePosition Y="0.0036" />
             <PreSize X="1.0000" Y="1.0000" />
             <FileData Type="Normal" Path="HelloWorld.png" Plist="" />
             <SingleColor A="255" R="150" G="200" B="255" />

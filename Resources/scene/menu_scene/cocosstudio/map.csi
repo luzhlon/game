@@ -1,0 +1,14 @@
+<PlistInfoProjectFile>
+  <PropertyGroup Type="Plist" Name="map" ID="368139a9-5db4-45cf-9b43-449d4b12bf52" Version="2.3.2.0" />
+  <Content ExportType="Png" SortAlgorithm="MaxRects" PicturePadding="0" AllowRotation="False" AllowAnySize="False" AllowTrim="False" ctype="PlistInfoData">
+    <ImageFiles>
+      <FilePathData Path="1.png" />
+      <FilePathData Path="2.png" />
+      <FilePathData Path="3.png" />
+      <FilePathData Path="4.png" />
+      <FilePathData Path="5.png" />
+      <FilePathData Path="6.png" />
+    </ImageFiles>
+    <MaxSize Width="1024" Height="1024" />
+  </Content>
+</PlistInfoProjectFile>

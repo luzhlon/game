@@ -40,5 +40,7 @@ public:
     Size _frameSize;
 };
 
+static Size g_frame_size;
+
 #endif // _APP_DELEGATE_H_
 
