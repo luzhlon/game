@@ -1,34 +1,39 @@
 #include "GameScene.h"
 #include "HorseSoldier.h"
+#include "cocostudio/CocoStudio.h"
+
+using namespace cocostudio;
 
 float GameScene::scale_cell = 0.1f;
-Vec2 GameScene::view_size = Vec2(0.0, 0.0);
 
 Scene* GameScene::createScene() {
-    // 'scene' is an autorelease object
     auto scene = Scene::create();
-    // 'layer' is an autorelease object
     auto layer = GameScene::create();
-    // add layer as a child to scene
+
     scene->addChild(layer);
 
-    // return the scene
     return scene;
 }
 
 EventListenerTouchOneByOne *touch_listener;
 HorseSoldier *soldier;
 
-void GameScene::loadMap() {
-    m_scroll = ScrollView::create(Director::getInstance()->getOpenGLView()->getVisibleSize() + Size(30, 20));
-    //m_map = TMXTiledMap::create("iceworld.tmx");
-    m_map = TMXTiledMap::create("map.tmx");
-    m_scroll->setDirection(ScrollView::Direction::BOTH);
+void GameScene::loadMapLayer(Node *scene_node) {
+    m_layer_map = scene_node->getChildByTag(1);
+    CC_ASSERT(m_layer_map);
+    m_layer_map->removeFromParent();
+
+    m_scroll = extension::ScrollView::create
+            (Director::getInstance()->getWinSize() + Size(30, 20));
+    m_map = TMXTiledMap::create("map/map.tmx");
+    m_scroll->setDirection(extension::ScrollView::Direction::BOTH);
     m_scroll->setMinScale(0.5);
     m_scroll->setMaxScale(1.2);
     m_scroll->setContentSize(m_map->getContentSize());
     m_scroll->addChild(m_map);
-    addChild(m_scroll);
+    m_layer_map->addChild(m_scroll);
+
+    addChild(m_layer_map);
 }
 // on "init" you need to initialize your instance
 bool GameScene::init()
@@ -36,14 +41,13 @@ bool GameScene::init()
     if ( !Layer::init() ) {
         return false;
     }
-    //View大小
-    auto glview = Director::getInstance()->getOpenGLView();
-    auto size = glview->getVisibleSize();
-    view_size.x = size.width;
-    view_size.y = size.height;
 
-    loadMap();
+    auto node = CSLoader::createNode("game_scene.csb");
 
+    loadMapLayer(node);
+    loadUIlayer(node);
+
+    //*
     //鼠标监听
     auto mouse_listener = EventListenerMouse::create();
     mouse_listener->onMouseScroll = CC_CALLBACK_1(GameScene::onMouseScroll, this);
@@ -55,8 +59,10 @@ bool GameScene::init()
     touch_listener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(touch_listener, this);
 
+    /*
     soldier = HorseSoldier::create();
     addSoldier(m_map, soldier);
+    // */
 
     return true;
 }
@@ -69,7 +75,7 @@ const Vec2& GameScene::getMapSize() {
     static Vec2 map_size;
     auto size = m_map->getContentSize();
     auto scale = m_scroll->getZoomScale();
-  map_size.x = size.width * scale;
+    map_size.x = size.width * scale;
     map_size.y = size.height * scale;
     return map_size;
 }
@@ -95,58 +101,91 @@ void GameScene::scaleMap(Vec2 focu, float n) {
     //log("Current Scale: %1.2f, Map size: %.2f,%.2f , Mouse postion: %.2f,%.2f ", new_scale, m_map->getMapSize().width, m_map->getMapSize().height, e->getCursorX(), e->getCursorY());
 }
 
-void GameScene::prepMoveMap() {
-    pos_down_map = m_map->getPosition();
-}
-
-void GameScene::begainMoveMap(Vec2 delta) {
-    Vec2 pos = pos_down_map + delta;
-    //超出左下角的处理
-    pos.x = pos.x > 0.0 ? 0.0 : pos.x;
-    pos.y = pos.y > 0.0 ? 0.0 : pos.y;
-    //超出右上角的处理
-    Vec2 ru_pos = pos + getMapSize();
-    pos.x += ru_pos.x < view_size.x ? view_size.x - ru_pos.x : 0.0;
-    pos.y += ru_pos.y < view_size.y ? view_size.y - ru_pos.y : 0.0;
-    //
-    m_map->setPosition(pos);
-}
-
-void GameScene::addSoldier(TMXTiledMap* map,Soldier *msoldier){ //将士兵添加到map中
-    msoldier->setPosition(Vec2(view_size.x / 2, view_size.y / 2));
+void GameScene::addSoldier(TMXTiledMap* map,Soldier *msoldier) { //将士兵添加到map中
+    //msoldier->setPosition(Vec2(view_size.x / 2, view_size.y / 2));
     map->addChild(msoldier);
     m_map->reorderChild(msoldier, 3);
 }
 
-void GameScene::onTouchMoved(Touch* touch, Event* event){
+void GameScene::onTouchMoved(Touch* touch, Event* event) {
     Vec2 pos_cur = touch->getLocation();
     Vec2 delta = pos_cur - pos_down;
+
+    log("Layer:%.2f %.2f Map:%.2f %.2f, Mouse:%.2f %.2f", getPosition().x, getPosition().y, m_map->getPosition().x, m_map->getPosition().y, pos_down.x, pos_down.y);
 }
 
-bool GameScene::onTouchBegan(Touch* touch, Event* event){
+bool GameScene::onTouchBegan(Touch* touch, Event* event) {
     {
         pos_down = touch->getLocation();
         mouse_down = true;
     }
 
+    log("Layer:%.2f %.2f Map:%.2f %.2f, Mouse:%.2f %.2f", getPosition().x, getPosition().y, m_map->getPosition().x, m_map->getPosition().y, pos_down.x, pos_down.y);
     Node *cur_node = event->getCurrentTarget();
     //log("Current Node: %x", cur_node);
-    //log("Layer:%.2f %.2f Map:%.2f %.2f, Mouse:%.2f %.2f", getPosition().x, getPosition().y, m_map->getPosition().x, m_map->getPosition().y, pos_down.x, pos_down.y);
     auto pos = convertToWorldSpace(soldier->getPosition());
     //log("Soldier :%.2f %.2f, Mouse:%.2f %.2f", pos.x, pos.y, pos_down.x, pos_down.y);
-    log("Map size:%.2f %.2f View size:%.2f %.2f", getMapSize().x, getMapSize().y, view_size.x, view_size.y);
+    //log("Map size:%.2f %.2f View size:%.2f %.2f", getMapSize().x, getMapSize().y, view_size.x, view_size.y);
     return true;
 }
 
-void GameScene::onTouchEnded(Touch* touch, Event* event){
+void GameScene::onTouchEnded(Touch* touch, Event* event) {
     mouse_down = false;
     //soldier->MoveTo(touch->getLocation());
     Vec2 v = touch->getLocation();
     soldier->setPosition(mouse2map(v));
 }
 
-void GameScene::onMouseScroll(Event* event){
+void GameScene::onMouseScroll(Event* event) {
     EventMouse *e = (EventMouse *)event;
     float fscrol = e->getScrollY();
     scaleMap(e->getLocation(), fscrol);
+}
+
+void GameScene::loadUIlayer(Node *scene_node) {
+    m_layer_ui = loadLayer(scene_node, 2);
+    CC_ASSERT(m_layer_ui);
+    m_layer_ui->removeFromParent();
+
+    auto layout = getLayout(m_layer_ui);
+    auto btn = static_cast<Button *>
+            (Helper::seekWidgetByName(layout, "button_direction"));
+    btn->addTouchEventListener(CC_CALLBACK_2(GameScene::onDirectionTouched, this));
+
+    setClickCallback(layout, "button_1", [this](Ref *ref) {
+        log("[log Control]button_1 clicked.");
+                     });
+    setClickCallback(layout, "button_2", [this](Ref *ref) {
+        log("[log Control]button_2 clicked.");
+                     });
+
+    addChild(m_layer_ui);
+}
+
+void GameScene::onDirectionTouched(Ref *ref, Widget::TouchEventType type) {
+    Button *btn = dynamic_cast<Button *>(ref);
+    static Vec2 pos_began;
+
+    CC_ASSERT(btn);
+
+    switch(type) {
+    case Widget::TouchEventType::BEGAN:
+    {
+        pos_began = btn->getTouchBeganPosition();
+        log("[log Direction]began pos: %.2f %.2f", pos_began.x, pos_began.y);
+    }
+        break;
+    case Widget::TouchEventType::ENDED:
+    {
+        auto pos = btn->getTouchEndPos();
+        log("[log Direction]end pos: %.2f %.2f", pos.x, pos.y);
+    }
+        break;
+    case Widget::TouchEventType::MOVED:
+    {
+        auto pos = btn->getTouchMovePos();
+        log("[log Direction]move pos: %.2f %.2f", pos.x, pos.y);
+    }
+        break;
+    }
 }

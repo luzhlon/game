@@ -14,15 +14,29 @@ Scene *RoomListScene::createScene() {
     return scene;
 }
 
-Widget *RoomListScene::Item::create(const string& str) {
+bool RoomListScene::addRoomItem(const string& item_name) {
     auto node = CSLoader::createNode("list_item.csb");
     auto layout = static_cast<Layout *>(node->getChildByName("layout"));
     CC_ASSERT(layout);
+    if(!layout) return false;
     layout->removeFromParent();
-    auto label = static_cast<Text *>
-            (Helper::seekWidgetByName(layout, "text_item"));
-    label->setString(str);
-    return layout;
+    auto btn = static_cast<Button *>
+            (Helper::seekWidgetByName(layout, "button_item"));
+    btn->setTitleText(item_name);
+    btn->addClickEventListener(CC_CALLBACK_1(RoomListScene::onItemClick, this));
+
+    auto size = m_listRoom->getSize();
+    layout->setSize(Size(size.width * 0.8f, size.height * 0.15f));
+    m_listRoom->pushBackCustomItem(layout);
+
+    return true;
+}
+
+void RoomListScene::onItemClick(Ref *ref) {
+    Button *btn = dynamic_cast<Button *>(ref);
+    CC_ASSERT(btn);
+    string item = btn->getTitleText();
+    log("[Log] item %s clicked", item.c_str());
 }
 
 bool RoomListScene::init() {
@@ -31,9 +45,9 @@ bool RoomListScene::init() {
 
     CC_ASSERT(layout); //load layout failure
 
-    setButtonClickCallback(layout, "button_create", CC_CALLBACK_1(RoomListScene::onCreateClick, this));
-    setButtonClickCallback(layout, "button_enter", CC_CALLBACK_1(RoomListScene::onEnterClick, this));
-    setButtonClickCallback(layout, "button_back", CC_CALLBACK_1(RoomListScene::onBackClick, this));
+    setClickCallback(layout, "button_create", CC_CALLBACK_1(RoomListScene::onCreateClick, this));
+    setClickCallback(layout, "button_enter", CC_CALLBACK_1(RoomListScene::onEnterClick, this));
+    setClickCallback(layout, "button_back", CC_CALLBACK_1(RoomListScene::onBackClick, this));
     //*
     m_listRoom = static_cast<ListView *>(Helper::seekWidgetByName(layout, "list_room"));
 
@@ -42,6 +56,7 @@ bool RoomListScene::init() {
 
 void RoomListScene::onEnter() {
 	Layer::onEnter();
+    CurScene(SCENE_ROOMLIST);
     //set timer
 	/*
     schedule([this](float lt) {
@@ -61,19 +76,18 @@ void RoomListScene::updateRoomList() {
     auto clt = Client::getInstance();
     HANDLER(room_list) =
             Client::handler([this](net_pkg *pkg) {
+            if(!IsCurScene(SCENE_ROOMLIST)) return;
+
             m_listRoom->removeAllItems();
             char *p = pkg->data;
             log("[Room num:] %d", pkg->arg1);
             for(int i = 0; i < pkg->arg1; i++) {
                 log("[Room:] %s", p);
-                auto item = RoomListScene::Item::create(p);
-                auto size = m_listRoom->getSize();
-                item->setSize(Size(size.width * 0.8f, size.height * 0.2f));
-                m_listRoom->pushBackCustomItem(item);
+                addRoomItem(p);
                 p += strlen(p) + 1;
             }
     });
-    clt->sendMsg(MESSAGE::room_list, 0);
+    clt->sendMsg((msg_msg)MESSAGE::room_list);
 }
 
 void RoomListScene::onCreateClick(Ref *ref) {

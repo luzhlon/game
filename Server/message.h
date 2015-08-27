@@ -12,11 +12,15 @@
 //房间最大成员数
 #define MAX_ROOM_MEMBERS 6
 
+typedef int msg_arg;
+typedef unsigned short msg_len;
+typedef unsigned short msg_msg;
+
 struct mini_net_pkg {
-    unsigned short len; //数据包长度
-    unsigned short msg; //消息
-    int arg1; //参数1
-    int arg2; //参数2
+    msg_len len; //数据包长度
+    msg_msg msg; //消息
+    msg_arg arg1; //参数1
+    msg_arg arg2; //参数2
 }; //net_pkg - data[MAX_PKG_LENGTH]
 
 struct net_pkg : mini_net_pkg {

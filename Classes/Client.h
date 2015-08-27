@@ -44,26 +44,25 @@ public:
         if(data)
             memcpy(s_pkg.data, data, size);
     }
-    inline bool sendMsg(unsigned short msg, int arg1, char *str) {
-        auto len = strlen(str) + 1;
-        memcpy(s_pkg.data, str, len);
-        return sendMsg(&s_pkg, NET_PKG_SIZE + len);
-    }
-    inline bool sendMsg(unsigned short msg,
+    inline bool sendMsg(msg_msg msg,
                         data_size_t data_size, void *data = nullptr) {
         copy_data(data, data_size);
         s_pkg.msg = msg;
         return sendMsg(&s_pkg, data ? NET_PKG_SIZE + data_size : NET_PKG_SIZE_2);
     }
-    inline bool sendMsg(unsigned short msg, int arg1) {
+    inline bool sendMsg(msg_msg msg, msg_arg arg1 = 0) {
 		s_pkg.arg1 = arg1;
 		s_pkg.msg = msg;
         return sendMsg(&s_pkg, NET_PKG_SIZE_1);
 	}
-    inline bool sendMsg(unsigned short msg, const char *str) {
+    inline bool sendMsg(msg_msg msg, const char *str) {
         return sendMsg(msg,
                        static_cast<data_size_t>(strlen(str) + 1),
                        (void *)str);
+    }
+    inline bool sendMsg(msg_msg msg, msg_arg arg1, const char *str) {
+        s_pkg.arg1 = arg1;
+        return sendMsg(msg, str);
     }
     inline net_pkg *getMsg() {
         return m_pkg;

@@ -22,8 +22,8 @@ bool RoleScene::init() {
 
     CC_ASSERT(layout); //load layout failure
 
-    setButtonClickCallback(layout, "button_start", CC_CALLBACK_1(RoleScene::onStartClick, this));
-    setButtonClickCallback(layout, "button_back", CC_CALLBACK_1(RoleScene::onLeaveClick, this));
+    setClickCallback(layout, "button_start", CC_CALLBACK_1(RoleScene::onStartClick, this));
+    setClickCallback(layout, "button_back", CC_CALLBACK_1(RoleScene::onLeaveClick, this));
 
     m_editName = static_cast<TextField *>
             (Helper::seekWidgetByName(layout, "edit_name"));
@@ -59,6 +59,7 @@ bool RoleScene::loadPages() {
 
 void RoleScene::onEnter() {
 	Layer::onEnter();
+    CurScene(SCENE_ROLE);
 
     if(Soldier::loadAllSoldier()) {
         log("<LoadAll> success.");
@@ -69,6 +70,7 @@ void RoleScene::onEnter() {
     Client::getInstance()->start();
 	//认证是否成功
     HANDLER(authentication) = Client::handler([](net_pkg *pkg) {
+        if(!IsCurScene(SCENE_ROLE)) return;
 		if (pkg->arg1) { //成功，进入房间列表
             log("[Auth success]");
 			Director::getInstance()->pushScene(RoomListScene::createScene());
@@ -81,14 +83,16 @@ void RoleScene::onEnter() {
 
 void RoleScene::onStartClick(Ref *ref) {
     if(!Client::getInstance()->isConnected()) {
-        log("Connect server failure.");
+        log("[Connect] server failure.");
         return;
     }
 	if (m_editName->getString().empty()) { //昵称不能为空
-		log("nick name is empty");
+        log("[Error:]nick name is empty");
 		return;
 	}
-    Client::getInstance()->sendMsg(authentication, m_editName->getString().c_str());
+    Client::getInstance()->sendMsg(authentication,
+                                   (msg_arg)m_pageSprite->getCurPageIndex(),
+                                   m_editName->getString().c_str());
 }
 
 void RoleScene::onLeaveClick(Ref *ref) {

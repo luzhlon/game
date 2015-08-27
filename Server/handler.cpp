@@ -69,6 +69,7 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
         if(pkg->arg1) {
             self->member()->set_ready_1();
             room->broadMembers();
+            room->checkAllReady();
         } else {
             self->member()->set_ready_0();
         }

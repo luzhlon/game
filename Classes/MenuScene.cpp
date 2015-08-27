@@ -30,8 +30,13 @@ bool MenuScene::init() {
 
     CC_ASSERT(layout); //load layout failure
 
-    setButtonClickCallback(layout, "button_multi", CC_CALLBACK_1(MenuScene::onMultiClick, this));
-    setButtonClickCallback(layout, "button_setting", CC_CALLBACK_1(MenuScene::onSettingClick, this));
+    setClickCallback(layout, "button_multi", CC_CALLBACK_1(MenuScene::onMultiClick, this));
+    setClickCallback(layout, "button_setting", CC_CALLBACK_1(MenuScene::onSettingClick, this));
 
     return true;
+}
+
+void MenuScene::onEnter() {
+    Layer::onEnter();
+    CurScene(SCENE_MENU);
 }

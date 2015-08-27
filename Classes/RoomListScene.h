@@ -1,16 +1,16 @@
 #ifndef __ROOMLISTSCENE_H__
 #define __ROOMLISTSCENE_H__
 
+#include <string>
+#include <functional>
 #include "SceneLayer.h"
+
+using namespace std;
 
 class RoomListScene : public SceneLayer
 {
 public:
     static Scene *createScene();
-    class Item {
-    public:
-        static Widget *create(const string& str);
-    };
 
     virtual bool init();
 
@@ -20,6 +20,9 @@ public:
     void onEnterClick(Ref *);
     void onUpdateClick(Ref *);
     void onBackClick(Ref *);
+    void onItemClick(Ref *);
+
+    bool addRoomItem(const string&);
 
     void onEnter() override;
     void onExit() override;

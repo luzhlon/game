@@ -9,6 +9,8 @@ public:
     CREATE_FUNC(SettingScene);
     virtual bool init();
     void onOkClicked(Ref *);
+
+    void onEnter() override;
 private:
     TextField *m_textIP;
     TextField *m_textPort;

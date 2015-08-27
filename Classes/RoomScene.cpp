@@ -12,3 +12,8 @@ Scene *RoomScene::createScene() {
 bool RoomScene::init() {
     return true;
 }
+
+void RoomScene::onEnter() {
+    Layer::onEnter();
+    CurScene(SCENE_ROOM);
+}

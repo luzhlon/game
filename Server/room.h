@@ -32,6 +32,8 @@ public:
     bool remove(Member *meb); //移除成员
     bool setTeam(Member *, int ); //设置属于哪一队
 
+    void checkAllReady();
+
     void broadMembers(); //广播成员列表
 
     template<typename ... ARGS>

@@ -30,11 +30,11 @@ public:
     inline int Reply(net_pkg *p) {
         return _Reply(p, NET_PKG_SIZE_1);
     }
-    inline int Reply(net_pkg *p, int arg1) {
+    inline int Reply(net_pkg *p, msg_arg arg1) {
         p->arg1 = arg1;
         return _Reply(p, NET_PKG_SIZE_1);
     }
-    inline int Reply(net_pkg *p, int arg1, int arg2) {
+    inline int Reply(net_pkg *p, msg_arg arg1, msg_arg arg2) {
         p->arg1 = arg1;
         p->arg2 = arg2;
         return _Reply(p, NET_PKG_SIZE_2);
@@ -63,6 +63,8 @@ public:
         return m_member;
     }
     bool setMember(char *name, unsigned short role_id) {
+        if(m_member) delete m_member;
+
         m_member = new Member(name, this);
         if(m_member->error()) {
             m_err = m_member->error();

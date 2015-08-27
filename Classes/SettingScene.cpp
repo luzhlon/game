@@ -23,9 +23,14 @@ bool SettingScene::init() {
     m_textPort = static_cast<TextField *>
             (Helper::seekWidgetByName(layout, "text_port"));
 
-    setButtonClickCallback(layout, "button_continue", CC_CALLBACK_1(SettingScene::onOkClicked, this));
+    setClickCallback(layout, "button_continue", CC_CALLBACK_1(SettingScene::onOkClicked, this));
 
     return true;
+}
+
+void SettingScene::onEnter() {
+    Layer::onEnter();
+    CurScene(SCENE_SETTING);
 }
 
 void SettingScene::onOkClicked(Ref *ref) {

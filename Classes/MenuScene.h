@@ -15,6 +15,8 @@ public:
     void onMultiClick(Ref *);
     void onSettingClick(Ref *);
     void onQuitClick(Ref *);
+
+    void onEnter() override;
 };
 
 #endif //__MENUSCENE_H__

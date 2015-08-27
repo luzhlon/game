@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
 #include "MenuScene.h"
-#include "RoomListScene.h"
+#include "GameScene.h"
 
 USING_NS_CC;
 
@@ -53,6 +53,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // Set the design resolution
     glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::SHOW_ALL);
 
+    //
+    _frameSize = director->getWinSize();
+
     /*
     Size frameSize = glview->getFrameSize();
     // if the frame's height is larger than the height of medium size.
@@ -73,15 +76,18 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     register_all_packages();
 
-    FileUtils::getInstance()->addSearchPath("scene/dialog_scene/res");
-	FileUtils::getInstance()->addSearchPath("scene/menu_scene/res");
-	FileUtils::getInstance()->addSearchPath("scene/room_list_scene/res");
-	FileUtils::getInstance()->addSearchPath("scene/role_scene/res");
-	FileUtils::getInstance()->addSearchPath("scene/setting_scene/res");
+    auto _file =  FileUtils::getInstance();
+
+    _file->addSearchPath("scene/dialog_scene/res");
+    _file->addSearchPath("scene/menu_scene/res");
+    _file->addSearchPath("scene/game_scene/res");
+    _file->addSearchPath("scene/room_list_scene/res");
+    _file->addSearchPath("scene/role_scene/res");
+    _file->addSearchPath("scene/setting_scene/res");
 
     // create a scene. it's an autorelease object
-    //auto scene = RoomListScene::createScene();
-    auto scene = MenuScene::createScene();
+    auto scene = GameScene::createScene();
+    //auto scene = MenuScene::createScene();
     // 运行场景
     director->runWithScene(scene);
 

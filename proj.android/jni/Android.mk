@@ -11,10 +11,21 @@ LOCAL_MODULE := cocos2dcpp_shared
 LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
-                   ../../Classes/AppDelegate.cpp \
-                   ../../Classes/MainScene.cpp \
-                   ../../Classes/Soldier.cpp \
-                   ../../Classes/HorseSoldier.cpp \
+                  ../../Classes/AppDelegate.cpp \
+                  ../../Classes/ManSoldier.cpp \
+                  ../../Classes/WomanSoldier.cpp \
+                  ../../Classes/HorseSoldier.cpp \
+                  ../../Classes/SceneLayer.cpp \
+                  ../../Classes/GameScene.cpp \
+                  ../../Classes/MenuScene.cpp \
+                  ../../Classes/SettingScene.cpp \
+                  ../../Classes/RoleScene.cpp \
+                  ../../Classes/RoomScene.cpp \
+                  ../../Classes/RoomListScene.cpp \
+                  ../../Classes/Soldier.cpp \
+                  ../../Classes/Dialog.cpp \
+                  ../../Classes/Client.cpp \
+                  ../../Classes/ODSocket.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 

@@ -86,6 +86,20 @@ int Room::for_member_id(Member *meb) {
     m_err = "no this member";
 }
 
+void Room::checkAllReady() {
+    bool all = true;
+    for(int i = 0; i < MAX_ROOM_MEMBERS; i++) {
+        auto m = m_members[i];
+        if(m) {
+            all = all && m->get_ready();
+        }
+    }
+    mini_net_pkg pkg;
+    if(all) { //enter game
+        //broadcast(&pkg, MESSAGE::start_game);
+    }
+}
+
 bool Room::setTeam(Member *meb, int team) {
     int r_id = for_member_id(meb);
     if(error()) {
