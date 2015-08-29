@@ -1,8 +1,9 @@
+#include <math/CCMath.h>
 #include "Soldier.h"
-#include "math.h"
 #include "WomanSoldier.h"
-#include "ManSoldier.h"
-#include "HorseSoldier.h"
+
+//#include "ManSoldier.h"
+//#include "HorseSoldier.h"
 
 /*
 char *Soldier::angle_str[8] = { "right", "ur", "up", "ul", "left", "dl", "down", "dr" };
@@ -68,23 +69,11 @@ bool Soldier::init(){
 	addChild(m_sprite);
 	return true;
 }
-
-void Soldier::MoveTo(Vec2 vec) {
-	Vec2 v = getPosition();
-	Vec2 delta = vec - v;
-	log("Cur: %f %f Mouse: %f %f Delta : %f %f", v.x, v.y, vec.x, vec.y , delta.x, delta.y);
-	int angle = Vec2Angle(delta);
-	//设置动画播放的速度
-	//float d_time = physical / 10 * 0.2f;
-	float d_time = 0.1f;
-	m_animation[angle]->setDelayPerUnit(d_time);
-	m_sprite->stopAllActions();
-	m_sprite->runAction(Animate::create(m_animation[angle]));
-	runAction(cocos2d::MoveBy::create(delta.getLength()/8, delta));
-} // */
+// */
 
 Soldier *Soldier::s_soldiers[Soldier::SoldierNumber];
 
+/*
 bool Soldier::loadAllSoldier() {
     bool loaded = true;
     loaded = loaded && (s_soldiers[0] = HorseSoldier::create());
@@ -94,5 +83,30 @@ bool Soldier::loadAllSoldier() {
         return true;
     } else {
         return false;
+    }
+} // */
+
+bool Soldier::init() {
+    schedule(schedule_selector(Soldier::updatePos), UPDATE_RATE);
+    return true;
+}
+
+void Soldier::updatePos(float dt) {
+    switch(getStatus()) {
+    case MOVE:
+    {
+        Vec2 pos = _sprite->getPosition();
+        pos += Vec2(_speed * _angle.x * UPDATE_RATE,
+                    _speed * _angle.y * UPDATE_RATE);
+
+        Vec3 rota = _sprite->getRotation3D();
+        rota.y = _base_angle_y
+                + CC_RADIANS_TO_DEGREES(_angle.getAngle());
+        _sprite->setRotation3D(rota);
+        _sprite->setPosition(pos);
+    }
+    break;
+    case STOP:
+    break;
     }
 }

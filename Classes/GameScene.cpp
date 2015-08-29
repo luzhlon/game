@@ -37,6 +37,7 @@ void GameScene::loadMapLayer(Node *scene_node) {
 
     addChild(m_layer_map);
 }
+
 // on "init" you need to initialize your instance
 bool GameScene::init()
 {
@@ -48,6 +49,8 @@ bool GameScene::init()
 
     loadMapLayer(node);
     loadUIlayer(node);
+
+    //void updatePostion(float );
 
     /*
     //鼠标监听
@@ -98,13 +101,6 @@ void GameScene::scaleMap(Vec2 focu, float n) {
 
     //log("Current Scale: %1.2f, Map size: %.2f,%.2f , Mouse postion: %.2f,%.2f ", new_scale, m_map->getMapSize().width, m_map->getMapSize().height, e->getCursorX(), e->getCursorY());
 }
-// */
-
-void GameScene::addSoldier(TMXTiledMap* map,Soldier *msoldier) { //将士兵添加到map中
-    msoldier->setPosition(Vec2(AppDelegate::width() / 2.f, AppDelegate::height() / 2.f));
-    map->addChild(msoldier);
-    m_map->reorderChild(msoldier, 3);
-}
 
 void GameScene::onTouchMoved(Touch* touch, Event* event) {
     Vec2 pos_cur = touch->getLocation();
@@ -127,18 +123,12 @@ bool GameScene::onTouchBegan(Touch* touch, Event* event) {
     //log("Map size:%.2f %.2f View size:%.2f %.2f", getMapSize().x, getMapSize().y, view_size.x, view_size.y);
     return true;
 }
+// */
 
-void GameScene::onTouchEnded(Touch* touch, Event* event) {
-    mouse_down = false;
-    //soldier->MoveTo(touch->getLocation());
-    Vec2 v = touch->getLocation();
-    //soldier->setPosition(mouse2map(v));
-}
-
-void GameScene::onMouseScroll(Event* event) {
-    EventMouse *e = (EventMouse *)event;
-    float fscrol = e->getScrollY();
-    //scaleMap(e->getLocation(), fscrol);
+void GameScene::addSoldier(TMXTiledMap* map,Soldier *msoldier) { //将士兵添加到map中
+    msoldier->setPosition(Vec2(AppDelegate::width() / 2.f, AppDelegate::height() / 2.f));
+    map->addChild(msoldier);
+    m_map->reorderChild(msoldier, 3);
 }
 
 void GameScene::loadUIlayer(Node *scene_node) {
@@ -174,21 +164,25 @@ void GameScene::onDirectionTouched(Ref *ref, Widget::TouchEventType type) {
     switch(type) {
     case Widget::TouchEventType::BEGAN:
     {
+        soldier->setSpeed(50);
         pos_began = btn->getTouchBeganPosition();
         log("[log Direction]began pos: %.2f %.2f", pos_began.x, pos_began.y);
     }
-        break;
+    break;
     case Widget::TouchEventType::ENDED:
     {
         auto pos = btn->getTouchEndPos();
         log("[log Direction]end pos: %.2f %.2f", pos.x, pos.y);
+        soldier->action_stop();
     }
-        break;
+    break;
     case Widget::TouchEventType::MOVED:
     {
         auto pos = btn->getTouchMovePos();
-        log("[log Direction]move pos: %.2f %.2f", pos.x, pos.y);
+        auto dt = pos - pos_began;
+        soldier->action_move(dt);
+        log("[log Direction]move pos: %.2f %.2f", dt.x, dt.y);
     }
-        break;
+    break;
     }
 }

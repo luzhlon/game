@@ -15,12 +15,12 @@ Node *SceneLayer::loadLayer(const std::string& sceneFile, int layerTag) {
                 loadLayer(node, layerTag) : nullptr;
 }
 
-Node *SceneLayer::loadLayer(Node *scene, int layerTag) {
+Layer *SceneLayer::loadLayer(Node *scene, int layerTag) {
     auto child = scene->getChildByTag(layerTag);
     if(child) {
         child->removeFromParent();
         addChild(child);
-        return child;
+        return static_cast<Layer *>(child);
     } else
         return nullptr;
 }
