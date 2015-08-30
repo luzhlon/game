@@ -32,6 +32,7 @@ bool MenuScene::init() {
 
     setClickCallback(layout, "button_multi", CC_CALLBACK_1(MenuScene::onMultiClick, this));
     setClickCallback(layout, "button_setting", CC_CALLBACK_1(MenuScene::onSettingClick, this));
+    setClickCallback(layout, "button_quit", CC_CALLBACK_1(MenuScene::onQuitClick, this));
 
     return true;
 }
@@ -39,4 +40,8 @@ bool MenuScene::init() {
 void MenuScene::onEnter() {
     Layer::onEnter();
     CurScene(SCENE_MENU);
+}
+
+void MenuScene::onQuitClick(Ref *ref) {
+	Director::getInstance()->end();
 }

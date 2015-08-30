@@ -23,7 +23,7 @@ public:
 
     enum { SoldierNumber = 3 };
     static Soldier *s_soldiers[SoldierNumber];
-    //static bool loadAllSoldier();
+    static bool loadAllSoldier();
 
     inline void setAngle(Vec2 v) {
         _angle = v.getNormalized();

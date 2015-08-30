@@ -1,0 +1,31 @@
+<Solution>
+  <PropertyGroup Name="Setting" Version="2.3.2.0" Type="CocosStudio" />
+  <SolutionFolder>
+    <Group ctype="ResourceGroup">
+      <RootFolder Name=".">
+        <Folder Name="DifficultySelection">
+          <Image Name="DS16.png" />
+        </Folder>
+        <Project Name="setting_layer.csd" Type="Layer" />
+        <Folder Name="Setting">
+          <Image Name="BaS07.png" />
+          <Image Name="BaS08.png" />
+          <Image Name="BaS09.png" />
+          <Image Name="BaS10.png" />
+          <Image Name="BaS11.png" />
+          <Image Name="BaS17.png" />
+          <Image Name="DnE10.png" />
+          <Image Name="DnE15.png" />
+          <Image Name="pvpangle03.png" />
+          <Image Name="pvpangle04.png" />
+          <Image Name="pvpangle05.png" />
+          <Image Name="pvpangle06.png" />
+          <Image Name="PvPMsgBoard.png" />
+          <Image Name="Star026.png" />
+          <Image Name="Star026_2.png" />
+        </Folder>
+        <Project Name="setting_scene.csd" Type="Scene" />
+      </RootFolder>
+    </Group>
+  </SolutionFolder>
+</Solution>

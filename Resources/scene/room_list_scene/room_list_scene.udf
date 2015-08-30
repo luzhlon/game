@@ -31,9 +31,9 @@
     <Item Key="TabsParamsKey">
       <Value ctype="TabsInfo">
         <OpenedDocuments>
-          <FilePathData Path="room_list_scene.csd" />
           <FilePathData Path="room_list_layer.csd" />
           <FilePathData Path="list_item.csd" />
+          <FilePathData Path="room_list_scene.csd" />
         </OpenedDocuments>
         <ActiveDocument Path="room_list_layer.csd" />
       </Value>

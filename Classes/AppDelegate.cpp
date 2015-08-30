@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-//#include "MenuScene.h"
+#include "MenuScene.h"
 #include "GameScene.h"
 
 USING_NS_CC;
@@ -91,8 +91,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	_frameSize = Director::getInstance()->getVisibleSize();
 
     // create a scene. it's an autorelease object
-    auto scene = GameScene::createScene();
-    //auto scene = MenuScene::createScene();
+    //auto scene = GameScene::createScene();
+    auto scene = MenuScene::createScene();
     // 运行场景
     director->runWithScene(scene);
 
