@@ -30,9 +30,8 @@
         <OpenedDocuments>
           <FilePathData Path="menu_layer.csd" />
           <FilePathData Path="menu_scene.csd" />
-          <FilePathData Path="map.csi" />
         </OpenedDocuments>
-        <ActiveDocument Path="map.csi" />
+        <ActiveDocument Path="menu_layer.csd" />
       </Value>
     </Item>
   </Properties>

@@ -1,4 +1,5 @@
 ﻿#include "RoomListScene.h"
+#include "GameScene.h"
 #include "Dialog.h"
 #include "Client.h"
 #include "cocostudio/CocoStudio.h"
@@ -117,6 +118,7 @@ void RoomListScene::onCreateClick(Ref *ref) {
 
 void RoomListScene::onEnterClick(Ref *ref) {
     //uncomplete
+	Director::getInstance()->pushScene(GameScene::createScene());
 }
 
 void RoomListScene::onUpdateClick(Ref *) {

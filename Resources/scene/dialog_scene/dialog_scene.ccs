@@ -6,6 +6,13 @@
         <Project Name="dialog_scene.csd" Type="Scene" />
         <Image Name="HelloWorld.png" />
         <Project Name="dialog_layer.csd" Type="Layer" />
+        <Image Name="dialog.png" />
+        <Image Name="bottom_1.png" />
+        <Image Name="bottom_2.png" />
+        <Image Name="bottom_3.png" />
+        <Image Name="bottomtwo_1.png" />
+        <Image Name="bottomtwo_2.png" />
+        <Image Name="bottomtwo_3.png" />
       </RootFolder>
     </Group>
   </SolutionFolder>

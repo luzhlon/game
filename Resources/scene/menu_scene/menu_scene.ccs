@@ -6,14 +6,12 @@
         <Project Name="menu_scene.csd" Type="Scene" />
         <Image Name="HelloWorld.png" />
         <Project Name="menu_layer.csd" Type="Layer" />
-        <Image Name="Button_Normal.png" />
-        <PlistInfo Name="map.csi" Type="Plist" />
-        <Image Name="1.png" />
-        <Image Name="2.png" />
-        <Image Name="3.png" />
-        <Image Name="4.png" />
-        <Image Name="5.png" />
-        <Image Name="6.png" />
+        <PlistParticleFile Name="lizi.plist" />
+        <Image Name="scene.png" />
+        <Image Name="bottom.png" />
+        <Image Name="bottom2.png" />
+        <Image Name="bottom_1.png" />
+        <Image Name="bottom_3.png" />
       </RootFolder>
     </Group>
   </SolutionFolder>

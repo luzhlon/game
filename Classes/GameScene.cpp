@@ -171,14 +171,14 @@ void GameScene::onDirectionTouched(Ref *ref, Widget::TouchEventType type) {
     break;
     case Widget::TouchEventType::ENDED:
     {
-        auto pos = btn->getTouchEndPos();
+        auto pos = btn->getTouchEndPosition();
         log("[log Direction]end pos: %.2f %.2f", pos.x, pos.y);
         soldier->action_stop();
     }
     break;
     case Widget::TouchEventType::MOVED:
     {
-        auto pos = btn->getTouchMovePos();
+        auto pos = btn->getTouchMovePosition();
         auto dt = pos - pos_began;
         soldier->action_move(dt);
         log("[log Direction]move pos: %.2f %.2f", dt.x, dt.y);

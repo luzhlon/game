@@ -3,10 +3,12 @@
 
 bool WomanSoldier::init() {
     if(!Soldier::init()) return false;
-
-	_sprite = Sprite3D::create("test.c3b");
+	//*
+	FileUtils::getInstance()->addSearchPath("./sprite/girl2");
+	//*/
+	_sprite = Sprite3D::create("girl2.c3b");
 	_sprite->setRotation3D(Vec3(180.f , 180.f, 180.f));
-	_sprite->setScale(2.f);
+	_sprite->setScale(1.5f);
 
 	m_anim_walk = Animation3D::create("test.c3b");
 	m_anim_throw = Animation3D::create("throw.c3b");

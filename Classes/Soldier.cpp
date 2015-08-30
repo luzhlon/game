@@ -1,9 +1,8 @@
 #include <math/CCMath.h>
 #include "Soldier.h"
 #include "WomanSoldier.h"
-
-//#include "ManSoldier.h"
-//#include "HorseSoldier.h"
+#include "ManSoldier.h"
+#include "HorseSoldier.h"
 
 /*
 char *Soldier::angle_str[8] = { "right", "ur", "up", "ul", "left", "dl", "down", "dr" };
@@ -73,7 +72,7 @@ bool Soldier::init(){
 
 Soldier *Soldier::s_soldiers[Soldier::SoldierNumber];
 
-/*
+//*
 bool Soldier::loadAllSoldier() {
     bool loaded = true;
     loaded = loaded && (s_soldiers[0] = HorseSoldier::create());
@@ -96,12 +95,11 @@ void Soldier::updatePos(float dt) {
     case MOVE:
     {
         Vec2 pos = _sprite->getPosition();
-        pos += Vec2(_speed * _angle.x * UPDATE_RATE,
-                    _speed * _angle.y * UPDATE_RATE);
-
+        pos += Vec2(_speed * _angle.x * dt,
+                    _speed * _angle.y * dt);
         Vec3 rota = _sprite->getRotation3D();
         rota.y = _base_angle_y
-                + CC_RADIANS_TO_DEGREES(_angle.getAngle());
+                - CC_RADIANS_TO_DEGREES(_angle.getAngle());
         _sprite->setRotation3D(rota);
         _sprite->setPosition(pos);
     }

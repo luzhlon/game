@@ -7,6 +7,11 @@
         <Image Name="HelloWorld.png" />
         <Project Name="role_layer.csd" Type="Layer" />
         <Project Name="role_page.csd" Type="Layer" />
+        <Image Name="scene_2.png" />
+        <PlistParticleFile Name="lizi.plist" />
+        <Image Name="bottom_1.png" />
+        <Image Name="bottom2.png" />
+        <Image Name="bottom_3.png" />
       </RootFolder>
     </Group>
   </SolutionFolder>
