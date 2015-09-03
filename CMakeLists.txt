@@ -127,17 +127,9 @@ endif( WIN32 )
 
 set(GAME_SRC
   Classes/AppDelegate.cpp
-  Classes/HorseSoldier.cpp
   Classes/SceneLayer.cpp
   Classes/GameScene.cpp
-  Classes/MenuScene.cpp
-  Classes/SettingScene.cpp
-  Classes/RoleScene.cpp
-  Classes/RoomScene.cpp
-  Classes/RoomListScene.cpp
   Classes/Soldier.cpp
-  Classes/Client.cpp
-  Classes/ODSocket.cpp
   ${PLATFORM_SPECIFIC_SRC}
 )
 
