@@ -1,4 +1,4 @@
-#include <QThread>
+﻿#include <QThread>
 #include <QtNetwork/qtcpsocket.h>
 #include <QtNetwork/qtcpserver.h>
 

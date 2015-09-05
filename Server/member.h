@@ -1,4 +1,4 @@
-#ifndef MEMBER_H
+﻿#ifndef MEMBER_H
 #define MEMBER_H
 
 #include <QString>
@@ -36,8 +36,8 @@ private:
     friend class Room;
     friend class MsgHandler;
 
-    Room *m_room = nullptr; //所属房间
-    MsgHandler *m_handler; //对应的处理器
+    Room *m_room = nullptr;
+    MsgHandler *m_handler;
     const char *m_err = nullptr;
 };
 

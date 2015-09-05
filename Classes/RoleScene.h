@@ -1,4 +1,4 @@
-#ifndef __ROLESCENE_H__
+﻿#ifndef __ROLESCENE_H__
 #define __ROLESCENE_H__
 
 #include "SceneLayer.h"

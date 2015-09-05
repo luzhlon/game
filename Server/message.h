@@ -1,31 +1,30 @@
-#ifndef __MESSAGE_H__
+﻿#ifndef __MESSAGE_H__
 #define __MESSAGE_H__
 
-#include <iostream>
+typedef int msg_arg;
+typedef unsigned short msg_len;
+typedef unsigned short msg_msg;
 
 //包的最大长度
 #define MAX_PKG_LENGTH 10240
+
+struct mini_net_pkg {
+    msg_len len;
+    msg_msg msg;
+    msg_arg arg1;
+    msg_arg arg2;
+};
+
+struct net_pkg : mini_net_pkg {
+    char data[MAX_PKG_LENGTH]; //额外的数据
+}; //数据包
+
 //房间成员昵称名字的最大长度
 #define MAX_MEMBER_NAME_LEN 16
 //房间名字的最大长度
 #define MAX_ROOM_NAME_LEN 32
 //房间最大成员数
 #define MAX_ROOM_MEMBERS 6
-
-typedef int msg_arg;
-typedef unsigned short msg_len;
-typedef unsigned short msg_msg;
-
-struct mini_net_pkg {
-    msg_len len; //数据包长度
-    msg_msg msg; //消息
-    msg_arg arg1; //参数1
-    msg_arg arg2; //参数2
-}; //net_pkg - data[MAX_PKG_LENGTH]
-
-struct net_pkg : mini_net_pkg {
-    char data[MAX_PKG_LENGTH]; //额外的数据
-}; //数据包
 
 #define MEMBER_FLAG_READY (0x01)
 #define MEMBER_FLAG_TEAM (0x02)
@@ -59,7 +58,7 @@ struct room_member {
 struct room_state {
     char name[MAX_ROOM_NAME_LEN];
     room_member members[MAX_ROOM_MEMBERS];
-}; //
+};
 
 //最小的包长度
 #define NET_PKG_SIZE (sizeof(mini_net_pkg))
@@ -97,4 +96,4 @@ static const char *g_check_name(char *name) {
     return nullptr;
 }
 
-#endif
+#endif //

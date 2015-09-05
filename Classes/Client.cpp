@@ -1,4 +1,4 @@
-#include "Client.h"
+﻿#include "Client.h"
 
 Client *Client::s_client = nullptr;
 char *Client::s_serverIP = SERVER_IP;

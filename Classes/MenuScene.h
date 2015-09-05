@@ -1,4 +1,4 @@
-#ifndef __MENUSCENE_H__
+﻿#ifndef __MENUSCENE_H__
 #define __MENUSCENE_H__
 
 #include "SceneLayer.h"

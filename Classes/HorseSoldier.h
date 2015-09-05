@@ -1,4 +1,4 @@
-#ifndef __HORSESOLDIER_H__
+﻿#ifndef __HORSESOLDIER_H__
 #define __HORSESOLDIER_H__
 
 #include "Soldier.h"

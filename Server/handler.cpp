@@ -1,4 +1,4 @@
-#include <QDebug>
+﻿#include <QDebug>
 #include <QThread>
 #include "room.h"
 #include "handler.h"

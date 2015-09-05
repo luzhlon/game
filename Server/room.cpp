@@ -1,4 +1,4 @@
-#include <QDebug>
+﻿#include <QDebug>
 #include "member.h"
 #include "room.h"
 #include "handler.h"

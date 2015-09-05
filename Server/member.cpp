@@ -1,19 +1,19 @@
-#include "member.h"
+﻿#include "member.h"
 #include "room.h"
 
 QHash<QString, Member *> Member::g_member;
 
 Member::Member(char *name, MsgHandler *handler) {
-    //昵称太长
+
     if(strlen(name) >= MAX_MEMBER_NAME_LEN) {
         m_err = "nick name too long";
         return;
     }
-    if(g_member[name]) { //此昵称已经存在
+    if(g_member[name]) {
         m_err = "nick name existed";
         return;
     }
-    //
+
     m_err = g_check_name(name);
     if(m_err) return;
     strcpy(m_name, name);
@@ -27,11 +27,11 @@ Member::~Member() {
 
 bool Member::join_room(char *room_name) {
     auto room = Room::getRoom(room_name);
-    if(!room) { //没有此房间
+    if(!room) {
         m_err = "no this room";
         return false;
     }
-    if(m_room) { //已经在一个房间里了
+    if(m_room) {
         m_err = "in a room now";
         return false;
     }
@@ -39,12 +39,12 @@ bool Member::join_room(char *room_name) {
         m_err = m_room->error();
         return false;
     }
-    m_room = room; //设置自己的房间
+    m_room = room;
     return true;
 }
 
 bool Member::quit_room() {
-    if(!m_room) { //没有处在一个房间里
+    if(!m_room) {
         m_err = "not in a room";
         return false;
     }
@@ -52,6 +52,6 @@ bool Member::quit_room() {
         m_err = m_room->error();
         return false;
     }
-    m_room = nullptr; //把自己的房间置空
+    m_room = nullptr;
     return true;
 }

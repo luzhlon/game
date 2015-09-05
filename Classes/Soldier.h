@@ -1,4 +1,4 @@
-#ifndef _Soldier_H_
+﻿#ifndef _Soldier_H_
 #define _Soldier_H_
 #include "string"
 #include "cocos2d.h"
