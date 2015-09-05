@@ -25,4 +25,4 @@
 
 
 ## VS2013 不能正确处理UTF-8无BOM编码的文件
-> 从Linux移植到Windows上的源代码文件(这些文件之前经过了iconv处理)，在VS2013下编译出错，费了好大劲才找到错误，将UTF-8无BOM编码的文件转换成UTF-8的就好了(用Notepad ++)
+> 从Linux移植到Windows上的源代码文件(这些文件之前经过了iconv处理)，在VS2013(cl.exe)下编译出错，费了好大劲才找到错误，将UTF-8无BOM编码的文件转换成UTF-8的就好了(用Notepad ++)
