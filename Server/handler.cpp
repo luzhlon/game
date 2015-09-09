@@ -1,7 +1,10 @@
 ﻿#include <QDebug>
 #include <QThread>
 #include "room.h"
+#include "dialog.h"
 #include "handler.h"
+
+extern Dialog *g_dialog;
 
 MsgHandler::MsgHandler(QTcpSocket *sock) {
     m_socket = sock;
@@ -42,6 +45,7 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
                      << " created by "
                      << self->member()->name();
         }
+        g_dialog->updateRoomList();
     };
     HANDLER(join_room) {
         if(self->member()->join_room(pkg->data)) {
@@ -56,6 +60,7 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
         } else {
             self->Reply(pkg, 0, self->member()->error());
         }
+        g_dialog->updateRoomList();
     };
     HANDLER(room_members) {
         self->member()->room()->broadMembers();

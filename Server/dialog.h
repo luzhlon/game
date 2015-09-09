@@ -18,8 +18,6 @@ public:
     void updateRoomList();
 
 private slots:
-    void on_btnTurnOn_clicked();
-
     void on_button_create_clicked();
 
     void on_check_switch_toggled(bool checked);

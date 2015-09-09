@@ -8,14 +8,14 @@
 #include "cocos2d.h"
 #include "ODSocket.h"
 
+#define SERVER_IP "127.0.0.1"
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "windows.h"
 #define sleep Sleep
-#define SERVER_IP "192.168.191.2"
 #else
 #include "unistd.h"
 #define sleep usleep
-#define SERVER_IP "127.0.0.1"
 #endif
 
 #define MAX_BLOCK_MSG_NUM 16

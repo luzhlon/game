@@ -47,7 +47,7 @@ bool RoomListScene::init() {
     CC_ASSERT(layout); //load layout failure
 
     setClickCallback(layout, "button_create", CC_CALLBACK_1(RoomListScene::onCreateClick, this));
-    setClickCallback(layout, "button_enter", CC_CALLBACK_1(RoomListScene::onEnterClick, this));
+    setClickCallback(layout, "button_update", CC_CALLBACK_1(RoomListScene::onUpdateClick, this));
     setClickCallback(layout, "button_back", CC_CALLBACK_1(RoomListScene::onBackClick, this));
 
     m_listRoom = static_cast<ListView *>(Helper::seekWidgetByName(layout, "list_room"));

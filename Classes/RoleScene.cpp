@@ -82,10 +82,6 @@ void RoleScene::onEnter() {
 }
 
 void RoleScene::onStartClick(Ref *ref) {
-
-	//DEBUG
-	Director::getInstance()->pushScene(RoomListScene::createScene());
-
     if(!Client::getInstance()->isConnected()) {
         log("[Connect] server failure.");
         return;
