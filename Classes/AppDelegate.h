@@ -3,22 +3,18 @@
 
 #include "cocos2d.h"
 
-using namespace cocos2d;
-
 /**
 @brief    The cocos2d Application.
 
 The reason for implement as private inheritance is to hide some interface call by Director.
 */
-class  AppDelegate : private Application
+class  AppDelegate : private cocos2d::Application
 {
 public:
     AppDelegate();
     virtual ~AppDelegate();
 
     virtual void initGLContextAttrs();
-	void exitGame();
-	void toPrevious();
 
     /**
     @brief    Implement Director and Scene init code here.
@@ -39,16 +35,12 @@ public:
     */
     virtual void applicationWillEnterForeground();
 
-    static Size _frameSize;
-
-	inline static const Size &size() {
-		return _frameSize;
-	}
+	static cocos2d::Size _frame;
 	inline static float width() {
-		return _frameSize.width;
+		return _frame.width;
 	}
 	inline static float height() {
-		return _frameSize.height;
+		return _frame.height;
 	}
 };
 

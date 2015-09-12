@@ -26,11 +26,22 @@ Layer *SceneLayer::loadLayer(Node *scene, int layerTag) {
 }
 
 bool SceneLayer::setClickCallback(Layout *layout,
-                                        const std::string& btnName,
-                                        const Widget::ccWidgetClickCallback& callback) {
+							const std::string& btnName,
+							const Widget::ccWidgetClickCallback& callback) {
     auto widget = Helper::seekWidgetByName(layout, btnName);
     if(widget) {
         widget->addClickEventListener(callback);
+        return true;
+    } else
+        return false;
+}
+
+bool SceneLayer::setTouchCallback(Layout *layout,
+								const std::string& btnName,
+								const Widget::ccWidgetTouchCallback& callback) {
+    auto widget = Helper::seekWidgetByName(layout, btnName);
+    if(widget) {
+		widget->addTouchEventListener(callback);
         return true;
     } else
         return false;

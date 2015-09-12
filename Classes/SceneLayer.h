@@ -2,7 +2,6 @@
 #define SCENELAYER_H
 
 #include "cocos2d.h"
-#include "HorseSoldier.h"
 #include "ui/CocosGUI.h"
 
 USING_NS_CC;
@@ -41,6 +40,9 @@ protected:
     bool setClickCallback(Layout *layout,
                           const std::string& btnName,
                           const Widget::ccWidgetClickCallback& callback);
+    bool setTouchCallback(Layout *layout,
+                          const std::string& btnName,
+                          const Widget::ccWidgetTouchCallback& callback);
 };
 
 #endif // SCENELAYER_H

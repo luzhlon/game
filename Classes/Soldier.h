@@ -1,29 +1,60 @@
 ﻿#ifndef _Soldier_H_
 #define _Soldier_H_
-#include "string"
+
+#include <string>
 #include "cocos2d.h"
+#include "ui/CocosGUI.h"
+#include "cocostudio/CocoStudio.h"
+#include "Particle3D/PU/CCPUParticleSystem3D.h"
 
 USING_NS_CC;
+using namespace ui;
 using namespace std;
+using namespace cocostudio;
 
 #define UPDATE_RATE 0.02f
 
-class Soldier : public Node
+class Soldier : public Sprite3D
 {
 public:
-    enum Status {
-        STOP,
-        MOVE,
+    enum State {
+        SOLDIER_STATE_IDLE = 1 << 0,
+        SOLDIER_STATE_MOVE = 1 << 1,
+        SOLDIER_STATE_ACTION = 1 << 2,
 
-        END
+        STATE_END
     };
+    enum Type {
+        SOLDIER_TYPE_WOMAN = 0,
+        TYPE_END
+    };
+
+    enum { SoldierNumber = 3 };
+
+    static const float s_full_blood;
+    static Soldier *s_soldiers[SoldierNumber];
+    static Soldier *s_followed;
 public:
 	CREATE_FUNC(Soldier);
     bool init() override;
 
-    enum { SoldierNumber = 3 };
-    static Soldier *s_soldiers[SoldierNumber];
-    static bool loadAllSoldier();
+    static bool loadAllSoldier(); //加载所有类型的Soldier
+
+    void update(float dt) override; //帧刷新
+
+    virtual bool init_soldier() { return true; } //子类重写
+
+    void addThing(Node *);
+
+    inline void addState(State state) { //给Soldier添加状态
+        _state = (State)(_state | state);
+    }
+    inline bool atState(State s) { //判断Soldier是否处于某个状态
+        return _state & s;
+    }
+    inline void rmState(State state) { //移除某个状态
+        _state = (State)(_state & (~state));
+    }
 
     inline void setAngle(Vec2 v) {
         _angle = v.getNormalized();
@@ -36,17 +67,8 @@ public:
         _speed = s;
     }
 
-    inline void setStatus(Status s) {
-        _status = s;
-    }
-    inline Status getStatus() {
-        return _status;
-    }
-
-    void updatePos(float );
-
     inline void action_move() {
-        setStatus(MOVE);
+        addState(SOLDIER_STATE_MOVE);
     }
     inline void action_move(Vec2 angle) {
         setAngle(angle);
@@ -54,26 +76,49 @@ public:
     }
 
     inline void action_stop() {
-        setStatus(STOP);
+        rmState(SOLDIER_STATE_MOVE);
     }
 
-	//virtual void MoveStep(int angle, int nStep = 1);
-    //virtual void MoveTo(Vec2 vec);
-	//virtual void MoveTo(int nStep, int angle) = 0;
+    inline Vec3 &getCameraOffset() {
+        return _camera_offset;
+    }
+    inline float getHeightOffset() {
+        return _height_offset;
+    }
+    inline void setCameraFollowed() {
+        s_followed = this;
+    }
+
+    void show_blood_decline(float);
+    void CameraZoom(float factor);
+    void CameraRotate(Vec2 &v);
+    void updatePosition(float dt = 0.f);
+    void updateRotation();
+    void updateBlood();
+
+private:
+    State _state = SOLDIER_STATE_IDLE;
+
 protected:
-    Sprite3D* _sprite = nullptr;
-    Status _status = STOP;
-    float _speed = 200.f;
-    //float _oritation = 0.f;
-    float _base_angle_y = 180.f; //dgree
+    string _name = "<unset>";
+    float _speed = 10.f;
+    float _base_angle_z;
+    float _blood = 80.f;
     Vec2  _angle;
+
+    BillBoard *_billboard = nullptr;
+
+    LoadingBar *_blood_bar;
+
+    Action *_cur_action = nullptr;  //当前的动作
+    PUParticleSystem3D *_cur_action_pu = nullptr;  //当前动作所使用的粒子系统
+
+    Vec3 _camera_offset = Vec3(0.f, 120.f, 60.f);
+    float _height_offset = -10.f;
 
     int m_id = 0;//ID是这个对象的唯一的标识
 	int m_hp;//当前HP
 	int m_hp_max;//HP最大值
 	int m_sp;//技能点
-    /*
-	Animation *m_animation[8]; //8个方向动画
-    SpriteFrame* m_stand_frame[8]; //8个方向站立图片 // */
 };
 #endif
