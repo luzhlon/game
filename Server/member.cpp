@@ -36,7 +36,7 @@ bool Member::join_room(char *room_name) {
         return false;
     }
     if(!room->add(this)) {
-        m_err = m_room->error();
+        m_err = room->error();
         return false;
     }
     m_room = room;

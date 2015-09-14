@@ -39,21 +39,8 @@ bool GameScene::init()
     if ( !Layer::init() ) {
         return false;
     }
+
     {
-        g_file->addSearchPath("scene/dialog_scene");
-        g_file->addSearchPath("scene/menu_scene");
-        g_file->addSearchPath("scene/room_list_scene");
-        g_file->addSearchPath("scene/role_scene");
-        g_file->addSearchPath("scene/setting_scene");
-        g_file->addSearchPath("scene/game_scene");
-
-        g_file->getInstance()->addSearchPath("Particle3D/materials");
-        g_file->getInstance()->addSearchPath("Particle3D/scripts");
-        g_file->getInstance()->addSearchPath("Particle3D/textures");
-
-        g_file->addSearchPath("character");
-
-
         g_player = Player::getInstance(WomanSoldier::create());
         g_world = World::getInstance();
         g_world->addThing(g_self);
@@ -87,8 +74,6 @@ void GameScene::loadUIlayer() {
 
 	setTouchCallback(layout, "button_direction", CC_CALLBACK_2(GameScene::onDirectionTouched, this));
     setClickCallback(layout, "button_1", [this](Ref *ref) {
-		auto s = (WomanSoldier *)g_self;
-		s->action_throw();
 	});
     setClickCallback(layout, "button_2", [this](Ref *ref) {
 		auto s = (WomanSoldier *)g_self;
@@ -105,12 +90,13 @@ void GameScene::loadUIlayer() {
     setClickCallback(layout, "button_4", [this](Ref *ref) {
 		auto s = (WomanSoldier *)g_self;
         g_self->show_blood_decline(10.8f);
+        g_player->draw_clear();
         //_LogVec3("[Soldier] Position: ", g_self->getPosition3D());
         //_LogVec3("[Soldier] Center: ", ((AABB&)(g_self->getAABB())).getCenter());
 	});
     setClickCallback(layout, "button_5", [this](Ref *ref) {
 		auto s = (WomanSoldier *)g_self;
-        s->setSpeed(100.f);
+        g_player->draw_circle(100.f);
 	});
 
     Skill::btn_skill_kick = static_cast<Button *>(Helper::seekWidgetByName(layout,  "button_skill_kick"));
@@ -120,7 +106,6 @@ void GameScene::loadUIlayer() {
     setClickCallback(layout, "button_skill_kick", Skill::onSkillClicked);
     setClickCallback(layout, "button_skill_boxing", Skill::onSkillClicked);
     setClickCallback(layout, "button_skill_special", Skill::onSkillClicked);
-
 
     addChild(m_layer_ui);
 }
@@ -135,21 +120,20 @@ void GameScene::onDirectionTouched(Ref *ref, Widget::TouchEventType type) {
     switch(type) {
     case Widget::TouchEventType::BEGAN:
     {
-        g_self->setSpeed(50);
         pos_began = btn->getTouchBeganPosition();
+        ui2gl(pos_began);
     }
     break;
     case Widget::TouchEventType::ENDED:
     {
-        auto pos = btn->getTouchEndPosition();
-        g_self->action_stop();
+        g_self->move_stop();
     }
     break;
     case Widget::TouchEventType::MOVED:
     {
         auto pos = btn->getTouchMovePosition();
+        ui2gl(pos);
         auto dt = pos - pos_began;
-        g_self->action_move(dt);
     }
     break;
     }
@@ -170,7 +154,6 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
     switch(type) {
     case Widget::TouchEventType::BEGAN:
     {
-        g_self->setSpeed(50);
         pos_began = wig->getTouchBeganPosition();
         pos_last = pos_began;
         _LogSize("[Positon:] ", Size(pos_began.x, pos_began.y));
@@ -184,6 +167,7 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
             Vec3 point(pos.x, pos.y, 0.f);
             if (g_world->conv2space(point)){
                 g_world->showPoint(point);
+                g_self->move(point);
             } else {
                 log("[World] get Space coordinate failure.");
             }
@@ -197,8 +181,8 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
 
         Vec2 angle = dt;
         ui2gl(dt);
-        angle.x *= 0.1;
-        angle.y *= 0.1;
+        angle.x *= 0.1f;
+        angle.y *= 0.1f;
 
         g_self->CameraRotate(angle);
 

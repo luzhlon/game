@@ -25,7 +25,7 @@ public:
         m_end = end;
     }
 
-    bool Recv(char *buf = 0); //接收用户消息
+    bool Recv(); //接收用户消息
     int _Reply(net_pkg *p, int size); //回复用户
     inline int Reply(net_pkg *p) {
         return _Reply(p, NET_PKG_SIZE_1);
@@ -78,6 +78,8 @@ public:
 
 public slots:
     void onDisconnected();
+    void onReadyRead();
+    void onStateChange(QAbstractSocket::SocketState state);
 
 private:
     QTcpSocket *m_socket = nullptr; //此处理器持有的socket
@@ -86,6 +88,9 @@ private:
     bool     m_end = false; //表明是否要结束处理
     const char *   m_err = nullptr;
     net_pkg  m_buf; //接收的数据包缓冲区
+    //
+    int m_bytes_to_recv = 0;
+    char *m_buf_to_recv = nullptr;
 };
 
 #define HANDLER(MSG) m_handlers[MESSAGE::MSG] = [](MsgHandler *self, net_pkg *pkg)

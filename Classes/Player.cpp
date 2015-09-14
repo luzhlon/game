@@ -33,10 +33,23 @@ void Player::showCircle(bool show) {
         circle3d->addChild(circle);
         circle->runAction(RepeatForever::create(RotateBy::create(3.5f, Vec3(0.f, 0.f, 360.f))));
 
-        circle3d->setRotation3D(Vec3(90.f, 90.f, 0.f));
+        circle3d->setRotation3D(Vec3(-90.f, -90.f, 0.f));
 
-        //circle->setCameraMask(World::CAMERA_I);
         _soldier->addThing(circle3d);
     }
     circle3d->setVisible(show);
+}
+
+void Player::draw_circle(float radius, Color4F& color) {
+    if (!_draw) {
+        _draw = DrawNode::create();
+        _soldier->addThing(_draw);
+    }
+    _draw->clear();
+    _draw->drawDot(Vec2(0, 0), radius, color);
+    auto clr = color;
+    clr.a = 0;
+    _draw->drawCircle(Vec2(0, 0), radius, CC_DEGREES_TO_RADIANS(90.f), 50, false, clr);
+    _draw->setRotation3D(Vec3(90, 0, 0));
+    //_draw->setGlobalZOrder(1);
 }

@@ -1,4 +1,5 @@
 ﻿#include "RoomListScene.h"
+#include "RoomScene.h"
 #include "GameScene.h"
 #include "Dialog.h"
 #include "Client.h"
@@ -37,6 +38,15 @@ void RoomListScene::onItemClick(Ref *ref) {
     Button *btn = dynamic_cast<Button *>(ref);
     CC_ASSERT(btn);
     string item = btn->getTitleText();
+    HANDLER(join_room) = Client::handler([this, &item](net_pkg *pkg) {
+        if (pkg->arg1) {
+            RoomScene::s_room_name = item;
+            Director::getInstance()->pushScene(RoomScene::createScene());
+        } else {
+            Dialog::getInstance()->Popup_t(this, "错误", "加入房间失败：" + string(pkg->data));
+        }
+    });
+    Client::getInstance()->sendMsg(MESSAGE::join_room, item.c_str());
     log("[Log] item %s clicked", item.c_str());
 }
 
@@ -75,18 +85,15 @@ void RoomListScene::onExit() {
 
 void RoomListScene::updateRoomList() {
     auto clt = Client::getInstance();
+    m_listRoom->removeAllItems();
     HANDLER(room_list) =
             Client::handler([this](net_pkg *pkg) {
-            if(!IsCurScene(SCENE_ROOMLIST)) return;
-
-            m_listRoom->removeAllItems();
-            char *p = pkg->data;
-            log("[Room num:] %d", pkg->arg1);
-            for(int i = 0; i < pkg->arg1; i++) {
-                log("[Room:] %s", p);
-                addRoomItem(p);
-                p += strlen(p) + 1;
-            }
+        if (pkg->arg1) {
+            //pkg->data[pkg->arg2] = '\0';
+            addRoomItem(pkg->data);
+        } else { //房间枚举结束
+            HANDLER(room_list) = nullptr;
+        }
     });
     clt->sendMsg((msg_msg)MESSAGE::room_list);
 }
@@ -94,6 +101,7 @@ void RoomListScene::updateRoomList() {
 void RoomListScene::onCreateClick(Ref *ref) {
 	auto dlg = Dialog::getInstance();
     dlg->setCallback(Dialog::Callback([this](Dialog *d, bool ok) {
+        if (!ok) return; //点击了取消按钮
         auto name = d->content_e()->getString();
         cocos2d::log("房间名：%s OK:%d",
                          name.c_str(), ok);
@@ -102,23 +110,17 @@ void RoomListScene::onCreateClick(Ref *ref) {
             return;
         }
         HANDLER(create_room) = Client::handler(
-                         [](net_pkg *pkg) {
-                        //uncomplete
+                         [this](net_pkg *pkg) {
                              if(pkg->arg1) {
                                  log("create room success");
+                                 updateRoomList();
                              } else {
-                                 log("create room success");
+                                 Dialog::getInstance()->Popup_t(this, "Create room failure", pkg->data);
                              }
                          });
         Client::getInstance()->sendMsg(MESSAGE::create_room, name.c_str());
-		updateRoomList();
     }));
     dlg->Popup_e(this, "创建房间", "Room name");
-}
-
-void RoomListScene::onEnterClick(Ref *ref) {
-    //uncomplete
-	Director::getInstance()->pushScene(GameScene::createScene());
 }
 
 void RoomListScene::onUpdateClick(Ref *) {

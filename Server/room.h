@@ -50,7 +50,7 @@ public:
 protected:
     char m_name[MAX_ROOM_NAME_LEN]; //房间名称
     const char *m_err = nullptr; //上一个错误
-    Member *m_members[MAX_ROOM_MEMBERS];// = { nullptr }; //成员列表
+    Member *m_members[MAX_ROOM_MEMBERS]; //成员列表
     //Member *m_master = nullptr; //房间主人
 };
 

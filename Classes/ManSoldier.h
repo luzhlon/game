@@ -5,7 +5,7 @@
 
 class ManSoldier : public Soldier {
 public:
-    virtual bool init();
+    bool init_soldier() override;
 
     CREATE_FUNC(ManSoldier);
 

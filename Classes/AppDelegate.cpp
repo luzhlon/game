@@ -1,5 +1,6 @@
 ﻿#include "AppDelegate.h"
-#include "GameScene.h"
+//#include "GameScene.h"
+#include "MenuScene.h"
 
 USING_NS_CC;
 
@@ -68,24 +69,37 @@ bool AppDelegate::applicationDidFinishLaunching() {
     Size frameSize = glview->getFrameSize();
     // if the frame's height is larger than the height of medium size.
     if (frameSize.height > mediumResolutionSize.height)
-    {        
-        g_director->setContentScaleFactor(MIN(largeResolutionSize.height/designResolutionSize.height, largeResolutionSize.width/designResolutionSize.width));
+    {
+    g_director->setContentScaleFactor(MIN(largeResolutionSize.height/designResolutionSize.height, largeResolutionSize.width/designResolutionSize.width));
     }
     // if the frame's height is larger than the height of small size.
     else if (frameSize.height > smallResolutionSize.height)
-    {        
-        g_director->setContentScaleFactor(MIN(mediumResolutionSize.height/designResolutionSize.height, mediumResolutionSize.width/designResolutionSize.width));
+    {
+    g_director->setContentScaleFactor(MIN(mediumResolutionSize.height/designResolutionSize.height, mediumResolutionSize.width/designResolutionSize.width));
     }
     // if the frame's height is smaller than the height of medium size.
     else
-    {        
-        g_director->setContentScaleFactor(MIN(smallResolutionSize.height/designResolutionSize.height, smallResolutionSize.width/designResolutionSize.width));
+    {
+    g_director->setContentScaleFactor(MIN(smallResolutionSize.height/designResolutionSize.height, smallResolutionSize.width/designResolutionSize.width));
     } // */
+    {
+        g_file->addSearchPath("scene/dialog_scene");
+        g_file->addSearchPath("scene/menu_scene");
+        g_file->addSearchPath("scene/room_scene");
+        g_file->addSearchPath("scene/room_list_scene");
+        g_file->addSearchPath("scene/role_scene");
+        g_file->addSearchPath("scene/setting_scene");
+        g_file->addSearchPath("scene/game_scene");
 
-    register_all_packages();
+        g_file->getInstance()->addSearchPath("Particle3D/materials");
+        g_file->getInstance()->addSearchPath("Particle3D/scripts");
+        g_file->getInstance()->addSearchPath("Particle3D/textures");
+
+        g_file->addSearchPath("character");
+    }
 
     // create a scene. it's an autorelease object
-    auto scene = GameScene::createScene();
+    auto scene = MenuScene::createScene();
     // run
     g_director->runWithScene(scene);
 

@@ -33,9 +33,6 @@
     <ClCompile Include="..\Classes\GameScene.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\HorseSoldier.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\ManSoldier.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -58,6 +55,18 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\WomanSoldier.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Skill.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\World.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DrawNode3D.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Player.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

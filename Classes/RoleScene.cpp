@@ -1,6 +1,7 @@
 ﻿#include "RoleScene.h"
 #include "RoomListScene.h"
 #include "Client.h"
+#include "Dialog.h"
 #include "Soldier.h"
 #include "cocostudio/CocoStudio.h"
 
@@ -69,15 +70,17 @@ void RoleScene::onEnter() {
     }
     Client::getInstance()->start();
 	//认证是否成功
-    HANDLER(authentication) = Client::handler([](net_pkg *pkg) {
+    HANDLER(authentication) = Client::handler([this](net_pkg *pkg) {
         if(!IsCurScene(SCENE_ROLE)) return;
 		if (pkg->arg1) { //成功，进入房间列表
             log("[Auth success]");
 			Director::getInstance()->pushScene(RoomListScene::createScene());
 		}
-        else {
-            log("[Auth failure]: %s", pkg->data);
+        else { //失败，弹对话框
+            //log("[Auth failure]: %s", pkg->data);
+            Dialog::getInstance()->Popup_t(this, "错误", "认证失败！");
         }
+        HANDLER(authentication) = nullptr; //置空，防止重复调用
     });
 }
 

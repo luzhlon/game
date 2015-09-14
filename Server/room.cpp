@@ -18,6 +18,8 @@ Room::Room(char *name) {
     if(m_err) return;
     strcpy(m_name, name); //
     g_room[m_name] = this; //从哈希表中加入自己
+
+    for(int i = 0; i < MAX_ROOM_MEMBERS; i++) m_members[i] = nullptr; //初始化成员为空
 }
 
 Room::~Room() {

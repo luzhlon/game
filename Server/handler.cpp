@@ -9,6 +9,10 @@ extern Dialog *g_dialog;
 MsgHandler::MsgHandler(QTcpSocket *sock) {
     m_socket = sock;
     connect(m_socket, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
+    connect(m_socket, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
+    connect(m_socket, SIGNAL(stateChanged(QAbstractSocket::SocketState)),
+            this, SLOT(onStateChange(QAbstractSocket::SocketState)));
+
     m_handlers = new Handler[MESSAGE::Max_number]; //分配处理器Vector
 
     HANDLER(authentication) { //
@@ -25,13 +29,13 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
     };
     HANDLER(room_list) { //房间列表
         auto p = pkg->data;
-        pkg->arg1 = 0;
-        for(auto name : Room::list()) {
-            strcpy(p, name.toStdString().c_str());
-            p += name.length() + 1;
-            pkg->arg1 ++;
+        for(auto name : Room::list()) { //枚举房间列表并发送
+            pkg->arg1 = 1;
+            pkg->arg2 = strlen(p);
+            self->Reply(pkg, name.toStdString().c_str());
         }
-        self->Reply(pkg, pkg->data, p - pkg->data);
+        pkg->arg1 = 0; //枚举结束
+        self->Reply(pkg);
     };
     HANDLER(create_room) {
         auto room = new Room(pkg->data);
@@ -93,31 +97,14 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
 
 MsgHandler::~MsgHandler() {
     if(m_member) delete m_member;
-    delete m_socket;
-    delete m_handlers;
-}
-
-void MsgHandler::loopHandle() {
-    while(true) {
-        if(endHandle()) {
-            qDebug() << "[Connect:] "
-                     << (m_member ? member()->name() : m_socket->peerName())
-                     << "endHandle.";
-            break;
-        }
-        if(Recv()) {
-            handle();
-        }
-    }
+    delete[] m_handlers;
 }
 
 void MsgHandler::onDisconnected() {
     qDebug() << "[Connect:] "
              << (m_member ? member()->name() : m_socket->peerName())
              << "disconnected.";
-    endHandle(true);
-    //delete this;
-    //QThread::currentThread()->exit();
+    delete this;
 }
 
 void MsgHandler::handle(net_pkg *p) {
@@ -130,26 +117,33 @@ void MsgHandler::handle(net_pkg *p) {
     }
 }
 
-bool MsgHandler::Recv(char *buf) {
-    buf = buf ? buf : (char *)&m_buf;
-    auto pkg = (net_pkg *)buf;
-    int rev_size = 1;
+//异步回调式的完整性接收处理
+bool MsgHandler::Recv() {
+    auto pkg = &m_buf;
+    int rev_size = 0;
+    int to_recv = 0;
 
-    if(!m_socket->waitForReadyRead()) return false;
-    rev_size = m_socket->read(buf, MAX_PKG_LENGTH + NET_PKG_SIZE);
+    bool isHead = m_bytes_to_recv <= 0; //是否为接收头信息
 
-    if(rev_size <= 0) { return false; }
-    Q_ASSERT(pkg->len < MAX_PKG_LENGTH);
-    //循环接收保证获取数据完整
-    for(int n = pkg->len - rev_size; n > 0; ) {
-
-        if(!m_socket->waitForReadyRead()) return false;
-        rev_size = m_socket->read((buf += rev_size), n);
-
-        if(rev_size <= 0) { return false; }
-        n -= rev_size;
+    if(isHead) {
+        to_recv = MAX_PKG_LENGTH + NET_PKG_SIZE;
+        m_buf_to_recv = (char *)pkg;
+    } else {
+        to_recv = m_bytes_to_recv;
+        m_buf_to_recv += m_bytes_to_recv;
     }
-    return true;
+
+    rev_size = m_socket->read(m_buf_to_recv, to_recv);
+    Q_ASSERT(rev_size > 0);
+
+    if(isHead) {
+        Q_ASSERT(pkg->len < MAX_PKG_LENGTH);
+        m_bytes_to_recv = pkg->len - rev_size;
+    } else {
+        m_bytes_to_recv -= rev_size;
+    }
+
+    return m_bytes_to_recv <= 0; //条件成立则数据已接收完
 }
 
 int MsgHandler::_Reply(net_pkg *p, int size) {
@@ -157,4 +151,33 @@ int MsgHandler::_Reply(net_pkg *p, int size) {
     int ret = m_socket->write((const char *)p, (qint64)size);
     m_socket->flush();
     return ret;
+}
+//数据到达时调用
+void MsgHandler::onReadyRead() {
+    if(endHandle()) {
+        qDebug() << "[Connect:] "
+                 << (m_member ? member()->name() : m_socket->peerName())
+                 << "endHandle.";
+        m_socket->disconnectFromHost();
+    }
+    if(Recv()) handle(); //数据接收完整后处理
+}
+
+void MsgHandler::onStateChange(QAbstractSocket::SocketState state) {
+    switch(state) {
+    case QAbstractSocket::UnconnectedState:
+        break;
+    case QAbstractSocket::HostLookupState:
+        break;
+    case QAbstractSocket::ConnectingState:
+        break;
+    case QAbstractSocket::ConnectedState:
+        break;
+    case QAbstractSocket::BoundState:
+        break;
+    case QAbstractSocket::ClosingState:
+        break;
+    case QAbstractSocket::ListeningState:
+        break;
+    }
 }

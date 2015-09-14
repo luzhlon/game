@@ -17,10 +17,9 @@ public:
     CREATE_FUNC(RoomListScene);
 
     void onCreateClick(Ref *);
-    void onEnterClick(Ref *);
     void onUpdateClick(Ref *);
     void onBackClick(Ref *);
-    void onItemClick(Ref *);
+    void onItemClick(Ref *); //进入相应的房间
 
     bool addRoomItem(const string&);
 

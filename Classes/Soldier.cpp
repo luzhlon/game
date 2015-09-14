@@ -5,22 +5,38 @@
 
 Soldier *Soldier::s_soldiers[Soldier::SoldierNumber];
 Soldier *Soldier::s_followed = nullptr;
+const float Soldier::s_step = 10.f;
 const float Soldier::s_full_blood = 100.f;
 extern World *g_world;
 
+#define ACTION_MOVE 0
+#define ACTION_WALK 1
+
 bool Soldier::loadAllSoldier() {
     bool loaded = true;
-	//loaded = loaded && (s_soldiers[0] = HorseSoldier::create());
+    loaded = loaded && (s_soldiers[0] = WomanSoldier::create());
     loaded = loaded && (s_soldiers[1] = WomanSoldier::create());
-	//loaded = loaded && (s_soldiers[2] = ManSoldier::create());
-    if(loaded) {
+    loaded = loaded && (s_soldiers[2] = WomanSoldier::create());
+
+    if(loaded) 
         return true;
-    } else {
+    else 
         return false;
-    }
 }
 
 bool Soldier::init() {
+    //将动作加载放在init子类前面，让子类有修改的机会
+	m_act_idle = Animate3D::createWithFrames(Animation3D::create("idle.c3b"), 0, 100);
+	m_act_idle->retain();
+	m_act_walk = RepeatForever::create(Animate3D::createWithFrames(Animation3D::create("walk.c3b"), 0, 100));
+	m_act_walk->retain();
+	m_act_run = Animate3D::createWithFrames(Animation3D::create("run.c3b"), 0, 100);
+	m_act_run->retain();
+	m_act_boxing = Animate3D::createWithFrames(Animation3D::create("boxing.c3b"), 0, 119);
+	m_act_boxing->retain();
+	m_act_kick = Animate3D::createWithFrames(Animation3D::create("kick.c3b"), 0, 56);
+	m_act_kick->retain();
+
     init_soldier();
 
     auto node = CSLoader::createNode("soldier_head_info.csb");
@@ -55,7 +71,14 @@ void Soldier::update(float dt) {
     do {
     AT_STATE(SOLDIER_STATE_MOVE) {
         updateRotation();
-        updatePosition(dt);
+        //判断和目标位置的距离
+        if ((getPosition3D() - _target_point).length() < 1.f) {
+            move_stop();
+        }
+        else {
+            updatePosition(dt);
+        }
+        //updateHeight();
         break;
     }
     AT_STATE(SOLDIER_STATE_ACTION) {
@@ -74,25 +97,41 @@ void Soldier::update(float dt) {
 
 void Soldier::updateRotation() {
     Vec3 rota = getRotation3D();
-    rota.y = _base_angle_z
-            - CC_RADIANS_TO_DEGREES(_angle.getAngle());
+    auto delta = _target_point - getPosition3D();
+    rota.y = CC_RADIANS_TO_DEGREES(Vec2(delta.x, delta.z).getAngle());
     setRotation3D(rota);
+}
+
+void Soldier::updateHeight() {
+    auto playerPos = getPosition3D();
+
+    auto playerModelMat = getParent()->getNodeToWorldTransform();
+    playerModelMat.transformPoint(&playerPos);
+    Vec3 Normal;
+    float player_h = World::getInstance()->getTerrain()->getHeight(playerPos.x, playerPos.z, &Normal);
+    //check the player whether is out of the terrain
+    if (Normal.isZero()) {
+        move_stop();
+    }
+    else {
+        player_h += getHeightOffset();
+        playerPos.y = player_h;
+        setPosition3D(playerPos);
+    }
 }
 
 void Soldier::updatePosition(float dt) {
     auto playerPos = getPosition3D();
 
-    auto angle = _angle;
-    /*//计算相对于摄像机的角度
-    auto delta = g_world->getCamera()->getPosition3D() - getPosition3D();
-    Vec2 delta2(delta.x, delta.z);
-    angle.rotate(Vec2::ZERO, delta2.getAngle() - angle.getAngle() + 3.1415926535898 / 2.f); // */
+    auto delta = _target_point - getPosition3D();
+    Vec2 angle(delta.x, delta.z);
+    angle.normalize();
 
-    playerPos.x += _speed * angle.x * dt;
-    playerPos.z -= _speed * angle.y * dt;
+    playerPos.x += speed() * angle.x * dt;
+    playerPos.z += speed() * angle.y * dt;
 
-    auto playerModelMat = getParent()->getNodeToWorldTransform();
-    playerModelMat.transformPoint(&playerPos);
+    //auto playerModelMat = getParent()->getNodeToWorldTransform();
+    //playerModelMat.transformPoint(&playerPos);
     Vec3 Normal;
     float player_h = World::getInstance()->getTerrain()->getHeight(playerPos.x, playerPos.z, &Normal);
     //check the player whether is out of the terrain
@@ -135,8 +174,8 @@ void Soldier::show_blood_decline(float dec) {
     static Text *text = nullptr;
     if (!text) {
         text = Text::create("", "fonts/Marker Felt.ttf", 20);
-        text->setCameraMask(World::CAMERA_I);
-        _billboard->addChild(text);
+        text->setCascadeOpacityEnabled(true);
+        add2Billboard(text);
     }
     char str[128];
     sprintf(str, "- %g", dec);
@@ -144,17 +183,35 @@ void Soldier::show_blood_decline(float dec) {
     text->setPosition(Vec2(0.f, 10.f));
     text->setScale(1);
     text->setString(str);
-    text->setOpacity(255);
+    text->setOpacity(255.f);
 
     auto move = MoveBy::create(1.5f, Vec2(0, 40.f));
     auto scale = ScaleBy::create(1.5f, 1.3f);
-    //auto fade = FadeOut::create(1.5f);
+    auto fade = FadeOut::create(1.5f);
     text->runAction(move);
     text->runAction(scale);
-    //text->runAction(fade);
+    text->runAction(fade);
 }
 
 void Soldier::addThing(Node *node) {
-    node->setCameraMask(World::CAMERA_I);
+    node->setCameraMask(getCameraMask());
     addChild(node);
+}
+
+void Soldier::add2Billboard(Node *node) {
+    node->setCameraMask(_billboard->getCameraMask());
+    _billboard->addChild(node);
+}
+
+void Soldier::move_stop() {
+    rmState(SOLDIER_STATE_MOVE);
+    auto walk = getActionByTag(ACTION_WALK);
+    this->stopAction(m_act_walk);
+}
+
+void Soldier::move(Vec3& target) {
+    _target_point = target;
+    if (atState(SOLDIER_STATE_MOVE)) return;
+    addState(SOLDIER_STATE_MOVE);
+    runAction(m_act_walk);
 }

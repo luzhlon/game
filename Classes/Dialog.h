@@ -2,12 +2,15 @@
 #define __DIALOG_H__
 
 #include <functional>
+#include <string>
 #include "SceneLayer.h"
+
+using namespace std;
 
 class Dialog : public SceneLayer {
 public:
 	typedef std::function<void(Dialog *, bool)> Callback;
-	static Dialog *getInstance();
+    static Dialog *getInstance();
 
 	Dialog();
 
@@ -24,31 +27,18 @@ public:
 		return m_edit_cont;
 	}
 	//弹出对话框
-	inline void Popup(Node *parent) {
-		parent->addChild(m_layer);
-	}
+	inline void Popup(Node *parent);
 	void Popup_t(Node *parent,
 		const string& caption,
-		const string& content) {
-		m_caption->setString(caption);
-		m_edit_cont->setVisible(false);
-		m_text_cont->setString(content);
-		m_text_cont->setVisible(true);
-		Popup(parent);
-	}
+		const string& content);
 	void Popup_e(Node *parent,
 		const string& caption,
-		const string& holder = nullptr) {
-		m_caption->setString(caption);
-		m_text_cont->setVisible(false);
-		m_edit_cont->setPlaceHolder(holder);
-		m_edit_cont->setVisible(true);
-		Popup(parent);
-	}
+		const string& holder = nullptr);
 
-	inline void Exit() {
-		m_layer->removeFromParent();
-	}
+    void Exit();
+
+	void onOkClick(Ref *);
+	void onCancelClick(Ref *);
 	
 private:
 	Node *m_layer; //对话框层
@@ -56,9 +46,8 @@ private:
 	Text *m_text_cont; //对话框内容(文本框)
 	TextField *m_edit_cont; //对话框内容(编辑框)
 	Callback m_callback; //对话框退出时的回调对象
-
-	void onOkClick(Ref *);
-	void onCancelClick(Ref *);
 };
+
+extern Dialog *g_dialog;
 
 #endif // __DIALOG_H__

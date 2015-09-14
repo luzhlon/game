@@ -7,6 +7,8 @@
 USING_NS_CC;
 using namespace cocos2d::ui;
 
+class Dialog;
+
 class SceneLayer : public Layer
 {
     static char s_cur_scene;

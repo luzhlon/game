@@ -4,6 +4,7 @@
 #include <thread>
 #include <condition_variable>
 #include <functional>
+#include <list>
 #include "../Server/message.h"
 #include "cocos2d.h"
 #include "ODSocket.h"
@@ -32,10 +33,14 @@ public:
     static int s_serverPort;
     static handler s_handlers[MESSAGE::Max_number];
     static net_pkg s_pkg;
+    static std::list<net_pkg *> s_send_list;
+    static std::list<net_pkg *> s_recv_list;
 
     void dispatchMsg(float );
 
     bool send(char *, int);
+    bool recv_data();
+
     inline bool sendMsg(net_pkg *pkg, int size) {
 		pkg->len = size;
         return send((char*)pkg, size);
@@ -64,9 +69,6 @@ public:
         s_pkg.arg1 = arg1;
         return sendMsg(msg, str);
     }
-    inline net_pkg *getMsg() {
-        return m_pkg;
-    }
     inline bool isConnected() {
         return m_connect;
     }
@@ -79,8 +81,9 @@ private:
     static Client *s_client;
     Client();
     std::thread *m_thread = nullptr;
-    ODSocket m_sock;
-    net_pkg *m_pkg = nullptr;
+    ODSocket *m_sock;
+    net_pkg m_pkg_send;
+    net_pkg m_pkg_recv;
     bool m_handled = true;
     bool m_connect = false;
     /*
