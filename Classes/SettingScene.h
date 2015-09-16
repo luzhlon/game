@@ -9,11 +9,11 @@ public:
     CREATE_FUNC(SettingScene);
     virtual bool init();
     void onOkClicked(Ref *);
-
-    void onEnter() override;
+    void onCancelClicked(Ref *);
+    void saveSettings();
 private:
     TextField *m_textIP;
-    TextField *m_textPort;
+    Slider    *m_slidVolum;
 };
 
 #endif //__MENUSCENE_H__

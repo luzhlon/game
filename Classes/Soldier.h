@@ -26,20 +26,20 @@ public:
     };
     enum Type {
         SOLDIER_TYPE_WOMAN = 0,
-        TYPE_END
-    };
+        SOLDIER_TYPE_MAN,
+        SOLDIER_TYPE_MAN2,
 
-    enum { SoldierNumber = 3 };
+        TYPE_NUMBER
+    };
 
     static const float s_full_blood;
     static const float s_step;
-    static Soldier *s_soldiers[SoldierNumber];
+    static Soldier *s_soldiers[Type::TYPE_NUMBER];
     static Soldier *s_followed;
+    static void load_all_soldiers();
 public:
 	CREATE_FUNC(Soldier);
     bool init() override;
-
-    static bool loadAllSoldier(); //加载所有类型的Soldier
 
     void update(float dt) override; //帧刷新
 
@@ -103,6 +103,7 @@ public:
     void move_stop(); //停止移动
     void move(Vec3& target); //移到到指定位置
 
+    Vec3 get_head_pos(); //
     void show_blood_decline(float); //显示减血效果
     void CameraZoom(float factor); //拉近、拉远镜头
     void CameraRotate(Vec2 &v); //旋转Camera
@@ -138,7 +139,7 @@ protected:
 	int m_sp;//技能点
 
 	Animate3D *m_act_idle;
-	Action *m_act_walk;
+	Action *   m_act_walk;
 	Animate3D *m_act_run;
 	Animate3D *m_act_boxing;
 	Animate3D *m_act_kick;

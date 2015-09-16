@@ -5,10 +5,8 @@
 
 class ManSoldier : public Soldier {
 public:
-    bool init_soldier() override;
-
     CREATE_FUNC(ManSoldier);
-
+    bool init_soldier() override;
 };
 
 #endif // __MANSOLDIER_H__

@@ -1,9 +1,10 @@
 ﻿#include "Soldier.h"
 #include "World.h"
 #include "AppDelegate.h"
+#include "ManSoldier.h"
 #include "WomanSoldier.h"
 
-Soldier *Soldier::s_soldiers[Soldier::SoldierNumber];
+Soldier *Soldier::s_soldiers[Soldier::Type::TYPE_NUMBER];
 Soldier *Soldier::s_followed = nullptr;
 const float Soldier::s_step = 10.f;
 const float Soldier::s_full_blood = 100.f;
@@ -12,16 +13,10 @@ extern World *g_world;
 #define ACTION_MOVE 0
 #define ACTION_WALK 1
 
-bool Soldier::loadAllSoldier() {
-    bool loaded = true;
-    loaded = loaded && (s_soldiers[0] = WomanSoldier::create());
-    loaded = loaded && (s_soldiers[1] = WomanSoldier::create());
-    loaded = loaded && (s_soldiers[2] = WomanSoldier::create());
-
-    if(loaded) 
-        return true;
-    else 
-        return false;
+void Soldier::load_all_soldiers() {
+    s_soldiers[SOLDIER_TYPE_WOMAN] = WomanSoldier::create();
+    s_soldiers[SOLDIER_TYPE_MAN] = ManSoldier::create();
+    s_soldiers[SOLDIER_TYPE_MAN2] = ManSoldier::create();
 }
 
 bool Soldier::init() {
@@ -57,7 +52,6 @@ bool Soldier::init() {
     addChild(_billboard);
 
     scheduleUpdate();
-    setCameraMask(World::CAMERA_I);
     return true;
 }
 

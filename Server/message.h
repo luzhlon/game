@@ -28,6 +28,7 @@ struct net_pkg : mini_net_pkg {
 
 #define MEMBER_FLAG_READY (0x01)
 #define MEMBER_FLAG_TEAM (0x02)
+#define MEMBER_FLAG_EMPTY (0x04) //空，此位置没有成员
 
 struct room_member {
     unsigned char m_flag = 0;
@@ -52,6 +53,12 @@ struct room_member {
     }
     inline bool get_team() {
         return static_cast<bool>(m_flag & MEMBER_FLAG_TEAM);
+    }
+    inline bool is_empty() {
+        return m_flag & MEMBER_FLAG_EMPTY;
+    }
+    inline bool set_empty() {
+        return m_flag |= MEMBER_FLAG_EMPTY;
     }
 }; //房间成员
 

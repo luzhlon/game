@@ -30,6 +30,8 @@ bool RoleScene::init() {
             (Helper::seekWidgetByName(layout, "edit_name"));
     m_pageSprite = static_cast<PageView*>
             (Helper::seekWidgetByName(layout, "page_sprite"));
+
+    loadPages();
 	
     return true;
 }
@@ -39,18 +41,19 @@ bool RoleScene::loadPages() {
     auto layout = static_cast<Layout*>
             (node->getChildByName("layout"));
     CC_ASSERT(layout);
-    //layout->removeFromParent();
-    for(int i = 0; i < Soldier::SoldierNumber; i++) {
+    Soldier::load_all_soldiers(); 
+    for(int i = 0; i < Soldier::Type::TYPE_NUMBER; i++) {
         //Layout *layout;
         auto l = static_cast<Layout*>(layout->clone());
         auto s = Soldier::s_soldiers[i];
         auto size = m_pageSprite->getSize();
+
+        auto role_name = static_cast<Text *>(Helper::seekWidgetByName(l, "text_role_name"));
+        role_name->setString(s->getName());
+
         l->setSize(size);
         l->setPosition(Vec2(size.width / 2.f, size.height / 2.f));
-
-        size = l->getSize();
         s->setPosition(Vec2(size.width / 2.f, size.height / 2.f));
-
         l->addChild(s);
         l->removeFromParent();
         m_pageSprite->addPage(l);
@@ -60,37 +63,32 @@ bool RoleScene::loadPages() {
 
 void RoleScene::onEnter() {
 	Layer::onEnter();
-    CurScene(SCENE_ROLE);
 
-    if(Soldier::loadAllSoldier()) {
-        log("<LoadAll> success.");
-        loadPages();
-    } else {
-        log("<LoadAll> failure.");
-    }
     Client::getInstance()->start();
-	//认证是否成功
+	// 认证是否成功
     HANDLER(authentication) = Client::handler([this](net_pkg *pkg) {
         if(!IsCurScene(SCENE_ROLE)) return;
-		if (pkg->arg1) { //成功，进入房间列表
+		if (pkg->arg1) { // 成功，进入房间列表
             log("[Auth success]");
 			Director::getInstance()->pushScene(RoomListScene::createScene());
 		}
-        else { //失败，弹对话框
+        else { // 失败，弹对话框
             //log("[Auth failure]: %s", pkg->data);
-            Dialog::getInstance()->Popup_t(this, "错误", "认证失败！");
+            Dialog::getInstance()->Popup_t(this, " 错误 ", pkg->data);
         }
-        HANDLER(authentication) = nullptr; //置空，防止重复调用
+        HANDLER(authentication) = nullptr; // 置空，防止重复调用
     });
 }
 
 void RoleScene::onStartClick(Ref *ref) {
     if(!Client::getInstance()->isConnected()) {
-        log("[Connect] server failure.");
+        //log("[Connect] server failure.");
+        Dialog::getInstance()->Popup_t(this, " 错误 ", " 连接服务器失败 ");
         return;
     }
-	if (m_editName->getString().empty()) { //昵称不能为空
-        log("[Error:]nick name is empty");
+	if (m_editName->getString().empty()) { // 昵称不能为空
+        //log("[Error:]nick name is empty");
+        Dialog::getInstance()->Popup_t(this, " 错误 ", " 昵称不能为空!! ");
 		return;
 	}
     Client::getInstance()->sendMsg(authentication,

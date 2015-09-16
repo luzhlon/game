@@ -37,7 +37,7 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
         pkg->arg1 = 0; //枚举结束
         self->Reply(pkg);
     };
-    HANDLER(create_room) {
+    HANDLER(create_room) { //创建房间
         auto room = new Room(pkg->data);
         if(room->error()) {
             self->Reply(pkg, 0, room->error());
@@ -51,14 +51,14 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
         }
         g_dialog->updateRoomList();
     };
-    HANDLER(join_room) {
+    HANDLER(join_room) { //加入某个房间
         if(self->member()->join_room(pkg->data)) {
             self->Reply(pkg, 1);
         } else {
             self->Reply(pkg, 0, self->member()->error());
         }
     };
-    HANDLER(quit_room) {
+    HANDLER(quit_room) { //退出房间
         if(self->member()->quit_room()) {
             self->Reply(pkg, 1);
         } else {
@@ -66,24 +66,26 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
         }
         g_dialog->updateRoomList();
     };
-    HANDLER(room_members) {
+    HANDLER(room_members) { //获取房间成员列表
         self->member()->room()->broadMembers();
     };
-    HANDLER(start_game) {
+    HANDLER(start_game) { //通知各客户端开始游戏
         self->member()->room()->broadcast(pkg);
     };
-    HANDLER(set_ready) {
+    HANDLER(set_ready) { //设置准备状态
         auto room = self->member()->room();
         if(!room) return;
         if(pkg->arg1) {
             self->member()->set_ready_1();
             room->broadMembers();
-            room->checkAllReady();
+            if(room->checkAllReady()) {
+                //start game
+            }
         } else {
             self->member()->set_ready_0();
         }
     };
-    HANDLER(set_team) {
+    HANDLER(set_team) { //
         auto room = self->member()->room();
         if(!room) return;
         if(room->setTeam(self->member(), pkg->arg1)) {

@@ -33,7 +33,7 @@ void Player::showCircle(bool show) {
         circle3d->addChild(circle);
         circle->runAction(RepeatForever::create(RotateBy::create(3.5f, Vec3(0.f, 0.f, 360.f))));
 
-        circle3d->setRotation3D(Vec3(-90.f, -90.f, 0.f));
+        circle3d->setRotation3D(Vec3(-90.f, 0.f, 0.f));
 
         _soldier->addThing(circle3d);
     }

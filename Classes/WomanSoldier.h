@@ -7,12 +7,10 @@ class WomanSoldier : public Soldier
 {
 public:
     CREATE_FUNC(WomanSoldier);
-
     bool init_soldier() override;
     void action_boxing() override;
 
 	void loadAction();
-
 
 private:
 

@@ -22,6 +22,8 @@ private slots:
 
     void on_check_switch_toggled(bool checked);
 
+    void on_list_room_itemClicked(QListWidgetItem *item);
+
 private:
     Ui::Dialog *ui;
 };

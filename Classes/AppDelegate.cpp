@@ -1,5 +1,5 @@
 ﻿#include "AppDelegate.h"
-//#include "GameScene.h"
+#include "GameScene.h"
 #include "MenuScene.h"
 
 USING_NS_CC;
@@ -9,11 +9,13 @@ static Size smallResolutionSize = cocos2d::Size(480, 320);
 static Size mediumResolutionSize = cocos2d::Size(1024, 768);
 static Size largeResolutionSize = cocos2d::Size(2048, 1536);
 
-Size AppDelegate::_frame;
-Director *g_director;
-FileUtils *g_file;
-Size g_win_size;
-Size g_vis_size;
+Director *      g_director;
+FileUtils *     g_file;
+Size            g_win_size;
+Size            g_vis_size;
+//Settings
+char            g_server_ip[32];
+int             g_volume;
 
 AppDelegate::AppDelegate() {
 
@@ -52,7 +54,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
         g_director->setOpenGLView(glview);
     }
 
-	_frame = g_director->getVisibleSize();
 	g_vis_size = g_director->getVisibleSize();
     g_win_size = g_director->getWinSize();
 
@@ -99,7 +100,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
 
     // create a scene. it's an autorelease object
-    auto scene = MenuScene::createScene();
+    //auto scene = MenuScene::createScene();
+    auto scene = GameScene::createScene();
     // run
     g_director->runWithScene(scene);
 

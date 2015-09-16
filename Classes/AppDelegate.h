@@ -34,14 +34,6 @@ public:
     @param  the pointer of the application
     */
     virtual void applicationWillEnterForeground();
-
-	static cocos2d::Size _frame;
-	inline static float width() {
-		return _frame.width;
-	}
-	inline static float height() {
-		return _frame.height;
-	}
 };
 
 #endif // _APP_DELEGATE_H_

@@ -1,6 +1,5 @@
 #include "World.h"
 #include "DrawNode3D.h"
-#include "AppDelegate.h"
 #include <string>
 
 using namespace std;
@@ -16,6 +15,8 @@ void _LogVec3(const char *desc, Vec3& v3) {
     str += "%g, %g, %g";
     log(str.c_str(), v3.x, v3.y, v3.z);
 }
+
+extern Size g_win_size;
 
 World::World() {
     {
@@ -33,7 +34,7 @@ World::World() {
     }
 
     {
-        _camera = Camera::createPerspective(60, AppDelegate::width() / AppDelegate::height(), 0.1f, 800.f);
+        _camera = Camera::createPerspective(60, g_win_size.width / g_win_size.height, 0.1f, 800.f);
         _camera->setCameraFlag((CameraFlag)CAMERA_I);
         addChild(_camera);
     }

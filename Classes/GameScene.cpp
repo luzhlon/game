@@ -44,6 +44,10 @@ bool GameScene::init()
         g_player = Player::getInstance(WomanSoldier::create());
         g_world = World::getInstance();
         g_world->addThing(g_self);
+        auto test = DrawNode3D::create();
+        g_self->addThing(test);
+        test->setPosition3D(Vec3::ZERO);
+        test->drawLine(Vec3::ZERO, Vec3(0, 10, 0), Color4F(255, 0, 0, 0));
     }
 
     _node_editor = CSLoader::createNode("game_scene.csb");

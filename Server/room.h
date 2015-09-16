@@ -32,7 +32,7 @@ public:
     bool remove(Member *meb); //移除成员
     bool setTeam(Member *, int ); //设置属于哪一队
 
-    void checkAllReady();
+    bool checkAllReady();
 
     void broadMembers(); //广播成员列表
 
@@ -48,6 +48,7 @@ public:
     }
 
 protected:
+    friend class Dialog;
     char m_name[MAX_ROOM_NAME_LEN]; //房间名称
     const char *m_err = nullptr; //上一个错误
     Member *m_members[MAX_ROOM_MEMBERS]; //成员列表

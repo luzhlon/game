@@ -68,10 +68,10 @@ void Room::broadMembers() {
         auto m = m_members[i] ;
         if(m) {
             pkg.arg1 ++; //成员数
-            memcpy(&meb[i], m, sizeof(room_member));
-            strcpy(meb[i].m_name, m->m_name); // 成员的名字
+            memcpy(&meb[i], m, sizeof(room_member)); //Copy成员信息
         } else {
-            memset(&meb[i], 0, sizeof(room_member)); //此位置清零
+            //memset(&meb[i], 0, sizeof(room_member)); //此位置清零
+            meb[i].set_empty(); //空成员
         }
     }
     size_t size = sizeof(room_member) * MAX_ROOM_MEMBERS;
@@ -88,7 +88,7 @@ int Room::for_member_id(Member *meb) {
     m_err = "no this member";
 }
 
-void Room::checkAllReady() {
+bool Room::checkAllReady() {
     bool all = true;
     for(int i = 0; i < MAX_ROOM_MEMBERS; i++) {
         auto m = m_members[i];
@@ -96,10 +96,8 @@ void Room::checkAllReady() {
             all = all && m->get_ready();
         }
     }
-    mini_net_pkg pkg;
-    if(all) { //enter game
-        //broadcast(&pkg, MESSAGE::start_game);
-    }
+    if(all) return true;
+    else return false;
 }
 
 bool Room::setTeam(Member *meb, int team) {
@@ -107,10 +105,12 @@ bool Room::setTeam(Member *meb, int team) {
     if(error()) {
         return false;
     }
+    if(r_id % 2 == team % 2) return true; // 已经在team队伍
+    //偶数为红队，奇数为蓝队
     for(int i = team % 2; i < MAX_ROOM_MEMBERS; i += 2) {
         if(!m_members[i]) {
             m_members[i] = m_members[r_id];
-            m_members[r_id] = nullptr;
+            m_members[r_id] = nullptr; //原先的位置置空
             return true;
         }
     }
