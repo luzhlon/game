@@ -37,6 +37,7 @@ public:
     static Soldier *s_soldiers[Type::TYPE_NUMBER];
     static Soldier *s_followed;
     static void load_all_soldiers();
+    static Vec3 s_camera_offset; 
 public:
 	CREATE_FUNC(Soldier);
     bool init() override;
@@ -68,9 +69,6 @@ public:
         _target_point = v;
     }
 
-    inline Vec3 &getCameraOffset() {
-        return _camera_offset;
-    }
     inline float getHeightOffset() {
         return _height_offset;
     }
@@ -119,7 +117,7 @@ private:
 
 protected:
     string _name = "<unset>"; //头顶显示的名称
-    float _speed = 30.f; //速度
+    float _speed = 10.f; //速度
     float _blood = 80.f; //血量
     Vec3  _target_point; //要移动到的目标点
 
@@ -130,8 +128,7 @@ protected:
     Action *_cur_action = nullptr;  //当前的动作
     PUParticleSystem3D *_cur_action_pu = nullptr;  //当前动作所使用的粒子系统
 
-    Vec3 _camera_offset = Vec3(0.f, 60.f, 45.f); //
-    float _height_offset = -10.f;
+    float _height_offset;
 
     int m_id = 0;//ID是这个对象的唯一的标识
 	int m_hp;//当前HP

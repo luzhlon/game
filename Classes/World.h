@@ -11,15 +11,13 @@ class World : public Node
 {
 public:
     enum {
-        CAMERA_I = CameraFlag::USER1
+        CAMERA_I = CameraFlag::USER1,
+        CAMERA_FIX = CameraFlag::USER2
     };
 	static World *getInstance();
 
     inline Terrain *getTerrain() {
         return _terrain;
-    }
-    inline Camera *getCamera() {
-        return _camera;
     }
     inline DrawNode3D *getDrawNode() {
         return _drawNode;
@@ -27,11 +25,13 @@ public:
 
     void drawGrid(float cell = 10.f);
     void addSkybox();
+    void switch_camera(int );
 
     void addThing(Node *node, float x = 0.f, float z = 0.f);
 
     void showPoint(const Vec3& v);
     bool conv2space(Vec3& v); //ignore v.z
+    Camera *get_camera();
     //void unproject(const Size* viewport, Vec3* src, Vec3* dst);
 
     inline float getHeight(float x, float z) {
@@ -42,6 +42,8 @@ private:
 
     Terrain *_terrain;
     Camera *_camera;
+    Camera *_camera_fix;
+
     DrawNode3D *_drawNode;
     PUParticleSystem3D *_pu_clickPoint;
 };

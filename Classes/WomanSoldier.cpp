@@ -3,7 +3,8 @@
 
 bool WomanSoldier::init_soldier() {
     initWithFile("girl/girl.c3b");
-    setScale(0.7f);
+    setScale(0.1f);
+    setRotation3D(Vec3(180.f, 180.f, 180.f));
     _height_offset = 0.f;
     _name = "Woman";
 

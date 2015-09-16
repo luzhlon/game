@@ -2,7 +2,6 @@
 #define __GAMESCENE_H__
 
 #include "SceneLayer.h"
-#include "WomanSoldier.h"
 #include "extensions/cocos-ext.h"
 #include "DrawNode3D.h"
 

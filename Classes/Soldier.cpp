@@ -4,6 +4,7 @@
 #include "ManSoldier.h"
 #include "WomanSoldier.h"
 
+Vec3 Soldier::s_camera_offset = Vec3(0.f, 60.f, 45.f); 
 Soldier *Soldier::s_soldiers[Soldier::Type::TYPE_NUMBER];
 Soldier *Soldier::s_followed = nullptr;
 const float Soldier::s_step = 10.f;
@@ -48,8 +49,8 @@ bool Soldier::init() {
     _billboard = BillBoard::create();
     _billboard->addChild(layout);
     layout->setPositionY(10.f);
-    _billboard->setPosition3D(Vec3(0.f, 100.f, 0.f));
-    addChild(_billboard);
+    _billboard->setPosition3D(Vec3(0.f, 180.f, 0.f));
+    addThing(_billboard);
 
     scheduleUpdate();
     return true;
@@ -60,7 +61,6 @@ bool Soldier::init() {
 void Soldier::update(float dt) {
     auto world = World::getInstance();
     auto terrain = world->getTerrain();
-    auto camera = world->getCamera();
 
     do {
     AT_STATE(SOLDIER_STATE_MOVE) {
@@ -83,8 +83,10 @@ void Soldier::update(float dt) {
     }
     } while (false);
 
+    if (World::CAMERA_I != g_world->getCameraMask()) return;
+    auto camera = g_world->get_camera();
     if (this == s_followed) {
-        camera->setPosition3D(getPosition3D() + getCameraOffset());
+        camera->setPosition3D(getPosition3D() + s_camera_offset);
         camera->lookAt(getPosition3D());
     }
 }
@@ -140,27 +142,27 @@ void Soldier::updatePosition(float dt) {
 }
 
 void Soldier::CameraZoom(float factor) {
-    auto v = _camera_offset;
+    auto v = s_camera_offset;
     v.normalize();
-    _camera_offset += v * factor;
+    s_camera_offset += v * factor;
 }
 
 void Soldier::CameraRotate(Vec2 &v) {
     //Rotate X-Z coordinate
     if (fabs(v.x) > fabs(v.y)) {
-        Vec2 v_xz(_camera_offset.x, _camera_offset.z);
+        Vec2 v_xz(s_camera_offset.x, s_camera_offset.z);
         v_xz.rotate(Vec2::ZERO, v.x * 0.02);
         //
-        _camera_offset.x = v_xz.x;
-        _camera_offset.z = v_xz.y;
+        s_camera_offset.x = v_xz.x;
+        s_camera_offset.z = v_xz.y;
     }
     else {
         //Rotate Y-Z coordinate
-        Vec2 v_yz(_camera_offset.y, _camera_offset.z);
+        Vec2 v_yz(s_camera_offset.y, s_camera_offset.z);
         v_yz.rotate(Vec2::ZERO, v.y * 0.02);
         //
-        _camera_offset.y = v_yz.x;
-        _camera_offset.z = v_yz.y;
+        s_camera_offset.y = v_yz.x;
+        s_camera_offset.z = v_yz.y;
     }
 }
 

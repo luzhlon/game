@@ -4,6 +4,8 @@
 #include "AppDelegate.h"
 #include "GameScene.h"
 #include "cocostudio/CocoStudio.h"
+#include "WomanSoldier.h"
+#include "ManSoldier.h"
 
 using namespace cocostudio;
 
@@ -44,10 +46,6 @@ bool GameScene::init()
         g_player = Player::getInstance(WomanSoldier::create());
         g_world = World::getInstance();
         g_world->addThing(g_self);
-        auto test = DrawNode3D::create();
-        g_self->addThing(test);
-        test->setPosition3D(Vec3::ZERO);
-        test->drawLine(Vec3::ZERO, Vec3(0, 10, 0), Color4F(255, 0, 0, 0));
     }
 
     _node_editor = CSLoader::createNode("game_scene.csb");
@@ -91,16 +89,24 @@ void GameScene::loadUIlayer() {
         _drawNode->clear();
         _drawNode->drawCube(v, Color4F(0, 1, 0, 1));
 	});
-    setClickCallback(layout, "button_4", [this](Ref *ref) {
+    setClickCallback(layout, "button_reset", [this](Ref *ref) {
 		auto s = (WomanSoldier *)g_self;
-        g_self->show_blood_decline(10.8f);
-        g_player->draw_clear();
+        //g_self->show_blood_decline(10.8f);
+        //g_player->draw_clear();
+        //g_self->setPosition3D(Vec3::ZERO);
         //_LogVec3("[Soldier] Position: ", g_self->getPosition3D());
         //_LogVec3("[Soldier] Center: ", ((AABB&)(g_self->getAABB())).getCenter());
 	});
-    setClickCallback(layout, "button_5", [this](Ref *ref) {
-		auto s = (WomanSoldier *)g_self;
-        g_player->draw_circle(100.f);
+    setClickCallback(layout, "button_camera", [this](Ref *ref) {
+        //g_player->draw_circle(100.f);
+        if (g_world->getCameraMask() == World::CAMERA_I) {
+            g_world->setCameraMask(World::CAMERA_FIX);
+        }
+        else {
+            g_world->setCameraMask(World::CAMERA_I);
+            auto pos = g_self->getPosition3D();
+            log("[Soldier pos] %g %g %g", pos.x, pos.y, pos.z);
+        }
 	});
 
     Skill::btn_skill_kick = static_cast<Button *>(Helper::seekWidgetByName(layout,  "button_skill_kick"));
@@ -183,12 +189,21 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
         auto pos_cur = wig->getTouchMovePosition();
         auto dt = pos_cur - pos_last;
 
-        Vec2 angle = dt;
-        ui2gl(dt);
-        angle.x *= 0.1f;
-        angle.y *= 0.1f;
+        auto cam = g_world->get_camera();
+        if (World::CAMERA_I == g_world->getCameraMask()) {
+            Vec2 angle = dt;
+            ui2gl(dt);
+            angle.x *= 0.1f;
+            angle.y *= 0.1f;
 
-        g_self->CameraRotate(angle);
+            g_self->CameraRotate(angle);
+        }
+        else {
+            auto cp = cam->getPosition3D();
+            cp.x -= dt.x * 0.1;
+            cp.z += dt.y * 0.1;
+            cam->setPosition3D(cp);
+        }
 
         pos_last = pos_cur;
     }
@@ -198,7 +213,13 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
 
 void GameScene::onMouseScroll(Event* event) {
     auto e = (EventMouse *)event;
-    g_self->CameraZoom(e->getScrollY());
+    if (World::CAMERA_I == g_world->getCameraMask()) {
+        g_self->CameraZoom(e->getScrollY());
+    }
+    else {
+        auto cam = g_world->get_camera();
+        cam->setPositionY(cam->getPositionY() + e->getScrollY());
+    }
 }
 
 void GameScene::update(float dt) {

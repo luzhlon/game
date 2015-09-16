@@ -34,9 +34,15 @@ World::World() {
     }
 
     {
-        _camera = Camera::createPerspective(60, g_win_size.width / g_win_size.height, 0.1f, 800.f);
+        _camera = Camera::createPerspective(60, g_win_size.width / g_win_size.height, 0.1f, 1000.f);
         _camera->setCameraFlag((CameraFlag)CAMERA_I);
         addChild(_camera);
+
+        _camera_fix = Camera::createPerspective(60, g_win_size.width / g_win_size.height, 0.1f, 1000.f);
+        _camera_fix->setCameraFlag((CameraFlag)CAMERA_FIX);
+        _camera_fix->setPosition3D(Vec3(0, 120, 90));
+        _camera_fix->lookAt(Vec3::ZERO);
+        addChild(_camera_fix);
     }
 
     {
@@ -47,7 +53,7 @@ World::World() {
     drawGrid();
     addSkybox();
 
-    setCameraMask((unsigned short)CAMERA_I);
+    setCameraMask((unsigned short)CAMERA_FIX);
 }
 
 extern Director *g_director;
@@ -56,9 +62,11 @@ bool World::conv2space(Vec3& v) {
     Vec3 nearP(v), farP(v);
     nearP.z = 0.f; farP.z = 1.f;
 
+    auto camera = get_camera();
+
     auto size = g_director->getWinSize();
-    _camera->unproject(size, &nearP, &nearP);
-    _camera->unproject(size, &farP, &farP);
+    camera->unproject(size, &nearP, &nearP);
+    camera->unproject(size, &farP, &farP);
     Vec3 dir = farP - nearP;
     dir.normalize();
 
@@ -124,13 +132,26 @@ World *World::getInstance() {
 
 void World::addThing(Node *node, float x, float z) {
     addChild(node);
+    node->setPositionX(x);
     node->setPositionY(getHeight(x, z));
-    node->setCameraMask(CAMERA_I);
+    node->setPositionZ(z);
+    node->setCameraMask(getCameraMask());
 }
 
 void World::showPoint(const Vec3& v) {
     _pu_clickPoint->setPosition3D(v);
     _pu_clickPoint->startParticleSystem();
+}
+
+Camera *World::get_camera() {
+    switch (getCameraMask()) {
+    case CAMERA_I:
+        return _camera;
+        break;
+    case CAMERA_FIX:
+        return _camera_fix;
+        break;
+    }
 }
 
 void World::addSkybox() {
@@ -160,4 +181,3 @@ void World::addSkybox() {
     _skyBox->setGlobalZOrder(-1);
     this->addChild(_skyBox);
 }
-
