@@ -7,6 +7,7 @@ bool WomanSoldier::init_soldier() {
     setRotation3D(Vec3(180.f, 180.f, 180.f));
     _height_offset = 0.f;
     _name = "Woman";
+    _role_id = SOLDIER_TYPE_WOMAN;
 
 	loadAction();
 

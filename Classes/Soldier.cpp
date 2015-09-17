@@ -2,6 +2,7 @@
 #include "World.h"
 #include "AppDelegate.h"
 #include "ManSoldier.h"
+#include "Man2Soldier.h"
 #include "WomanSoldier.h"
 
 Vec3 Soldier::s_camera_offset = Vec3(0.f, 60.f, 45.f); 
@@ -14,10 +15,24 @@ extern World *g_world;
 #define ACTION_MOVE 0
 #define ACTION_WALK 1
 
-void Soldier::load_all_soldiers() {
-    s_soldiers[SOLDIER_TYPE_WOMAN] = WomanSoldier::create();
-    s_soldiers[SOLDIER_TYPE_MAN] = ManSoldier::create();
-    s_soldiers[SOLDIER_TYPE_MAN2] = ManSoldier::create();
+Soldier *Soldier::create(int type_id) {
+    switch (type_id) {
+    case SOLDIER_TYPE_WOMAN:
+        return WomanSoldier::create();
+        break;
+    case SOLDIER_TYPE_MAN:
+        return ManSoldier::create();
+        break;
+    case SOLDIER_TYPE_MAN2:
+        return Man2Soldier::create();
+        break;
+    }
+}
+
+Soldier *Soldier::create_soldier(int type_id) {
+    auto sol = create(type_id);
+    sol->begin_fight();
+    return sol;
 }
 
 bool Soldier::init() {
@@ -30,6 +45,8 @@ bool Soldier::init() {
 	m_act_kick = Animate3D::createWithFrames(Animation3D::create("kick.c3b"), 0, 56); // */
 
     init_soldier();
+
+    CC_ASSERT(_role_id >= 0);
 
 	m_act_kick->retain();
 	m_act_boxing->retain();

@@ -3,6 +3,9 @@
 
 using namespace cocostudio;
 
+extern int   g_volume;
+extern char  g_server_ip[32];
+
 Scene *SettingScene::createScene() {
     auto scene = Scene::create();
     auto layer = SettingScene::create();
@@ -20,16 +23,15 @@ bool SettingScene::init() {
 
     m_textIP = static_cast<TextField *>
             (Helper::seekWidgetByName(layout, "text_ip"));
+    m_textIP->setString(g_server_ip);
     m_slidVolum = static_cast<Slider *>(Helper::seekWidgetByName(layout, "slider_volume"));
+    m_slidVolum->setPercent(g_volume);
 
     setClickCallback(layout, "button_ok", CC_CALLBACK_1(SettingScene::onOkClicked, this));
     setClickCallback(layout, "button_cancel", CC_CALLBACK_1(SettingScene::onCancelClicked, this));
 
     return true;
 }
-
-extern int   g_volume;
-extern char  g_server_ip[32];
 
 void SettingScene::saveSettings() {
     //Uncompleted

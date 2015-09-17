@@ -6,6 +6,7 @@ bool ManSoldier::init_soldier() {
     setScale(0.1f);
     _height_offset = 0.f;
     _name = "Man";
+    _role_id = SOLDIER_TYPE_MAN;
 
     load_actions();
 

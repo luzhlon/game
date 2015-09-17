@@ -62,11 +62,6 @@ struct room_member {
     }
 }; //房间成员
 
-struct room_state {
-    char name[MAX_ROOM_NAME_LEN];
-    room_member members[MAX_ROOM_MEMBERS];
-};
-
 //最小的包长度
 #define NET_PKG_SIZE (sizeof(mini_net_pkg))
 //只有一个参数的包的长度

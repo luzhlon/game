@@ -35,7 +35,7 @@ void RoomListScene::onItemClick(Ref *ref) {
     Button *btn = dynamic_cast<Button *>(ref);
     CC_ASSERT(btn);
     string item = btn->getTitleText();
-    strncpy(RoomScene::s_room_name, item.c_str(), MAX_ROOM_NAME_LEN);
+    strncpy(g_room.name, item.c_str(), MAX_ROOM_NAME_LEN);
     Client::getInstance()->sendMsg(MESSAGE::join_room, item.c_str()); // 请求服务器
     log("[Log] item %s clicked", item.c_str());
 }
@@ -65,7 +65,6 @@ void RoomListScene::onEnter() {
     // 房间列表
     HANDLER(join_room) = Client::handler([this](net_pkg *pkg) {
         if (pkg->arg1) {
-            //RoomScene::s_room_name = item;
             Director::getInstance()->pushScene(RoomScene::createScene());
         } else {
             Dialog::getInstance()->Popup_t(this, " 错误 ", " 加入房间失败： " + string(pkg->data));
@@ -107,12 +106,12 @@ void RoomListScene::onCreateClick(Ref *ref) {
             Dialog::getInstance()->Popup_t(this, "错误", "房间名不能为空!!");
             return;
         }
-        strncpy(RoomScene::s_room_name, name.c_str(), MAX_ROOM_NAME_LEN);
+        strncpy(g_room.name, name.c_str(), MAX_ROOM_NAME_LEN);
         HANDLER(create_room) = Client::handler(
                          [this](net_pkg *pkg) {
                              if(pkg->arg1) { // 创建成功后立即加入，不留BUG
                                  log("create room success");
-                                 Client::getInstance()->sendMsg(MESSAGE::join_room, RoomScene::s_room_name); // 请求服务器
+                                 Client::getInstance()->sendMsg(MESSAGE::join_room, g_room.name); // 请求服务器
                                  //updateRoomList();
                              } else {
                                  Dialog::getInstance()->Popup_t(this, "创建失败", pkg->data);

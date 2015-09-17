@@ -63,11 +63,13 @@ void Room::broadMembers() {
 
     pkg.msg = MESSAGE::room_members;
     pkg.arg1 = 0; //房间成员数
+    pkg.arg2 = 0; //自己的Room ID
 
     for(int i = 0; i < MAX_ROOM_MEMBERS; i++) {
         auto m = m_members[i] ;
         if(m) {
             pkg.arg1 ++; //成员数
+            pkg.arg2 = i; //对应客户端自己的ID
             memcpy(&meb[i], m, sizeof(room_member)); //Copy成员信息
         } else {
             //memset(&meb[i], 0, sizeof(room_member)); //此位置清零

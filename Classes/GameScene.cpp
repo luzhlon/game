@@ -2,10 +2,10 @@
 #include "Skill.h"
 #include "Player.h"
 #include "AppDelegate.h"
+#include "RoomScene.h"
 #include "GameScene.h"
 #include "cocostudio/CocoStudio.h"
-#include "WomanSoldier.h"
-#include "ManSoldier.h"
+#include "Soldier.h"
 
 using namespace cocostudio;
 
@@ -15,6 +15,8 @@ Player *g_player;
 extern Director *g_director;
 extern FileUtils *g_file;
 extern Soldier *g_self;
+
+Soldier *g_soldiers[MAX_ROOM_MEMBERS];
 
 float GameScene::scale_cell = 0.1f;
 
@@ -35,23 +37,30 @@ void GameScene::loadMapLayer() {
     addChild(g_world);
 }
 
+void GameScene::create_soldiers() {
+    for (int i = 0; i < MAX_ROOM_MEMBERS; i++) {
+        room_member *meb = &g_room.members[i];
+        if (meb->is_empty()) continue;
+        g_soldiers[i] = Soldier::create_soldier(meb->m_role_id);
+        g_world->addThing(g_soldiers[i]);
+    }
+
+    g_player = Player::getInstance(g_soldiers[g_room.self_id]);
+}
+
 // on "init" you need to initialize your instance
 bool GameScene::init()
 {
     if ( !Layer::init() ) {
         return false;
     }
-
-    {
-        g_player = Player::getInstance(WomanSoldier::create());
-        g_world = World::getInstance();
-        g_world->addThing(g_self);
-    }
+    g_world = World::getInstance();
 
     _node_editor = CSLoader::createNode("game_scene.csb");
 
     loadMapLayer();
     loadUIlayer();
+    create_soldiers();
 
     return true;
 }

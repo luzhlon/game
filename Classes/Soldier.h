@@ -36,8 +36,10 @@ public:
     static const float s_step;
     static Soldier *s_soldiers[Type::TYPE_NUMBER];
     static Soldier *s_followed;
-    static void load_all_soldiers();
     static Vec3 s_camera_offset;
+
+    static Soldier *create(int type_id);
+    static Soldier *create_soldier(int type_id);
 public:
 	CREATE_FUNC(Soldier);
     bool init() override;
@@ -70,6 +72,9 @@ public:
     }
     inline void target_point(Vec3& v) {
         _target_point = v;
+    }
+    inline int role_id() {
+        return (int)_role_id;
     }
 
     inline float getHeightOffset() {
@@ -134,7 +139,7 @@ protected:
 
     float _height_offset;
 
-    int m_id = 0;//ID是这个对象的唯一的标识
+    Type _role_id = (Type)(-1); //ID是这个的唯一的标识
 	int m_hp;//当前HP
 	int m_hp_max;//HP最大值
 	int m_sp;//技能点

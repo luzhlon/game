@@ -1,6 +1,8 @@
+#include "Soldier.h"
 #include "RoomScene.h"
+#include "GameScene.h"
 
-char RoomScene::s_room_name[MAX_ROOM_NAME_LEN];
+extern Director *g_director;
 
 Scene *RoomScene::createScene() {
     auto scene = Scene::create();
@@ -19,14 +21,23 @@ bool RoomScene::init() {
 
     setClickCallback(layout, "check_ready_me", CC_CALLBACK_1(RoomScene::onReadyClick, this));
     setClickCallback(layout, "check_team", CC_CALLBACK_1(RoomScene::onTeamClick, this));
+    setClickCallback(layout, "button_start", [this](Ref *ref) {
+        Client::getInstance()->sendMsg(MESSAGE::start_game);
+    });
 
     //CC_ASSERT(!s_room_name.empty());
     auto text_name = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_name"));
-    text_name->setString(s_room_name);
+    text_name->setString(g_room.name);
 
     load_layouts(layout);
 
     return true;
+}
+
+void RoomScene::update_room_member() {
+    for (int i = 0; i < MAX_ROOM_MEMBERS; i++) {
+        set_member_info(i, &g_room.members[i]);
+    }
 }
 
 void RoomScene::set_member_info(int index, room_member *meb) {
@@ -44,16 +55,37 @@ void RoomScene::set_member_info(int index, room_member *meb) {
 
     ready->setSelectedState(meb->get_ready());
     name->setString(meb->m_name);
+    //load sprite
+    auto spr = static_cast<Soldier *>(lay->getChildByName("_SOLDIER"));
+    if (spr) {
+        if (spr->role_id() == meb->m_role_id)
+            return;
+        else
+            spr->removeFromParent();
+    } else {
+        spr = Soldier::create(meb->m_role_id);
+        spr->setName("_SOLDIER");
+        spr->setScale(0.5f);
+        lay->addChild(spr);
+        auto size = lay->getContentSize();
+        spr->setPosition(Vec2(size.width / 2.f, size.height / 3.f));
+    }
 }
 
 void RoomScene::onEnter() {
     Layer::onEnter();
     HANDLER(room_members) = Client::handler([this](net_pkg *pkg) {
         auto *meb = (room_member *)pkg->data;
-        for (int i = 0; i < 6; i++) {
-            set_member_info(i, &meb[i]);
-        }
+        memcpy(g_room.members, pkg->data, sizeof(room_member)* MAX_ROOM_MEMBERS);
+        g_room.self_id = pkg->arg2; //Self id
+        update_room_member();
         //HANDLER(authentication) = nullptr; // 置空，防止重复调用
+    });
+    HANDLER(start_game) = Client::handler([this](net_pkg *pkg) {
+        for (int i = 0; i < MAX_ROOM_MEMBERS; i++)
+            g_room.members[i].m_room_id = i; // 确认一下room id
+
+        g_director->pushScene(GameScene::createScene());
     });
     Client::getInstance()->sendMsg(MESSAGE::room_members);
 }

@@ -17,6 +17,7 @@ public:
 
     void loadMapLayer(); //加载地图
     void loadUIlayer(); //
+    void create_soldiers();
 
     void update(float dt);
 

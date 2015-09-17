@@ -43,7 +43,6 @@ bool RoleScene::load_pages() {
 
     auto size = m_pageSprite->getSize();
     m_pageSprite->removeAllPages();
-    Soldier::load_all_soldiers();  
 
     for(int i = 0; i < Soldier::Type::TYPE_NUMBER; i++) {
         //Layout *layout;
@@ -52,7 +51,7 @@ bool RoleScene::load_pages() {
         layout->setSizePercent(Vec2(1.f, 1.f));
         //layout->setPositionPercent(Vec2(1.f, 1.f));
 
-        auto s = Soldier::s_soldiers[i];
+        auto s = Soldier::create(i);
         s->setScale(1.f);
         layout->addChild(s);
         s->setPosition(Vec2(size.width / 2.f, size.height / 3.f));
