@@ -23,10 +23,4 @@ private:
     Layout *_layout_member[MAX_ROOM_MEMBERS];
 };
 
-static struct {
-    char name[MAX_ROOM_NAME_LEN];
-    room_member members[MAX_ROOM_MEMBERS];
-    int self_id; // ×Ô¼ºµÄRoom ID
-} g_room;
-
 #endif // __ROOMSCENE_H__

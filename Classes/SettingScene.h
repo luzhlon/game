@@ -5,12 +5,13 @@
 
 class SettingScene : public SceneLayer {
 public:
+    static void load_settings();
     static Scene* createScene();
     CREATE_FUNC(SettingScene);
     virtual bool init();
     void onOkClicked(Ref *);
     void onCancelClicked(Ref *);
-    void saveSettings();
+    void save_settings();
 private:
     TextField *m_textIP;
     Slider    *m_slidVolum;

@@ -3,6 +3,7 @@
 
 #include <string>
 #include "cocos2d.h"
+#include "../Server/message.h"
 #include "ui/CocosGUI.h"
 #include "cocostudio/CocoStudio.h"
 #include "Particle3D/PU/CCPUParticleSystem3D.h"
@@ -39,7 +40,7 @@ public:
     static Vec3 s_camera_offset;
 
     static Soldier *create(int type_id);
-    static Soldier *create_soldier(int type_id);
+    static Soldier *create(room_member *rm);
 public:
 	CREATE_FUNC(Soldier);
     bool init() override;
@@ -108,6 +109,9 @@ public:
     void move_stop(); //停止移动
     void move(Vec3& target); //移到到指定位置
 
+    void net_move(Vec3& target);
+    void net_move_stop();
+
     void begin_fight(); //准备开始战斗
 
     Vec3 get_head_pos(); //
@@ -139,16 +143,15 @@ protected:
 
     float _height_offset;
 
-    Type _role_id = (Type)(-1); //ID是这个的唯一的标识
-	int m_hp;//当前HP
-	int m_hp_max;//HP最大值
-	int m_sp;//技能点
+    Type _role_id = (Type)(-1); //所属角色的ID
+    room_member *_room_member = nullptr; // room_member 信息
 
-	Animate3D *m_act_idle;
-	Action *   m_act_walk;
-	Animate3D *m_act_special;
-	Animate3D *m_act_boxing;
-	Animate3D *m_act_kick;
+    //五个基本动作
+	ActionInterval *m_act_idle;
+	ActionInterval *m_act_walk;
+	ActionInterval *m_act_special;
+	ActionInterval *m_act_boxing;
+	ActionInterval *m_act_kick;
 };
 
 #endif

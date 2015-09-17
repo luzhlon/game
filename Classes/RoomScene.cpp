@@ -2,6 +2,10 @@
 #include "RoomScene.h"
 #include "GameScene.h"
 
+char        g_room_name[MAX_ROOM_NAME_LEN];
+room_member g_members[MAX_ROOM_MEMBERS];
+int         g_self_room_id; // 自己的Room ID
+
 extern Director *g_director;
 
 Scene *RoomScene::createScene() {
@@ -27,7 +31,7 @@ bool RoomScene::init() {
 
     //CC_ASSERT(!s_room_name.empty());
     auto text_name = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_name"));
-    text_name->setString(g_room.name);
+    text_name->setString(g_room_name);
 
     load_layouts(layout);
 
@@ -36,7 +40,7 @@ bool RoomScene::init() {
 
 void RoomScene::update_room_member() {
     for (int i = 0; i < MAX_ROOM_MEMBERS; i++) {
-        set_member_info(i, &g_room.members[i]);
+        set_member_info(i, &g_members[i]);
     }
 }
 
@@ -76,14 +80,14 @@ void RoomScene::onEnter() {
     Layer::onEnter();
     HANDLER(room_members) = Client::handler([this](net_pkg *pkg) {
         auto *meb = (room_member *)pkg->data;
-        memcpy(g_room.members, pkg->data, sizeof(room_member)* MAX_ROOM_MEMBERS);
-        g_room.self_id = pkg->arg2; //Self id
+        memcpy(g_members, pkg->data, sizeof(room_member)* MAX_ROOM_MEMBERS);
+        g_self_room_id = pkg->arg2; //Self id
         update_room_member();
         //HANDLER(authentication) = nullptr; // 置空，防止重复调用
     });
     HANDLER(start_game) = Client::handler([this](net_pkg *pkg) {
         for (int i = 0; i < MAX_ROOM_MEMBERS; i++)
-            g_room.members[i].m_room_id = i; // 确认一下room id
+            g_members[i].m_room_id = i; // 确认一下room id
 
         g_director->pushScene(GameScene::createScene());
     });

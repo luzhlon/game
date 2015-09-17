@@ -39,7 +39,8 @@ bool MenuScene::init() {
 
 void MenuScene::onEnter() {
     Layer::onEnter();
-    CurScene(SCENE_MENU);
+    //加载配置
+    SettingScene::load_settings();
 }
 
 void MenuScene::onQuitClick(Ref *ref) {

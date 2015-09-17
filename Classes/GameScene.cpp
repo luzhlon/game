@@ -1,24 +1,27 @@
 ﻿#include "World.h"
 #include "Skill.h"
+#include "Client.h"
 #include "Player.h"
 #include "AppDelegate.h"
-#include "RoomScene.h"
 #include "GameScene.h"
 #include "cocostudio/CocoStudio.h"
 #include "Soldier.h"
+#include "../Server/message.h"
 
 using namespace cocostudio;
 
 World *g_world;
 Player *g_player;
+Client *g_client;
 
 extern Director *g_director;
 extern FileUtils *g_file;
 extern Soldier *g_self;
+extern char        g_room_name[MAX_ROOM_NAME_LEN];
+extern room_member g_members[MAX_ROOM_MEMBERS];
+extern int         g_self_room_id; // 自己的Room ID
 
 Soldier *g_soldiers[MAX_ROOM_MEMBERS];
-
-float GameScene::scale_cell = 0.1f;
 
 Scene* GameScene::createScene() {
     auto scene = Scene::create();
@@ -39,13 +42,13 @@ void GameScene::loadMapLayer() {
 
 void GameScene::create_soldiers() {
     for (int i = 0; i < MAX_ROOM_MEMBERS; i++) {
-        room_member *meb = &g_room.members[i];
+        room_member *meb = &g_members[i];
         if (meb->is_empty()) continue;
-        g_soldiers[i] = Soldier::create_soldier(meb->m_role_id);
+        g_soldiers[i] = Soldier::create(meb);
         g_world->addThing(g_soldiers[i]);
     }
 
-    g_player = Player::getInstance(g_soldiers[g_room.self_id]);
+    g_player = Player::getInstance(g_soldiers[g_self_room_id]);
 }
 
 // on "init" you need to initialize your instance
@@ -55,6 +58,7 @@ bool GameScene::init()
         return false;
     }
     g_world = World::getInstance();
+    g_client = Client::getInstance();
 
     _node_editor = CSLoader::createNode("game_scene.csb");
 
@@ -83,7 +87,7 @@ void GameScene::loadUIlayer() {
     mouse_listener->onMouseScroll = CC_CALLBACK_1(GameScene::onMouseScroll, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(mouse_listener, this);
 
-	setTouchCallback(layout, "button_direction", CC_CALLBACK_2(GameScene::onDirectionTouched, this));
+	//setTouchCallback(layout, "button_direction", CC_CALLBACK_2(GameScene::onDirectionTouched, this));
     setClickCallback(layout, "button_1", [this](Ref *ref) {
 	});
     setClickCallback(layout, "button_2", [this](Ref *ref) {
@@ -127,35 +131,12 @@ void GameScene::loadUIlayer() {
     setClickCallback(layout, "button_skill_special", Skill::onSkillClicked);
 
     addChild(m_layer_ui);
-}
 
-void GameScene::onDirectionTouched(Ref *ref, Widget::TouchEventType type) {
-    Button *btn = dynamic_cast<Button *>(ref);
-    static Vec2 pos_began;
-    static Vec2 pos_last;
-
-    CC_ASSERT(btn);
-
-    switch(type) {
-    case Widget::TouchEventType::BEGAN:
-    {
-        pos_began = btn->getTouchBeganPosition();
-        ui2gl(pos_began);
-    }
-    break;
-    case Widget::TouchEventType::ENDED:
-    {
-        g_self->move_stop();
-    }
-    break;
-    case Widget::TouchEventType::MOVED:
-    {
-        auto pos = btn->getTouchMovePosition();
-        ui2gl(pos);
-        auto dt = pos - pos_began;
-    }
-    break;
-    }
+    HANDLER(update_state) = Client::handler([](net_pkg *pkg) {
+        auto sol = g_soldiers[pkg->arg1];
+        sol->target_point(*(Vec3 *)(pkg->data));
+        sol->addState((Soldier::State)pkg->arg2);
+    });
 }
 
 void GameScene::ui2gl(Vec2& v) {
@@ -186,7 +167,14 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
             Vec3 point(pos.x, pos.y, 0.f);
             if (g_world->conv2space(point)){
                 g_world->showPoint(point);
-                g_self->move(point);
+                //g_self->move(point);
+                char buf[512];
+                net_pkg *pkg = (net_pkg *)buf;
+                pkg->msg = MESSAGE::update_state;
+                pkg->arg1 = g_self_room_id;
+                pkg->arg2 = Soldier::SOLDIER_STATE_MOVE;
+                memcpy(pkg->data, &point, sizeof(point));
+                g_client->sendMsg(pkg, sizeof(mini_net_pkg)+sizeof(point));
             } else {
                 log("[World] get Space coordinate failure.");
             }
@@ -229,8 +217,4 @@ void GameScene::onMouseScroll(Event* event) {
         auto cam = g_world->get_camera();
         cam->setPositionY(cam->getPositionY() + e->getScrollY());
     }
-}
-
-void GameScene::update(float dt) {
-    //auto player = g_self;
 }

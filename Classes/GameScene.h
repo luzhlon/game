@@ -8,7 +8,6 @@
 class World;
 
 class GameScene : public SceneLayer {
-    static float scale_cell;
 public:
     static Scene* createScene();
     static void ui2gl(Vec2 &v);
@@ -19,10 +18,7 @@ public:
     void loadUIlayer(); //
     void create_soldiers();
 
-    void update(float dt);
-
     bool init() override;
-
 private:
     extension::ScrollView *m_scroll;
     TMXTiledMap *m_map; //地图
@@ -41,7 +37,6 @@ private:
 
 public:
     //
-    void onDirectionTouched(Ref *, Widget::TouchEventType);
 	void onLayerTouched(Ref *, Widget::TouchEventType);
     void onMouseScroll(Event* event);
 };

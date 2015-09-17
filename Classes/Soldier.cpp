@@ -29,8 +29,9 @@ Soldier *Soldier::create(int type_id) {
     }
 }
 
-Soldier *Soldier::create_soldier(int type_id) {
-    auto sol = create(type_id);
+Soldier *Soldier::create(room_member *rm) {
+    auto sol = create(rm->m_role_id);
+    sol->_room_member = rm;
     sol->begin_fight();
     return sol;
 }
@@ -48,6 +49,7 @@ bool Soldier::init() {
 
     CC_ASSERT(_role_id >= 0);
 
+    m_act_walk = RepeatForever::create(m_act_walk);
 	m_act_kick->retain();
 	m_act_boxing->retain();
 	m_act_special->retain();
@@ -57,6 +59,12 @@ bool Soldier::init() {
     setPosition3D(Vec3::ZERO);
 
     return true;
+}
+
+void Soldier::net_move(Vec3& target) {
+}
+
+void Soldier::net_move_stop() {
 }
 
 void Soldier::begin_fight() {
@@ -74,7 +82,7 @@ void Soldier::begin_fight() {
     _billboard = BillBoard::create();
     _billboard->addChild(layout);
     layout->setPositionY(10.f);
-    _billboard->setPosition3D(Vec3(0.f, 180.f, 0.f));
+    _billboard->setPosition3D(Vec3(0.f, 270.f, 0.f));
     addThing(_billboard);
 
     scheduleUpdate();

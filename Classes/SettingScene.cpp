@@ -15,6 +15,13 @@ Scene *SettingScene::createScene() {
     return scene;
 }
 
+void SettingScene::load_settings() {
+    auto store = UserDefault::getInstance();
+    g_volume = store->getIntegerForKey("game_volume", 50);
+    auto str = store->getStringForKey("sever_ip", "127.0.0.1");
+    strncpy(g_server_ip, str.c_str(), sizeof(g_server_ip));
+}
+
 bool SettingScene::init() {
     auto layer = loadLayer("setting_scene.csb");
     auto layout = getLayout(layer);
@@ -33,14 +40,19 @@ bool SettingScene::init() {
     return true;
 }
 
-void SettingScene::saveSettings() {
+void SettingScene::save_settings() {
     //Uncompleted
     strncpy(g_server_ip, m_textIP->getString().c_str(), 32);
     g_volume = m_slidVolum->getPercent();
+
+    auto store = UserDefault::getInstance();
+    store->setStringForKey("sever_ip", g_server_ip);
+    store->setIntegerForKey("game_volume", g_volume);
+    store->flush();
 }
 
 void SettingScene::onOkClicked(Ref *ref) {
-    saveSettings();
+    save_settings();
     Director::getInstance()->popScene();
 }
 
