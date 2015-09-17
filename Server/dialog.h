@@ -3,6 +3,8 @@
 
 #include <QDialog>
 
+class QListWidgetItem;
+
 namespace Ui {
 class Dialog;
 }

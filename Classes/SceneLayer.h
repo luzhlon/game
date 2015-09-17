@@ -36,6 +36,7 @@ public:
 protected:
     Node *loadLayer(const std::string& sceneFile, int layerTag = 1);
     Layer *loadLayer(Node *scene, int layerTag = 1);
+    Layout *get_layout(const std::string& nodefile, int tag = 1);
     inline Layout *getLayout(Node *layer, const std::string& name = "layout") {
         return layer ? static_cast<Layout *>(layer->getChildByName(name)) : nullptr;
     }

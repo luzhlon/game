@@ -17,18 +17,15 @@ Scene *RoomListScene::createScene() {
 }
 
 bool RoomListScene::addRoomItem(const string& item_name) {
-    auto node = CSLoader::createNode("list_item.csb");
-    auto layout = static_cast<Layout *>(node->getChildByName("layout"));
+    auto layout = get_layout("list_item.csb");
     CC_ASSERT(layout);
-    if(!layout) return false;
-    layout->removeFromParent();
+
     auto btn = static_cast<Button *>
             (Helper::seekWidgetByName(layout, "button_item"));
     btn->setTitleText(item_name);
     btn->addClickEventListener(CC_CALLBACK_1(RoomListScene::onItemClick, this));
 
-    auto size = m_listRoom->getSize();
-    layout->setSize(Size(size.width * 0.8f, size.height * 0.15f));
+    layout->setSizePercent(Vec2(0.8f, 0.15f));
     m_listRoom->pushBackCustomItem(layout);
 
     return true;

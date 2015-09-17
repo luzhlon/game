@@ -7,5 +7,15 @@ bool ManSoldier::init_soldier() {
     _height_offset = 0.f;
     _name = "Man";
 
+    load_actions();
+
     return true;
+}
+
+void ManSoldier::load_actions() {
+    m_act_idle = Animate3D::createWithFrames(Animation3D::create("man/idle.c3b"), 0, 1000);
+    m_act_walk = Animate3D::createWithFrames(Animation3D::create("man/walk.c3b"), 0, 30);
+    m_act_kick = Animate3D::createWithFrames(Animation3D::create("man/kick.c3b"), 0, 119);
+    m_act_boxing = Animate3D::createWithFrames(Animation3D::create("man/boxing.c3b"), 0, 87);
+    m_act_special = Animate3D::createWithFrames(Animation3D::create("man/special.c3b"), 0, 100);
 }

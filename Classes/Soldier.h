@@ -37,7 +37,7 @@ public:
     static Soldier *s_soldiers[Type::TYPE_NUMBER];
     static Soldier *s_followed;
     static void load_all_soldiers();
-    static Vec3 s_camera_offset; 
+    static Vec3 s_camera_offset;
 public:
 	CREATE_FUNC(Soldier);
     bool init() override;
@@ -62,6 +62,9 @@ public:
     inline void speed(float s) {
         _speed = s;
     }
+    inline const string& name() {
+        return _name;
+    }
     inline const Vec3& target_point() {
         return _target_point;
     }
@@ -83,10 +86,6 @@ public:
         addState(SOLDIER_STATE_ACTION);
 		runAction(m_act_walk);
 	}
-	inline void action_run() {
-        addState(SOLDIER_STATE_ACTION);
-		runAction(m_act_run);
-	}
 	virtual void action_boxing() {
         addState(SOLDIER_STATE_ACTION);
         _cur_action = m_act_boxing;
@@ -97,9 +96,14 @@ public:
         addState(SOLDIER_STATE_ACTION);
 		runAction(m_act_kick);
 	}
+    inline void show_billboard(bool show) {
+        _billboard->setVisible(show);
+    }
 
     void move_stop(); //停止移动
     void move(Vec3& target); //移到到指定位置
+
+    void begin_fight(); //准备开始战斗
 
     Vec3 get_head_pos(); //
     void show_blood_decline(float); //显示减血效果
@@ -137,7 +141,7 @@ protected:
 
 	Animate3D *m_act_idle;
 	Action *   m_act_walk;
-	Animate3D *m_act_run;
+	Animate3D *m_act_special;
 	Animate3D *m_act_boxing;
 	Animate3D *m_act_kick;
 };

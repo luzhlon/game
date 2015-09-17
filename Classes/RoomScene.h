@@ -13,10 +13,13 @@ public:
 
     void onReadyClick(Ref *);
     void onTeamClick(Ref *);
+    void load_layouts(Layout *);
+    void set_member_info(int index, room_member *meb);
 
     void onEnter() override;
 private:
     //
+    Layout *_layout_member[MAX_ROOM_MEMBERS];
 };
 
 #endif // __ROOMSCENE_H__

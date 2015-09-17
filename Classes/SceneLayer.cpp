@@ -47,3 +47,12 @@ bool SceneLayer::setTouchCallback(Layout *layout,
     } else
         return false;
 }
+
+Layout *SceneLayer::get_layout(const std::string& nodefile, int tag) {
+    auto node = CSLoader::createNode(nodefile);
+    auto layout = static_cast<Layout *>(node->getChildByTag(tag));
+
+    if (layout) layout->removeFromParent();
+
+    return layout;
+}

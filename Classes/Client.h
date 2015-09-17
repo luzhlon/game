@@ -9,8 +9,6 @@
 #include "cocos2d.h"
 #include "ODSocket.h"
 
-#define SERVER_IP "127.0.0.1"
-
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include "windows.h"
 #define sleep Sleep
@@ -29,7 +27,6 @@ public:
     typedef std::function<void (net_pkg *)> handler;
     typedef unsigned int data_size_t;
     static Client *getInstance();
-    static char *s_serverIP;
     static int s_serverPort;
     static handler s_handlers[MESSAGE::Max_number];
     static net_pkg s_pkg;
@@ -73,15 +70,14 @@ public:
         return m_connect;
     }
 
-    bool connectSever();
+    bool connect_server();
 
     void threadRecv();
     void start(); //in a new thread
 private:
-    static Client *s_client;
     Client();
     std::thread *m_thread = nullptr;
-    ODSocket *m_sock;
+    ODSocket *m_sock = nullptr;
     net_pkg m_pkg_send;
     net_pkg m_pkg_recv;
     bool m_handled = true;

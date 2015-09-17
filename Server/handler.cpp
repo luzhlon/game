@@ -77,13 +77,13 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
         if(!room) return;
         if(pkg->arg1) {
             self->member()->set_ready_1();
-            room->broadMembers();
             if(room->checkAllReady()) {
                 //start game
             }
         } else {
             self->member()->set_ready_0();
         }
+        room->broadMembers();
     };
     HANDLER(set_team) { //
         auto room = self->member()->room();
@@ -106,6 +106,7 @@ void MsgHandler::onDisconnected() {
     qDebug() << "[Connect:] "
              << (m_member ? member()->name() : m_socket->peerName())
              << "disconnected.";
+    if(m_member) m_member->quit_room();
     delete this;
 }
 

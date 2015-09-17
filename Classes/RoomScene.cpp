@@ -17,25 +17,84 @@ bool RoomScene::init() {
         
     CC_ASSERT(layout); //load layout failure
 
-    setClickCallback(layout, "check_ready", CC_CALLBACK_1(RoomScene::onReadyClick, this));
+    setClickCallback(layout, "check_ready_me", CC_CALLBACK_1(RoomScene::onReadyClick, this));
     setClickCallback(layout, "check_team", CC_CALLBACK_1(RoomScene::onTeamClick, this));
 
     //CC_ASSERT(!s_room_name.empty());
     auto text_name = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_name"));
     text_name->setString(s_room_name);
 
+    load_layouts(layout);
+
     return true;
+}
+
+void RoomScene::set_member_info(int index, room_member *meb) {
+    CC_ASSERT(index < MAX_ROOM_MEMBERS);
+
+    auto lay = _layout_member[index];
+    auto ready = static_cast<CheckBox *>(Helper::seekWidgetByName(lay, "check_ready"));
+    auto name = static_cast<Text *>(Helper::seekWidgetByName(lay, "text_member"));
+
+    if (meb->is_empty()) {
+        ready->setSelectedState(false);
+        name->setString("");
+        return;
+    }
+
+    ready->setSelectedState(meb->get_ready());
+    name->setString(meb->m_name);
 }
 
 void RoomScene::onEnter() {
     Layer::onEnter();
-    CurScene(SCENE_ROOM);
+    HANDLER(room_members) = Client::handler([this](net_pkg *pkg) {
+        auto *meb = (room_member *)pkg->data;
+        for (int i = 0; i < 6; i++) {
+            set_member_info(i, &meb[i]);
+        }
+        //HANDLER(authentication) = nullptr; // 置空，防止重复调用
+    });
+    Client::getInstance()->sendMsg(MESSAGE::room_members);
 }
 
 void RoomScene::onReadyClick(Ref *ref) {
     auto btn = static_cast<CheckBox *>(ref);
-    btn->getSelectedState();
+    Client::getInstance()->sendMsg(MESSAGE::set_ready, (msg_arg)btn->getSelectedState());
 }
-void RoomScene::onTeamClick(Ref *ref) {
 
+void RoomScene::onTeamClick(Ref *ref) {
+    auto btn = static_cast<CheckBox *>(ref);
+    Client::getInstance()->sendMsg(MESSAGE::set_team, (msg_arg)btn->getSelectedState());
+}
+
+void RoomScene::load_layouts(Layout *layout) {
+    auto layout_team_red = static_cast<Layout *>(Helper::seekWidgetByName(layout, "layout_team_red"));
+    auto layout_team_blue = static_cast<Layout *>(Helper::seekWidgetByName(layout, "layout_team_blue"));
+    CC_ASSERT(layout_team_red); //load layout failure
+    CC_ASSERT(layout_team_blue); //load layout failure
+
+    auto layout_member = static_cast<Layout *>
+        (Helper::seekWidgetByName(layout_team_red, "layout_member"));
+    CC_ASSERT(_layout_member);
+    layout_member->retain();
+    layout_member->removeFromParent();
+
+    Layout *layout_red_blue[2];
+    layout_red_blue[0] = layout_team_red;
+    layout_red_blue[1] = layout_team_blue;
+
+    for (int i = 0; i < MAX_ROOM_MEMBERS; i ++) {
+        auto layout = layout_red_blue[i % 2];
+
+        auto lay = static_cast<Layout *>(layout_member->clone());
+        auto name = static_cast<Text *>(Helper::seekWidgetByName(lay, "text_member"));
+        auto ready = static_cast<CheckBox *>(Helper::seekWidgetByName(lay, "check_ready"));
+
+        layout->addChild(lay); // 加到相应team的layout里
+        auto size = layout->getContentSize();
+        lay->setPosition(Vec2(0.f, (1.f - i / 2 * 0.333) * size.height));
+
+        _layout_member[i] = lay;
+    }
 }

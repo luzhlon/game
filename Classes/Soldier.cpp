@@ -22,19 +22,27 @@ void Soldier::load_all_soldiers() {
 
 bool Soldier::init() {
     //将动作加载放在init子类前面，让子类有修改的机会
+    /*
 	m_act_idle = Animate3D::createWithFrames(Animation3D::create("idle.c3b"), 0, 100);
-	m_act_idle->retain();
 	m_act_walk = RepeatForever::create(Animate3D::createWithFrames(Animation3D::create("walk.c3b"), 0, 100));
-	m_act_walk->retain();
-	m_act_run = Animate3D::createWithFrames(Animation3D::create("run.c3b"), 0, 100);
-	m_act_run->retain();
+	m_act_special = Animate3D::createWithFrames(Animation3D::create("run.c3b"), 0, 100);
 	m_act_boxing = Animate3D::createWithFrames(Animation3D::create("boxing.c3b"), 0, 119);
-	m_act_boxing->retain();
-	m_act_kick = Animate3D::createWithFrames(Animation3D::create("kick.c3b"), 0, 56);
-	m_act_kick->retain();
+	m_act_kick = Animate3D::createWithFrames(Animation3D::create("kick.c3b"), 0, 56); // */
 
     init_soldier();
 
+	m_act_kick->retain();
+	m_act_boxing->retain();
+	m_act_special->retain();
+	m_act_walk->retain();
+	m_act_idle->retain();
+
+    setPosition3D(Vec3::ZERO);
+
+    return true;
+}
+
+void Soldier::begin_fight() {
     auto node = CSLoader::createNode("soldier_head_info.csb");
     auto layout = static_cast<Layout *>(node->getChildByTag(1));
     auto textName = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_name"));
@@ -53,7 +61,6 @@ bool Soldier::init() {
     addThing(_billboard);
 
     scheduleUpdate();
-    return true;
 }
 
 #define AT_STATE(_state) if(atState(_state))

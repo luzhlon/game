@@ -14,12 +14,15 @@ Dialog::Dialog(QWidget *parent) :
 
     flags |= Qt::WindowMinimizeButtonHint; //最小化按钮
     flags |= Qt::WindowCloseButtonHint;
-    flags |= Qt::WindowModal;
+    //flags |= Qt::WindowModal;
     setWindowFlags(flags);
 
     ui->setupUi(this);
     startWork();
     g_dialog = this;
+
+    new Room("DEBUG");
+    updateRoomList();
 }
 
 Dialog::~Dialog()
@@ -58,6 +61,7 @@ void Dialog::on_list_room_itemClicked(QListWidgetItem *item)
     auto room = Room::g_room[name];
     if(!room) return;
     for(auto mem : room->m_members) {
-        ui->list_member->addItem(mem->name());
+        if(mem)
+            ui->list_member->addItem(mem->name());
     }
 }

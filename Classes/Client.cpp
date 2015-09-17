@@ -1,7 +1,5 @@
 ﻿#include "Client.h"
 
-Client *                Client::s_client = nullptr;
-char *                  Client::s_serverIP = SERVER_IP;
 int                     Client::s_serverPort = 4321;
 std::list<net_pkg *>    Client::s_recv_list;
 net_pkg                 Client::s_pkg;
@@ -12,16 +10,20 @@ Client::Client() {
 }
 
 Client* Client::getInstance() {
-    if(s_client) return s_client;
-    s_client = new Client();
+    static Client *s_client = nullptr;
+    if(!s_client) 
+        s_client = new Client();
     return s_client;
 }
 
-bool Client::connectSever() {
-    m_sock = new ODSocket();
+extern char g_server_ip[32];
+
+bool Client::connect_server() {
+    if (!m_sock) m_sock = new ODSocket();
     m_sock->Create(AF_INET, SOCK_STREAM, 0);
+
     for(int i = 0; i < 5; i++) {
-        if(m_sock->Connect(s_serverIP, s_serverPort)) {
+        if(m_sock->Connect(g_server_ip, s_serverPort)) {
             m_connect = true;
             return true;
         }
@@ -42,13 +44,14 @@ void Client::start() {
 
 void Client::dispatchMsg(float dt) {
     if (s_recv_list.empty()) return;
+    // 从消息队列前面提取消息
     auto pkg = s_recv_list.front();
     s_recv_list.pop_front();
     //dispatch
     auto handle = s_handlers[pkg->msg];
     if(handle) {
         handle(pkg);
-        delete pkg;
+        delete pkg; // 释放此消息占用的内存空间
     } else {
         //
     }
@@ -66,7 +69,7 @@ bool Client::send(char *buf, int size) {
 }
 
 void Client::threadRecv() {
-    connectSever();
+    connect_server();
     while(recv_data()) {
         char *buf = new char[m_pkg_recv.len];
         memcpy(buf, &m_pkg_recv, m_pkg_recv.len);

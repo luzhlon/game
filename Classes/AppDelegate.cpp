@@ -1,6 +1,7 @@
 ﻿#include "AppDelegate.h"
-#include "GameScene.h"
+//#include "GameScene.h"
 //#include "MenuScene.h"
+#include "RoleScene.h"
 
 USING_NS_CC;
 
@@ -14,8 +15,8 @@ FileUtils *     g_file;
 Size            g_win_size;
 Size            g_vis_size;
 //Settings
-char            g_server_ip[32];
-int             g_volume;
+char            g_server_ip[32] = "127.0.0.1";
+int             g_volume = 50;
 
 AppDelegate::AppDelegate() {
 
@@ -101,7 +102,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
     //auto scene = MenuScene::createScene();
-    auto scene = GameScene::createScene();
+    //auto scene = GameScene::createScene();
+    auto scene = RoleScene::createScene();
     // run
     g_director->runWithScene(scene);
 

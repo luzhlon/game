@@ -31,32 +31,35 @@ bool RoleScene::init() {
     m_pageSprite = static_cast<PageView*>
             (Helper::seekWidgetByName(layout, "page_sprite"));
 
-    loadPages();
+    load_pages();
 	
     return true;
 }
 
-bool RoleScene::loadPages() {
-    auto node = CSLoader::createNode("role_page.csb");
-    auto layout = static_cast<Layout*>
-            (node->getChildByName("layout"));
-    CC_ASSERT(layout);
-    Soldier::load_all_soldiers(); 
+bool RoleScene::load_pages() {
+    auto _layout = static_cast<Layout *>
+        (Helper::seekWidgetByName(m_pageSprite, "layout_sprite"));
+    _layout->retain();
+
+    auto size = m_pageSprite->getSize();
+    m_pageSprite->removeAllPages();
+    Soldier::load_all_soldiers();  
+
     for(int i = 0; i < Soldier::Type::TYPE_NUMBER; i++) {
         //Layout *layout;
-        auto l = static_cast<Layout*>(layout->clone());
+        Layout* layout = (Layout *)_layout->clone();
+        m_pageSprite->addPage(layout);
+        layout->setSizePercent(Vec2(1.f, 1.f));
+        //layout->setPositionPercent(Vec2(1.f, 1.f));
+
         auto s = Soldier::s_soldiers[i];
-        auto size = m_pageSprite->getSize();
+        s->setScale(1.f);
+        layout->addChild(s);
+        s->setPosition(Vec2(size.width / 2.f, size.height / 3.f));
 
-        auto role_name = static_cast<Text *>(Helper::seekWidgetByName(l, "text_role_name"));
-        role_name->setString(s->getName());
-
-        l->setSize(size);
-        l->setPosition(Vec2(size.width / 2.f, size.height / 2.f));
-        s->setPosition(Vec2(size.width / 2.f, size.height / 2.f));
-        l->addChild(s);
-        l->removeFromParent();
-        m_pageSprite->addPage(l);
+        auto role_name = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_role_name"));
+        role_name->setPositionPercent(Vec2(0.5f, 0.05f));
+        role_name->setString(s->name());
     }
     return true;
 }
@@ -67,7 +70,6 @@ void RoleScene::onEnter() {
     Client::getInstance()->start();
 	// 认证是否成功
     HANDLER(authentication) = Client::handler([this](net_pkg *pkg) {
-        if(!IsCurScene(SCENE_ROLE)) return;
 		if (pkg->arg1) { // 成功，进入房间列表
             log("[Auth success]");
 			Director::getInstance()->pushScene(RoomListScene::createScene());

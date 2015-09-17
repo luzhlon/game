@@ -12,7 +12,7 @@ public:
 
     virtual bool init();
 
-    bool loadPages();
+    bool load_pages();
 
     void onStartClick(Ref *);
     void onLeaveClick(Ref *);
