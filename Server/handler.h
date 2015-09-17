@@ -30,6 +30,9 @@ public:
     inline int Reply(net_pkg *p) {
         return _Reply(p, NET_PKG_SIZE_1);
     }
+    inline int Reply(net_pkg *p, msg_len len) {
+        return _Reply(p, p->len);
+    }
     inline int Reply(net_pkg *p, msg_arg arg1) {
         p->arg1 = arg1;
         return _Reply(p, NET_PKG_SIZE_1);

@@ -81,6 +81,8 @@ namespace MESSAGE {
         start_game, //开始游戏
         set_ready, //设置准备状态
         set_team, //设置队伍
+        update_state,
+        update_postion,
 
         Max_number //消息的最大数目
     }; //主连接消息

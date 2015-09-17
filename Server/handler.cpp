@@ -95,6 +95,13 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
             self->Reply(pkg, 0, room->error());
         }
     };
+
+    auto handler_update = [](MsgHandler *self, net_pkg *pkg) {
+        self->member()->room()->broadcast(pkg, pkg->len);
+    };
+    m_handlers[MESSAGE::update_state] = handler_update;
+    m_handlers[MESSAGE::update_postion] = handler_update;
+    //m_handlers[MESSAGE::update_postion] = handler_update;
 }
 
 MsgHandler::~MsgHandler() {
