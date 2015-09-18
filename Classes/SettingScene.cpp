@@ -23,8 +23,8 @@ void SettingScene::load_settings() {
 }
 
 bool SettingScene::init() {
-    auto layer = loadLayer("setting_scene.csb");
-    auto layout = getLayout(layer);
+    auto layer = load_layer("setting_scene.csb");
+    auto layout = get_layout(layer);
 
     CC_ASSERT(layout); //load layout failure
 

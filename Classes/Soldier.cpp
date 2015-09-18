@@ -1,4 +1,5 @@
 ﻿#include "Soldier.h"
+#include "Skill.h"
 #include "World.h"
 #include "AppDelegate.h"
 #include "ManSoldier.h"
@@ -6,9 +7,7 @@
 #include "WomanSoldier.h"
 
 Vec3 Soldier::s_camera_offset = Vec3(0.f, 60.f, 45.f); 
-Soldier *Soldier::s_soldiers[Soldier::Type::TYPE_NUMBER];
 Soldier *Soldier::s_followed = nullptr;
-const float Soldier::s_step = 10.f;
 const float Soldier::s_full_blood = 100.f;
 extern World *g_world;
 
@@ -27,6 +26,25 @@ Soldier *Soldier::create(int type_id) {
         return Man2Soldier::create();
         break;
     }
+}
+
+bool Soldier::do_skill(SkillBase* skill) {
+    move_stop();
+    switch (skill->_type) {
+    case SkillBase::SKILL_BOXING:
+        stopAllActions();
+        runAction(m_act_boxing);
+        break;
+    case SkillBase::SKILL_KICK:
+        stopAllActions();
+        runAction(m_act_kick);
+        break;
+    case SkillBase::SKILL_SPECIAL:
+        stopAllActions();
+        runAction(m_act_special);
+        break;
+    }
+    return true;
 }
 
 Soldier *Soldier::create(room_member *rm) {
@@ -49,7 +67,11 @@ bool Soldier::init() {
 
     CC_ASSERT(_role_id >= 0);
 
+    setRotation3D(Vec3(180.f, _base_angle + 90.f, 180.f));
+
     m_act_walk = RepeatForever::create(m_act_walk);
+    m_act_idle = RepeatForever::create(m_act_idle);
+
 	m_act_kick->retain();
 	m_act_boxing->retain();
 	m_act_special->retain();
@@ -61,10 +83,9 @@ bool Soldier::init() {
     return true;
 }
 
-void Soldier::net_move(Vec3& target) {
-}
-
-void Soldier::net_move_stop() {
+void Soldier::set_blood(float blood) {
+    _blood = blood;
+    _blood_bar->setPercent(_blood / s_full_blood * 100.f);
 }
 
 void Soldier::begin_fight() {
@@ -82,8 +103,8 @@ void Soldier::begin_fight() {
     _billboard = BillBoard::create();
     _billboard->addChild(layout);
     layout->setPositionY(10.f);
-    _billboard->setPosition3D(Vec3(0.f, 270.f, 0.f));
-    addThing(_billboard);
+    _billboard->setPosition3D(Vec3(0.f, 240.f, 0.f));
+    add_thing(_billboard);
 
     scheduleUpdate();
 }
@@ -126,7 +147,7 @@ void Soldier::update(float dt) {
 void Soldier::updateRotation() {
     Vec3 rota = getRotation3D();
     auto delta = _target_point - getPosition3D();
-    rota.y = CC_RADIANS_TO_DEGREES(Vec2(delta.x, delta.z).getAngle());
+    rota.y = CC_RADIANS_TO_DEGREES(Vec2(delta.x, delta.z).getAngle()) + _base_angle;
     setRotation3D(rota);
 }
 
@@ -221,7 +242,7 @@ void Soldier::show_blood_decline(float dec) {
     text->runAction(fade);
 }
 
-void Soldier::addThing(Node *node) {
+void Soldier::add_thing(Node *node) {
     node->setCameraMask(getCameraMask());
     addChild(node);
 }
@@ -231,15 +252,45 @@ void Soldier::add2Billboard(Node *node) {
     _billboard->addChild(node);
 }
 
+void Soldier::billboard_set_name(string name) {
+    auto layout = static_cast<Layout *>(_billboard->getChildByTag(1));
+    auto textName = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_name"));
+    textName->setString(name);
+}
+
 void Soldier::move_stop() {
-    rmState(SOLDIER_STATE_MOVE);
-    auto walk = getActionByTag(ACTION_WALK);
-    this->stopAction(m_act_walk);
+    switch_state(SOLDIER_STATE_IDLE);
 }
 
 void Soldier::move(Vec3& target) {
-    _target_point = target;
-    if (atState(SOLDIER_STATE_MOVE)) return;
-    addState(SOLDIER_STATE_MOVE);
-    runAction(m_act_walk);
+    switch_state(SOLDIER_STATE_MOVE, &target);
+}
+
+void Soldier::switch_state(State state, void *data) {
+    switch (state) {
+    case Soldier::SOLDIER_STATE_MOVE:
+    {
+        _target_point = *(Vec3 *)data;
+        if (atState(SOLDIER_STATE_MOVE)) break;
+        addState(SOLDIER_STATE_MOVE);
+        rmState(SOLDIER_STATE_IDLE);
+        stopAllActions();
+        runAction(m_act_walk);
+        break;
+    }
+    case Soldier::SOLDIER_STATE_IDLE:
+    {
+        rmState(SOLDIER_STATE_MOVE);
+        addState(SOLDIER_STATE_IDLE);
+        stopAllActions();
+        runAction(m_act_idle);
+        break;
+    }
+    }
+}
+
+bool Soldier::on_attacked(SkillBase* skill) {
+    _blood = skill->_dec_blood;
+    set_blood(_blood);
+    return true;
 }

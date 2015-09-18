@@ -11,19 +11,8 @@ class Dialog;
 
 class SceneLayer : public Layer
 {
-    static char s_cur_scene;
 public:
     SceneLayer();
-    inline static void CurScene(char scene) {
-        s_cur_scene = scene;
-    }
-    inline static char CurScene() {
-        return s_cur_scene;
-    }
-    inline static bool IsCurScene(char scene) {
-        return s_cur_scene == scene;
-    }
-
     enum {
         SCENE_MENU,
         SCENE_SETTING,
@@ -34,10 +23,10 @@ public:
     };
 
 protected:
-    Node *loadLayer(const std::string& sceneFile, int layerTag = 1);
-    Layer *loadLayer(Node *scene, int layerTag = 1);
+    Node *load_layer(const std::string& sceneFile, int layerTag = 1);
+    Layer *load_layer(Node *scene, int layerTag = 1);
     Layout *get_layout(const std::string& nodefile, int tag = 1);
-    inline Layout *getLayout(Node *layer, const std::string& name = "layout") {
+    inline Layout *get_layout(Node *layer, const std::string& name = "layout") {
         return layer ? static_cast<Layout *>(layer->getChildByName(name)) : nullptr;
     }
     bool setClickCallback(Layout *layout,

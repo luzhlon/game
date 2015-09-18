@@ -8,12 +8,10 @@ class WomanSoldier : public Soldier
 public:
     CREATE_FUNC(WomanSoldier);
     bool init_soldier() override;
-    void action_boxing() override;
+    //void action_boxing() override;
 
-	void loadAction();
-
+	void load_actions();
 private:
-
     PUParticleSystem3D *_par_line_attack;
 };
 

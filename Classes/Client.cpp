@@ -48,6 +48,8 @@ void Client::dispatchMsg(float dt) {
     auto pkg = s_recv_list.front();
     s_recv_list.pop_front();
     //dispatch
+    if (pkg->msg >= MESSAGE::Max_number) return;
+
     auto handle = s_handlers[pkg->msg];
     if(handle) {
         handle(pkg);

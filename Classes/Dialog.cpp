@@ -9,8 +9,8 @@ Dialog *Dialog::getInstance() {
 }
 
 Dialog::Dialog() {
-	m_layer = loadLayer("dialog_scene.csb");
-	auto layout = getLayout(m_layer);
+	m_layer = load_layer("dialog_scene.csb");
+	auto layout = get_layout(m_layer);
 	CC_ASSERT(layout);
 	m_layer->removeFromParent();
 

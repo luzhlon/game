@@ -4,19 +4,17 @@
 
 using namespace cocostudio;
 
-char SceneLayer::s_cur_scene;
-
 SceneLayer::SceneLayer()
 {
 }
 
-Node *SceneLayer::loadLayer(const std::string& sceneFile, int layerTag) {
+Node *SceneLayer::load_layer(const std::string& sceneFile, int layerTag) {
     auto node = CSLoader::getInstance()->createNode(sceneFile);
     return node ?
-                loadLayer(node, layerTag) : nullptr;
+                load_layer(node, layerTag) : nullptr;
 }
 
-Layer *SceneLayer::loadLayer(Node *scene, int layerTag) {
+Layer *SceneLayer::load_layer(Node *scene, int layerTag) {
     auto child = scene->getChildByTag(layerTag);
     if(child) {
         child->removeFromParent();

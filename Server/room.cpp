@@ -36,13 +36,24 @@ bool Room::add(Member *meb) {
             meb->m_room_id = i;
             meb->m_room = this; //设置成员的所属房间为自己
             qDebug() << "Room:" << m_name << "," << meb->m_name << "joined.";
-            broadMembers(); //广播房间中的成员信息
+            broad_members(); //广播房间中的成员信息
             return true;
         }
     }
     //房间已经满员了
     m_err = "room is full";
     return false;
+}
+
+bool Room::start_game() {
+    //if(m_started)
+        //return false;  //DEBUG
+
+    mini_net_pkg pkg;
+    pkg.msg = MESSAGE::start_game;
+    broadcast((net_pkg *)&pkg);
+    m_started = true;
+    return true;
 }
 
 bool Room::remove(Member *meb) {
@@ -52,12 +63,12 @@ bool Room::remove(Member *meb) {
         return false;
     }
     m_members[r_id] = nullptr;
-    broadMembers(); //广播房间中的成员信息
+    broad_members(); //广播房间中的成员信息
     qDebug() << "Room:" << m_name << "," << meb->m_name << " quited.";
     return true;
 }
 
-void Room::broadMembers() {
+void Room::broad_members() {
     net_pkg pkg;
     room_member meb[MAX_ROOM_MEMBERS];
 
@@ -65,19 +76,27 @@ void Room::broadMembers() {
     pkg.arg1 = 0; //房间成员数
     pkg.arg2 = 0; //自己的Room ID
 
+    //size_t size = sizeof(room_member) * MAX_ROOM_MEMBERS;
     for(int i = 0; i < MAX_ROOM_MEMBERS; i++) {
         auto m = m_members[i] ;
         if(m) {
             pkg.arg1 ++; //成员数
-            pkg.arg2 = i; //对应客户端自己的ID
+            m->m_room_id = i;
             memcpy(&meb[i], m, sizeof(room_member)); //Copy成员信息
         } else {
             //memset(&meb[i], 0, sizeof(room_member)); //此位置清零
             meb[i].set_empty(); //空成员
         }
+        meb[i].m_room_id = i;
+    } // 构造数据包
+
+    //broadcast
+    for(int i = 0; i < MAX_ROOM_MEMBERS; i++) {
+        auto m = m_members[i] ;
+        pkg.arg2 = i; //对应客户端自己的ID
+        if(m) m->handler()->Reply(&pkg, meb, sizeof(meb));
     }
-    size_t size = sizeof(room_member) * MAX_ROOM_MEMBERS;
-    broadcast(&pkg, meb, size);
+    //broadcast(&pkg, meb, size);
 }
 
 int Room::for_member_id(Member *meb) {
@@ -102,7 +121,7 @@ bool Room::checkAllReady() {
     else return false;
 }
 
-bool Room::setTeam(Member *meb, int team) {
+bool Room::set_team(Member *meb, int team) {
     int r_id = for_member_id(meb);
     if(error()) {
         return false;

@@ -16,7 +16,7 @@ public:
 
     void loadMapLayer(); //加载地图
     void loadUIlayer(); //
-    void create_soldiers();
+    void set_small_direction(float);
 
     bool init() override;
 private:
@@ -26,6 +26,8 @@ private:
     Node *_node_editor;
     Layer *m_layer_ui;
     Layer *m_sel_obj; //当前选中的对象
+
+    ImageView *_image_direction = nullptr; // 小地图中的方向图标
 
     DrawNode3D *_drawNode;
 

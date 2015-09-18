@@ -13,7 +13,7 @@ using namespace ui;
 using namespace std;
 using namespace cocostudio;
 
-#define UPDATE_RATE 0.02f
+class SkillBase;
 
 class Soldier : public Sprite3D
 {
@@ -34,8 +34,6 @@ public:
     };
 
     static const float s_full_blood;
-    static const float s_step;
-    static Soldier *s_soldiers[Type::TYPE_NUMBER];
     static Soldier *s_followed;
     static Vec3 s_camera_offset;
 
@@ -77,6 +75,12 @@ public:
     inline int role_id() {
         return (int)_role_id;
     }
+    inline room_member *member() {
+        return _room_member;
+    }
+    inline float get_rotation() {
+        return getRotation3D().y - _base_angle;
+    }
 
     inline float getHeightOffset() {
         return _height_offset;
@@ -85,32 +89,19 @@ public:
         s_followed = this;
     }
 
-	inline void action_idle() {
-		runAction(m_act_idle);
-	}
-	inline void action_walk() {
-        addState(SOLDIER_STATE_ACTION);
-		runAction(m_act_walk);
-	}
-	virtual void action_boxing() {
-        addState(SOLDIER_STATE_ACTION);
-        _cur_action = m_act_boxing;
-
-		runAction(m_act_boxing);
-	}
-	inline void action_kick() {
-        addState(SOLDIER_STATE_ACTION);
-		runAction(m_act_kick);
-	}
     inline void show_billboard(bool show) {
         _billboard->setVisible(show);
     }
+    void billboard_set_name(string);
+    void set_blood(float blood);
 
-    void move_stop(); //停止移动
-    void move(Vec3& target); //移到到指定位置
+    void switch_state(State state, void *data = nullptr);
 
-    void net_move(Vec3& target);
-    void net_move_stop();
+    virtual bool do_skill(SkillBase* skill);
+    virtual bool on_attacked(SkillBase* skill);
+
+    inline void move_stop(); //停止移动
+    inline void move(Vec3& target); //移到到指定位置
 
     void begin_fight(); //准备开始战斗
 
@@ -122,29 +113,30 @@ public:
     void updateHeight(); //刷新高度:根据所在X-Z面的位置
     void updateRotation(); //刷新朝向：根据目标点
     void updateBlood(); //刷新血量条
-    void addThing(Node *); //往自身结点添加一个Node，根据自身的CameraMask
+    void add_thing(Node *); //往自身结点添加一个Node，根据自身的CameraMask
     void add2Billboard(Node *); //把节点添加到Billboard
 
 private:
     State _state = SOLDIER_STATE_IDLE;
 
 protected:
+    Type _role_id = (Type)(-1); //所属角色的ID
+    room_member *_room_member = nullptr; // room_member 信息
     string _name = "<unset>"; //头顶显示的名称
+
     float _speed = 10.f; //速度
     float _blood = 80.f; //血量
     Vec3  _target_point; //要移动到的目标点
+    float _base_angle = 90.f; // 基准角度
 
+    //UI
     BillBoard *_billboard = nullptr;
-
     LoadingBar *_blood_bar;
 
     Action *_cur_action = nullptr;  //当前的动作
     PUParticleSystem3D *_cur_action_pu = nullptr;  //当前动作所使用的粒子系统
 
-    float _height_offset;
-
-    Type _role_id = (Type)(-1); //所属角色的ID
-    room_member *_room_member = nullptr; // room_member 信息
+    float _height_offset = 0.f;
 
     //五个基本动作
 	ActionInterval *m_act_idle;

@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "AppDelegate.h"
 #include "GameScene.h"
+#include "NetRoom.h"
 #include "cocostudio/CocoStudio.h"
 #include "Soldier.h"
 #include "../Server/message.h"
@@ -17,9 +18,6 @@ Client *g_client;
 extern Director *g_director;
 extern FileUtils *g_file;
 extern Soldier *g_self;
-extern char        g_room_name[MAX_ROOM_NAME_LEN];
-extern room_member g_members[MAX_ROOM_MEMBERS];
-extern int         g_self_room_id; // 自己的Room ID
 
 Soldier *g_soldiers[MAX_ROOM_MEMBERS];
 
@@ -34,22 +32,12 @@ Scene* GameScene::createScene() {
 
 void GameScene::loadMapLayer() {
     _drawNode = DrawNode3D::create();
-    g_world->addThing(_drawNode);
+    g_world->add_thing(_drawNode);
     _drawNode->setPosition3D(Vec3::ZERO);
 
     addChild(g_world);
 }
 
-void GameScene::create_soldiers() {
-    for (int i = 0; i < MAX_ROOM_MEMBERS; i++) {
-        room_member *meb = &g_members[i];
-        if (meb->is_empty()) continue;
-        g_soldiers[i] = Soldier::create(meb);
-        g_world->addThing(g_soldiers[i]);
-    }
-
-    g_player = Player::getInstance(g_soldiers[g_self_room_id]);
-}
 
 // on "init" you need to initialize your instance
 bool GameScene::init()
@@ -64,7 +52,8 @@ bool GameScene::init()
 
     loadMapLayer();
     loadUIlayer();
-    create_soldiers();
+    //create_soldiers();
+    NetRoom::init();
 
     return true;
 }
@@ -73,15 +62,18 @@ extern void _LogSize(const char *desc, const Size& size);
 extern void _LogVec3(const char *desc, Vec3& v3);
 
 void GameScene::loadUIlayer() {
-    m_layer_ui = loadLayer(_node_editor, 2);
+    m_layer_ui = load_layer(_node_editor, 2);
     CC_ASSERT(m_layer_ui);
     m_layer_ui->removeFromParent();
 
-    auto layout = getLayout(m_layer_ui);
+    auto layout = get_layout(m_layer_ui);
     _text_debug = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_debug"));
 
     auto layout_layer = Helper::seekWidgetByName(layout, "layout_layer");
     layout_layer->addTouchEventListener(CC_CALLBACK_2(GameScene::onLayerTouched, this));
+
+    _image_direction = static_cast<ImageView *>(Helper::seekWidgetByName(layout, "image_direction"));
+    CC_ASSERT(_image_direction);
     //鼠标监听
     auto mouse_listener = EventListenerMouse::create();
     mouse_listener->onMouseScroll = CC_CALLBACK_1(GameScene::onMouseScroll, this);
@@ -92,7 +84,7 @@ void GameScene::loadUIlayer() {
 	});
     setClickCallback(layout, "button_2", [this](Ref *ref) {
 		auto s = (WomanSoldier *)g_self;
-		s->action_walk();
+		//s->action_walk();
 	});
     setClickCallback(layout, "button_3", [this](Ref *ref) {
 		auto s = (WomanSoldier *)g_self;
@@ -122,21 +114,11 @@ void GameScene::loadUIlayer() {
         }
 	});
 
-    Skill::btn_skill_kick = static_cast<Button *>(Helper::seekWidgetByName(layout,  "button_skill_kick"));
-    Skill::btn_skill_boxing = static_cast<Button *>(Helper::seekWidgetByName(layout,  "button_skill_boxing"));
-    Skill::btn_skill_special = static_cast<Button *>(Helper::seekWidgetByName(layout,  "button_skill_special"));
-
-    setClickCallback(layout, "button_skill_kick", Skill::onSkillClicked);
-    setClickCallback(layout, "button_skill_boxing", Skill::onSkillClicked);
-    setClickCallback(layout, "button_skill_special", Skill::onSkillClicked);
+    Player::skill_kick = new SkillKick(static_cast<Button *>(Helper::seekWidgetByName(layout,  "button_skill_kick")));
+    Player::skill_boxing = new SkillBoxing(static_cast<Button *>(Helper::seekWidgetByName(layout,  "button_skill_boxing")));
+    Player::skill_special = new SkillSpecial(static_cast<Button *>(Helper::seekWidgetByName(layout,  "button_skill_special")));
 
     addChild(m_layer_ui);
-
-    HANDLER(update_state) = Client::handler([](net_pkg *pkg) {
-        auto sol = g_soldiers[pkg->arg1];
-        sol->target_point(*(Vec3 *)(pkg->data));
-        sol->addState((Soldier::State)pkg->arg2);
-    });
 }
 
 void GameScene::ui2gl(Vec2& v) {
@@ -166,15 +148,8 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
             ui2gl(pos);
             Vec3 point(pos.x, pos.y, 0.f);
             if (g_world->conv2space(point)){
-                g_world->showPoint(point);
-                //g_self->move(point);
-                char buf[512];
-                net_pkg *pkg = (net_pkg *)buf;
-                pkg->msg = MESSAGE::update_state;
-                pkg->arg1 = g_self_room_id;
-                pkg->arg2 = Soldier::SOLDIER_STATE_MOVE;
-                memcpy(pkg->data, &point, sizeof(point));
-                g_client->sendMsg(pkg, sizeof(mini_net_pkg)+sizeof(point));
+                g_world->show_point(point);
+                NetRoom::action_move(point);
             } else {
                 log("[World] get Space coordinate failure.");
             }
@@ -217,4 +192,8 @@ void GameScene::onMouseScroll(Event* event) {
         auto cam = g_world->get_camera();
         cam->setPositionY(cam->getPositionY() + e->getScrollY());
     }
+}
+
+void GameScene::set_small_direction(float angle) {
+    _image_direction->runAction(RotateTo::create(0.3f, angle));
 }

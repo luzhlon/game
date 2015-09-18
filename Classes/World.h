@@ -23,13 +23,13 @@ public:
         return _drawNode;
     }
 
-    void drawGrid(float cell = 10.f);
-    void addSkybox();
+    void draw_grid(float cell = 10.f);
+    void add_skybox();
     void switch_camera(int );
 
-    void addThing(Node *node, float x = 0.f, float z = 0.f);
+    void add_thing(Node *node, float x = 0.f, float z = 0.f);
 
-    void showPoint(const Vec3& v);
+    void show_point(const Vec3& v);
     bool conv2space(Vec3& v); //ignore v.z
     Camera *get_camera();
     //void unproject(const Size* viewport, Vec3* src, Vec3* dst);
@@ -45,7 +45,7 @@ private:
     Camera *_camera_fix;
 
     DrawNode3D *_drawNode;
-    PUParticleSystem3D *_pu_clickPoint;
+    PUParticleSystem3D *_pu_click_point;
 };
 
 #endif /* __WORLD_H__ */

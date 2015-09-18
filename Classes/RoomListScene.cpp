@@ -7,6 +7,8 @@
 
 using namespace cocostudio;
 
+extern string g_room_name;
+
 Scene *RoomListScene::createScene() {
     auto scene = Scene::create();
     auto layer = RoomListScene::create();
@@ -31,20 +33,19 @@ bool RoomListScene::addRoomItem(const string& item_name) {
     return true;
 }
 
-extern char g_room_name[MAX_ROOM_NAME_LEN];
-
 void RoomListScene::onItemClick(Ref *ref) {
     Button *btn = dynamic_cast<Button *>(ref);
     CC_ASSERT(btn);
     string item = btn->getTitleText();
-    strncpy(g_room_name, item.c_str(), MAX_ROOM_NAME_LEN);
+    g_room_name = item;
+    //strncpy(g_room_name, item.c_str(), MAX_ROOM_NAME_LEN);
     Client::getInstance()->sendMsg(MESSAGE::join_room, item.c_str()); // 请求服务器
     log("[Log] item %s clicked", item.c_str());
 }
 
 bool RoomListScene::init() {
-    auto layer = loadLayer("room_list_scene.csb");
-    auto layout = getLayout(layer);
+    auto layer = load_layer("room_list_scene.csb");
+    auto layout = get_layout(layer);
 
     CC_ASSERT(layout); //load layout failure
 
@@ -108,12 +109,12 @@ void RoomListScene::onCreateClick(Ref *ref) {
             Dialog::getInstance()->Popup_t(this, "错误", "房间名不能为空!!");
             return;
         }
-        strncpy(g_room_name, name.c_str(), MAX_ROOM_NAME_LEN);
+        g_room_name = name;
         HANDLER(create_room) = Client::handler(
                          [this](net_pkg *pkg) {
                              if(pkg->arg1) { // 创建成功后立即加入，不留BUG
                                  log("create room success");
-                                 Client::getInstance()->sendMsg(MESSAGE::join_room, g_room_name); // 请求服务器
+                                 Client::getInstance()->sendMsg(MESSAGE::join_room, g_room_name.c_str()); // 请求服务器
                                  //updateRoomList();
                              } else {
                                  Dialog::getInstance()->Popup_t(this, "创建失败", pkg->data);

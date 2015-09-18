@@ -14,6 +14,7 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
             this, SLOT(onStateChange(QAbstractSocket::SocketState)));
 
     m_handlers = new Handler[MESSAGE::Max_number]; //分配处理器Vector
+    for(int i = 0; i < MESSAGE::Max_number; i++) { m_handlers[i] = nullptr; }
 
     HANDLER(authentication) { //
         if(self->setMember(pkg->data, pkg->arg1)) {
@@ -67,10 +68,10 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
         g_dialog->updateRoomList();
     };
     HANDLER(room_members) { //获取房间成员列表
-        self->member()->room()->broadMembers();
+        self->member()->room()->broad_members();
     };
     HANDLER(start_game) { //通知各客户端开始游戏
-        self->member()->room()->broadcast(pkg);
+        self->member()->room()->start_game();
     };
     HANDLER(set_ready) { //设置准备状态
         auto room = self->member()->room();
@@ -83,14 +84,14 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
         } else {
             self->member()->set_ready_0();
         }
-        room->broadMembers();
+        room->broad_members();
     };
     HANDLER(set_team) { //
         auto room = self->member()->room();
         if(!room) return;
-        if(room->setTeam(self->member(), pkg->arg1)) {
+        if(room->set_team(self->member(), pkg->arg1)) {
             self->Reply(pkg, 1);
-            room->broadMembers();
+            room->broad_members();
         } else {
             self->Reply(pkg, 0, room->error());
         }
@@ -100,8 +101,13 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
         self->member()->room()->broadcast(pkg, pkg->len);
     };
     m_handlers[MESSAGE::update_state] = handler_update;
-    m_handlers[MESSAGE::update_postion] = handler_update;
-    //m_handlers[MESSAGE::update_postion] = handler_update;
+    m_handlers[MESSAGE::update_speed] = handler_update;
+    m_handlers[MESSAGE::update_blood] = handler_update;
+    m_handlers[MESSAGE::update_position] = handler_update;
+    m_handlers[MESSAGE::action_move] = handler_update;
+    m_handlers[MESSAGE::action_stop] = handler_update;
+    m_handlers[MESSAGE::do_skill] = handler_update;
+    m_handlers[MESSAGE::on_attacked] = handler_update;
 }
 
 MsgHandler::~MsgHandler() {
@@ -120,7 +126,8 @@ void MsgHandler::onDisconnected() {
 void MsgHandler::handle(net_pkg *p) {
     p = p ? p : &m_buf;
     if(p->msg < MESSAGE::Max_number) {
-        m_handlers[p->msg](this, p); //交由子类处理器处理
+        auto handler = m_handlers[p->msg];
+        if(handler) handler(this, p); //交由子类处理器处理
     } else {
         qDebug() << "[Error message]"
                  << m_socket->peerName();

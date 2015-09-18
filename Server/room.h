@@ -30,11 +30,12 @@ public:
     int  for_member_id(Member *); //遍历成员，获得room id
     bool add(Member *meb); //添加成员
     bool remove(Member *meb); //移除成员
-    bool setTeam(Member *, int ); //设置属于哪一队
+    bool set_team(Member *, int ); //设置属于哪一队
+    bool start_game();
 
     bool checkAllReady();
 
-    void broadMembers(); //广播成员列表
+    void broad_members(); //广播成员列表
 
     template<typename ... ARGS>
     void broadcast(net_pkg *pkg, ARGS ... args) { //广播消息
@@ -49,9 +50,10 @@ public:
 
 protected:
     friend class Dialog;
-    char m_name[MAX_ROOM_NAME_LEN]; //房间名称
+    bool        m_started = false;
+    char        m_name[MAX_ROOM_NAME_LEN]; //房间名称
     const char *m_err = nullptr; //上一个错误
-    Member *m_members[MAX_ROOM_MEMBERS]; //成员列表
+    Member     *m_members[MAX_ROOM_MEMBERS]; //成员列表
     //Member *m_master = nullptr; //房间主人
 };
 

@@ -4,11 +4,14 @@ Soldier::Type Player::s_type = Soldier::SOLDIER_TYPE_WOMAN;
 
 Soldier *g_self = nullptr;
 
+Skill *Player::skill_kick = nullptr;
+Skill *Player::skill_boxing = nullptr;
+Skill *Player::skill_special = nullptr;
+
 Player *Player::getInstance(Soldier *soldier) {
     static Player *player = nullptr;
     if (!player) {
         CC_ASSERT(soldier);
-
         player = new Player(soldier);
     }
     return player;
@@ -19,11 +22,11 @@ Player::Player(Soldier *self) {
     g_self = self;
 
     self->setCameraFollowed();
-    showCircle();
+    show_circle();
     //addChild(_soldier);
 }
 
-void Player::showCircle(bool show) {
+void Player::show_circle(bool show) {
     static Sprite3D *circle3d = nullptr;
     if (!circle3d) {
         circle3d = Sprite3D::create();
@@ -35,7 +38,7 @@ void Player::showCircle(bool show) {
 
         circle3d->setRotation3D(Vec3(-90.f, 0.f, 0.f));
 
-        _soldier->addThing(circle3d);
+        _soldier->add_thing(circle3d);
     }
     circle3d->setVisible(show);
 }
@@ -43,7 +46,7 @@ void Player::showCircle(bool show) {
 void Player::draw_circle(float radius, Color4F& color) {
     if (!_draw) {
         _draw = DrawNode::create();
-        _soldier->addThing(_draw);
+        _soldier->add_thing(_draw);
     }
     _draw->clear();
     _draw->drawDot(Vec2(0, 0), radius, color);

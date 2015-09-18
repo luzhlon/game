@@ -22,7 +22,7 @@ World::World() {
     {
         Terrain::DetailMap r("TerrainTest/dirt.jpg"), g("TerrainTest/Grass2.jpg", 10), b("TerrainTest/road.jpg"), a("TerrainTest/GreenSkin.jpg", 20);
 
-        Terrain::TerrainData data("TerrainTest/heightmap16.jpg", "TerrainTest/alphamap.png", r, g, b, a, Size(32, 32), 40.0f, 2);
+        Terrain::TerrainData data("TerrainTest/ground.jpg", "TerrainTest/alphamap.png", r, g, b, a, Size(32, 32), 330.0f, 6.f);
         _terrain = Terrain::create(data, Terrain::CrackFixedType::SKIRT);
         _terrain->setMaxDetailMapAmount(4);
         _terrain->setDrawWire(false);
@@ -46,12 +46,12 @@ World::World() {
     }
 
     {
-        _pu_clickPoint = PUParticleSystem3D::create("texiao_point.pu");
-        addChild(_pu_clickPoint);
+        _pu_click_point = PUParticleSystem3D::create("texiao_point.pu");
+        addChild(_pu_click_point);
     }
 
-    drawGrid();
-    addSkybox();
+    draw_grid();
+    add_skybox();
 
     setCameraMask((unsigned short)CAMERA_FIX);
 }
@@ -75,33 +75,8 @@ bool World::conv2space(Vec3& v) {
     v = collisionPoint;
     return ret;
 }
-/*
-void World::unproject(const Size* viewport, Vec3* src, Vec3* dst)
-{
-    assert(dst);
-    
-    assert(viewport->width != 0.0f && viewport->height != 0.0f);
-    Vec4 screen(src->x / viewport->width, ((viewport->height - src->y)) / viewport->height, src->z, 1.0f);
 
-    auto viewProjection = g_director->getMatrix(MATRIX_STACK_TYPE::MATRIX_STACK_PROJECTION);
-    
-    screen.x = screen.x * 2.0f - 1.0f;
-    screen.y = screen.y * 2.0f - 1.0f;
-    screen.z = screen.z * 2.0f - 1.0f;
-    
-    viewProjection.getInversed().transformVector(screen, &screen);
-    
-    if (screen.w != 0.0f)
-    {
-        screen.x /= screen.w;
-        screen.y /= screen.w;
-        screen.z /= screen.w;
-    }
-    
-    dst->set(screen.x, screen.y, screen.z);
-} // */
-
-void World::drawGrid(float cell) {
+void World::draw_grid(float cell) {
     _drawNode = DrawNode3D::create();
 
     int count = 20;
@@ -130,7 +105,7 @@ World *World::getInstance() {
     return world;
 }
 
-void World::addThing(Node *node, float x, float z) {
+void World::add_thing(Node *node, float x, float z) {
     addChild(node);
     node->setPositionX(x);
     node->setPositionY(getHeight(x, z));
@@ -138,9 +113,9 @@ void World::addThing(Node *node, float x, float z) {
     node->setCameraMask(getCameraMask());
 }
 
-void World::showPoint(const Vec3& v) {
-    _pu_clickPoint->setPosition3D(v);
-    _pu_clickPoint->startParticleSystem();
+void World::show_point(const Vec3& v) {
+    _pu_click_point->setPosition3D(v);
+    _pu_click_point->startParticleSystem();
 }
 
 Camera *World::get_camera() {
@@ -154,7 +129,7 @@ Camera *World::get_camera() {
     }
 }
 
-void World::addSkybox() {
+void World::add_skybox() {
     // create the second texture for cylinder
     auto _textureCube = TextureCube::create("Sprite3DTest/skybox/left.jpg", "Sprite3DTest/skybox/right.jpg",
                                        "Sprite3DTest/skybox/top.jpg", "Sprite3DTest/skybox/bottom.jpg",

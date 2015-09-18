@@ -2,7 +2,6 @@
 
 bool Man2Soldier::init_soldier() {
     initWithFile("man2/man2.c3b");
-    setRotation3D(Vec3(180.f, 180.f, 180.f));
     setScale(0.1f);
     _height_offset = 0.f;
     _name = "Man2";

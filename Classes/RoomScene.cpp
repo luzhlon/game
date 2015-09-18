@@ -1,10 +1,9 @@
 #include "Soldier.h"
 #include "RoomScene.h"
 #include "GameScene.h"
+#include "NetRoom.h"
 
-char        g_room_name[MAX_ROOM_NAME_LEN];
-room_member g_members[MAX_ROOM_MEMBERS];
-int         g_self_room_id; // 自己的Room ID
+string g_room_name;
 
 extern Director *g_director;
 
@@ -18,8 +17,8 @@ Scene *RoomScene::createScene() {
 }
 
 bool RoomScene::init() {
-    auto layer = loadLayer("room_scene.csb");
-    auto layout = getLayout(layer);
+    auto layer = load_layer("room_scene.csb");
+    auto layout = get_layout(layer);
         
     CC_ASSERT(layout); //load layout failure
 
@@ -27,6 +26,10 @@ bool RoomScene::init() {
     setClickCallback(layout, "check_team", CC_CALLBACK_1(RoomScene::onTeamClick, this));
     setClickCallback(layout, "button_start", [this](Ref *ref) {
         Client::getInstance()->sendMsg(MESSAGE::start_game);
+    });
+    setClickCallback(layout, "button_back", [this](Ref *ref) {
+        Client::getInstance()->sendMsg(MESSAGE::quit_room);
+        Director::getInstance()->popScene();
     });
 
     //CC_ASSERT(!s_room_name.empty());
@@ -40,7 +43,7 @@ bool RoomScene::init() {
 
 void RoomScene::update_room_member() {
     for (int i = 0; i < MAX_ROOM_MEMBERS; i++) {
-        set_member_info(i, &g_members[i]);
+        set_member_info(i, &NetRoom::_members[i]);
     }
 }
 
@@ -80,18 +83,25 @@ void RoomScene::onEnter() {
     Layer::onEnter();
     HANDLER(room_members) = Client::handler([this](net_pkg *pkg) {
         auto *meb = (room_member *)pkg->data;
-        memcpy(g_members, pkg->data, sizeof(room_member)* MAX_ROOM_MEMBERS);
-        g_self_room_id = pkg->arg2; //Self id
+        memcpy(NetRoom::_members, pkg->data, sizeof(room_member)* MAX_ROOM_MEMBERS);
+        NetRoom::_self_id = pkg->arg2; //Self id
         update_room_member();
         //HANDLER(authentication) = nullptr; // 置空，防止重复调用
     });
     HANDLER(start_game) = Client::handler([this](net_pkg *pkg) {
         for (int i = 0; i < MAX_ROOM_MEMBERS; i++)
-            g_members[i].m_room_id = i; // 确认一下room id
+            NetRoom::_members[i].m_room_id = i; // 确认一下room id
+
+        NetRoom::_room_name = g_room_name;
 
         g_director->pushScene(GameScene::createScene());
     });
     Client::getInstance()->sendMsg(MESSAGE::room_members);
+}
+
+void RoomScene::onExit() {
+    Layer::onExit();
+    HANDLER(room_members) = nullptr;
 }
 
 void RoomScene::onReadyClick(Ref *ref) {

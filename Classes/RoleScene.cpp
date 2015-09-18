@@ -18,8 +18,8 @@ Scene *RoleScene::createScene() {
 }
 
 bool RoleScene::init() {
-    auto layer = loadLayer("role_scene.csb");
-    auto layout = getLayout(layer);
+    auto layer = load_layer("role_scene.csb");
+    auto layout = get_layout(layer);
 
     CC_ASSERT(layout); //load layout failure
 

@@ -18,6 +18,7 @@ public:
     inline void update_room_member();
 
     void onEnter() override;
+    void onExit() override;
 private:
     //
     Layout *_layout_member[MAX_ROOM_MEMBERS];

@@ -25,8 +25,8 @@ void MenuScene::onMultiClick(Ref *ref) {
 }
 
 bool MenuScene::init() {
-    auto layer = loadLayer("menu_scene.csb");
-    auto layout = getLayout(layer);
+    auto layer = load_layer("menu_scene.csb");
+    auto layout = get_layout(layer);
 
     CC_ASSERT(layout); //load layout failure
 
