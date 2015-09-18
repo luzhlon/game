@@ -290,7 +290,7 @@ void Soldier::switch_state(State state, void *data) {
 }
 
 bool Soldier::on_attacked(SkillBase* skill) {
-    _blood = skill->_dec_blood;
+    _blood -= skill->_dec_blood;
     set_blood(_blood);
     return true;
 }

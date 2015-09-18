@@ -23,7 +23,7 @@ public:
         return _drawNode;
     }
 
-    void draw_grid(float cell = 10.f);
+    void draw_grid(float cell = 10.f, float height = 0.f);
     void add_skybox();
     void switch_camera(int );
 

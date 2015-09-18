@@ -37,6 +37,9 @@ void Player::show_circle(bool show) {
         circle->runAction(RepeatForever::create(RotateBy::create(3.5f, Vec3(0.f, 0.f, 360.f))));
 
         circle3d->setRotation3D(Vec3(-90.f, 0.f, 0.f));
+        auto pos = circle3d->getPosition3D();
+        pos.y += 2;
+        circle3d->setPosition3D(pos);
 
         _soldier->add_thing(circle3d);
     }

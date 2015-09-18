@@ -148,8 +148,9 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
             ui2gl(pos);
             Vec3 point(pos.x, pos.y, 0.f);
             if (g_world->conv2space(point)){
-                g_world->show_point(point);
                 NetRoom::action_move(point);
+                point.y += 1.f;
+                g_world->show_point(point);
             } else {
                 log("[World] get Space coordinate failure.");
             }

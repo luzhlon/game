@@ -50,7 +50,7 @@ World::World() {
         addChild(_pu_click_point);
     }
 
-    draw_grid();
+    draw_grid(10.f, _terrain->getHeight(Vec2::ZERO));
     add_skybox();
 
     setCameraMask((unsigned short)CAMERA_FIX);
@@ -76,7 +76,7 @@ bool World::conv2space(Vec3& v) {
     return ret;
 }
 
-void World::draw_grid(float cell) {
+void World::draw_grid(float cell, float height) {
     _drawNode = DrawNode3D::create();
 
     int count = 20;
@@ -84,12 +84,12 @@ void World::draw_grid(float cell) {
     //draw x
     for (int j = -20; j <= 20; j++)
     {
-        _drawNode->drawLine(Vec3(-distance, 0, cell * j), Vec3(distance, 0, cell * j), Color4F(1, 0, 0, 1));
+        _drawNode->drawLine(Vec3(-distance, height, cell * j), Vec3(distance, height, cell * j), Color4F(1, 0, 0, 1));
     }
     //draw z
     for (int j = -20; j <= 20; j++)
     {
-        _drawNode->drawLine(Vec3(cell * j, 0, -distance), Vec3(cell * j, 0, distance), Color4F(0, 0, 1, 1));
+        _drawNode->drawLine(Vec3(cell * j, height, -distance), Vec3(cell * j, height, distance), Color4F(0, 0, 1, 1));
     }
     //draw y
     _drawNode->drawLine(Vec3(0, -distance, 0), Vec3(0, distance, 0), Color4F(0, 1, 0, 1));
