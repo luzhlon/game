@@ -72,32 +72,78 @@ CMakeFiles/Game.dir/Classes/AppDelegate.cpp.o.provides: CMakeFiles/Game.dir/Clas
 
 CMakeFiles/Game.dir/Classes/AppDelegate.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/AppDelegate.cpp.o
 
-CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o: CMakeFiles/Game.dir/flags.make
-CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o: ../Classes/SceneLayer.cpp
+CMakeFiles/Game.dir/Classes/Client.cpp.o: CMakeFiles/Game.dir/flags.make
+CMakeFiles/Game.dir/Classes/Client.cpp.o: ../Classes/Client.cpp
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_2)
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o -c /home/john/cmake_proj/game/Classes/SceneLayer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/Client.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/Client.cpp.o -c /home/john/cmake_proj/game/Classes/Client.cpp
 
-CMakeFiles/Game.dir/Classes/SceneLayer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game.dir/Classes/SceneLayer.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/john/cmake_proj/game/Classes/SceneLayer.cpp > CMakeFiles/Game.dir/Classes/SceneLayer.cpp.i
+CMakeFiles/Game.dir/Classes/Client.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game.dir/Classes/Client.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/john/cmake_proj/game/Classes/Client.cpp > CMakeFiles/Game.dir/Classes/Client.cpp.i
 
-CMakeFiles/Game.dir/Classes/SceneLayer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game.dir/Classes/SceneLayer.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/john/cmake_proj/game/Classes/SceneLayer.cpp -o CMakeFiles/Game.dir/Classes/SceneLayer.cpp.s
+CMakeFiles/Game.dir/Classes/Client.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game.dir/Classes/Client.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/john/cmake_proj/game/Classes/Client.cpp -o CMakeFiles/Game.dir/Classes/Client.cpp.s
 
-CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o.requires:
-.PHONY : CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o.requires
+CMakeFiles/Game.dir/Classes/Client.cpp.o.requires:
+.PHONY : CMakeFiles/Game.dir/Classes/Client.cpp.o.requires
 
-CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o.provides: CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o.requires
-	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o.provides.build
-.PHONY : CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o.provides
+CMakeFiles/Game.dir/Classes/Client.cpp.o.provides: CMakeFiles/Game.dir/Classes/Client.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Client.cpp.o.provides.build
+.PHONY : CMakeFiles/Game.dir/Classes/Client.cpp.o.provides
 
-CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o
+CMakeFiles/Game.dir/Classes/Client.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/Client.cpp.o
+
+CMakeFiles/Game.dir/Classes/Dialog.cpp.o: CMakeFiles/Game.dir/flags.make
+CMakeFiles/Game.dir/Classes/Dialog.cpp.o: ../Classes/Dialog.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_3)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/Dialog.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/Dialog.cpp.o -c /home/john/cmake_proj/game/Classes/Dialog.cpp
+
+CMakeFiles/Game.dir/Classes/Dialog.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game.dir/Classes/Dialog.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/john/cmake_proj/game/Classes/Dialog.cpp > CMakeFiles/Game.dir/Classes/Dialog.cpp.i
+
+CMakeFiles/Game.dir/Classes/Dialog.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game.dir/Classes/Dialog.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/john/cmake_proj/game/Classes/Dialog.cpp -o CMakeFiles/Game.dir/Classes/Dialog.cpp.s
+
+CMakeFiles/Game.dir/Classes/Dialog.cpp.o.requires:
+.PHONY : CMakeFiles/Game.dir/Classes/Dialog.cpp.o.requires
+
+CMakeFiles/Game.dir/Classes/Dialog.cpp.o.provides: CMakeFiles/Game.dir/Classes/Dialog.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Dialog.cpp.o.provides.build
+.PHONY : CMakeFiles/Game.dir/Classes/Dialog.cpp.o.provides
+
+CMakeFiles/Game.dir/Classes/Dialog.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/Dialog.cpp.o
+
+CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.o: CMakeFiles/Game.dir/flags.make
+CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.o: ../Classes/DrawNode3D.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_4)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.o -c /home/john/cmake_proj/game/Classes/DrawNode3D.cpp
+
+CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/john/cmake_proj/game/Classes/DrawNode3D.cpp > CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.i
+
+CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/john/cmake_proj/game/Classes/DrawNode3D.cpp -o CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.s
+
+CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.o.requires:
+.PHONY : CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.o.requires
+
+CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.o.provides: CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.o.provides.build
+.PHONY : CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.o.provides
+
+CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.o
 
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: CMakeFiles/Game.dir/flags.make
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../Classes/GameScene.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_3)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_5)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/GameScene.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/GameScene.cpp.o -c /home/john/cmake_proj/game/Classes/GameScene.cpp
 
@@ -118,9 +164,285 @@ CMakeFiles/Game.dir/Classes/GameScene.cpp.o.provides: CMakeFiles/Game.dir/Classe
 
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/GameScene.cpp.o
 
+CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o: CMakeFiles/Game.dir/flags.make
+CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o: ../Classes/Man2Soldier.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_6)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o -c /home/john/cmake_proj/game/Classes/Man2Soldier.cpp
+
+CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/john/cmake_proj/game/Classes/Man2Soldier.cpp > CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.i
+
+CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/john/cmake_proj/game/Classes/Man2Soldier.cpp -o CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.s
+
+CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o.requires:
+.PHONY : CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o.requires
+
+CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o.provides: CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o.provides.build
+.PHONY : CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o.provides
+
+CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o
+
+CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o: CMakeFiles/Game.dir/flags.make
+CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o: ../Classes/ManSoldier.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_7)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o -c /home/john/cmake_proj/game/Classes/ManSoldier.cpp
+
+CMakeFiles/Game.dir/Classes/ManSoldier.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game.dir/Classes/ManSoldier.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/john/cmake_proj/game/Classes/ManSoldier.cpp > CMakeFiles/Game.dir/Classes/ManSoldier.cpp.i
+
+CMakeFiles/Game.dir/Classes/ManSoldier.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game.dir/Classes/ManSoldier.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/john/cmake_proj/game/Classes/ManSoldier.cpp -o CMakeFiles/Game.dir/Classes/ManSoldier.cpp.s
+
+CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o.requires:
+.PHONY : CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o.requires
+
+CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o.provides: CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o.provides.build
+.PHONY : CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o.provides
+
+CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o
+
+CMakeFiles/Game.dir/Classes/MenuScene.cpp.o: CMakeFiles/Game.dir/flags.make
+CMakeFiles/Game.dir/Classes/MenuScene.cpp.o: ../Classes/MenuScene.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_8)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/MenuScene.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/MenuScene.cpp.o -c /home/john/cmake_proj/game/Classes/MenuScene.cpp
+
+CMakeFiles/Game.dir/Classes/MenuScene.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game.dir/Classes/MenuScene.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/john/cmake_proj/game/Classes/MenuScene.cpp > CMakeFiles/Game.dir/Classes/MenuScene.cpp.i
+
+CMakeFiles/Game.dir/Classes/MenuScene.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game.dir/Classes/MenuScene.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/john/cmake_proj/game/Classes/MenuScene.cpp -o CMakeFiles/Game.dir/Classes/MenuScene.cpp.s
+
+CMakeFiles/Game.dir/Classes/MenuScene.cpp.o.requires:
+.PHONY : CMakeFiles/Game.dir/Classes/MenuScene.cpp.o.requires
+
+CMakeFiles/Game.dir/Classes/MenuScene.cpp.o.provides: CMakeFiles/Game.dir/Classes/MenuScene.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/MenuScene.cpp.o.provides.build
+.PHONY : CMakeFiles/Game.dir/Classes/MenuScene.cpp.o.provides
+
+CMakeFiles/Game.dir/Classes/MenuScene.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/MenuScene.cpp.o
+
+CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: CMakeFiles/Game.dir/flags.make
+CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../Classes/NetRoom.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_9)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/NetRoom.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/NetRoom.cpp.o -c /home/john/cmake_proj/game/Classes/NetRoom.cpp
+
+CMakeFiles/Game.dir/Classes/NetRoom.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game.dir/Classes/NetRoom.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/john/cmake_proj/game/Classes/NetRoom.cpp > CMakeFiles/Game.dir/Classes/NetRoom.cpp.i
+
+CMakeFiles/Game.dir/Classes/NetRoom.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game.dir/Classes/NetRoom.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/john/cmake_proj/game/Classes/NetRoom.cpp -o CMakeFiles/Game.dir/Classes/NetRoom.cpp.s
+
+CMakeFiles/Game.dir/Classes/NetRoom.cpp.o.requires:
+.PHONY : CMakeFiles/Game.dir/Classes/NetRoom.cpp.o.requires
+
+CMakeFiles/Game.dir/Classes/NetRoom.cpp.o.provides: CMakeFiles/Game.dir/Classes/NetRoom.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/NetRoom.cpp.o.provides.build
+.PHONY : CMakeFiles/Game.dir/Classes/NetRoom.cpp.o.provides
+
+CMakeFiles/Game.dir/Classes/NetRoom.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/NetRoom.cpp.o
+
+CMakeFiles/Game.dir/Classes/ODSocket.cpp.o: CMakeFiles/Game.dir/flags.make
+CMakeFiles/Game.dir/Classes/ODSocket.cpp.o: ../Classes/ODSocket.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_10)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/ODSocket.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/ODSocket.cpp.o -c /home/john/cmake_proj/game/Classes/ODSocket.cpp
+
+CMakeFiles/Game.dir/Classes/ODSocket.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game.dir/Classes/ODSocket.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/john/cmake_proj/game/Classes/ODSocket.cpp > CMakeFiles/Game.dir/Classes/ODSocket.cpp.i
+
+CMakeFiles/Game.dir/Classes/ODSocket.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game.dir/Classes/ODSocket.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/john/cmake_proj/game/Classes/ODSocket.cpp -o CMakeFiles/Game.dir/Classes/ODSocket.cpp.s
+
+CMakeFiles/Game.dir/Classes/ODSocket.cpp.o.requires:
+.PHONY : CMakeFiles/Game.dir/Classes/ODSocket.cpp.o.requires
+
+CMakeFiles/Game.dir/Classes/ODSocket.cpp.o.provides: CMakeFiles/Game.dir/Classes/ODSocket.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/ODSocket.cpp.o.provides.build
+.PHONY : CMakeFiles/Game.dir/Classes/ODSocket.cpp.o.provides
+
+CMakeFiles/Game.dir/Classes/ODSocket.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/ODSocket.cpp.o
+
+CMakeFiles/Game.dir/Classes/Player.cpp.o: CMakeFiles/Game.dir/flags.make
+CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/Player.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_11)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/Player.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/Player.cpp.o -c /home/john/cmake_proj/game/Classes/Player.cpp
+
+CMakeFiles/Game.dir/Classes/Player.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game.dir/Classes/Player.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/john/cmake_proj/game/Classes/Player.cpp > CMakeFiles/Game.dir/Classes/Player.cpp.i
+
+CMakeFiles/Game.dir/Classes/Player.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game.dir/Classes/Player.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/john/cmake_proj/game/Classes/Player.cpp -o CMakeFiles/Game.dir/Classes/Player.cpp.s
+
+CMakeFiles/Game.dir/Classes/Player.cpp.o.requires:
+.PHONY : CMakeFiles/Game.dir/Classes/Player.cpp.o.requires
+
+CMakeFiles/Game.dir/Classes/Player.cpp.o.provides: CMakeFiles/Game.dir/Classes/Player.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Player.cpp.o.provides.build
+.PHONY : CMakeFiles/Game.dir/Classes/Player.cpp.o.provides
+
+CMakeFiles/Game.dir/Classes/Player.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/Player.cpp.o
+
+CMakeFiles/Game.dir/Classes/RoleScene.cpp.o: CMakeFiles/Game.dir/flags.make
+CMakeFiles/Game.dir/Classes/RoleScene.cpp.o: ../Classes/RoleScene.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_12)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/RoleScene.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/RoleScene.cpp.o -c /home/john/cmake_proj/game/Classes/RoleScene.cpp
+
+CMakeFiles/Game.dir/Classes/RoleScene.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game.dir/Classes/RoleScene.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/john/cmake_proj/game/Classes/RoleScene.cpp > CMakeFiles/Game.dir/Classes/RoleScene.cpp.i
+
+CMakeFiles/Game.dir/Classes/RoleScene.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game.dir/Classes/RoleScene.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/john/cmake_proj/game/Classes/RoleScene.cpp -o CMakeFiles/Game.dir/Classes/RoleScene.cpp.s
+
+CMakeFiles/Game.dir/Classes/RoleScene.cpp.o.requires:
+.PHONY : CMakeFiles/Game.dir/Classes/RoleScene.cpp.o.requires
+
+CMakeFiles/Game.dir/Classes/RoleScene.cpp.o.provides: CMakeFiles/Game.dir/Classes/RoleScene.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/RoleScene.cpp.o.provides.build
+.PHONY : CMakeFiles/Game.dir/Classes/RoleScene.cpp.o.provides
+
+CMakeFiles/Game.dir/Classes/RoleScene.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/RoleScene.cpp.o
+
+CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o: CMakeFiles/Game.dir/flags.make
+CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o: ../Classes/RoomListScene.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_13)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o -c /home/john/cmake_proj/game/Classes/RoomListScene.cpp
+
+CMakeFiles/Game.dir/Classes/RoomListScene.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game.dir/Classes/RoomListScene.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/john/cmake_proj/game/Classes/RoomListScene.cpp > CMakeFiles/Game.dir/Classes/RoomListScene.cpp.i
+
+CMakeFiles/Game.dir/Classes/RoomListScene.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game.dir/Classes/RoomListScene.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/john/cmake_proj/game/Classes/RoomListScene.cpp -o CMakeFiles/Game.dir/Classes/RoomListScene.cpp.s
+
+CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o.requires:
+.PHONY : CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o.requires
+
+CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o.provides: CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o.provides.build
+.PHONY : CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o.provides
+
+CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o
+
+CMakeFiles/Game.dir/Classes/RoomScene.cpp.o: CMakeFiles/Game.dir/flags.make
+CMakeFiles/Game.dir/Classes/RoomScene.cpp.o: ../Classes/RoomScene.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_14)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/RoomScene.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/RoomScene.cpp.o -c /home/john/cmake_proj/game/Classes/RoomScene.cpp
+
+CMakeFiles/Game.dir/Classes/RoomScene.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game.dir/Classes/RoomScene.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/john/cmake_proj/game/Classes/RoomScene.cpp > CMakeFiles/Game.dir/Classes/RoomScene.cpp.i
+
+CMakeFiles/Game.dir/Classes/RoomScene.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game.dir/Classes/RoomScene.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/john/cmake_proj/game/Classes/RoomScene.cpp -o CMakeFiles/Game.dir/Classes/RoomScene.cpp.s
+
+CMakeFiles/Game.dir/Classes/RoomScene.cpp.o.requires:
+.PHONY : CMakeFiles/Game.dir/Classes/RoomScene.cpp.o.requires
+
+CMakeFiles/Game.dir/Classes/RoomScene.cpp.o.provides: CMakeFiles/Game.dir/Classes/RoomScene.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/RoomScene.cpp.o.provides.build
+.PHONY : CMakeFiles/Game.dir/Classes/RoomScene.cpp.o.provides
+
+CMakeFiles/Game.dir/Classes/RoomScene.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/RoomScene.cpp.o
+
+CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o: CMakeFiles/Game.dir/flags.make
+CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o: ../Classes/SceneLayer.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_15)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o -c /home/john/cmake_proj/game/Classes/SceneLayer.cpp
+
+CMakeFiles/Game.dir/Classes/SceneLayer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game.dir/Classes/SceneLayer.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/john/cmake_proj/game/Classes/SceneLayer.cpp > CMakeFiles/Game.dir/Classes/SceneLayer.cpp.i
+
+CMakeFiles/Game.dir/Classes/SceneLayer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game.dir/Classes/SceneLayer.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/john/cmake_proj/game/Classes/SceneLayer.cpp -o CMakeFiles/Game.dir/Classes/SceneLayer.cpp.s
+
+CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o.requires:
+.PHONY : CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o.requires
+
+CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o.provides: CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o.provides.build
+.PHONY : CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o.provides
+
+CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o
+
+CMakeFiles/Game.dir/Classes/SettingScene.cpp.o: CMakeFiles/Game.dir/flags.make
+CMakeFiles/Game.dir/Classes/SettingScene.cpp.o: ../Classes/SettingScene.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_16)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/SettingScene.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/SettingScene.cpp.o -c /home/john/cmake_proj/game/Classes/SettingScene.cpp
+
+CMakeFiles/Game.dir/Classes/SettingScene.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game.dir/Classes/SettingScene.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/john/cmake_proj/game/Classes/SettingScene.cpp > CMakeFiles/Game.dir/Classes/SettingScene.cpp.i
+
+CMakeFiles/Game.dir/Classes/SettingScene.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game.dir/Classes/SettingScene.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/john/cmake_proj/game/Classes/SettingScene.cpp -o CMakeFiles/Game.dir/Classes/SettingScene.cpp.s
+
+CMakeFiles/Game.dir/Classes/SettingScene.cpp.o.requires:
+.PHONY : CMakeFiles/Game.dir/Classes/SettingScene.cpp.o.requires
+
+CMakeFiles/Game.dir/Classes/SettingScene.cpp.o.provides: CMakeFiles/Game.dir/Classes/SettingScene.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/SettingScene.cpp.o.provides.build
+.PHONY : CMakeFiles/Game.dir/Classes/SettingScene.cpp.o.provides
+
+CMakeFiles/Game.dir/Classes/SettingScene.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/SettingScene.cpp.o
+
+CMakeFiles/Game.dir/Classes/Skill.cpp.o: CMakeFiles/Game.dir/flags.make
+CMakeFiles/Game.dir/Classes/Skill.cpp.o: ../Classes/Skill.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_17)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/Skill.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/Skill.cpp.o -c /home/john/cmake_proj/game/Classes/Skill.cpp
+
+CMakeFiles/Game.dir/Classes/Skill.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game.dir/Classes/Skill.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/john/cmake_proj/game/Classes/Skill.cpp > CMakeFiles/Game.dir/Classes/Skill.cpp.i
+
+CMakeFiles/Game.dir/Classes/Skill.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game.dir/Classes/Skill.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/john/cmake_proj/game/Classes/Skill.cpp -o CMakeFiles/Game.dir/Classes/Skill.cpp.s
+
+CMakeFiles/Game.dir/Classes/Skill.cpp.o.requires:
+.PHONY : CMakeFiles/Game.dir/Classes/Skill.cpp.o.requires
+
+CMakeFiles/Game.dir/Classes/Skill.cpp.o.provides: CMakeFiles/Game.dir/Classes/Skill.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Skill.cpp.o.provides.build
+.PHONY : CMakeFiles/Game.dir/Classes/Skill.cpp.o.provides
+
+CMakeFiles/Game.dir/Classes/Skill.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/Skill.cpp.o
+
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: CMakeFiles/Game.dir/flags.make
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/Soldier.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_4)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_18)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/Soldier.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/Soldier.cpp.o -c /home/john/cmake_proj/game/Classes/Soldier.cpp
 
@@ -141,9 +463,55 @@ CMakeFiles/Game.dir/Classes/Soldier.cpp.o.provides: CMakeFiles/Game.dir/Classes/
 
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/Soldier.cpp.o
 
+CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o: CMakeFiles/Game.dir/flags.make
+CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o: ../Classes/WomanSoldier.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_19)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o -c /home/john/cmake_proj/game/Classes/WomanSoldier.cpp
+
+CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/john/cmake_proj/game/Classes/WomanSoldier.cpp > CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.i
+
+CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/john/cmake_proj/game/Classes/WomanSoldier.cpp -o CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.s
+
+CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o.requires:
+.PHONY : CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o.requires
+
+CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o.provides: CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o.provides.build
+.PHONY : CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o.provides
+
+CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o
+
+CMakeFiles/Game.dir/Classes/World.cpp.o: CMakeFiles/Game.dir/flags.make
+CMakeFiles/Game.dir/Classes/World.cpp.o: ../Classes/World.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_20)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/World.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/World.cpp.o -c /home/john/cmake_proj/game/Classes/World.cpp
+
+CMakeFiles/Game.dir/Classes/World.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game.dir/Classes/World.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/john/cmake_proj/game/Classes/World.cpp > CMakeFiles/Game.dir/Classes/World.cpp.i
+
+CMakeFiles/Game.dir/Classes/World.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game.dir/Classes/World.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/john/cmake_proj/game/Classes/World.cpp -o CMakeFiles/Game.dir/Classes/World.cpp.s
+
+CMakeFiles/Game.dir/Classes/World.cpp.o.requires:
+.PHONY : CMakeFiles/Game.dir/Classes/World.cpp.o.requires
+
+CMakeFiles/Game.dir/Classes/World.cpp.o.provides: CMakeFiles/Game.dir/Classes/World.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/World.cpp.o.provides.build
+.PHONY : CMakeFiles/Game.dir/Classes/World.cpp.o.provides
+
+CMakeFiles/Game.dir/Classes/World.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/World.cpp.o
+
 CMakeFiles/Game.dir/proj.linux/main.cpp.o: CMakeFiles/Game.dir/flags.make
 CMakeFiles/Game.dir/proj.linux/main.cpp.o: ../proj.linux/main.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_5)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_21)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/proj.linux/main.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/proj.linux/main.cpp.o -c /home/john/cmake_proj/game/proj.linux/main.cpp
 
@@ -167,18 +535,50 @@ CMakeFiles/Game.dir/proj.linux/main.cpp.o.provides.build: CMakeFiles/Game.dir/pr
 # Object files for target Game
 Game_OBJECTS = \
 "CMakeFiles/Game.dir/Classes/AppDelegate.cpp.o" \
-"CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o" \
+"CMakeFiles/Game.dir/Classes/Client.cpp.o" \
+"CMakeFiles/Game.dir/Classes/Dialog.cpp.o" \
+"CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.o" \
 "CMakeFiles/Game.dir/Classes/GameScene.cpp.o" \
+"CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o" \
+"CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o" \
+"CMakeFiles/Game.dir/Classes/MenuScene.cpp.o" \
+"CMakeFiles/Game.dir/Classes/NetRoom.cpp.o" \
+"CMakeFiles/Game.dir/Classes/ODSocket.cpp.o" \
+"CMakeFiles/Game.dir/Classes/Player.cpp.o" \
+"CMakeFiles/Game.dir/Classes/RoleScene.cpp.o" \
+"CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o" \
+"CMakeFiles/Game.dir/Classes/RoomScene.cpp.o" \
+"CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o" \
+"CMakeFiles/Game.dir/Classes/SettingScene.cpp.o" \
+"CMakeFiles/Game.dir/Classes/Skill.cpp.o" \
 "CMakeFiles/Game.dir/Classes/Soldier.cpp.o" \
+"CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o" \
+"CMakeFiles/Game.dir/Classes/World.cpp.o" \
 "CMakeFiles/Game.dir/proj.linux/main.cpp.o"
 
 # External object files for target Game
 Game_EXTERNAL_OBJECTS =
 
 bin/Game: CMakeFiles/Game.dir/Classes/AppDelegate.cpp.o
-bin/Game: CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o
+bin/Game: CMakeFiles/Game.dir/Classes/Client.cpp.o
+bin/Game: CMakeFiles/Game.dir/Classes/Dialog.cpp.o
+bin/Game: CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.o
 bin/Game: CMakeFiles/Game.dir/Classes/GameScene.cpp.o
+bin/Game: CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o
+bin/Game: CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o
+bin/Game: CMakeFiles/Game.dir/Classes/MenuScene.cpp.o
+bin/Game: CMakeFiles/Game.dir/Classes/NetRoom.cpp.o
+bin/Game: CMakeFiles/Game.dir/Classes/ODSocket.cpp.o
+bin/Game: CMakeFiles/Game.dir/Classes/Player.cpp.o
+bin/Game: CMakeFiles/Game.dir/Classes/RoleScene.cpp.o
+bin/Game: CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o
+bin/Game: CMakeFiles/Game.dir/Classes/RoomScene.cpp.o
+bin/Game: CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o
+bin/Game: CMakeFiles/Game.dir/Classes/SettingScene.cpp.o
+bin/Game: CMakeFiles/Game.dir/Classes/Skill.cpp.o
 bin/Game: CMakeFiles/Game.dir/Classes/Soldier.cpp.o
+bin/Game: CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o
+bin/Game: CMakeFiles/Game.dir/Classes/World.cpp.o
 bin/Game: CMakeFiles/Game.dir/proj.linux/main.cpp.o
 bin/Game: CMakeFiles/Game.dir/build.make
 bin/Game: lib/libcocos2d.a
@@ -212,9 +612,25 @@ CMakeFiles/Game.dir/build: bin/Game
 .PHONY : CMakeFiles/Game.dir/build
 
 CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/AppDelegate.cpp.o.requires
-CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o.requires
+CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/Client.cpp.o.requires
+CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/Dialog.cpp.o.requires
+CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.o.requires
 CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/GameScene.cpp.o.requires
+CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o.requires
+CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o.requires
+CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/MenuScene.cpp.o.requires
+CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/NetRoom.cpp.o.requires
+CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/ODSocket.cpp.o.requires
+CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/Player.cpp.o.requires
+CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/RoleScene.cpp.o.requires
+CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o.requires
+CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/RoomScene.cpp.o.requires
+CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o.requires
+CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/SettingScene.cpp.o.requires
+CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/Skill.cpp.o.requires
 CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/Soldier.cpp.o.requires
+CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o.requires
+CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/World.cpp.o.requires
 CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/proj.linux/main.cpp.o.requires
 .PHONY : CMakeFiles/Game.dir/requires
 

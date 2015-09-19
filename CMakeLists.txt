@@ -113,6 +113,7 @@ include_directories(
   ${COCOS2D_ROOT}
   ${COCOS2D_ROOT}/cocos
   ${COCOS2D_ROOT}/external
+  ${COCOS2D_ROOT}/extensions
   ${COCOS2D_ROOT}/cocos/platform
   ${COCOS2D_ROOT}/cocos/audio/include
   ${COCOS2D_ROOT}/cocos/editor-support
@@ -126,27 +127,27 @@ if ( WIN32 )
 endif( WIN32 )
 
 set(GAME_SRC
-    Classes/AppDelegate.cpp \
-    Classes/Client.cpp \
-    Classes/Dialog.cpp \
-    Classes/DrawNode3D.cpp \
-    Classes/GameScene.cpp \
-    Classes/Man2Soldier.cpp \
-    Classes/ManSoldier.cpp \
-    Classes/MenuScene.cpp \
-    Classes/NetRoom.cpp \
-    Classes/ODSocket.cpp \
-    Classes/Player.cpp \
-    Classes/RoleScene.cpp \
-    Classes/RoomListScene.cpp \
-    Classes/RoomScene.cpp \
-    Classes/SceneLayer.cpp \
-    Classes/SettingScene.cpp \
-    Classes/Skill.cpp \
-    Classes/Soldier.cpp \
-    Classes/WomanSoldier.cpp \
-    Classes/World.cpp \
-  ${PLATFORM_SPECIFIC_SRC}
+    Classes/AppDelegate.cpp
+    Classes/Client.cpp
+    Classes/Dialog.cpp
+    Classes/DrawNode3D.cpp
+    Classes/GameScene.cpp
+    Classes/Man2Soldier.cpp
+    Classes/ManSoldier.cpp
+    Classes/MenuScene.cpp
+    Classes/NetRoom.cpp
+    Classes/ODSocket.cpp
+    Classes/Player.cpp
+    Classes/RoleScene.cpp
+    Classes/RoomListScene.cpp
+    Classes/RoomScene.cpp
+    Classes/SceneLayer.cpp
+    Classes/SettingScene.cpp
+    Classes/Skill.cpp
+    Classes/Soldier.cpp
+    Classes/WomanSoldier.cpp
+    Classes/World.cpp
+    ${PLATFORM_SPECIFIC_SRC}
 )
 
 set(GAME_HEADERS

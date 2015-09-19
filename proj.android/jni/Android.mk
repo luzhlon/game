@@ -11,21 +11,26 @@ LOCAL_MODULE := cocos2dcpp_shared
 LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
-                  ../../Classes/AppDelegate.cpp \
-                  ../../Classes/ManSoldier.cpp \
-                  ../../Classes/WomanSoldier.cpp \
-                  ../../Classes/HorseSoldier.cpp \
-                  ../../Classes/SceneLayer.cpp \
-                  ../../Classes/GameScene.cpp \
-                  ../../Classes/MenuScene.cpp \
-                  ../../Classes/SettingScene.cpp \
-                  ../../Classes/RoleScene.cpp \
-                  ../../Classes/RoomScene.cpp \
-                  ../../Classes/RoomListScene.cpp \
-                  ../../Classes/Soldier.cpp \
-                  ../../Classes/Dialog.cpp \
-                  ../../Classes/Client.cpp \
-                  ../../Classes/ODSocket.cpp
+    ../../Classes/AppDelegate.cpp \
+    ../../Classes/Client.cpp \
+    ../../Classes/Dialog.cpp \
+    ../../Classes/DrawNode3D.cpp \
+    ../../Classes/GameScene.cpp \
+    ../../Classes/Man2Soldier.cpp \
+    ../../Classes/ManSoldier.cpp \
+    ../../Classes/MenuScene.cpp \
+    ../../Classes/NetRoom.cpp \
+    ../../Classes/ODSocket.cpp \
+    ../../Classes/Player.cpp \
+    ../../Classes/RoleScene.cpp \
+    ../../Classes/RoomListScene.cpp \
+    ../../Classes/RoomScene.cpp \
+    ../../Classes/SceneLayer.cpp \
+    ../../Classes/SettingScene.cpp \
+    ../../Classes/Skill.cpp \
+    ../../Classes/Soldier.cpp \
+    ../../Classes/WomanSoldier.cpp \
+    ../../Classes/World.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 

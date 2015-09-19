@@ -32,7 +32,7 @@ World::World() {
         _terrain->setLODDistance(64, 128, 192);
         addChild(_terrain);
         _LogSize("[World]:Terrain size: ", _terrain->getContentSize());
-        _LogVec3("[World]:Terrain center: ", _terrain->getAABB().getCenter());
+        //_LogVec3("[World]:Terrain center: ", _terrain->getAABB().getCenter());
     }
 
     {

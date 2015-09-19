@@ -61,6 +61,7 @@
             <Add directory="/home/john/cmake_proj/game/cocos2d/cocos/audio/include" />
             <Add directory="/home/john/cmake_proj/game/cocos2d/cocos/editor-support" />
             <Add directory="/home/john/cmake_proj/game/cocos2d/cocos/platform" />
+            <Add directory="/home/john/cmake_proj/game/cocos2d/extensions" />
             <Add directory="/home/john/cmake_proj/game/cocos2d/external" />
             <Add directory="/usr/include" />
             <Add directory="/usr/include/GLFW" />
@@ -94,6 +95,7 @@
             <Add directory="/home/john/cmake_proj/game/cocos2d/cocos/audio/include" />
             <Add directory="/home/john/cmake_proj/game/cocos2d/cocos/editor-support" />
             <Add directory="/home/john/cmake_proj/game/cocos2d/cocos/platform" />
+            <Add directory="/home/john/cmake_proj/game/cocos2d/extensions" />
             <Add directory="/home/john/cmake_proj/game/cocos2d/external" />
             <Add directory="/usr/include" />
             <Add directory="/usr/include/GLFW" />
@@ -682,11 +684,43 @@
       </Build>
       <Unit filename="/home/john/cmake_proj/game/Classes/AppDelegate.cpp">
       </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/Client.cpp">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/Dialog.cpp">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/DrawNode3D.cpp">
+      </Unit>
       <Unit filename="/home/john/cmake_proj/game/Classes/GameScene.cpp">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/Man2Soldier.cpp">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/ManSoldier.cpp">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/MenuScene.cpp">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/NetRoom.cpp">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/ODSocket.cpp">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/Player.cpp">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/RoleScene.cpp">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/RoomListScene.cpp">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/RoomScene.cpp">
       </Unit>
       <Unit filename="/home/john/cmake_proj/game/Classes/SceneLayer.cpp">
       </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/SettingScene.cpp">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/Skill.cpp">
+      </Unit>
       <Unit filename="/home/john/cmake_proj/game/Classes/Soldier.cpp">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/WomanSoldier.cpp">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/World.cpp">
       </Unit>
       <Unit filename="/home/john/cmake_proj/game/cocos2d/cocos/2d/CCAction.cpp">
       </Unit>
@@ -2164,11 +2198,43 @@
       </Unit>
       <Unit filename="/home/john/cmake_proj/game/Classes/AppDelegate.h">
       </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/Client.h">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/Dialog.h">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/DrawNode3D.h">
+      </Unit>
       <Unit filename="/home/john/cmake_proj/game/Classes/GameScene.h">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/Man2Soldier.h">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/ManSoldier.h">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/MenuScene.h">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/NetRoom.h">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/ODSocket.h">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/Player.h">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/RoleScene.h">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/RoomListScene.h">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/RoomScene.h">
       </Unit>
       <Unit filename="/home/john/cmake_proj/game/Classes/SceneLayer.h">
       </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/SettingScene.h">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/Skill.h">
+      </Unit>
       <Unit filename="/home/john/cmake_proj/game/Classes/Soldier.h">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/WomanSoldier.h">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/World.h">
       </Unit>
       <Unit filename="/home/john/cmake_proj/game/cocos2d/cocos/2d/CCAction.h">
       </Unit>

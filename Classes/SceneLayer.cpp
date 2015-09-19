@@ -1,5 +1,5 @@
 #include "SceneLayer.h"
-#include "dialog.h"
+#include "Dialog.h"
 #include "cocostudio/CocoStudio.h"
 
 using namespace cocostudio;

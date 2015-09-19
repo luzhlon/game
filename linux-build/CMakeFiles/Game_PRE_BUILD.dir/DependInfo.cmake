@@ -19,6 +19,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "../cocos2d"
   "../cocos2d/cocos"
   "../cocos2d/external"
+  "../cocos2d/extensions"
   "../cocos2d/cocos/platform"
   "../cocos2d/cocos/audio/include"
   "../cocos2d/cocos/editor-support"

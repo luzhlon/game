@@ -255,6 +255,78 @@ Classes/AppDelegate.cpp.s:
 	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/AppDelegate.cpp.s
 .PHONY : Classes/AppDelegate.cpp.s
 
+Classes/Client.o: Classes/Client.cpp.o
+.PHONY : Classes/Client.o
+
+# target to build an object file
+Classes/Client.cpp.o:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Client.cpp.o
+.PHONY : Classes/Client.cpp.o
+
+Classes/Client.i: Classes/Client.cpp.i
+.PHONY : Classes/Client.i
+
+# target to preprocess a source file
+Classes/Client.cpp.i:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Client.cpp.i
+.PHONY : Classes/Client.cpp.i
+
+Classes/Client.s: Classes/Client.cpp.s
+.PHONY : Classes/Client.s
+
+# target to generate assembly for a file
+Classes/Client.cpp.s:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Client.cpp.s
+.PHONY : Classes/Client.cpp.s
+
+Classes/Dialog.o: Classes/Dialog.cpp.o
+.PHONY : Classes/Dialog.o
+
+# target to build an object file
+Classes/Dialog.cpp.o:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Dialog.cpp.o
+.PHONY : Classes/Dialog.cpp.o
+
+Classes/Dialog.i: Classes/Dialog.cpp.i
+.PHONY : Classes/Dialog.i
+
+# target to preprocess a source file
+Classes/Dialog.cpp.i:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Dialog.cpp.i
+.PHONY : Classes/Dialog.cpp.i
+
+Classes/Dialog.s: Classes/Dialog.cpp.s
+.PHONY : Classes/Dialog.s
+
+# target to generate assembly for a file
+Classes/Dialog.cpp.s:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Dialog.cpp.s
+.PHONY : Classes/Dialog.cpp.s
+
+Classes/DrawNode3D.o: Classes/DrawNode3D.cpp.o
+.PHONY : Classes/DrawNode3D.o
+
+# target to build an object file
+Classes/DrawNode3D.cpp.o:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.o
+.PHONY : Classes/DrawNode3D.cpp.o
+
+Classes/DrawNode3D.i: Classes/DrawNode3D.cpp.i
+.PHONY : Classes/DrawNode3D.i
+
+# target to preprocess a source file
+Classes/DrawNode3D.cpp.i:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.i
+.PHONY : Classes/DrawNode3D.cpp.i
+
+Classes/DrawNode3D.s: Classes/DrawNode3D.cpp.s
+.PHONY : Classes/DrawNode3D.s
+
+# target to generate assembly for a file
+Classes/DrawNode3D.cpp.s:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.s
+.PHONY : Classes/DrawNode3D.cpp.s
+
 Classes/GameScene.o: Classes/GameScene.cpp.o
 .PHONY : Classes/GameScene.o
 
@@ -278,6 +350,222 @@ Classes/GameScene.s: Classes/GameScene.cpp.s
 Classes/GameScene.cpp.s:
 	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/GameScene.cpp.s
 .PHONY : Classes/GameScene.cpp.s
+
+Classes/Man2Soldier.o: Classes/Man2Soldier.cpp.o
+.PHONY : Classes/Man2Soldier.o
+
+# target to build an object file
+Classes/Man2Soldier.cpp.o:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o
+.PHONY : Classes/Man2Soldier.cpp.o
+
+Classes/Man2Soldier.i: Classes/Man2Soldier.cpp.i
+.PHONY : Classes/Man2Soldier.i
+
+# target to preprocess a source file
+Classes/Man2Soldier.cpp.i:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.i
+.PHONY : Classes/Man2Soldier.cpp.i
+
+Classes/Man2Soldier.s: Classes/Man2Soldier.cpp.s
+.PHONY : Classes/Man2Soldier.s
+
+# target to generate assembly for a file
+Classes/Man2Soldier.cpp.s:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.s
+.PHONY : Classes/Man2Soldier.cpp.s
+
+Classes/ManSoldier.o: Classes/ManSoldier.cpp.o
+.PHONY : Classes/ManSoldier.o
+
+# target to build an object file
+Classes/ManSoldier.cpp.o:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o
+.PHONY : Classes/ManSoldier.cpp.o
+
+Classes/ManSoldier.i: Classes/ManSoldier.cpp.i
+.PHONY : Classes/ManSoldier.i
+
+# target to preprocess a source file
+Classes/ManSoldier.cpp.i:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/ManSoldier.cpp.i
+.PHONY : Classes/ManSoldier.cpp.i
+
+Classes/ManSoldier.s: Classes/ManSoldier.cpp.s
+.PHONY : Classes/ManSoldier.s
+
+# target to generate assembly for a file
+Classes/ManSoldier.cpp.s:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/ManSoldier.cpp.s
+.PHONY : Classes/ManSoldier.cpp.s
+
+Classes/MenuScene.o: Classes/MenuScene.cpp.o
+.PHONY : Classes/MenuScene.o
+
+# target to build an object file
+Classes/MenuScene.cpp.o:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/MenuScene.cpp.o
+.PHONY : Classes/MenuScene.cpp.o
+
+Classes/MenuScene.i: Classes/MenuScene.cpp.i
+.PHONY : Classes/MenuScene.i
+
+# target to preprocess a source file
+Classes/MenuScene.cpp.i:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/MenuScene.cpp.i
+.PHONY : Classes/MenuScene.cpp.i
+
+Classes/MenuScene.s: Classes/MenuScene.cpp.s
+.PHONY : Classes/MenuScene.s
+
+# target to generate assembly for a file
+Classes/MenuScene.cpp.s:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/MenuScene.cpp.s
+.PHONY : Classes/MenuScene.cpp.s
+
+Classes/NetRoom.o: Classes/NetRoom.cpp.o
+.PHONY : Classes/NetRoom.o
+
+# target to build an object file
+Classes/NetRoom.cpp.o:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/NetRoom.cpp.o
+.PHONY : Classes/NetRoom.cpp.o
+
+Classes/NetRoom.i: Classes/NetRoom.cpp.i
+.PHONY : Classes/NetRoom.i
+
+# target to preprocess a source file
+Classes/NetRoom.cpp.i:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/NetRoom.cpp.i
+.PHONY : Classes/NetRoom.cpp.i
+
+Classes/NetRoom.s: Classes/NetRoom.cpp.s
+.PHONY : Classes/NetRoom.s
+
+# target to generate assembly for a file
+Classes/NetRoom.cpp.s:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/NetRoom.cpp.s
+.PHONY : Classes/NetRoom.cpp.s
+
+Classes/ODSocket.o: Classes/ODSocket.cpp.o
+.PHONY : Classes/ODSocket.o
+
+# target to build an object file
+Classes/ODSocket.cpp.o:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/ODSocket.cpp.o
+.PHONY : Classes/ODSocket.cpp.o
+
+Classes/ODSocket.i: Classes/ODSocket.cpp.i
+.PHONY : Classes/ODSocket.i
+
+# target to preprocess a source file
+Classes/ODSocket.cpp.i:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/ODSocket.cpp.i
+.PHONY : Classes/ODSocket.cpp.i
+
+Classes/ODSocket.s: Classes/ODSocket.cpp.s
+.PHONY : Classes/ODSocket.s
+
+# target to generate assembly for a file
+Classes/ODSocket.cpp.s:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/ODSocket.cpp.s
+.PHONY : Classes/ODSocket.cpp.s
+
+Classes/Player.o: Classes/Player.cpp.o
+.PHONY : Classes/Player.o
+
+# target to build an object file
+Classes/Player.cpp.o:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Player.cpp.o
+.PHONY : Classes/Player.cpp.o
+
+Classes/Player.i: Classes/Player.cpp.i
+.PHONY : Classes/Player.i
+
+# target to preprocess a source file
+Classes/Player.cpp.i:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Player.cpp.i
+.PHONY : Classes/Player.cpp.i
+
+Classes/Player.s: Classes/Player.cpp.s
+.PHONY : Classes/Player.s
+
+# target to generate assembly for a file
+Classes/Player.cpp.s:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Player.cpp.s
+.PHONY : Classes/Player.cpp.s
+
+Classes/RoleScene.o: Classes/RoleScene.cpp.o
+.PHONY : Classes/RoleScene.o
+
+# target to build an object file
+Classes/RoleScene.cpp.o:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/RoleScene.cpp.o
+.PHONY : Classes/RoleScene.cpp.o
+
+Classes/RoleScene.i: Classes/RoleScene.cpp.i
+.PHONY : Classes/RoleScene.i
+
+# target to preprocess a source file
+Classes/RoleScene.cpp.i:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/RoleScene.cpp.i
+.PHONY : Classes/RoleScene.cpp.i
+
+Classes/RoleScene.s: Classes/RoleScene.cpp.s
+.PHONY : Classes/RoleScene.s
+
+# target to generate assembly for a file
+Classes/RoleScene.cpp.s:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/RoleScene.cpp.s
+.PHONY : Classes/RoleScene.cpp.s
+
+Classes/RoomListScene.o: Classes/RoomListScene.cpp.o
+.PHONY : Classes/RoomListScene.o
+
+# target to build an object file
+Classes/RoomListScene.cpp.o:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o
+.PHONY : Classes/RoomListScene.cpp.o
+
+Classes/RoomListScene.i: Classes/RoomListScene.cpp.i
+.PHONY : Classes/RoomListScene.i
+
+# target to preprocess a source file
+Classes/RoomListScene.cpp.i:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/RoomListScene.cpp.i
+.PHONY : Classes/RoomListScene.cpp.i
+
+Classes/RoomListScene.s: Classes/RoomListScene.cpp.s
+.PHONY : Classes/RoomListScene.s
+
+# target to generate assembly for a file
+Classes/RoomListScene.cpp.s:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/RoomListScene.cpp.s
+.PHONY : Classes/RoomListScene.cpp.s
+
+Classes/RoomScene.o: Classes/RoomScene.cpp.o
+.PHONY : Classes/RoomScene.o
+
+# target to build an object file
+Classes/RoomScene.cpp.o:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/RoomScene.cpp.o
+.PHONY : Classes/RoomScene.cpp.o
+
+Classes/RoomScene.i: Classes/RoomScene.cpp.i
+.PHONY : Classes/RoomScene.i
+
+# target to preprocess a source file
+Classes/RoomScene.cpp.i:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/RoomScene.cpp.i
+.PHONY : Classes/RoomScene.cpp.i
+
+Classes/RoomScene.s: Classes/RoomScene.cpp.s
+.PHONY : Classes/RoomScene.s
+
+# target to generate assembly for a file
+Classes/RoomScene.cpp.s:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/RoomScene.cpp.s
+.PHONY : Classes/RoomScene.cpp.s
 
 Classes/SceneLayer.o: Classes/SceneLayer.cpp.o
 .PHONY : Classes/SceneLayer.o
@@ -303,6 +591,54 @@ Classes/SceneLayer.cpp.s:
 	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/SceneLayer.cpp.s
 .PHONY : Classes/SceneLayer.cpp.s
 
+Classes/SettingScene.o: Classes/SettingScene.cpp.o
+.PHONY : Classes/SettingScene.o
+
+# target to build an object file
+Classes/SettingScene.cpp.o:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/SettingScene.cpp.o
+.PHONY : Classes/SettingScene.cpp.o
+
+Classes/SettingScene.i: Classes/SettingScene.cpp.i
+.PHONY : Classes/SettingScene.i
+
+# target to preprocess a source file
+Classes/SettingScene.cpp.i:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/SettingScene.cpp.i
+.PHONY : Classes/SettingScene.cpp.i
+
+Classes/SettingScene.s: Classes/SettingScene.cpp.s
+.PHONY : Classes/SettingScene.s
+
+# target to generate assembly for a file
+Classes/SettingScene.cpp.s:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/SettingScene.cpp.s
+.PHONY : Classes/SettingScene.cpp.s
+
+Classes/Skill.o: Classes/Skill.cpp.o
+.PHONY : Classes/Skill.o
+
+# target to build an object file
+Classes/Skill.cpp.o:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Skill.cpp.o
+.PHONY : Classes/Skill.cpp.o
+
+Classes/Skill.i: Classes/Skill.cpp.i
+.PHONY : Classes/Skill.i
+
+# target to preprocess a source file
+Classes/Skill.cpp.i:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Skill.cpp.i
+.PHONY : Classes/Skill.cpp.i
+
+Classes/Skill.s: Classes/Skill.cpp.s
+.PHONY : Classes/Skill.s
+
+# target to generate assembly for a file
+Classes/Skill.cpp.s:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Skill.cpp.s
+.PHONY : Classes/Skill.cpp.s
+
 Classes/Soldier.o: Classes/Soldier.cpp.o
 .PHONY : Classes/Soldier.o
 
@@ -326,6 +662,54 @@ Classes/Soldier.s: Classes/Soldier.cpp.s
 Classes/Soldier.cpp.s:
 	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/Soldier.cpp.s
 .PHONY : Classes/Soldier.cpp.s
+
+Classes/WomanSoldier.o: Classes/WomanSoldier.cpp.o
+.PHONY : Classes/WomanSoldier.o
+
+# target to build an object file
+Classes/WomanSoldier.cpp.o:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o
+.PHONY : Classes/WomanSoldier.cpp.o
+
+Classes/WomanSoldier.i: Classes/WomanSoldier.cpp.i
+.PHONY : Classes/WomanSoldier.i
+
+# target to preprocess a source file
+Classes/WomanSoldier.cpp.i:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.i
+.PHONY : Classes/WomanSoldier.cpp.i
+
+Classes/WomanSoldier.s: Classes/WomanSoldier.cpp.s
+.PHONY : Classes/WomanSoldier.s
+
+# target to generate assembly for a file
+Classes/WomanSoldier.cpp.s:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.s
+.PHONY : Classes/WomanSoldier.cpp.s
+
+Classes/World.o: Classes/World.cpp.o
+.PHONY : Classes/World.o
+
+# target to build an object file
+Classes/World.cpp.o:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/World.cpp.o
+.PHONY : Classes/World.cpp.o
+
+Classes/World.i: Classes/World.cpp.i
+.PHONY : Classes/World.i
+
+# target to preprocess a source file
+Classes/World.cpp.i:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/World.cpp.i
+.PHONY : Classes/World.cpp.i
+
+Classes/World.s: Classes/World.cpp.s
+.PHONY : Classes/World.s
+
+# target to generate assembly for a file
+Classes/World.cpp.s:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/World.cpp.s
+.PHONY : Classes/World.cpp.s
 
 proj.linux/main.o: proj.linux/main.cpp.o
 .PHONY : proj.linux/main.o
@@ -372,15 +756,63 @@ help:
 	@echo "... Classes/AppDelegate.o"
 	@echo "... Classes/AppDelegate.i"
 	@echo "... Classes/AppDelegate.s"
+	@echo "... Classes/Client.o"
+	@echo "... Classes/Client.i"
+	@echo "... Classes/Client.s"
+	@echo "... Classes/Dialog.o"
+	@echo "... Classes/Dialog.i"
+	@echo "... Classes/Dialog.s"
+	@echo "... Classes/DrawNode3D.o"
+	@echo "... Classes/DrawNode3D.i"
+	@echo "... Classes/DrawNode3D.s"
 	@echo "... Classes/GameScene.o"
 	@echo "... Classes/GameScene.i"
 	@echo "... Classes/GameScene.s"
+	@echo "... Classes/Man2Soldier.o"
+	@echo "... Classes/Man2Soldier.i"
+	@echo "... Classes/Man2Soldier.s"
+	@echo "... Classes/ManSoldier.o"
+	@echo "... Classes/ManSoldier.i"
+	@echo "... Classes/ManSoldier.s"
+	@echo "... Classes/MenuScene.o"
+	@echo "... Classes/MenuScene.i"
+	@echo "... Classes/MenuScene.s"
+	@echo "... Classes/NetRoom.o"
+	@echo "... Classes/NetRoom.i"
+	@echo "... Classes/NetRoom.s"
+	@echo "... Classes/ODSocket.o"
+	@echo "... Classes/ODSocket.i"
+	@echo "... Classes/ODSocket.s"
+	@echo "... Classes/Player.o"
+	@echo "... Classes/Player.i"
+	@echo "... Classes/Player.s"
+	@echo "... Classes/RoleScene.o"
+	@echo "... Classes/RoleScene.i"
+	@echo "... Classes/RoleScene.s"
+	@echo "... Classes/RoomListScene.o"
+	@echo "... Classes/RoomListScene.i"
+	@echo "... Classes/RoomListScene.s"
+	@echo "... Classes/RoomScene.o"
+	@echo "... Classes/RoomScene.i"
+	@echo "... Classes/RoomScene.s"
 	@echo "... Classes/SceneLayer.o"
 	@echo "... Classes/SceneLayer.i"
 	@echo "... Classes/SceneLayer.s"
+	@echo "... Classes/SettingScene.o"
+	@echo "... Classes/SettingScene.i"
+	@echo "... Classes/SettingScene.s"
+	@echo "... Classes/Skill.o"
+	@echo "... Classes/Skill.i"
+	@echo "... Classes/Skill.s"
 	@echo "... Classes/Soldier.o"
 	@echo "... Classes/Soldier.i"
 	@echo "... Classes/Soldier.s"
+	@echo "... Classes/WomanSoldier.o"
+	@echo "... Classes/WomanSoldier.i"
+	@echo "... Classes/WomanSoldier.s"
+	@echo "... Classes/World.o"
+	@echo "... Classes/World.i"
+	@echo "... Classes/World.s"
 	@echo "... proj.linux/main.o"
 	@echo "... proj.linux/main.i"
 	@echo "... proj.linux/main.s"

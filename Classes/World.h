@@ -11,8 +11,8 @@ class World : public Node
 {
 public:
     enum {
-        CAMERA_I = CameraFlag::USER1,
-        CAMERA_FIX = CameraFlag::USER2
+        CAMERA_I = (int)CameraFlag::USER1,
+        CAMERA_FIX = (int)CameraFlag::USER2
     };
 
     static Vec3 s_camera_offset;

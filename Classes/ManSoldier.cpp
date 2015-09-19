@@ -7,17 +7,17 @@ bool ManSoldier::init_soldier() {
     _name = "Man";
     _role_id = SOLDIER_TYPE_MAN;
 
-    string path = FileUtils::getInstance()->fullPathForFilename("man/config");
-    CC_ASSERT(load_config((char *)path.c_str()));
-    //load_actions();
+    //string path = FileUtils::getInstance()->fullPathForFilename("man/config");
+    //CC_ASSERT(load_config((char *)path.c_str()));
+    load_actions();
 
     return true;
 }
 
 void ManSoldier::load_actions() {
-    m_act_idle = Animate3D::createWithFrames(Animation3D::create("man/idle.c3b"), 0, 1000);
-    m_act_walk = Animate3D::createWithFrames(Animation3D::create("man/walk.c3b"), 0, 30);
-    m_act_kick = Animate3D::createWithFrames(Animation3D::create("man/kick.c3b"), 0, 119);
-    m_act_boxing = Animate3D::createWithFrames(Animation3D::create("man/boxing.c3b"), 0, 87);
-    m_act_special = Animate3D::createWithFrames(Animation3D::create("man/special.c3b"), 0, 100);
+    m_act_idle = Animate3D::createWithFrames(Animation3D::create("man/animate_man_idle.c3b"), 0, 1000);
+    m_act_walk = Animate3D::createWithFrames(Animation3D::create("man/animate_man_walk.c3b"), 0, 30);
+    m_act_kick = Animate3D::createWithFrames(Animation3D::create("man/animate_man_kick.c3b"), 0, 119);
+    m_act_boxing = Animate3D::createWithFrames(Animation3D::create("man/animate_man_boxing.c3b"), 0, 87);
+    m_act_special = Animate3D::createWithFrames(Animation3D::create("man/animate_man_special.c3b"), 0, 100);
 }
