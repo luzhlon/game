@@ -4,6 +4,8 @@
 
 using namespace std;
 
+Vec3 World::s_camera_offset = Vec3(0.f, 60.f, 45.f); 
+
 void _LogSize(const char *desc, const Size& size) {
     string str = desc;
     str += "%g, %g";
@@ -126,6 +128,8 @@ Camera *World::get_camera() {
     case CAMERA_FIX:
         return _camera_fix;
         break;
+    default:
+        return nullptr;
     }
 }
 
@@ -155,4 +159,59 @@ void World::add_skybox() {
     _skyBox->setScale(700.f);
     _skyBox->setGlobalZOrder(-1);
     this->addChild(_skyBox);
+}
+
+void World::camera_zoom(float factor) {
+    switch (getCameraMask()) {
+    case CAMERA_FIX:
+        _camera_fix->setPositionY(_camera_fix->getPositionY() + factor);
+        break;
+    case CAMERA_I:
+    {
+         auto v = s_camera_offset;
+         v.normalize();
+         s_camera_offset += v * factor;
+         break;
+    }
+    }
+}
+
+void World::camera_move(Vec2& factor) {
+    switch (getCameraMask()) {
+    case CAMERA_FIX:
+    {
+        auto cp = _camera_fix->getPosition3D();
+        cp.x -= factor.x * 0.1;
+        cp.z += factor.y * 0.1;
+        _camera_fix->setPosition3D(cp);
+        break;
+    }
+    case CAMERA_I:
+    {
+        auto v = factor;
+        //Rotate X-Z coordinate
+        if (fabs(v.x) > fabs(v.y)) {
+            Vec2 v_xz(s_camera_offset.x, s_camera_offset.z);
+            v_xz.rotate(Vec2::ZERO, v.x * 0.02);
+            //
+            s_camera_offset.x = v_xz.x;
+            s_camera_offset.z = v_xz.y;
+        }
+        else {
+            //Rotate Y-Z coordinate
+            Vec2 v_yz(s_camera_offset.y, s_camera_offset.z);
+            v_yz.rotate(Vec2::ZERO, v.y * 0.02);
+            //
+            s_camera_offset.y = v_yz.x;
+            s_camera_offset.z = v_yz.y;
+        }
+    }
+    }
+}
+
+void World::camera_follow(Node *node) {
+    if (getCameraMask() == CAMERA_I) {
+        _camera->setPosition3D(node->getPosition3D() + s_camera_offset);
+        _camera->lookAt(node->getPosition3D());
+    }
 }

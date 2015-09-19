@@ -35,7 +35,6 @@ public:
 
     static const float s_full_blood;
     static Soldier *s_followed;
-    static Vec3 s_camera_offset;
 
     static Soldier *create(int type_id);
     static Soldier *create(room_member *rm);
@@ -92,23 +91,26 @@ public:
     inline void show_billboard(bool show) {
         _billboard->setVisible(show);
     }
-    void billboard_set_name(string);
+    //UI
+    void load_ui();
+    Text *name_text();
+    Text *blood_dec_text();
+    LoadingBar *blood_bar();
     void set_blood(float blood);
+    //Config
+    bool load_config(char *path);
 
-    void switch_state(State state, void *data = nullptr);
+    void switch_state(State state, void *data = nullptr); // 切换到某个状态
+    void begin_fight(); //准备开始战斗
 
-    virtual bool do_skill(SkillBase* skill);
-    virtual bool on_attacked(SkillBase* skill);
+    virtual bool do_skill(SkillBase* skill); // 执行某个技能
+    virtual bool be_injured(SkillBase* skill); // 执行被攻击的动作
 
     inline void move_stop(); //停止移动
     inline void move(Vec3& target); //移到到指定位置
 
-    void begin_fight(); //准备开始战斗
-
     Vec3 get_head_pos(); //
     void show_blood_decline(float); //显示减血效果
-    void CameraZoom(float factor); //拉近、拉远镜头
-    void CameraRotate(Vec2 &v); //旋转Camera
     void updatePosition(float dt = 0.f); //刷新位置:根据目标点
     void updateHeight(); //刷新高度:根据所在X-Z面的位置
     void updateRotation(); //刷新朝向：根据目标点
@@ -125,7 +127,7 @@ protected:
     string _name = "<unset>"; //头顶显示的名称
 
     float _speed = 10.f; //速度
-    float _blood = 80.f; //血量
+    float _blood = 100.f; //血量
     Vec3  _target_point; //要移动到的目标点
     float _base_angle = 90.f; // 基准角度
 
@@ -139,11 +141,11 @@ protected:
     float _height_offset = 0.f;
 
     //五个基本动作
-	ActionInterval *m_act_idle;
-	ActionInterval *m_act_walk;
-	ActionInterval *m_act_special;
-	ActionInterval *m_act_boxing;
-	ActionInterval *m_act_kick;
+	ActionInterval *m_act_idle = nullptr;
+	ActionInterval *m_act_walk = nullptr;
+	ActionInterval *m_act_special = nullptr;
+	ActionInterval *m_act_boxing = nullptr;
+	ActionInterval *m_act_kick = nullptr;
 };
 
 #endif

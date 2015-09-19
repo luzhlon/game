@@ -21,6 +21,8 @@ extern Soldier *g_self;
 
 Soldier *g_soldiers[MAX_ROOM_MEMBERS];
 
+ImageView *GameScene::s_image_direction = nullptr; // 小地图中的方向图标
+
 Scene* GameScene::createScene() {
     auto scene = Scene::create();
     auto layer = GameScene::create();
@@ -30,7 +32,7 @@ Scene* GameScene::createScene() {
     return scene;
 }
 
-void GameScene::loadMapLayer() {
+void GameScene::load_world() {
     _drawNode = DrawNode3D::create();
     g_world->add_thing(_drawNode);
     _drawNode->setPosition3D(Vec3::ZERO);
@@ -50,8 +52,8 @@ bool GameScene::init()
 
     _node_editor = CSLoader::createNode("game_scene.csb");
 
-    loadMapLayer();
-    loadUIlayer();
+    load_world();
+    load_ui();
     //create_soldiers();
     NetRoom::init();
 
@@ -61,19 +63,18 @@ bool GameScene::init()
 extern void _LogSize(const char *desc, const Size& size);
 extern void _LogVec3(const char *desc, Vec3& v3);
 
-void GameScene::loadUIlayer() {
+void GameScene::load_ui() {
     m_layer_ui = load_layer(_node_editor, 2);
     CC_ASSERT(m_layer_ui);
     m_layer_ui->removeFromParent();
 
     auto layout = get_layout(m_layer_ui);
-    _text_debug = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_debug"));
 
     auto layout_layer = Helper::seekWidgetByName(layout, "layout_layer");
     layout_layer->addTouchEventListener(CC_CALLBACK_2(GameScene::onLayerTouched, this));
 
-    _image_direction = static_cast<ImageView *>(Helper::seekWidgetByName(layout, "image_direction"));
-    CC_ASSERT(_image_direction);
+    s_image_direction = static_cast<ImageView *>(Helper::seekWidgetByName(layout, "image_direction"));
+    CC_ASSERT(s_image_direction);
     //鼠标监听
     auto mouse_listener = EventListenerMouse::create();
     mouse_listener->onMouseScroll = CC_CALLBACK_1(GameScene::onMouseScroll, this);
@@ -84,6 +85,7 @@ void GameScene::loadUIlayer() {
 	});
     setClickCallback(layout, "button_2", [this](Ref *ref) {
 		auto s = (WomanSoldier *)g_self;
+        g_self->show_blood_decline(35.f);
 		//s->action_walk();
 	});
     setClickCallback(layout, "button_3", [this](Ref *ref) {
@@ -131,8 +133,6 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
     static Vec2 pos_began;
     static Vec2 pos_last;
 
-    CC_ASSERT(wig);
-
     switch(type) {
     case Widget::TouchEventType::BEGAN:
     {
@@ -162,21 +162,7 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
         auto pos_cur = wig->getTouchMovePosition();
         auto dt = pos_cur - pos_last;
 
-        auto cam = g_world->get_camera();
-        if (World::CAMERA_I == g_world->getCameraMask()) {
-            Vec2 angle = dt;
-            ui2gl(dt);
-            angle.x *= 0.1f;
-            angle.y *= 0.1f;
-
-            g_self->CameraRotate(angle);
-        }
-        else {
-            auto cp = cam->getPosition3D();
-            cp.x -= dt.x * 0.1;
-            cp.z += dt.y * 0.1;
-            cam->setPosition3D(cp);
-        }
+        g_world->camera_move(dt);
 
         pos_last = pos_cur;
     }
@@ -186,15 +172,9 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
 
 void GameScene::onMouseScroll(Event* event) {
     auto e = (EventMouse *)event;
-    if (World::CAMERA_I == g_world->getCameraMask()) {
-        g_self->CameraZoom(e->getScrollY());
-    }
-    else {
-        auto cam = g_world->get_camera();
-        cam->setPositionY(cam->getPositionY() + e->getScrollY());
-    }
+    g_world->camera_zoom(e->getScrollY());
 }
 
 void GameScene::set_small_direction(float angle) {
-    _image_direction->runAction(RotateTo::create(0.3f, angle));
+    s_image_direction->runAction(RotateTo::create(0.3f, angle));
 }

@@ -2,13 +2,13 @@
 #include "AppDelegate.h"
 
 bool WomanSoldier::init_soldier() {
-    initWithFile("girl/girl.c3b");
-    setScale(0.1f);
     _height_offset = 0.f;
     _name = "Woman";
     _role_id = SOLDIER_TYPE_WOMAN;
 
-	load_actions();
+    string path = FileUtils::getInstance()->fullPathForFilename("girl/config");
+    CC_ASSERT(load_config((char *)path.c_str()));
+	//load_actions();
 
     return true;
 }

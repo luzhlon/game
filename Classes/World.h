@@ -14,6 +14,8 @@ public:
         CAMERA_I = CameraFlag::USER1,
         CAMERA_FIX = CameraFlag::USER2
     };
+
+    static Vec3 s_camera_offset;
 	static World *getInstance();
 
     inline Terrain *getTerrain() {
@@ -26,6 +28,9 @@ public:
     void draw_grid(float cell = 10.f, float height = 0.f);
     void add_skybox();
     void switch_camera(int );
+    void camera_zoom(float factor);
+    void camera_move(Vec2& factor);
+    void camera_follow(Node *node);
 
     void add_thing(Node *node, float x = 0.f, float z = 0.f);
 

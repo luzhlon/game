@@ -1,4 +1,5 @@
 #include "NetRoom.h"
+#include "GameScene.h"
 #include "World.h"
 #include "Skill.h"
 #include "Player.h"
@@ -45,6 +46,7 @@ void NetRoom::register_handlers() {
     HANDLER(action_move) = Client::handler([](net_pkg *pkg) {
         auto sol = g_soldiers[pkg->arg1];
         sol->switch_state(Soldier::SOLDIER_STATE_MOVE, pkg->data);
+        GameScene::set_small_direction(sol->get_rotation()); // 小地图方向箭头
     });
     HANDLER(action_stop) = Client::handler([](net_pkg *pkg) {
         auto sol = g_soldiers[pkg->arg1];
@@ -58,7 +60,7 @@ void NetRoom::register_handlers() {
     HANDLER(on_attacked) = Client::handler([](net_pkg *pkg) {
         auto sol = g_soldiers[pkg->arg1]; //Soldier be attacked
         SkillBase *skill = (SkillBase *)pkg->data;
-        sol->on_attacked(skill);
+        sol->be_injured(skill);
         sol->show_blood_decline(skill->_dec_blood);
     });
 }
@@ -67,12 +69,15 @@ void NetRoom::create_soldiers() {
     for (int i = 0; i < MAX_ROOM_MEMBERS; i++) {
         room_member *meb = &NetRoom::_members[i];
         if (meb->is_empty()) continue;
-        g_soldiers[i] = Soldier::create(meb);
-        g_soldiers[i]->billboard_set_name(meb->m_name);
-        g_world->add_thing(g_soldiers[i]);
+        g_soldiers[i] = Soldier::create(meb); // 创建
+        g_soldiers[i]->name_text()->setString(meb->m_name); // 玩家名称
+        g_soldiers[i]->name_text()->setColor( i % 2 ?
+                                                Color3B(255, 0, 0) :  // 红队
+                                                Color3B(0, 0, 255));  // 蓝队
+        g_world->add_thing(g_soldiers[i]); // 添加到世界中
     }
 
-    g_player = Player::getInstance(g_soldiers[NetRoom::_self_id]);
+    g_player = Player::getInstance(g_soldiers[NetRoom::_self_id]); // 初始化Player
 }
 
 void NetRoom::action_move(Vec3& pos) {

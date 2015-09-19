@@ -2,7 +2,6 @@
 #define __GAMESCENE_H__
 
 #include "SceneLayer.h"
-#include "extensions/cocos-ext.h"
 #include "DrawNode3D.h"
 
 class World;
@@ -10,32 +9,23 @@ class World;
 class GameScene : public SceneLayer {
 public:
     static Scene* createScene();
-    static void ui2gl(Vec2 &v);
+    static void ui2gl(Vec2 &v); // ui坐标 to opengl坐标
 
     CREATE_FUNC(GameScene);
 
-    void loadMapLayer(); //加载地图
-    void loadUIlayer(); //
-    void set_small_direction(float);
+    void load_world(); //加载3D世界
+    void load_ui(); // 加载UI
+
+    static ImageView *s_image_direction; // 小地图中的方向图标
+    static void set_small_direction(float); // 设置小地图中的方向
 
     bool init() override;
 private:
-    extension::ScrollView *m_scroll;
-    TMXTiledMap *m_map; //地图
     Node *m_layer_map;
     Node *_node_editor;
     Layer *m_layer_ui;
-    Layer *m_sel_obj; //当前选中的对象
-
-    ImageView *_image_direction = nullptr; // 小地图中的方向图标
 
     DrawNode3D *_drawNode;
-
-    Text *_text_debug;
-
-    Vec2  pos_down; //触摸按下时的位置
-    Vec2  pos_down_map; //触摸按下时地图的位置
-    bool  mouse_down = false;
 
 public:
     //

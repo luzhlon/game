@@ -6,7 +6,6 @@
 #include "Man2Soldier.h"
 #include "WomanSoldier.h"
 
-Vec3 Soldier::s_camera_offset = Vec3(0.f, 60.f, 45.f); 
 Soldier *Soldier::s_followed = nullptr;
 const float Soldier::s_full_blood = 100.f;
 extern World *g_world;
@@ -47,6 +46,12 @@ bool Soldier::do_skill(SkillBase* skill) {
     return true;
 }
 
+bool Soldier::be_injured(SkillBase *skill) {
+    _blood -= skill->_dec_blood;
+    set_blood(_blood);
+    return true;
+}
+
 Soldier *Soldier::create(room_member *rm) {
     auto sol = create(rm->m_role_id);
     sol->_room_member = rm;
@@ -55,14 +60,6 @@ Soldier *Soldier::create(room_member *rm) {
 }
 
 bool Soldier::init() {
-    //将动作加载放在init子类前面，让子类有修改的机会
-    /*
-	m_act_idle = Animate3D::createWithFrames(Animation3D::create("idle.c3b"), 0, 100);
-	m_act_walk = RepeatForever::create(Animate3D::createWithFrames(Animation3D::create("walk.c3b"), 0, 100));
-	m_act_special = Animate3D::createWithFrames(Animation3D::create("run.c3b"), 0, 100);
-	m_act_boxing = Animate3D::createWithFrames(Animation3D::create("boxing.c3b"), 0, 119);
-	m_act_kick = Animate3D::createWithFrames(Animation3D::create("kick.c3b"), 0, 56); // */
-
     init_soldier();
 
     CC_ASSERT(_role_id >= 0);
@@ -83,29 +80,66 @@ bool Soldier::init() {
     return true;
 }
 
+bool Soldier::load_config(char *path) {
+    FILE *f = fopen(path, "r");
+    if (!f) return false;
+
+    ActionInterval **anim[5] = {
+        &m_act_walk,
+        &m_act_boxing,
+        &m_act_kick,
+        &m_act_special,
+        &m_act_idle
+    };
+
+	char buf[1024];
+    // 加载人物
+    char role_file[256];
+    float scale, base_angle;
+    while (fgets(buf, 1024, f))
+        if (3 == sscanf(buf, "%s%f%f", role_file, &scale, &base_angle))
+            break;
+    initWithFile(role_file);
+    setScale(scale);
+    _base_angle = base_angle;
+    setRotation3D(Vec3(180.f, _base_angle, 180.f));
+    // 加载动作
+    char act_file[256]; 
+    int start_frame, end_frame;
+    float fps;
+    for (int i = 0; i < 5; i++) {
+        while (fgets(buf, 256, f))
+        if (4 == sscanf(buf, "%s%d%d%f", act_file, &start_frame, &end_frame, &fps))
+            break;
+        *anim[i] = Animate3D::createWithFrames(Animation3D::create(act_file), start_frame, end_frame, fps);
+    }
+    fclose(f);
+	return true;
+}
+
 void Soldier::set_blood(float blood) {
     _blood = blood;
     _blood_bar->setPercent(_blood / s_full_blood * 100.f);
 }
 
-void Soldier::begin_fight() {
+void Soldier::load_ui() {
+    _billboard = BillBoard::create();
+
     auto node = CSLoader::createNode("soldier_head_info.csb");
     auto layout = static_cast<Layout *>(node->getChildByTag(1));
-    auto textName = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_name"));
-    _blood_bar = static_cast<LoadingBar *>(Helper::seekWidgetByName(layout, "loadbar_blood"));
-
-    textName->setString(_name);
-    textName->setFontName("fonts/arial.ttf");
-    textName->setScale(1.f);
-    _blood_bar->setPercent(_blood * 100.f / s_full_blood);
     layout->removeFromParent();
-
-    _billboard = BillBoard::create();
-    _billboard->addChild(layout);
     layout->setPositionY(10.f);
-    _billboard->setPosition3D(Vec3(0.f, 240.f, 0.f));
+    _billboard->addChild(layout);
+
+    _billboard->setPosition3D(Vec3(0.f, 270.f, 0.f));
     add_thing(_billboard);
 
+    blood_bar()->setPercent(_blood * 100.f / s_full_blood);
+    blood_dec_text()->setVisible(false);
+}
+
+void Soldier::begin_fight() {
+    load_ui();
     scheduleUpdate();
 }
 
@@ -119,12 +153,8 @@ void Soldier::update(float dt) {
     AT_STATE(SOLDIER_STATE_MOVE) {
         updateRotation();
         //判断和目标位置的距离
-        if ((getPosition3D() - _target_point).length() < 1.f) {
-            move_stop();
-        }
-        else {
-            updatePosition(dt);
-        }
+        if ((getPosition3D() - _target_point).length() < 1.f) { move_stop(); }
+        else { updatePosition(dt); }
         //updateHeight();
         break;
     }
@@ -136,12 +166,7 @@ void Soldier::update(float dt) {
     }
     } while (false);
 
-    if (World::CAMERA_I != g_world->getCameraMask()) return;
-    auto camera = g_world->get_camera();
-    if (this == s_followed) {
-        camera->setPosition3D(getPosition3D() + s_camera_offset);
-        camera->lookAt(getPosition3D());
-    }
+    if (this == s_followed) { world->camera_follow(this); }
 }
 
 void Soldier::updateRotation() {
@@ -194,49 +219,25 @@ void Soldier::updatePosition(float dt) {
     }
 }
 
-void Soldier::CameraZoom(float factor) {
-    auto v = s_camera_offset;
-    v.normalize();
-    s_camera_offset += v * factor;
-}
-
-void Soldier::CameraRotate(Vec2 &v) {
-    //Rotate X-Z coordinate
-    if (fabs(v.x) > fabs(v.y)) {
-        Vec2 v_xz(s_camera_offset.x, s_camera_offset.z);
-        v_xz.rotate(Vec2::ZERO, v.x * 0.02);
-        //
-        s_camera_offset.x = v_xz.x;
-        s_camera_offset.z = v_xz.y;
-    }
-    else {
-        //Rotate Y-Z coordinate
-        Vec2 v_yz(s_camera_offset.y, s_camera_offset.z);
-        v_yz.rotate(Vec2::ZERO, v.y * 0.02);
-        //
-        s_camera_offset.y = v_yz.x;
-        s_camera_offset.z = v_yz.y;
-    }
-}
-
 void Soldier::show_blood_decline(float dec) {
-    static Text *text = nullptr;
-    if (!text) {
-        text = Text::create("", "fonts/Marker Felt.ttf", 20);
-        text->setCascadeOpacityEnabled(true);
-        add2Billboard(text);
-    }
+    static Vec2 pos_start(0.f, 0.f);
+
+    auto text = blood_dec_text();
+    if (pos_start.isZero()) { pos_start = text->getPosition(); }
+
     char str[128];
-    sprintf(str, "- %g", dec);
-    text->setTextColor(Color4B(Color4F(255.f, 0.f, 0.f, 200.f)));
-    text->setPosition(Vec2(0.f, 10.f));
+    sprintf(str, "%g", dec);
+
+    text->setVisible(true);
+    text->setPosition(pos_start);
     text->setScale(1);
     text->setString(str);
     text->setOpacity(255.f);
 
-    auto move = MoveBy::create(1.5f, Vec2(0, 40.f));
-    auto scale = ScaleBy::create(1.5f, 1.3f);
-    auto fade = FadeOut::create(1.5f);
+    auto move = MoveBy::create(1.f, Vec2(0, 100.f));
+    auto scale = ScaleBy::create(1.f, 1.5f);
+    auto fade = FadeOut::create(1.f);
+    text->stopAllActions();
     text->runAction(move);
     text->runAction(scale);
     text->runAction(fade);
@@ -252,10 +253,25 @@ void Soldier::add2Billboard(Node *node) {
     _billboard->addChild(node);
 }
 
-void Soldier::billboard_set_name(string name) {
+LoadingBar *Soldier::blood_bar() {
+    auto layout = static_cast<Layout *>(_billboard->getChildByTag(1));
+    auto bar = static_cast<LoadingBar *>(Helper::seekWidgetByName(layout, "loadbar_blood"));
+    CC_ASSERT(bar);
+    return bar;
+}
+
+Text *Soldier::name_text() {
     auto layout = static_cast<Layout *>(_billboard->getChildByTag(1));
     auto textName = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_name"));
-    textName->setString(name);
+    CC_ASSERT(textName);
+    return textName;
+}
+
+Text *Soldier::blood_dec_text() {
+    auto layout = static_cast<Layout *>(_billboard->getChildByTag(1));
+    auto text = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_dec_blood"));
+    CC_ASSERT(text);
+    return text;
 }
 
 void Soldier::move_stop() {
@@ -287,10 +303,4 @@ void Soldier::switch_state(State state, void *data) {
         break;
     }
     }
-}
-
-bool Soldier::on_attacked(SkillBase* skill) {
-    _blood -= skill->_dec_blood;
-    set_blood(_blood);
-    return true;
 }
