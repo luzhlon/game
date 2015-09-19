@@ -25,10 +25,14 @@ private:
     Node *_node_editor;
     Layer *m_layer_ui;
 
+	Text *_output = nullptr;
+	TextField *_input = nullptr;
+
     DrawNode3D *_drawNode;
 
 public:
     //
+	void onScrollTouched(Ref *, Widget::TouchEventType);
 	void onLayerTouched(Ref *, Widget::TouchEventType);
     void onMouseScroll(Event* event);
 };

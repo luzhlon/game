@@ -1,7 +1,7 @@
 # 第一次匹配人物文件及属性
 # 格式：人物文件名(string) scale(float) base_angle(float)
 # 格式化字符串：%s%f%f
-girl/girl.c3b 0.1 90
+girl/girl.c3b 0.2 90
 # 下面的匹配人物动作
 # 格式：动作文件名 起始帧 结束帧 FPS
 # 格式化字符串：%s%f%f%f

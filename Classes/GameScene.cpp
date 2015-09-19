@@ -70,8 +70,13 @@ void GameScene::load_ui() {
 
     auto layout = get_layout(m_layer_ui);
 
-    auto layout_layer = Helper::seekWidgetByName(layout, "layout_layer");
-    layout_layer->addTouchEventListener(CC_CALLBACK_2(GameScene::onLayerTouched, this));
+	setTouchCallback(layout, "layout_layer", CC_CALLBACK_2(GameScene::onLayerTouched, this));
+	setTouchCallback(layout, "layout_scroll", CC_CALLBACK_2(GameScene::onScrollTouched, this));
+
+	_output = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_output"));
+	_input = static_cast<TextField *>(Helper::seekWidgetByName(layout, "edit_input"));
+    CC_ASSERT(_output);
+    CC_ASSERT(_input);
 
     s_image_direction = static_cast<ImageView *>(Helper::seekWidgetByName(layout, "image_direction"));
     CC_ASSERT(s_image_direction);
@@ -97,12 +102,7 @@ void GameScene::load_ui() {
         _drawNode->drawCube(v, Color4F(0, 1, 0, 1));
 	});
     setClickCallback(layout, "button_reset", [this](Ref *ref) {
-		auto s = (WomanSoldier *)g_self;
-        //g_self->show_blood_decline(10.8f);
-        //g_player->draw_clear();
-        //g_self->setPosition3D(Vec3::ZERO);
-        //_LogVec3("[Soldier] Position: ", g_self->getPosition3D());
-        //_LogVec3("[Soldier] Center: ", ((AABB&)(g_self->getAABB())).getCenter());
+		World::s_camera_offset = Vec3(0, 120, 90);
 	});
     setClickCallback(layout, "button_camera", [this](Ref *ref) {
         //g_player->draw_circle(100.f);
@@ -163,6 +163,40 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
         auto dt = pos_cur - pos_last;
 
         g_world->camera_move(dt);
+
+        pos_last = pos_cur;
+    }
+    break;
+    }
+}
+
+void GameScene::onScrollTouched(Ref *ref, Widget::TouchEventType type) {
+    Widget *wig = dynamic_cast<Widget *>(ref);
+    static Vec2 pos_began;
+    static Vec2 pos_last;
+
+    switch(type) {
+    case Widget::TouchEventType::BEGAN:
+    {
+        pos_began = wig->getTouchBeganPosition();
+        pos_last = pos_began;
+    }
+    break;
+    case Widget::TouchEventType::ENDED:
+    {
+        auto pos = wig->getTouchEndPosition();
+    }
+    break;
+    case Widget::TouchEventType::MOVED:
+    {
+        auto pos_cur = wig->getTouchMovePosition();
+        auto dt = pos_cur - pos_last;
+
+		g_world->camera_zoom(dt.y > 0.f ? 1.f : -1.f);
+		char buf[64];
+		auto v3 = World::s_camera_offset;
+		sprintf(buf, "%g %g %g", v3.x, v3.y, v3.z);
+		_output->setString(buf);
 
         pos_last = pos_cur;
     }

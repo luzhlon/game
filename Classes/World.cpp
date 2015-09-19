@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Vec3 World::s_camera_offset = Vec3(0.f, 60.f, 45.f); 
+Vec3 World::s_camera_offset = Vec3(0.f, 120.f, 90.f); 
 
 void _LogSize(const char *desc, const Size& size) {
     string str = desc;
@@ -36,13 +36,14 @@ World::World() {
     }
 
     {
-        _camera = Camera::createPerspective(60, g_win_size.width / g_win_size.height, 0.1f, 1000.f);
+        _camera = Camera::createPerspective(60, g_win_size.width / g_win_size.height, 0.1f, 1300.f);
         _camera->setCameraFlag((CameraFlag)CAMERA_I);
+        _camera->setPosition3D(s_camera_offset);
         addChild(_camera);
 
-        _camera_fix = Camera::createPerspective(60, g_win_size.width / g_win_size.height, 0.1f, 1000.f);
+        _camera_fix = Camera::createPerspective(60, g_win_size.width / g_win_size.height, 0.1f, 1300.f);
         _camera_fix->setCameraFlag((CameraFlag)CAMERA_FIX);
-        _camera_fix->setPosition3D(Vec3(0, 120, 90));
+        _camera_fix->setPosition3D(s_camera_offset);
         _camera_fix->lookAt(Vec3::ZERO);
         addChild(_camera_fix);
     }
@@ -165,7 +166,7 @@ void World::camera_zoom(float factor) {
     switch (getCameraMask()) {
     case CAMERA_FIX:
          s_camera_offset.y += factor;
-        _camera_fix->setPositionY(_camera_fix->getPositionY() + s_camera_offset);
+        _camera_fix->setPositionY(_camera_fix->getPositionY() + s_camera_offset.y);
         break;
     case CAMERA_I:
     {
@@ -181,9 +182,10 @@ void World::camera_move(Vec2& factor) {
     switch (getCameraMask()) {
     case CAMERA_FIX:
     {
-        s_camera_offset.x -= factor.x * 0.1;
-        s_camera_offset.z += factor.y * 0.1;
-        _camera_fix->setPosition3D(_camera_fix->getPosition3D() + s_camera_offset);
+	    auto pos = _camera_fix->getPosition3D();
+        pos.x -= factor.x * 0.1;
+        pos.z += factor.y * 0.1;
+        _camera_fix->setPosition3D(pos);
         break;
     }
     case CAMERA_I:
@@ -205,6 +207,7 @@ void World::camera_move(Vec2& factor) {
             s_camera_offset.y = v_yz.x;
             s_camera_offset.z = v_yz.y;
         }
+		break;
     }
     }
 }
