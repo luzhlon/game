@@ -1,0 +1,57 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/john/cmake_proj/game/linux-build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec3303065119/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3303065119.dir/build.make CMakeFiles/cmTryCompileExec3303065119.dir/build
+make[1]: Entering directory '/home/john/cmake_proj/game/linux-build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3303065119.dir/CheckSymbolExists.c.o
+/usr/bin/cc   -fno-exceptions -std=c99    -o CMakeFiles/cmTryCompileExec3303065119.dir/CheckSymbolExists.c.o   -c /home/john/cmake_proj/game/linux-build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec3303065119
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3303065119.dir/link.txt --verbose=1
+/usr/bin/cc   -fno-exceptions -std=c99     CMakeFiles/cmTryCompileExec3303065119.dir/CheckSymbolExists.c.o  -o cmTryCompileExec3303065119 -rdynamic 
+CMakeFiles/cmTryCompileExec3303065119.dir/CheckSymbolExists.c.o：在函数‘main’中：
+CheckSymbolExists.c:(.text+0x16)：对‘pthread_create’未定义的引用
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTryCompileExec3303065119.dir/build.make:88: recipe for target 'cmTryCompileExec3303065119' failed
+make[1]: Leaving directory '/home/john/cmake_proj/game/linux-build/CMakeFiles/CMakeTmp'
+make[1]: *** [cmTryCompileExec3303065119] Error 1
+Makefile:117: recipe for target 'cmTryCompileExec3303065119/fast' failed
+make: *** [cmTryCompileExec3303065119/fast] Error 2
+
+File /home/john/cmake_proj/game/linux-build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/john/cmake_proj/game/linux-build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2173912940/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2173912940.dir/build.make CMakeFiles/cmTryCompileExec2173912940.dir/build
+make[1]: Entering directory '/home/john/cmake_proj/game/linux-build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2173912940.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -fno-exceptions -std=c99 -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec2173912940.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.2/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec2173912940
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2173912940.dir/link.txt --verbose=1
+/usr/bin/cc   -fno-exceptions -std=c99 -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec2173912940.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2173912940 -rdynamic -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTryCompileExec2173912940.dir/build.make:88: recipe for target 'cmTryCompileExec2173912940' failed
+make[1]: Leaving directory '/home/john/cmake_proj/game/linux-build/CMakeFiles/CMakeTmp'
+make[1]: *** [cmTryCompileExec2173912940] Error 1
+Makefile:117: recipe for target 'cmTryCompileExec2173912940/fast' failed
+make: *** [cmTryCompileExec2173912940/fast] Error 2
+
+

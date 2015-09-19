@@ -126,21 +126,26 @@ if ( WIN32 )
 endif( WIN32 )
 
 set(GAME_SRC
-  Classes/AppDelegate.cpp
-  Classes/HorseSoldier.cpp
-  Classes/ManSoldier.cpp
-  Classes/WomanSoldier.cpp
-  Classes/SceneLayer.cpp
-  Classes/GameScene.cpp
-  Classes/MenuScene.cpp
-  Classes/SettingScene.cpp
-  Classes/RoleScene.cpp
-  Classes/RoomScene.cpp
-  Classes/RoomListScene.cpp
-  Classes/Soldier.cpp
-  Classes/Dialog.cpp
-  Classes/Client.cpp
-  Classes/ODSocket.cpp
+    Classes/AppDelegate.cpp \
+    Classes/Client.cpp \
+    Classes/Dialog.cpp \
+    Classes/DrawNode3D.cpp \
+    Classes/GameScene.cpp \
+    Classes/Man2Soldier.cpp \
+    Classes/ManSoldier.cpp \
+    Classes/MenuScene.cpp \
+    Classes/NetRoom.cpp \
+    Classes/ODSocket.cpp \
+    Classes/Player.cpp \
+    Classes/RoleScene.cpp \
+    Classes/RoomListScene.cpp \
+    Classes/RoomScene.cpp \
+    Classes/SceneLayer.cpp \
+    Classes/SettingScene.cpp \
+    Classes/Skill.cpp \
+    Classes/Soldier.cpp \
+    Classes/WomanSoldier.cpp \
+    Classes/World.cpp \
   ${PLATFORM_SPECIFIC_SRC}
 )
 

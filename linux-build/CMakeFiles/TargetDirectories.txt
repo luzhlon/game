@@ -1,0 +1,10 @@
+/home/john/cmake_proj/game/linux-build/cocos2d/external/xxhash/CMakeFiles/xxhash.dir
+/home/john/cmake_proj/game/linux-build/cocos2d/external/recast/CMakeFiles/recast.dir
+/home/john/cmake_proj/game/linux-build/cocos2d/external/unzip/CMakeFiles/unzip.dir
+/home/john/cmake_proj/game/linux-build/CMakeFiles/Game_CORE_PRE_BUILD.dir
+/home/john/cmake_proj/game/linux-build/cocos2d/cocos/CMakeFiles/cocos2d.dir
+/home/john/cmake_proj/game/linux-build/cocos2d/external/tinyxml2/CMakeFiles/tinyxml2.dir
+/home/john/cmake_proj/game/linux-build/cocos2d/external/flatbuffers/CMakeFiles/flatbuffers.dir
+/home/john/cmake_proj/game/linux-build/cocos2d/external/bullet/CMakeFiles/bullet.dir
+/home/john/cmake_proj/game/linux-build/CMakeFiles/Game.dir
+/home/john/cmake_proj/game/linux-build/CMakeFiles/Game_PRE_BUILD.dir
