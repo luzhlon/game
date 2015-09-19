@@ -164,7 +164,8 @@ void World::add_skybox() {
 void World::camera_zoom(float factor) {
     switch (getCameraMask()) {
     case CAMERA_FIX:
-        _camera_fix->setPositionY(_camera_fix->getPositionY() + factor);
+         s_camera_offset.y += factor;
+        _camera_fix->setPositionY(_camera_fix->getPositionY() + s_camera_offset);
         break;
     case CAMERA_I:
     {
@@ -180,10 +181,9 @@ void World::camera_move(Vec2& factor) {
     switch (getCameraMask()) {
     case CAMERA_FIX:
     {
-        auto cp = _camera_fix->getPosition3D();
-        cp.x -= factor.x * 0.1;
-        cp.z += factor.y * 0.1;
-        _camera_fix->setPosition3D(cp);
+        s_camera_offset.x -= factor.x * 0.1;
+        s_camera_offset.z += factor.y * 0.1;
+        _camera_fix->setPosition3D(_camera_fix->getPosition3D() + s_camera_offset);
         break;
     }
     case CAMERA_I:

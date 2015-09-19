@@ -6,9 +6,9 @@ bool WomanSoldier::init_soldier() {
     _name = "Woman";
     _role_id = SOLDIER_TYPE_WOMAN;
 
-    //string path = FileUtils::getInstance()->fullPathForFilename("girl/config");
-    //CC_ASSERT(load_config((char *)path.c_str()));
-    load_actions();
+    string path = FileUtils::getInstance()->fullPathForFilename("girl/config");
+    CC_ASSERT(load_config((char *)path.c_str()));
+    //load_actions();
 
     return true;
 }

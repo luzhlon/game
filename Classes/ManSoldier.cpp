@@ -7,9 +7,9 @@ bool ManSoldier::init_soldier() {
     _name = "Man";
     _role_id = SOLDIER_TYPE_MAN;
 
-    //string path = FileUtils::getInstance()->fullPathForFilename("man/config");
-    //CC_ASSERT(load_config((char *)path.c_str()));
-    load_actions();
+    string path = FileUtils::getInstance()->fullPathForFilename("man/config");
+    CC_ASSERT(load_config((char *)path.c_str()));
+    //load_actions();
 
     return true;
 }
