@@ -11,42 +11,43 @@ class World : public Node
 {
 public:
     enum {
-        CAMERA_I = (int)CameraFlag::USER1,
-        CAMERA_FIX = (int)CameraFlag::USER2
+        CAMERA_FREE = (int)CameraFlag::USER1,  // 自由视角摄像机
+        CAMERA_FIX = (int)CameraFlag::USER2   // 固定视角摄像机
     };
 
     static Vec3 s_camera_offset;
 	static World *getInstance();
 
-    inline Terrain *getTerrain() {
+    inline Terrain *terrain() {
         return _terrain;
     }
-    inline DrawNode3D *getDrawNode() {
+    inline float height(float x, float z) {
+        return _terrain->getHeight(x, z);
+    }
+    inline DrawNode3D *draw_node() {
         return _drawNode;
     }
 
     void draw_grid(float cell = 10.f, float height = 0.f);
     void add_skybox();
-    void switch_camera(int );
+
     void camera_zoom(float factor);
     void camera_move(Vec2& factor);
     void camera_follow(Node *node);
 
+    bool load_goods(char *file);
+
     void add_thing(Node *node, float x = 0.f, float z = 0.f);
 
-    void show_point(const Vec3& v);
+    void show_click(const Vec3& v);
     bool conv2space(Vec3& v); //ignore v.z
-    Camera *get_camera();
-    //void unproject(const Size* viewport, Vec3* src, Vec3* dst);
+    Camera *camera();
 
-    inline float getHeight(float x, float z) {
-        return _terrain->getHeight(x, z);
-    }
 private:
 	World();
 
     Terrain *_terrain;
-    Camera *_camera;
+    Camera *_camera_free;
     Camera *_camera_fix;
 
     DrawNode3D *_drawNode;

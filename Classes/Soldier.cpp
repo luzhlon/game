@@ -1,10 +1,7 @@
 ﻿#include "Soldier.h"
 #include "Dialog.h"
-#include "Skill.h"
 #include "World.h"
 #include "AppDelegate.h"
-#include "ManSoldier.h"
-#include "Man2Soldier.h"
 #include "WomanSoldier.h"
 
 Soldier *Soldier::s_followed = nullptr;
@@ -20,37 +17,12 @@ Soldier *Soldier::create(int type_id) {
         return WomanSoldier::create();
         break;
     case SOLDIER_TYPE_MAN:
-        return ManSoldier::create();
+        //return ManSoldier::create();
         break;
     case SOLDIER_TYPE_MAN2:
-        return Man2Soldier::create();
+        //return Man2Soldier::create();
         break;
     }
-}
-
-bool Soldier::do_skill(SkillBase* skill) {
-    move_stop();
-    switch (skill->_type) {
-    case SkillBase::SKILL_BOXING:
-        stopAllActions();
-        runAction(m_act_boxing);
-        break;
-    case SkillBase::SKILL_KICK:
-        stopAllActions();
-        runAction(m_act_kick);
-        break;
-    case SkillBase::SKILL_SPECIAL:
-        stopAllActions();
-        runAction(m_act_special);
-        break;
-    }
-    return true;
-}
-
-bool Soldier::be_injured(SkillBase *skill) {
-    _blood -= skill->_dec_blood;
-    set_blood(_blood);
-    return true;
 }
 
 Soldier *Soldier::create(room_member *rm) {
@@ -153,7 +125,7 @@ void Soldier::begin_fight() {
 
 void Soldier::update(float dt) {
     auto world = World::getInstance();
-    auto terrain = world->getTerrain();
+    auto terrain = world->terrain();
 
     do {
     AT_STATE(SOLDIER_STATE_MOVE) {
@@ -188,7 +160,7 @@ void Soldier::updateHeight() {
     auto playerModelMat = getParent()->getNodeToWorldTransform();
     playerModelMat.transformPoint(&playerPos);
     Vec3 Normal;
-    float player_h = World::getInstance()->getTerrain()->getHeight(playerPos.x, playerPos.z, &Normal);
+    float player_h = World::getInstance()->terrain()->getHeight(playerPos.x, playerPos.z, &Normal);
     //check the player whether is out of the terrain
     if (Normal.isZero()) {
         move_stop();
@@ -213,7 +185,7 @@ void Soldier::updatePosition(float dt) {
     //auto playerModelMat = getParent()->getNodeToWorldTransform();
     //playerModelMat.transformPoint(&playerPos);
     Vec3 Normal;
-    float player_h = World::getInstance()->getTerrain()->getHeight(playerPos.x, playerPos.z, &Normal);
+    float player_h = World::getInstance()->terrain()->getHeight(playerPos.x, playerPos.z, &Normal);
     //check the player whether is out of the terrain
     if (Normal.isZero()) {
         player_h = playerPos.y;
@@ -278,14 +250,6 @@ Text *Soldier::blood_dec_text() {
     auto text = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_dec_blood"));
     CC_ASSERT(text);
     return text;
-}
-
-void Soldier::move_stop() {
-    switch_state(SOLDIER_STATE_IDLE);
-}
-
-void Soldier::move(Vec3& target) {
-    switch_state(SOLDIER_STATE_MOVE, &target);
 }
 
 void Soldier::switch_state(State state, void *data) {

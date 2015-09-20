@@ -1,10 +1,7 @@
 ﻿#include "World.h"
-#include "Skill.h"
-#include "Client.h"
 #include "Player.h"
 #include "AppDelegate.h"
 #include "GameScene.h"
-#include "NetRoom.h"
 #include "cocostudio/CocoStudio.h"
 #include "Soldier.h"
 #include "../Server/message.h"
@@ -13,13 +10,19 @@ using namespace cocostudio;
 
 World *g_world;
 Player *g_player;
-Client *g_client;
 
 extern Director *g_director;
 extern FileUtils *g_file;
 extern Soldier *g_self;
 
-Soldier *g_soldiers[MAX_ROOM_MEMBERS];
+enum {
+OP_STATE_SECLET = 0,
+OP_STATE_SOLDIER,
+
+OP_STATE_NUM_MAX 
+};
+
+int g_op_state = OP_STATE_SOLDIER;
 
 ImageView *GameScene::s_image_direction = nullptr; // 小地图中的方向图标
 
@@ -48,14 +51,16 @@ bool GameScene::init()
         return false;
     }
     g_world = World::getInstance();
-    g_client = Client::getInstance();
 
     _node_editor = CSLoader::createNode("game_scene.csb");
 
     load_world();
     load_ui();
-    //create_soldiers();
-    NetRoom::init();
+
+    auto sol = WomanSoldier::create();
+    sol->begin_fight();
+    g_world->add_thing(sol);
+    Player::getInstance(sol);
 
     return true;
 }
@@ -87,6 +92,8 @@ void GameScene::load_ui() {
 
 	//setTouchCallback(layout, "button_direction", CC_CALLBACK_2(GameScene::onDirectionTouched, this));
     setClickCallback(layout, "button_1", [this](Ref *ref) {
+        g_op_state++;
+        if (g_op_state == OP_STATE_NUM_MAX) g_op_state = 0;
 	});
     setClickCallback(layout, "button_2", [this](Ref *ref) {
 		auto s = (WomanSoldier *)g_self;
@@ -106,19 +113,15 @@ void GameScene::load_ui() {
 	});
     setClickCallback(layout, "button_camera", [this](Ref *ref) {
         //g_player->draw_circle(100.f);
-        if (g_world->getCameraMask() == World::CAMERA_I) {
+        if (g_world->getCameraMask() == World::CAMERA_FREE) {
             g_world->setCameraMask(World::CAMERA_FIX);
         }
         else {
-            g_world->setCameraMask(World::CAMERA_I);
+            g_world->setCameraMask(World::CAMERA_FREE);
             auto pos = g_self->getPosition3D();
             log("[Soldier pos] %g %g %g", pos.x, pos.y, pos.z);
         }
 	});
-
-    Player::skill_kick = new SkillKick(static_cast<Button *>(Helper::seekWidgetByName(layout,  "button_skill_kick")));
-    Player::skill_boxing = new SkillBoxing(static_cast<Button *>(Helper::seekWidgetByName(layout,  "button_skill_boxing")));
-    Player::skill_special = new SkillSpecial(static_cast<Button *>(Helper::seekWidgetByName(layout,  "button_skill_special")));
 
     addChild(m_layer_ui);
 }
@@ -145,14 +148,33 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
     {
         auto pos = wig->getTouchEndPosition();
         if (pos == pos_began) { //Not moved
+
             ui2gl(pos);
             Vec3 point(pos.x, pos.y, 0.f);
-            if (g_world->conv2space(point)){
-                NetRoom::action_move(point);
-                point.y += 1.f;
-                g_world->show_point(point);
-            } else {
+            if (!g_world->conv2space(point))
+            {
                 log("[World] get Space coordinate failure.");
+                break;
+            }
+
+            switch (g_op_state) {
+            case OP_STATE_SECLET:
+            {
+                auto ps = point;
+                auto pe = point;
+                ps.y = 100.f;
+                pe.y = -100.f;
+                g_world->draw_node()->drawLine(ps, pe, Color4F(0,0,0,0));
+                break;
+            }
+            case OP_STATE_SOLDIER:
+                g_self->move(point);
+                point.y += 1.f;
+                g_world->show_click(point);
+                char buf[64];
+                sprintf(buf, "%g %g", point.x, point.z);
+                _output->setString(buf);
+                break;
             }
         }
     }
@@ -192,7 +214,7 @@ void GameScene::onScrollTouched(Ref *ref, Widget::TouchEventType type) {
         auto pos_cur = wig->getTouchMovePosition();
         auto dt = pos_cur - pos_last;
 
-		g_world->camera_zoom(dt.y > 0.f ? 1.f : -1.f);
+		g_world->camera_zoom(dt.y > 0.f ? 1.5f : -1.5f);
 		char buf[64];
 		auto v3 = World::s_camera_offset;
 		sprintf(buf, "%g %g %g", v3.x, v3.y, v3.z);
@@ -206,7 +228,7 @@ void GameScene::onScrollTouched(Ref *ref, Widget::TouchEventType type) {
 
 void GameScene::onMouseScroll(Event* event) {
     auto e = (EventMouse *)event;
-    g_world->camera_zoom(e->getScrollY());
+    g_world->camera_zoom(e->getScrollY() * 3);
 }
 
 void GameScene::set_small_direction(float angle) {

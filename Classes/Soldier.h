@@ -13,8 +13,6 @@ using namespace ui;
 using namespace std;
 using namespace cocostudio;
 
-class SkillBase;
-
 class Soldier : public Sprite3D
 {
 public:
@@ -103,11 +101,12 @@ public:
     void switch_state(State state, void *data = nullptr); // 切换到某个状态
     void begin_fight(); //准备开始战斗
 
-    virtual bool do_skill(SkillBase* skill); // 执行某个技能
-    virtual bool be_injured(SkillBase* skill); // 执行被攻击的动作
-
-    inline void move_stop(); //停止移动
-    inline void move(Vec3& target); //移到到指定位置
+    inline void move_stop() {
+        switch_state(SOLDIER_STATE_IDLE);
+    }
+    inline void move(Vec3& target) {
+        switch_state(SOLDIER_STATE_MOVE, &target);
+    }
 
     Vec3 get_head_pos(); //
     void show_blood_decline(float); //显示减血效果
@@ -126,7 +125,7 @@ protected:
     room_member *_room_member = nullptr; // room_member 信息
     string _name = "<unset>"; //头顶显示的名称
 
-    float _speed = 10.f; //速度
+    float _speed = 200.f; //速度
     float _blood = 100.f; //血量
     Vec3  _target_point; //要移动到的目标点
     float _base_angle = 90.f; // 基准角度

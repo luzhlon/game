@@ -1,7 +1,5 @@
 ﻿#include "AppDelegate.h"
-#include "MenuScene.h"
-//#include "GameScene.h"
-//#include "RoleScene.h"
+#include "GameScene.h"
 
 USING_NS_CC;
 
@@ -71,24 +69,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // Set the design resolution
     glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::EXACT_FIT);
 
-
-    /*
-    Size frameSize = glview->getFrameSize();
-    // if the frame's height is larger than the height of medium size.
-    if (frameSize.height > mediumResolutionSize.height)
-    {
-    g_director->setContentScaleFactor(MIN(largeResolutionSize.height/designResolutionSize.height, largeResolutionSize.width/designResolutionSize.width));
-    }
-    // if the frame's height is larger than the height of small size.
-    else if (frameSize.height > smallResolutionSize.height)
-    {
-    g_director->setContentScaleFactor(MIN(mediumResolutionSize.height/designResolutionSize.height, mediumResolutionSize.width/designResolutionSize.width));
-    }
-    // if the frame's height is smaller than the height of medium size.
-    else
-    {
-    g_director->setContentScaleFactor(MIN(smallResolutionSize.height/designResolutionSize.height, smallResolutionSize.width/designResolutionSize.width));
-    } // */
     {
         g_file->addSearchPath("scene/dialog_scene");
         g_file->addSearchPath("scene/menu_scene");
@@ -105,14 +85,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
         g_file->addSearchPath("character");
     }
 
-    // Enable Remote Console
-    auto console = g_director->getConsole();
-    console->listenOnTCP(5678);
-
     // create a scene. it's an autorelease object
-    auto scene = MenuScene::createScene();
-    //auto scene = GameScene::createScene();
-    //auto scene = RoleScene::createScene();
+    auto scene = GameScene::createScene();
     // run
     g_director->runWithScene(scene);
 
