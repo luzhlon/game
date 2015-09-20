@@ -136,9 +136,9 @@ Camera *World::get_camera() {
 
 void World::add_skybox() {
     // create the second texture for cylinder
-    auto _textureCube = TextureCube::create("Sprite3DTest/skybox/left.jpg", "Sprite3DTest/skybox/right.jpg",
-                                       "Sprite3DTest/skybox/top.jpg", "Sprite3DTest/skybox/bottom.jpg",
-                                       "Sprite3DTest/skybox/front.jpg", "Sprite3DTest/skybox/back.jpg");
+    auto _textureCube = TextureCube::create("skybox/left.jpg", "skybox/right.jpg",
+                                       "skybox/top.jpg", "skybox/bottom.jpg",
+                                       "skybox/front.jpg", "skybox/back.jpg");
     _textureCube->retain();
     //set texture parameters
     Texture2D::TexParams tRepeatParams;
@@ -154,7 +154,6 @@ void World::add_skybox() {
     // add skybox
     auto _skyBox = Skybox::create();
     _skyBox->retain();
-    //_skyBox->setCameraMask(s_CM[LAYER_SKYBOX]);
     _skyBox->setCameraMask(CAMERA_I);
     _skyBox->setTexture(_textureCube);
     _skyBox->setScale(700.f);
@@ -182,7 +181,7 @@ void World::camera_move(Vec2& factor) {
     switch (getCameraMask()) {
     case CAMERA_FIX:
     {
-	    auto pos = _camera_fix->getPosition3D();
+        auto pos = _camera_fix->getPosition3D();
         pos.x -= factor.x * 0.1;
         pos.z += factor.y * 0.1;
         _camera_fix->setPosition3D(pos);
@@ -207,7 +206,7 @@ void World::camera_move(Vec2& factor) {
             s_camera_offset.y = v_yz.x;
             s_camera_offset.z = v_yz.y;
         }
-		break;
+        break;
     }
     }
 }

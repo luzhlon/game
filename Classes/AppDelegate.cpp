@@ -5,10 +5,11 @@
 
 USING_NS_CC;
 
+/*
 static Size designResolutionSize = cocos2d::Size(960, 640);
 static Size smallResolutionSize = cocos2d::Size(480, 320);
 static Size mediumResolutionSize = cocos2d::Size(1024, 768);
-static Size largeResolutionSize = cocos2d::Size(2048, 1536);
+static Size largeResolutionSize = cocos2d::Size(2048, 1536); // */
 
 Director *      g_director;
 FileUtils *     g_file;
@@ -38,13 +39,6 @@ void AppDelegate::initGLContextAttrs()
     GLView::setGLContextAttrs(glContextAttrs);
 }
 
-// If you want to use packages manager to install more packages, 
-// don't modify or remove this function
-static int register_all_packages()
-{
-    return 0; //flag for packages manager
-}
-
 bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
     g_director = Director::getInstance();
@@ -65,8 +59,18 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set FPS. the default value is 1.0/60 if you don't call this
     g_director->setAnimationInterval(1.0 / 60);
 
+    auto screenSize = glview->getFrameSize();
+    auto designSize = Size(960, 640);
+
+    if (screenSize.height > 320)
+    {
+        auto resourceSize = Size(960, 640);
+        g_director->setContentScaleFactor(resourceSize.height/designSize.height);
+    }
+
     // Set the design resolution
-    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::EXACT_FIT);
+    glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::SHOW_ALL);
+
 
     /*
     Size frameSize = glview->getFrameSize();
@@ -94,12 +98,16 @@ bool AppDelegate::applicationDidFinishLaunching() {
         g_file->addSearchPath("scene/setting_scene");
         g_file->addSearchPath("scene/game_scene");
 
-        g_file->getInstance()->addSearchPath("Particle3D/materials");
-        g_file->getInstance()->addSearchPath("Particle3D/scripts");
-        g_file->getInstance()->addSearchPath("Particle3D/textures");
+        g_file->addSearchPath("Particle3D/materials");
+        g_file->addSearchPath("Particle3D/scripts");
+        g_file->addSearchPath("Particle3D/textures");
 
         g_file->addSearchPath("character");
     }
+
+    // Enable Remote Console
+    auto console = g_director->getConsole();
+    console->listenOnTCP(5678);
 
     // create a scene. it's an autorelease object
     auto scene = MenuScene::createScene();

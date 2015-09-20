@@ -673,6 +673,52 @@ CMakeFiles/Game.dir/Classes/GameScene.cpp.o
  ../cocos2d/cocos/deprecated/CCNotificationCenter.h
  ../cocos2d/cocos/deprecated/CCSet.h
  ../cocos2d/cocos/deprecated/CCString.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimeline.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimelineCache.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimelineNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCFrame.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCTimeLine.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCTimelineMacro.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CSLoader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionFrame.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionFrameEasing.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionManagerEx.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionObject.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmature.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureAnimation.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureDataManager.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureDefine.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCBatchNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCBone.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCColliderDetector.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComAttribute.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComAudio.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComController.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComRender.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDataReaderHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDatas.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDecorativeDisplay.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDisplayFactory.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDisplayManager.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCInputDelegate.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCProcessBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSGUIReader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSSceneReader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSkin.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSpriteFrameCacheHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCTransformHelp.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCTween.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCUtilMath.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocoLoader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocoStudio.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocosStudioExport.h
+ ../cocos2d/cocos/editor-support/cocostudio/DictionaryHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerMng.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerObj.h
+ ../cocos2d/cocos/editor-support/cocostudio/WidgetReader/WidgetReaderProtocol.h
  ../cocos2d/cocos/math/CCAffineTransform.h
  ../cocos2d/cocos/math/CCGeometry.h
  ../cocos2d/cocos/math/CCMath.h
@@ -768,42 +814,74 @@ CMakeFiles/Game.dir/Classes/GameScene.cpp.o
  ../cocos2d/cocos/renderer/CCVertexIndexData.h
  ../cocos2d/cocos/renderer/ccGLStateCache.h
  ../cocos2d/cocos/renderer/ccShaders.h
+ ../cocos2d/cocos/ui/CocosGUI.h
  ../cocos2d/cocos/ui/GUIDefine.h
  ../cocos2d/cocos/ui/GUIExport.h
  ../cocos2d/cocos/ui/UIButton.h
+ ../cocos2d/cocos/ui/UICheckBox.h
+ ../cocos2d/cocos/ui/UIDeprecated.h
  ../cocos2d/cocos/ui/UIEditBox/UIEditBox.h
+ ../cocos2d/cocos/ui/UIHBox.h
+ ../cocos2d/cocos/ui/UIHelper.h
+ ../cocos2d/cocos/ui/UIImageView.h
+ ../cocos2d/cocos/ui/UILayout.h
+ ../cocos2d/cocos/ui/UILayoutComponent.h
  ../cocos2d/cocos/ui/UILayoutParameter.h
+ ../cocos2d/cocos/ui/UIListView.h
+ ../cocos2d/cocos/ui/UILoadingBar.h
+ ../cocos2d/cocos/ui/UIPageView.h
+ ../cocos2d/cocos/ui/UIRelativeBox.h
+ ../cocos2d/cocos/ui/UIRichText.h
  ../cocos2d/cocos/ui/UIScale9Sprite.h
+ ../cocos2d/cocos/ui/UIScrollView.h
+ ../cocos2d/cocos/ui/UISlider.h
+ ../cocos2d/cocos/ui/UIText.h
+ ../cocos2d/cocos/ui/UITextAtlas.h
+ ../cocos2d/cocos/ui/UITextBMFont.h
+ ../cocos2d/cocos/ui/UITextField.h
+ ../cocos2d/cocos/ui/UIVBox.h
+ ../cocos2d/cocos/ui/UIVideoPlayer.h
+ ../cocos2d/cocos/ui/UIWebView.h
  ../cocos2d/cocos/ui/UIWidget.h
- ../cocos2d/extensions/ExtensionDeprecated.h
- ../cocos2d/extensions/ExtensionExport.h
- ../cocos2d/extensions/ExtensionMacros.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControl.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlButton.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlColourPicker.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlExtensions.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlHuePicker.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlPotentiometer.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlSaturationBrightnessPicker.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlSlider.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlStepper.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlSwitch.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlUtils.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCInvocation.h
- ../cocos2d/extensions/GUI/CCScrollView/CCScrollView.h
- ../cocos2d/extensions/GUI/CCScrollView/CCTableView.h
- ../cocos2d/extensions/GUI/CCScrollView/CCTableViewCell.h
  ../cocos2d/extensions/Particle3D/CCParticleSystem3D.h
  ../cocos2d/extensions/Particle3D/PU/CCPUParticleSystem3D.h
- ../cocos2d/extensions/assets-manager/AssetsManager.h
- ../cocos2d/extensions/assets-manager/AssetsManagerEx.h
- ../cocos2d/extensions/assets-manager/CCEventAssetsManagerEx.h
- ../cocos2d/extensions/assets-manager/CCEventListenerAssetsManagerEx.h
- ../cocos2d/extensions/assets-manager/Downloader.h
- ../cocos2d/extensions/assets-manager/Manifest.h
- ../cocos2d/extensions/cocos-ext.h
- ../cocos2d/extensions/physics-nodes/CCPhysicsDebugNode.h
- ../cocos2d/extensions/physics-nodes/CCPhysicsSprite.h
+ ../cocos2d/external/Box2D/Box2D.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2ChainShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2CircleShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2EdgeShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2PolygonShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2Shape.h
+ ../cocos2d/external/Box2D/Collision/b2BroadPhase.h
+ ../cocos2d/external/Box2D/Collision/b2Collision.h
+ ../cocos2d/external/Box2D/Collision/b2Distance.h
+ ../cocos2d/external/Box2D/Collision/b2DynamicTree.h
+ ../cocos2d/external/Box2D/Collision/b2TimeOfImpact.h
+ ../cocos2d/external/Box2D/Common/b2BlockAllocator.h
+ ../cocos2d/external/Box2D/Common/b2Draw.h
+ ../cocos2d/external/Box2D/Common/b2GrowableStack.h
+ ../cocos2d/external/Box2D/Common/b2Math.h
+ ../cocos2d/external/Box2D/Common/b2Settings.h
+ ../cocos2d/external/Box2D/Common/b2StackAllocator.h
+ ../cocos2d/external/Box2D/Common/b2Timer.h
+ ../cocos2d/external/Box2D/Dynamics/Contacts/b2Contact.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2DistanceJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2FrictionJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2GearJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2Joint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2MotorJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2MouseJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2PrismaticJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2PulleyJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2RevoluteJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2RopeJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2WeldJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2WheelJoint.h
+ ../cocos2d/external/Box2D/Dynamics/b2Body.h
+ ../cocos2d/external/Box2D/Dynamics/b2ContactManager.h
+ ../cocos2d/external/Box2D/Dynamics/b2Fixture.h
+ ../cocos2d/external/Box2D/Dynamics/b2TimeStep.h
+ ../cocos2d/external/Box2D/Dynamics/b2World.h
+ ../cocos2d/external/Box2D/Dynamics/b2WorldCallbacks.h
  ../cocos2d/external/json/allocators.h
  ../cocos2d/external/json/document.h
  ../cocos2d/external/json/encodings.h
@@ -820,8 +898,19 @@ CMakeFiles/Game.dir/Classes/GameScene.cpp.o
  ../cocos2d/external/json/msinttypes/stdint.h
  ../cocos2d/external/json/rapidjson.h
  ../cocos2d/external/json/reader.h
+ /home/john/cmake_proj/game/Classes/AppDelegate.h
+ /home/john/cmake_proj/game/Classes/Client.h
+ /home/john/cmake_proj/game/Classes/DrawNode3D.h
  /home/john/cmake_proj/game/Classes/GameScene.cpp
  /home/john/cmake_proj/game/Classes/GameScene.h
+ /home/john/cmake_proj/game/Classes/NetRoom.h
+ /home/john/cmake_proj/game/Classes/ODSocket.h
+ /home/john/cmake_proj/game/Classes/Player.h
+ /home/john/cmake_proj/game/Classes/SceneLayer.h
+ /home/john/cmake_proj/game/Classes/Skill.h
+ /home/john/cmake_proj/game/Classes/Soldier.h
+ /home/john/cmake_proj/game/Classes/WomanSoldier.h
+ /home/john/cmake_proj/game/Server/message.h
  /usr/local/include/GLFW/glfw3.h
  /usr/local/include/GLFW/glfw3native.h
 CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o
@@ -949,6 +1038,7 @@ CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o
  ../cocos2d/cocos/base/CCUserDefault.h
  ../cocos2d/cocos/base/CCValue.h
  ../cocos2d/cocos/base/CCVector.h
+ ../cocos2d/cocos/base/ObjectFactory.h
  ../cocos2d/cocos/base/ZipUtils.h
  ../cocos2d/cocos/base/base64.h
  ../cocos2d/cocos/base/ccCArray.h
@@ -970,6 +1060,52 @@ CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o
  ../cocos2d/cocos/deprecated/CCNotificationCenter.h
  ../cocos2d/cocos/deprecated/CCSet.h
  ../cocos2d/cocos/deprecated/CCString.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimeline.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimelineCache.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimelineNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCFrame.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCTimeLine.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCTimelineMacro.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CSLoader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionFrame.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionFrameEasing.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionManagerEx.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionObject.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmature.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureAnimation.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureDataManager.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureDefine.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCBatchNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCBone.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCColliderDetector.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComAttribute.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComAudio.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComController.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComRender.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDataReaderHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDatas.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDecorativeDisplay.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDisplayFactory.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDisplayManager.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCInputDelegate.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCProcessBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSGUIReader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSSceneReader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSkin.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSpriteFrameCacheHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCTransformHelp.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCTween.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCUtilMath.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocoLoader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocoStudio.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocosStudioExport.h
+ ../cocos2d/cocos/editor-support/cocostudio/DictionaryHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerMng.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerObj.h
+ ../cocos2d/cocos/editor-support/cocostudio/WidgetReader/WidgetReaderProtocol.h
  ../cocos2d/cocos/math/CCAffineTransform.h
  ../cocos2d/cocos/math/CCGeometry.h
  ../cocos2d/cocos/math/CCMath.h
@@ -1065,9 +1201,94 @@ CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o
  ../cocos2d/cocos/renderer/CCVertexIndexData.h
  ../cocos2d/cocos/renderer/ccGLStateCache.h
  ../cocos2d/cocos/renderer/ccShaders.h
+ ../cocos2d/cocos/ui/CocosGUI.h
+ ../cocos2d/cocos/ui/GUIDefine.h
+ ../cocos2d/cocos/ui/GUIExport.h
+ ../cocos2d/cocos/ui/UIButton.h
+ ../cocos2d/cocos/ui/UICheckBox.h
+ ../cocos2d/cocos/ui/UIDeprecated.h
+ ../cocos2d/cocos/ui/UIEditBox/UIEditBox.h
+ ../cocos2d/cocos/ui/UIHBox.h
+ ../cocos2d/cocos/ui/UIHelper.h
+ ../cocos2d/cocos/ui/UIImageView.h
+ ../cocos2d/cocos/ui/UILayout.h
+ ../cocos2d/cocos/ui/UILayoutComponent.h
+ ../cocos2d/cocos/ui/UILayoutParameter.h
+ ../cocos2d/cocos/ui/UIListView.h
+ ../cocos2d/cocos/ui/UILoadingBar.h
+ ../cocos2d/cocos/ui/UIPageView.h
+ ../cocos2d/cocos/ui/UIRelativeBox.h
+ ../cocos2d/cocos/ui/UIRichText.h
+ ../cocos2d/cocos/ui/UIScale9Sprite.h
+ ../cocos2d/cocos/ui/UIScrollView.h
+ ../cocos2d/cocos/ui/UISlider.h
+ ../cocos2d/cocos/ui/UIText.h
+ ../cocos2d/cocos/ui/UITextAtlas.h
+ ../cocos2d/cocos/ui/UITextBMFont.h
+ ../cocos2d/cocos/ui/UITextField.h
+ ../cocos2d/cocos/ui/UIVBox.h
+ ../cocos2d/cocos/ui/UIVideoPlayer.h
+ ../cocos2d/cocos/ui/UIWebView.h
+ ../cocos2d/cocos/ui/UIWidget.h
+ ../cocos2d/extensions/Particle3D/CCParticleSystem3D.h
+ ../cocos2d/extensions/Particle3D/PU/CCPUParticleSystem3D.h
+ ../cocos2d/external/Box2D/Box2D.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2ChainShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2CircleShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2EdgeShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2PolygonShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2Shape.h
+ ../cocos2d/external/Box2D/Collision/b2BroadPhase.h
+ ../cocos2d/external/Box2D/Collision/b2Collision.h
+ ../cocos2d/external/Box2D/Collision/b2Distance.h
+ ../cocos2d/external/Box2D/Collision/b2DynamicTree.h
+ ../cocos2d/external/Box2D/Collision/b2TimeOfImpact.h
+ ../cocos2d/external/Box2D/Common/b2BlockAllocator.h
+ ../cocos2d/external/Box2D/Common/b2Draw.h
+ ../cocos2d/external/Box2D/Common/b2GrowableStack.h
+ ../cocos2d/external/Box2D/Common/b2Math.h
+ ../cocos2d/external/Box2D/Common/b2Settings.h
+ ../cocos2d/external/Box2D/Common/b2StackAllocator.h
+ ../cocos2d/external/Box2D/Common/b2Timer.h
+ ../cocos2d/external/Box2D/Dynamics/Contacts/b2Contact.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2DistanceJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2FrictionJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2GearJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2Joint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2MotorJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2MouseJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2PrismaticJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2PulleyJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2RevoluteJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2RopeJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2WeldJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2WheelJoint.h
+ ../cocos2d/external/Box2D/Dynamics/b2Body.h
+ ../cocos2d/external/Box2D/Dynamics/b2ContactManager.h
+ ../cocos2d/external/Box2D/Dynamics/b2Fixture.h
+ ../cocos2d/external/Box2D/Dynamics/b2TimeStep.h
+ ../cocos2d/external/Box2D/Dynamics/b2World.h
+ ../cocos2d/external/Box2D/Dynamics/b2WorldCallbacks.h
+ ../cocos2d/external/json/allocators.h
+ ../cocos2d/external/json/document.h
+ ../cocos2d/external/json/encodings.h
+ ../cocos2d/external/json/error/error.h
+ ../cocos2d/external/json/internal/biginteger.h
+ ../cocos2d/external/json/internal/diyfp.h
+ ../cocos2d/external/json/internal/ieee754.h
+ ../cocos2d/external/json/internal/meta.h
+ ../cocos2d/external/json/internal/pow10.h
+ ../cocos2d/external/json/internal/stack.h
+ ../cocos2d/external/json/internal/strfunc.h
+ ../cocos2d/external/json/internal/strtod.h
+ ../cocos2d/external/json/msinttypes/inttypes.h
+ ../cocos2d/external/json/msinttypes/stdint.h
+ ../cocos2d/external/json/rapidjson.h
+ ../cocos2d/external/json/reader.h
  /home/john/cmake_proj/game/Classes/Man2Soldier.cpp
  /home/john/cmake_proj/game/Classes/Man2Soldier.h
  /home/john/cmake_proj/game/Classes/Soldier.h
+ /home/john/cmake_proj/game/Server/message.h
  /usr/local/include/GLFW/glfw3.h
  /usr/local/include/GLFW/glfw3native.h
 CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o
@@ -1195,6 +1416,7 @@ CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o
  ../cocos2d/cocos/base/CCUserDefault.h
  ../cocos2d/cocos/base/CCValue.h
  ../cocos2d/cocos/base/CCVector.h
+ ../cocos2d/cocos/base/ObjectFactory.h
  ../cocos2d/cocos/base/ZipUtils.h
  ../cocos2d/cocos/base/base64.h
  ../cocos2d/cocos/base/ccCArray.h
@@ -1216,6 +1438,52 @@ CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o
  ../cocos2d/cocos/deprecated/CCNotificationCenter.h
  ../cocos2d/cocos/deprecated/CCSet.h
  ../cocos2d/cocos/deprecated/CCString.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimeline.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimelineCache.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimelineNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCFrame.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCTimeLine.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCTimelineMacro.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CSLoader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionFrame.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionFrameEasing.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionManagerEx.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionObject.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmature.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureAnimation.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureDataManager.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureDefine.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCBatchNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCBone.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCColliderDetector.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComAttribute.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComAudio.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComController.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComRender.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDataReaderHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDatas.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDecorativeDisplay.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDisplayFactory.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDisplayManager.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCInputDelegate.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCProcessBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSGUIReader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSSceneReader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSkin.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSpriteFrameCacheHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCTransformHelp.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCTween.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCUtilMath.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocoLoader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocoStudio.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocosStudioExport.h
+ ../cocos2d/cocos/editor-support/cocostudio/DictionaryHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerMng.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerObj.h
+ ../cocos2d/cocos/editor-support/cocostudio/WidgetReader/WidgetReaderProtocol.h
  ../cocos2d/cocos/math/CCAffineTransform.h
  ../cocos2d/cocos/math/CCGeometry.h
  ../cocos2d/cocos/math/CCMath.h
@@ -1311,9 +1579,94 @@ CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o
  ../cocos2d/cocos/renderer/CCVertexIndexData.h
  ../cocos2d/cocos/renderer/ccGLStateCache.h
  ../cocos2d/cocos/renderer/ccShaders.h
+ ../cocos2d/cocos/ui/CocosGUI.h
+ ../cocos2d/cocos/ui/GUIDefine.h
+ ../cocos2d/cocos/ui/GUIExport.h
+ ../cocos2d/cocos/ui/UIButton.h
+ ../cocos2d/cocos/ui/UICheckBox.h
+ ../cocos2d/cocos/ui/UIDeprecated.h
+ ../cocos2d/cocos/ui/UIEditBox/UIEditBox.h
+ ../cocos2d/cocos/ui/UIHBox.h
+ ../cocos2d/cocos/ui/UIHelper.h
+ ../cocos2d/cocos/ui/UIImageView.h
+ ../cocos2d/cocos/ui/UILayout.h
+ ../cocos2d/cocos/ui/UILayoutComponent.h
+ ../cocos2d/cocos/ui/UILayoutParameter.h
+ ../cocos2d/cocos/ui/UIListView.h
+ ../cocos2d/cocos/ui/UILoadingBar.h
+ ../cocos2d/cocos/ui/UIPageView.h
+ ../cocos2d/cocos/ui/UIRelativeBox.h
+ ../cocos2d/cocos/ui/UIRichText.h
+ ../cocos2d/cocos/ui/UIScale9Sprite.h
+ ../cocos2d/cocos/ui/UIScrollView.h
+ ../cocos2d/cocos/ui/UISlider.h
+ ../cocos2d/cocos/ui/UIText.h
+ ../cocos2d/cocos/ui/UITextAtlas.h
+ ../cocos2d/cocos/ui/UITextBMFont.h
+ ../cocos2d/cocos/ui/UITextField.h
+ ../cocos2d/cocos/ui/UIVBox.h
+ ../cocos2d/cocos/ui/UIVideoPlayer.h
+ ../cocos2d/cocos/ui/UIWebView.h
+ ../cocos2d/cocos/ui/UIWidget.h
+ ../cocos2d/extensions/Particle3D/CCParticleSystem3D.h
+ ../cocos2d/extensions/Particle3D/PU/CCPUParticleSystem3D.h
+ ../cocos2d/external/Box2D/Box2D.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2ChainShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2CircleShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2EdgeShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2PolygonShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2Shape.h
+ ../cocos2d/external/Box2D/Collision/b2BroadPhase.h
+ ../cocos2d/external/Box2D/Collision/b2Collision.h
+ ../cocos2d/external/Box2D/Collision/b2Distance.h
+ ../cocos2d/external/Box2D/Collision/b2DynamicTree.h
+ ../cocos2d/external/Box2D/Collision/b2TimeOfImpact.h
+ ../cocos2d/external/Box2D/Common/b2BlockAllocator.h
+ ../cocos2d/external/Box2D/Common/b2Draw.h
+ ../cocos2d/external/Box2D/Common/b2GrowableStack.h
+ ../cocos2d/external/Box2D/Common/b2Math.h
+ ../cocos2d/external/Box2D/Common/b2Settings.h
+ ../cocos2d/external/Box2D/Common/b2StackAllocator.h
+ ../cocos2d/external/Box2D/Common/b2Timer.h
+ ../cocos2d/external/Box2D/Dynamics/Contacts/b2Contact.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2DistanceJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2FrictionJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2GearJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2Joint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2MotorJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2MouseJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2PrismaticJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2PulleyJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2RevoluteJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2RopeJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2WeldJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2WheelJoint.h
+ ../cocos2d/external/Box2D/Dynamics/b2Body.h
+ ../cocos2d/external/Box2D/Dynamics/b2ContactManager.h
+ ../cocos2d/external/Box2D/Dynamics/b2Fixture.h
+ ../cocos2d/external/Box2D/Dynamics/b2TimeStep.h
+ ../cocos2d/external/Box2D/Dynamics/b2World.h
+ ../cocos2d/external/Box2D/Dynamics/b2WorldCallbacks.h
+ ../cocos2d/external/json/allocators.h
+ ../cocos2d/external/json/document.h
+ ../cocos2d/external/json/encodings.h
+ ../cocos2d/external/json/error/error.h
+ ../cocos2d/external/json/internal/biginteger.h
+ ../cocos2d/external/json/internal/diyfp.h
+ ../cocos2d/external/json/internal/ieee754.h
+ ../cocos2d/external/json/internal/meta.h
+ ../cocos2d/external/json/internal/pow10.h
+ ../cocos2d/external/json/internal/stack.h
+ ../cocos2d/external/json/internal/strfunc.h
+ ../cocos2d/external/json/internal/strtod.h
+ ../cocos2d/external/json/msinttypes/inttypes.h
+ ../cocos2d/external/json/msinttypes/stdint.h
+ ../cocos2d/external/json/rapidjson.h
+ ../cocos2d/external/json/reader.h
  /home/john/cmake_proj/game/Classes/ManSoldier.cpp
  /home/john/cmake_proj/game/Classes/ManSoldier.h
  /home/john/cmake_proj/game/Classes/Soldier.h
+ /home/john/cmake_proj/game/Server/message.h
  /usr/local/include/GLFW/glfw3.h
  /usr/local/include/GLFW/glfw3native.h
 CMakeFiles/Game.dir/Classes/MenuScene.cpp.o
@@ -1839,6 +2192,52 @@ CMakeFiles/Game.dir/Classes/NetRoom.cpp.o
  ../cocos2d/cocos/deprecated/CCNotificationCenter.h
  ../cocos2d/cocos/deprecated/CCSet.h
  ../cocos2d/cocos/deprecated/CCString.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimeline.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimelineCache.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimelineNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCFrame.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCTimeLine.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCTimelineMacro.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CSLoader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionFrame.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionFrameEasing.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionManagerEx.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionObject.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmature.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureAnimation.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureDataManager.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureDefine.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCBatchNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCBone.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCColliderDetector.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComAttribute.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComAudio.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComController.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComRender.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDataReaderHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDatas.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDecorativeDisplay.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDisplayFactory.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDisplayManager.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCInputDelegate.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCProcessBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSGUIReader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSSceneReader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSkin.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSpriteFrameCacheHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCTransformHelp.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCTween.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCUtilMath.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocoLoader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocoStudio.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocosStudioExport.h
+ ../cocos2d/cocos/editor-support/cocostudio/DictionaryHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerMng.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerObj.h
+ ../cocos2d/cocos/editor-support/cocostudio/WidgetReader/WidgetReaderProtocol.h
  ../cocos2d/cocos/math/CCAffineTransform.h
  ../cocos2d/cocos/math/CCGeometry.h
  ../cocos2d/cocos/math/CCMath.h
@@ -1963,35 +2362,45 @@ CMakeFiles/Game.dir/Classes/NetRoom.cpp.o
  ../cocos2d/cocos/ui/UIVideoPlayer.h
  ../cocos2d/cocos/ui/UIWebView.h
  ../cocos2d/cocos/ui/UIWidget.h
- ../cocos2d/extensions/ExtensionDeprecated.h
- ../cocos2d/extensions/ExtensionExport.h
- ../cocos2d/extensions/ExtensionMacros.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControl.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlButton.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlColourPicker.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlExtensions.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlHuePicker.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlPotentiometer.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlSaturationBrightnessPicker.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlSlider.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlStepper.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlSwitch.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlUtils.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCInvocation.h
- ../cocos2d/extensions/GUI/CCScrollView/CCScrollView.h
- ../cocos2d/extensions/GUI/CCScrollView/CCTableView.h
- ../cocos2d/extensions/GUI/CCScrollView/CCTableViewCell.h
  ../cocos2d/extensions/Particle3D/CCParticleSystem3D.h
  ../cocos2d/extensions/Particle3D/PU/CCPUParticleSystem3D.h
- ../cocos2d/extensions/assets-manager/AssetsManager.h
- ../cocos2d/extensions/assets-manager/AssetsManagerEx.h
- ../cocos2d/extensions/assets-manager/CCEventAssetsManagerEx.h
- ../cocos2d/extensions/assets-manager/CCEventListenerAssetsManagerEx.h
- ../cocos2d/extensions/assets-manager/Downloader.h
- ../cocos2d/extensions/assets-manager/Manifest.h
- ../cocos2d/extensions/cocos-ext.h
- ../cocos2d/extensions/physics-nodes/CCPhysicsDebugNode.h
- ../cocos2d/extensions/physics-nodes/CCPhysicsSprite.h
+ ../cocos2d/external/Box2D/Box2D.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2ChainShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2CircleShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2EdgeShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2PolygonShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2Shape.h
+ ../cocos2d/external/Box2D/Collision/b2BroadPhase.h
+ ../cocos2d/external/Box2D/Collision/b2Collision.h
+ ../cocos2d/external/Box2D/Collision/b2Distance.h
+ ../cocos2d/external/Box2D/Collision/b2DynamicTree.h
+ ../cocos2d/external/Box2D/Collision/b2TimeOfImpact.h
+ ../cocos2d/external/Box2D/Common/b2BlockAllocator.h
+ ../cocos2d/external/Box2D/Common/b2Draw.h
+ ../cocos2d/external/Box2D/Common/b2GrowableStack.h
+ ../cocos2d/external/Box2D/Common/b2Math.h
+ ../cocos2d/external/Box2D/Common/b2Settings.h
+ ../cocos2d/external/Box2D/Common/b2StackAllocator.h
+ ../cocos2d/external/Box2D/Common/b2Timer.h
+ ../cocos2d/external/Box2D/Dynamics/Contacts/b2Contact.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2DistanceJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2FrictionJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2GearJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2Joint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2MotorJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2MouseJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2PrismaticJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2PulleyJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2RevoluteJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2RopeJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2WeldJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2WheelJoint.h
+ ../cocos2d/external/Box2D/Dynamics/b2Body.h
+ ../cocos2d/external/Box2D/Dynamics/b2ContactManager.h
+ ../cocos2d/external/Box2D/Dynamics/b2Fixture.h
+ ../cocos2d/external/Box2D/Dynamics/b2TimeStep.h
+ ../cocos2d/external/Box2D/Dynamics/b2World.h
+ ../cocos2d/external/Box2D/Dynamics/b2WorldCallbacks.h
  ../cocos2d/external/json/allocators.h
  ../cocos2d/external/json/document.h
  ../cocos2d/external/json/encodings.h
@@ -2015,6 +2424,7 @@ CMakeFiles/Game.dir/Classes/NetRoom.cpp.o
  /home/john/cmake_proj/game/Classes/NetRoom.h
  /home/john/cmake_proj/game/Classes/ODSocket.h
  /home/john/cmake_proj/game/Classes/Player.h
+ /home/john/cmake_proj/game/Classes/SceneLayer.h
  /home/john/cmake_proj/game/Classes/Skill.h
  /home/john/cmake_proj/game/Classes/Soldier.h
  /home/john/cmake_proj/game/Classes/WomanSoldier.h
@@ -2171,6 +2581,52 @@ CMakeFiles/Game.dir/Classes/Player.cpp.o
  ../cocos2d/cocos/deprecated/CCNotificationCenter.h
  ../cocos2d/cocos/deprecated/CCSet.h
  ../cocos2d/cocos/deprecated/CCString.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimeline.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimelineCache.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimelineNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCFrame.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCTimeLine.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCTimelineMacro.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CSLoader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionFrame.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionFrameEasing.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionManagerEx.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionObject.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmature.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureAnimation.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureDataManager.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureDefine.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCBatchNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCBone.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCColliderDetector.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComAttribute.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComAudio.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComController.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComRender.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDataReaderHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDatas.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDecorativeDisplay.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDisplayFactory.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDisplayManager.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCInputDelegate.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCProcessBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSGUIReader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSSceneReader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSkin.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSpriteFrameCacheHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCTransformHelp.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCTween.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCUtilMath.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocoLoader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocoStudio.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocosStudioExport.h
+ ../cocos2d/cocos/editor-support/cocostudio/DictionaryHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerMng.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerObj.h
+ ../cocos2d/cocos/editor-support/cocostudio/WidgetReader/WidgetReaderProtocol.h
  ../cocos2d/cocos/math/CCAffineTransform.h
  ../cocos2d/cocos/math/CCGeometry.h
  ../cocos2d/cocos/math/CCMath.h
@@ -2295,11 +2751,67 @@ CMakeFiles/Game.dir/Classes/Player.cpp.o
  ../cocos2d/cocos/ui/UIVideoPlayer.h
  ../cocos2d/cocos/ui/UIWebView.h
  ../cocos2d/cocos/ui/UIWidget.h
+ ../cocos2d/extensions/Particle3D/CCParticleSystem3D.h
+ ../cocos2d/extensions/Particle3D/PU/CCPUParticleSystem3D.h
+ ../cocos2d/external/Box2D/Box2D.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2ChainShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2CircleShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2EdgeShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2PolygonShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2Shape.h
+ ../cocos2d/external/Box2D/Collision/b2BroadPhase.h
+ ../cocos2d/external/Box2D/Collision/b2Collision.h
+ ../cocos2d/external/Box2D/Collision/b2Distance.h
+ ../cocos2d/external/Box2D/Collision/b2DynamicTree.h
+ ../cocos2d/external/Box2D/Collision/b2TimeOfImpact.h
+ ../cocos2d/external/Box2D/Common/b2BlockAllocator.h
+ ../cocos2d/external/Box2D/Common/b2Draw.h
+ ../cocos2d/external/Box2D/Common/b2GrowableStack.h
+ ../cocos2d/external/Box2D/Common/b2Math.h
+ ../cocos2d/external/Box2D/Common/b2Settings.h
+ ../cocos2d/external/Box2D/Common/b2StackAllocator.h
+ ../cocos2d/external/Box2D/Common/b2Timer.h
+ ../cocos2d/external/Box2D/Dynamics/Contacts/b2Contact.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2DistanceJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2FrictionJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2GearJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2Joint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2MotorJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2MouseJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2PrismaticJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2PulleyJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2RevoluteJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2RopeJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2WeldJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2WheelJoint.h
+ ../cocos2d/external/Box2D/Dynamics/b2Body.h
+ ../cocos2d/external/Box2D/Dynamics/b2ContactManager.h
+ ../cocos2d/external/Box2D/Dynamics/b2Fixture.h
+ ../cocos2d/external/Box2D/Dynamics/b2TimeStep.h
+ ../cocos2d/external/Box2D/Dynamics/b2World.h
+ ../cocos2d/external/Box2D/Dynamics/b2WorldCallbacks.h
+ ../cocos2d/external/json/allocators.h
+ ../cocos2d/external/json/document.h
+ ../cocos2d/external/json/encodings.h
+ ../cocos2d/external/json/error/error.h
+ ../cocos2d/external/json/internal/biginteger.h
+ ../cocos2d/external/json/internal/diyfp.h
+ ../cocos2d/external/json/internal/ieee754.h
+ ../cocos2d/external/json/internal/meta.h
+ ../cocos2d/external/json/internal/pow10.h
+ ../cocos2d/external/json/internal/stack.h
+ ../cocos2d/external/json/internal/strfunc.h
+ ../cocos2d/external/json/internal/strtod.h
+ ../cocos2d/external/json/msinttypes/inttypes.h
+ ../cocos2d/external/json/msinttypes/stdint.h
+ ../cocos2d/external/json/rapidjson.h
+ ../cocos2d/external/json/reader.h
  /home/john/cmake_proj/game/Classes/Player.cpp
  /home/john/cmake_proj/game/Classes/Player.h
  /home/john/cmake_proj/game/Classes/Skill.h
  /home/john/cmake_proj/game/Classes/Soldier.h
  /home/john/cmake_proj/game/Classes/WomanSoldier.h
+ /home/john/cmake_proj/game/Server/message.h
  /usr/local/include/GLFW/glfw3.h
  /usr/local/include/GLFW/glfw3native.h
 CMakeFiles/Game.dir/Classes/RoleScene.cpp.o
@@ -2619,6 +3131,8 @@ CMakeFiles/Game.dir/Classes/RoleScene.cpp.o
  ../cocos2d/cocos/ui/UIVideoPlayer.h
  ../cocos2d/cocos/ui/UIWebView.h
  ../cocos2d/cocos/ui/UIWidget.h
+ ../cocos2d/extensions/Particle3D/CCParticleSystem3D.h
+ ../cocos2d/extensions/Particle3D/PU/CCPUParticleSystem3D.h
  ../cocos2d/external/Box2D/Box2D.h
  ../cocos2d/external/Box2D/Collision/Shapes/b2ChainShape.h
  ../cocos2d/external/Box2D/Collision/Shapes/b2CircleShape.h
@@ -2999,35 +3513,6 @@ CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o
  ../cocos2d/cocos/ui/UIVideoPlayer.h
  ../cocos2d/cocos/ui/UIWebView.h
  ../cocos2d/cocos/ui/UIWidget.h
- ../cocos2d/extensions/ExtensionDeprecated.h
- ../cocos2d/extensions/ExtensionExport.h
- ../cocos2d/extensions/ExtensionMacros.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControl.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlButton.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlColourPicker.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlExtensions.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlHuePicker.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlPotentiometer.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlSaturationBrightnessPicker.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlSlider.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlStepper.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlSwitch.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlUtils.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCInvocation.h
- ../cocos2d/extensions/GUI/CCScrollView/CCScrollView.h
- ../cocos2d/extensions/GUI/CCScrollView/CCTableView.h
- ../cocos2d/extensions/GUI/CCScrollView/CCTableViewCell.h
- ../cocos2d/extensions/Particle3D/CCParticleSystem3D.h
- ../cocos2d/extensions/Particle3D/PU/CCPUParticleSystem3D.h
- ../cocos2d/extensions/assets-manager/AssetsManager.h
- ../cocos2d/extensions/assets-manager/AssetsManagerEx.h
- ../cocos2d/extensions/assets-manager/CCEventAssetsManagerEx.h
- ../cocos2d/extensions/assets-manager/CCEventListenerAssetsManagerEx.h
- ../cocos2d/extensions/assets-manager/Downloader.h
- ../cocos2d/extensions/assets-manager/Manifest.h
- ../cocos2d/extensions/cocos-ext.h
- ../cocos2d/extensions/physics-nodes/CCPhysicsDebugNode.h
- ../cocos2d/extensions/physics-nodes/CCPhysicsSprite.h
  ../cocos2d/external/Box2D/Box2D.h
  ../cocos2d/external/Box2D/Collision/Shapes/b2ChainShape.h
  ../cocos2d/external/Box2D/Collision/Shapes/b2CircleShape.h
@@ -3083,6 +3568,7 @@ CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o
  ../cocos2d/external/json/reader.h
  /home/john/cmake_proj/game/Classes/Client.h
  /home/john/cmake_proj/game/Classes/Dialog.h
+ /home/john/cmake_proj/game/Classes/DrawNode3D.h
  /home/john/cmake_proj/game/Classes/GameScene.h
  /home/john/cmake_proj/game/Classes/ODSocket.h
  /home/john/cmake_proj/game/Classes/RoomListScene.cpp
@@ -3238,6 +3724,52 @@ CMakeFiles/Game.dir/Classes/RoomScene.cpp.o
  ../cocos2d/cocos/deprecated/CCNotificationCenter.h
  ../cocos2d/cocos/deprecated/CCSet.h
  ../cocos2d/cocos/deprecated/CCString.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimeline.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimelineCache.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimelineNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCFrame.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCTimeLine.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCTimelineMacro.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CSLoader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionFrame.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionFrameEasing.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionManagerEx.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionObject.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmature.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureAnimation.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureDataManager.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureDefine.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCBatchNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCBone.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCColliderDetector.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComAttribute.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComAudio.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComController.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComRender.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDataReaderHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDatas.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDecorativeDisplay.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDisplayFactory.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDisplayManager.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCInputDelegate.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCProcessBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSGUIReader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSSceneReader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSkin.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSpriteFrameCacheHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCTransformHelp.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCTween.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCUtilMath.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocoLoader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocoStudio.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocosStudioExport.h
+ ../cocos2d/cocos/editor-support/cocostudio/DictionaryHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerMng.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerObj.h
+ ../cocos2d/cocos/editor-support/cocostudio/WidgetReader/WidgetReaderProtocol.h
  ../cocos2d/cocos/math/CCAffineTransform.h
  ../cocos2d/cocos/math/CCGeometry.h
  ../cocos2d/cocos/math/CCMath.h
@@ -3362,35 +3894,45 @@ CMakeFiles/Game.dir/Classes/RoomScene.cpp.o
  ../cocos2d/cocos/ui/UIVideoPlayer.h
  ../cocos2d/cocos/ui/UIWebView.h
  ../cocos2d/cocos/ui/UIWidget.h
- ../cocos2d/extensions/ExtensionDeprecated.h
- ../cocos2d/extensions/ExtensionExport.h
- ../cocos2d/extensions/ExtensionMacros.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControl.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlButton.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlColourPicker.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlExtensions.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlHuePicker.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlPotentiometer.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlSaturationBrightnessPicker.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlSlider.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlStepper.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlSwitch.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCControlUtils.h
- ../cocos2d/extensions/GUI/CCControlExtension/CCInvocation.h
- ../cocos2d/extensions/GUI/CCScrollView/CCScrollView.h
- ../cocos2d/extensions/GUI/CCScrollView/CCTableView.h
- ../cocos2d/extensions/GUI/CCScrollView/CCTableViewCell.h
  ../cocos2d/extensions/Particle3D/CCParticleSystem3D.h
  ../cocos2d/extensions/Particle3D/PU/CCPUParticleSystem3D.h
- ../cocos2d/extensions/assets-manager/AssetsManager.h
- ../cocos2d/extensions/assets-manager/AssetsManagerEx.h
- ../cocos2d/extensions/assets-manager/CCEventAssetsManagerEx.h
- ../cocos2d/extensions/assets-manager/CCEventListenerAssetsManagerEx.h
- ../cocos2d/extensions/assets-manager/Downloader.h
- ../cocos2d/extensions/assets-manager/Manifest.h
- ../cocos2d/extensions/cocos-ext.h
- ../cocos2d/extensions/physics-nodes/CCPhysicsDebugNode.h
- ../cocos2d/extensions/physics-nodes/CCPhysicsSprite.h
+ ../cocos2d/external/Box2D/Box2D.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2ChainShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2CircleShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2EdgeShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2PolygonShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2Shape.h
+ ../cocos2d/external/Box2D/Collision/b2BroadPhase.h
+ ../cocos2d/external/Box2D/Collision/b2Collision.h
+ ../cocos2d/external/Box2D/Collision/b2Distance.h
+ ../cocos2d/external/Box2D/Collision/b2DynamicTree.h
+ ../cocos2d/external/Box2D/Collision/b2TimeOfImpact.h
+ ../cocos2d/external/Box2D/Common/b2BlockAllocator.h
+ ../cocos2d/external/Box2D/Common/b2Draw.h
+ ../cocos2d/external/Box2D/Common/b2GrowableStack.h
+ ../cocos2d/external/Box2D/Common/b2Math.h
+ ../cocos2d/external/Box2D/Common/b2Settings.h
+ ../cocos2d/external/Box2D/Common/b2StackAllocator.h
+ ../cocos2d/external/Box2D/Common/b2Timer.h
+ ../cocos2d/external/Box2D/Dynamics/Contacts/b2Contact.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2DistanceJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2FrictionJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2GearJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2Joint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2MotorJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2MouseJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2PrismaticJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2PulleyJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2RevoluteJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2RopeJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2WeldJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2WheelJoint.h
+ ../cocos2d/external/Box2D/Dynamics/b2Body.h
+ ../cocos2d/external/Box2D/Dynamics/b2ContactManager.h
+ ../cocos2d/external/Box2D/Dynamics/b2Fixture.h
+ ../cocos2d/external/Box2D/Dynamics/b2TimeStep.h
+ ../cocos2d/external/Box2D/Dynamics/b2World.h
+ ../cocos2d/external/Box2D/Dynamics/b2WorldCallbacks.h
  ../cocos2d/external/json/allocators.h
  ../cocos2d/external/json/document.h
  ../cocos2d/external/json/encodings.h
@@ -3408,6 +3950,7 @@ CMakeFiles/Game.dir/Classes/RoomScene.cpp.o
  ../cocos2d/external/json/rapidjson.h
  ../cocos2d/external/json/reader.h
  /home/john/cmake_proj/game/Classes/Client.h
+ /home/john/cmake_proj/game/Classes/DrawNode3D.h
  /home/john/cmake_proj/game/Classes/GameScene.h
  /home/john/cmake_proj/game/Classes/NetRoom.h
  /home/john/cmake_proj/game/Classes/ODSocket.h
@@ -4315,6 +4858,52 @@ CMakeFiles/Game.dir/Classes/Skill.cpp.o
  ../cocos2d/cocos/deprecated/CCNotificationCenter.h
  ../cocos2d/cocos/deprecated/CCSet.h
  ../cocos2d/cocos/deprecated/CCString.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimeline.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimelineCache.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimelineNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCFrame.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCTimeLine.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCTimelineMacro.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CSLoader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionFrame.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionFrameEasing.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionManagerEx.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionObject.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmature.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureAnimation.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureDataManager.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureDefine.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCBatchNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCBone.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCColliderDetector.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComAttribute.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComAudio.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComController.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComRender.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDataReaderHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDatas.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDecorativeDisplay.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDisplayFactory.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDisplayManager.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCInputDelegate.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCProcessBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSGUIReader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSSceneReader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSkin.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSpriteFrameCacheHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCTransformHelp.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCTween.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCUtilMath.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocoLoader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocoStudio.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocosStudioExport.h
+ ../cocos2d/cocos/editor-support/cocostudio/DictionaryHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerMng.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerObj.h
+ ../cocos2d/cocos/editor-support/cocostudio/WidgetReader/WidgetReaderProtocol.h
  ../cocos2d/cocos/math/CCAffineTransform.h
  ../cocos2d/cocos/math/CCGeometry.h
  ../cocos2d/cocos/math/CCMath.h
@@ -4439,6 +5028,61 @@ CMakeFiles/Game.dir/Classes/Skill.cpp.o
  ../cocos2d/cocos/ui/UIVideoPlayer.h
  ../cocos2d/cocos/ui/UIWebView.h
  ../cocos2d/cocos/ui/UIWidget.h
+ ../cocos2d/extensions/Particle3D/CCParticleSystem3D.h
+ ../cocos2d/extensions/Particle3D/PU/CCPUParticleSystem3D.h
+ ../cocos2d/external/Box2D/Box2D.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2ChainShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2CircleShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2EdgeShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2PolygonShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2Shape.h
+ ../cocos2d/external/Box2D/Collision/b2BroadPhase.h
+ ../cocos2d/external/Box2D/Collision/b2Collision.h
+ ../cocos2d/external/Box2D/Collision/b2Distance.h
+ ../cocos2d/external/Box2D/Collision/b2DynamicTree.h
+ ../cocos2d/external/Box2D/Collision/b2TimeOfImpact.h
+ ../cocos2d/external/Box2D/Common/b2BlockAllocator.h
+ ../cocos2d/external/Box2D/Common/b2Draw.h
+ ../cocos2d/external/Box2D/Common/b2GrowableStack.h
+ ../cocos2d/external/Box2D/Common/b2Math.h
+ ../cocos2d/external/Box2D/Common/b2Settings.h
+ ../cocos2d/external/Box2D/Common/b2StackAllocator.h
+ ../cocos2d/external/Box2D/Common/b2Timer.h
+ ../cocos2d/external/Box2D/Dynamics/Contacts/b2Contact.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2DistanceJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2FrictionJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2GearJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2Joint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2MotorJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2MouseJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2PrismaticJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2PulleyJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2RevoluteJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2RopeJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2WeldJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2WheelJoint.h
+ ../cocos2d/external/Box2D/Dynamics/b2Body.h
+ ../cocos2d/external/Box2D/Dynamics/b2ContactManager.h
+ ../cocos2d/external/Box2D/Dynamics/b2Fixture.h
+ ../cocos2d/external/Box2D/Dynamics/b2TimeStep.h
+ ../cocos2d/external/Box2D/Dynamics/b2World.h
+ ../cocos2d/external/Box2D/Dynamics/b2WorldCallbacks.h
+ ../cocos2d/external/json/allocators.h
+ ../cocos2d/external/json/document.h
+ ../cocos2d/external/json/encodings.h
+ ../cocos2d/external/json/error/error.h
+ ../cocos2d/external/json/internal/biginteger.h
+ ../cocos2d/external/json/internal/diyfp.h
+ ../cocos2d/external/json/internal/ieee754.h
+ ../cocos2d/external/json/internal/meta.h
+ ../cocos2d/external/json/internal/pow10.h
+ ../cocos2d/external/json/internal/stack.h
+ ../cocos2d/external/json/internal/strfunc.h
+ ../cocos2d/external/json/internal/strtod.h
+ ../cocos2d/external/json/msinttypes/inttypes.h
+ ../cocos2d/external/json/msinttypes/stdint.h
+ ../cocos2d/external/json/rapidjson.h
+ ../cocos2d/external/json/reader.h
  /home/john/cmake_proj/game/Classes/NetRoom.h
  /home/john/cmake_proj/game/Classes/Skill.cpp
  /home/john/cmake_proj/game/Classes/Skill.h
@@ -4571,6 +5215,7 @@ CMakeFiles/Game.dir/Classes/Soldier.cpp.o
  ../cocos2d/cocos/base/CCUserDefault.h
  ../cocos2d/cocos/base/CCValue.h
  ../cocos2d/cocos/base/CCVector.h
+ ../cocos2d/cocos/base/ObjectFactory.h
  ../cocos2d/cocos/base/ZipUtils.h
  ../cocos2d/cocos/base/base64.h
  ../cocos2d/cocos/base/ccCArray.h
@@ -4592,6 +5237,52 @@ CMakeFiles/Game.dir/Classes/Soldier.cpp.o
  ../cocos2d/cocos/deprecated/CCNotificationCenter.h
  ../cocos2d/cocos/deprecated/CCSet.h
  ../cocos2d/cocos/deprecated/CCString.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimeline.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimelineCache.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimelineNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCFrame.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCTimeLine.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCTimelineMacro.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CSLoader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionFrame.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionFrameEasing.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionManagerEx.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionObject.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmature.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureAnimation.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureDataManager.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureDefine.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCBatchNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCBone.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCColliderDetector.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComAttribute.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComAudio.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComController.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComRender.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDataReaderHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDatas.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDecorativeDisplay.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDisplayFactory.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDisplayManager.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCInputDelegate.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCProcessBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSGUIReader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSSceneReader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSkin.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSpriteFrameCacheHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCTransformHelp.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCTween.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCUtilMath.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocoLoader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocoStudio.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocosStudioExport.h
+ ../cocos2d/cocos/editor-support/cocostudio/DictionaryHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerMng.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerObj.h
+ ../cocos2d/cocos/editor-support/cocostudio/WidgetReader/WidgetReaderProtocol.h
  ../cocos2d/cocos/math/CCAffineTransform.h
  ../cocos2d/cocos/math/CCGeometry.h
  ../cocos2d/cocos/math/CCMath.h
@@ -4687,8 +5378,102 @@ CMakeFiles/Game.dir/Classes/Soldier.cpp.o
  ../cocos2d/cocos/renderer/CCVertexIndexData.h
  ../cocos2d/cocos/renderer/ccGLStateCache.h
  ../cocos2d/cocos/renderer/ccShaders.h
+ ../cocos2d/cocos/ui/CocosGUI.h
+ ../cocos2d/cocos/ui/GUIDefine.h
+ ../cocos2d/cocos/ui/GUIExport.h
+ ../cocos2d/cocos/ui/UIButton.h
+ ../cocos2d/cocos/ui/UICheckBox.h
+ ../cocos2d/cocos/ui/UIDeprecated.h
+ ../cocos2d/cocos/ui/UIEditBox/UIEditBox.h
+ ../cocos2d/cocos/ui/UIHBox.h
+ ../cocos2d/cocos/ui/UIHelper.h
+ ../cocos2d/cocos/ui/UIImageView.h
+ ../cocos2d/cocos/ui/UILayout.h
+ ../cocos2d/cocos/ui/UILayoutComponent.h
+ ../cocos2d/cocos/ui/UILayoutParameter.h
+ ../cocos2d/cocos/ui/UIListView.h
+ ../cocos2d/cocos/ui/UILoadingBar.h
+ ../cocos2d/cocos/ui/UIPageView.h
+ ../cocos2d/cocos/ui/UIRelativeBox.h
+ ../cocos2d/cocos/ui/UIRichText.h
+ ../cocos2d/cocos/ui/UIScale9Sprite.h
+ ../cocos2d/cocos/ui/UIScrollView.h
+ ../cocos2d/cocos/ui/UISlider.h
+ ../cocos2d/cocos/ui/UIText.h
+ ../cocos2d/cocos/ui/UITextAtlas.h
+ ../cocos2d/cocos/ui/UITextBMFont.h
+ ../cocos2d/cocos/ui/UITextField.h
+ ../cocos2d/cocos/ui/UIVBox.h
+ ../cocos2d/cocos/ui/UIVideoPlayer.h
+ ../cocos2d/cocos/ui/UIWebView.h
+ ../cocos2d/cocos/ui/UIWidget.h
+ ../cocos2d/extensions/Particle3D/CCParticleSystem3D.h
+ ../cocos2d/extensions/Particle3D/PU/CCPUParticleSystem3D.h
+ ../cocos2d/external/Box2D/Box2D.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2ChainShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2CircleShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2EdgeShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2PolygonShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2Shape.h
+ ../cocos2d/external/Box2D/Collision/b2BroadPhase.h
+ ../cocos2d/external/Box2D/Collision/b2Collision.h
+ ../cocos2d/external/Box2D/Collision/b2Distance.h
+ ../cocos2d/external/Box2D/Collision/b2DynamicTree.h
+ ../cocos2d/external/Box2D/Collision/b2TimeOfImpact.h
+ ../cocos2d/external/Box2D/Common/b2BlockAllocator.h
+ ../cocos2d/external/Box2D/Common/b2Draw.h
+ ../cocos2d/external/Box2D/Common/b2GrowableStack.h
+ ../cocos2d/external/Box2D/Common/b2Math.h
+ ../cocos2d/external/Box2D/Common/b2Settings.h
+ ../cocos2d/external/Box2D/Common/b2StackAllocator.h
+ ../cocos2d/external/Box2D/Common/b2Timer.h
+ ../cocos2d/external/Box2D/Dynamics/Contacts/b2Contact.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2DistanceJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2FrictionJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2GearJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2Joint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2MotorJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2MouseJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2PrismaticJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2PulleyJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2RevoluteJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2RopeJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2WeldJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2WheelJoint.h
+ ../cocos2d/external/Box2D/Dynamics/b2Body.h
+ ../cocos2d/external/Box2D/Dynamics/b2ContactManager.h
+ ../cocos2d/external/Box2D/Dynamics/b2Fixture.h
+ ../cocos2d/external/Box2D/Dynamics/b2TimeStep.h
+ ../cocos2d/external/Box2D/Dynamics/b2World.h
+ ../cocos2d/external/Box2D/Dynamics/b2WorldCallbacks.h
+ ../cocos2d/external/json/allocators.h
+ ../cocos2d/external/json/document.h
+ ../cocos2d/external/json/encodings.h
+ ../cocos2d/external/json/error/error.h
+ ../cocos2d/external/json/internal/biginteger.h
+ ../cocos2d/external/json/internal/diyfp.h
+ ../cocos2d/external/json/internal/ieee754.h
+ ../cocos2d/external/json/internal/meta.h
+ ../cocos2d/external/json/internal/pow10.h
+ ../cocos2d/external/json/internal/stack.h
+ ../cocos2d/external/json/internal/strfunc.h
+ ../cocos2d/external/json/internal/strtod.h
+ ../cocos2d/external/json/msinttypes/inttypes.h
+ ../cocos2d/external/json/msinttypes/stdint.h
+ ../cocos2d/external/json/rapidjson.h
+ ../cocos2d/external/json/reader.h
+ /home/john/cmake_proj/game/Classes/AppDelegate.h
+ /home/john/cmake_proj/game/Classes/Dialog.h
+ /home/john/cmake_proj/game/Classes/DrawNode3D.h
+ /home/john/cmake_proj/game/Classes/Man2Soldier.h
+ /home/john/cmake_proj/game/Classes/ManSoldier.h
+ /home/john/cmake_proj/game/Classes/SceneLayer.h
+ /home/john/cmake_proj/game/Classes/Skill.h
  /home/john/cmake_proj/game/Classes/Soldier.cpp
  /home/john/cmake_proj/game/Classes/Soldier.h
+ /home/john/cmake_proj/game/Classes/WomanSoldier.h
+ /home/john/cmake_proj/game/Classes/World.h
+ /home/john/cmake_proj/game/Server/message.h
  /usr/local/include/GLFW/glfw3.h
  /usr/local/include/GLFW/glfw3native.h
 CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o
@@ -4816,6 +5601,7 @@ CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o
  ../cocos2d/cocos/base/CCUserDefault.h
  ../cocos2d/cocos/base/CCValue.h
  ../cocos2d/cocos/base/CCVector.h
+ ../cocos2d/cocos/base/ObjectFactory.h
  ../cocos2d/cocos/base/ZipUtils.h
  ../cocos2d/cocos/base/base64.h
  ../cocos2d/cocos/base/ccCArray.h
@@ -4837,6 +5623,52 @@ CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o
  ../cocos2d/cocos/deprecated/CCNotificationCenter.h
  ../cocos2d/cocos/deprecated/CCSet.h
  ../cocos2d/cocos/deprecated/CCString.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimeline.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimelineCache.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCActionTimelineNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCFrame.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCTimeLine.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CCTimelineMacro.h
+ ../cocos2d/cocos/editor-support/cocostudio/ActionTimeline/CSLoader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionFrame.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionFrameEasing.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionManagerEx.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCActionObject.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmature.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureAnimation.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureDataManager.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCArmatureDefine.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCBatchNode.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCBone.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCColliderDetector.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComAttribute.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComAudio.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComController.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCComRender.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDataReaderHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDatas.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDecorativeDisplay.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDisplayFactory.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCDisplayManager.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCInputDelegate.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCProcessBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSGUIReader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSSceneReader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSkin.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCSpriteFrameCacheHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCTransformHelp.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCTween.h
+ ../cocos2d/cocos/editor-support/cocostudio/CCUtilMath.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocoLoader.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocoStudio.h
+ ../cocos2d/cocos/editor-support/cocostudio/CocosStudioExport.h
+ ../cocos2d/cocos/editor-support/cocostudio/DictionaryHelper.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerBase.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerMng.h
+ ../cocos2d/cocos/editor-support/cocostudio/TriggerObj.h
+ ../cocos2d/cocos/editor-support/cocostudio/WidgetReader/WidgetReaderProtocol.h
  ../cocos2d/cocos/math/CCAffineTransform.h
  ../cocos2d/cocos/math/CCGeometry.h
  ../cocos2d/cocos/math/CCMath.h
@@ -4932,10 +5764,95 @@ CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o
  ../cocos2d/cocos/renderer/CCVertexIndexData.h
  ../cocos2d/cocos/renderer/ccGLStateCache.h
  ../cocos2d/cocos/renderer/ccShaders.h
+ ../cocos2d/cocos/ui/CocosGUI.h
+ ../cocos2d/cocos/ui/GUIDefine.h
+ ../cocos2d/cocos/ui/GUIExport.h
+ ../cocos2d/cocos/ui/UIButton.h
+ ../cocos2d/cocos/ui/UICheckBox.h
+ ../cocos2d/cocos/ui/UIDeprecated.h
+ ../cocos2d/cocos/ui/UIEditBox/UIEditBox.h
+ ../cocos2d/cocos/ui/UIHBox.h
+ ../cocos2d/cocos/ui/UIHelper.h
+ ../cocos2d/cocos/ui/UIImageView.h
+ ../cocos2d/cocos/ui/UILayout.h
+ ../cocos2d/cocos/ui/UILayoutComponent.h
+ ../cocos2d/cocos/ui/UILayoutParameter.h
+ ../cocos2d/cocos/ui/UIListView.h
+ ../cocos2d/cocos/ui/UILoadingBar.h
+ ../cocos2d/cocos/ui/UIPageView.h
+ ../cocos2d/cocos/ui/UIRelativeBox.h
+ ../cocos2d/cocos/ui/UIRichText.h
+ ../cocos2d/cocos/ui/UIScale9Sprite.h
+ ../cocos2d/cocos/ui/UIScrollView.h
+ ../cocos2d/cocos/ui/UISlider.h
+ ../cocos2d/cocos/ui/UIText.h
+ ../cocos2d/cocos/ui/UITextAtlas.h
+ ../cocos2d/cocos/ui/UITextBMFont.h
+ ../cocos2d/cocos/ui/UITextField.h
+ ../cocos2d/cocos/ui/UIVBox.h
+ ../cocos2d/cocos/ui/UIVideoPlayer.h
+ ../cocos2d/cocos/ui/UIWebView.h
+ ../cocos2d/cocos/ui/UIWidget.h
+ ../cocos2d/extensions/Particle3D/CCParticleSystem3D.h
+ ../cocos2d/extensions/Particle3D/PU/CCPUParticleSystem3D.h
+ ../cocos2d/external/Box2D/Box2D.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2ChainShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2CircleShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2EdgeShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2PolygonShape.h
+ ../cocos2d/external/Box2D/Collision/Shapes/b2Shape.h
+ ../cocos2d/external/Box2D/Collision/b2BroadPhase.h
+ ../cocos2d/external/Box2D/Collision/b2Collision.h
+ ../cocos2d/external/Box2D/Collision/b2Distance.h
+ ../cocos2d/external/Box2D/Collision/b2DynamicTree.h
+ ../cocos2d/external/Box2D/Collision/b2TimeOfImpact.h
+ ../cocos2d/external/Box2D/Common/b2BlockAllocator.h
+ ../cocos2d/external/Box2D/Common/b2Draw.h
+ ../cocos2d/external/Box2D/Common/b2GrowableStack.h
+ ../cocos2d/external/Box2D/Common/b2Math.h
+ ../cocos2d/external/Box2D/Common/b2Settings.h
+ ../cocos2d/external/Box2D/Common/b2StackAllocator.h
+ ../cocos2d/external/Box2D/Common/b2Timer.h
+ ../cocos2d/external/Box2D/Dynamics/Contacts/b2Contact.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2DistanceJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2FrictionJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2GearJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2Joint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2MotorJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2MouseJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2PrismaticJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2PulleyJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2RevoluteJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2RopeJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2WeldJoint.h
+ ../cocos2d/external/Box2D/Dynamics/Joints/b2WheelJoint.h
+ ../cocos2d/external/Box2D/Dynamics/b2Body.h
+ ../cocos2d/external/Box2D/Dynamics/b2ContactManager.h
+ ../cocos2d/external/Box2D/Dynamics/b2Fixture.h
+ ../cocos2d/external/Box2D/Dynamics/b2TimeStep.h
+ ../cocos2d/external/Box2D/Dynamics/b2World.h
+ ../cocos2d/external/Box2D/Dynamics/b2WorldCallbacks.h
+ ../cocos2d/external/json/allocators.h
+ ../cocos2d/external/json/document.h
+ ../cocos2d/external/json/encodings.h
+ ../cocos2d/external/json/error/error.h
+ ../cocos2d/external/json/internal/biginteger.h
+ ../cocos2d/external/json/internal/diyfp.h
+ ../cocos2d/external/json/internal/ieee754.h
+ ../cocos2d/external/json/internal/meta.h
+ ../cocos2d/external/json/internal/pow10.h
+ ../cocos2d/external/json/internal/stack.h
+ ../cocos2d/external/json/internal/strfunc.h
+ ../cocos2d/external/json/internal/strtod.h
+ ../cocos2d/external/json/msinttypes/inttypes.h
+ ../cocos2d/external/json/msinttypes/stdint.h
+ ../cocos2d/external/json/rapidjson.h
+ ../cocos2d/external/json/reader.h
  /home/john/cmake_proj/game/Classes/AppDelegate.h
  /home/john/cmake_proj/game/Classes/Soldier.h
  /home/john/cmake_proj/game/Classes/WomanSoldier.cpp
  /home/john/cmake_proj/game/Classes/WomanSoldier.h
+ /home/john/cmake_proj/game/Server/message.h
  /usr/local/include/GLFW/glfw3.h
  /usr/local/include/GLFW/glfw3native.h
 CMakeFiles/Game.dir/Classes/World.cpp.o

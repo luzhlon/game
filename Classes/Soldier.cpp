@@ -1,4 +1,5 @@
 ﻿#include "Soldier.h"
+#include "Dialog.h"
 #include "Skill.h"
 #include "World.h"
 #include "AppDelegate.h"
@@ -81,8 +82,7 @@ bool Soldier::init() {
 }
 
 bool Soldier::load_config(char *path) {
-    FILE *f = fopen(path, "r");
-    if (!f) return false;
+    string str = FileUtils::getInstance()->getStringFromFile(path);
 
     ActionInterval **anim[5] = {
         &m_act_walk,
@@ -92,12 +92,17 @@ bool Soldier::load_config(char *path) {
         &m_act_idle
     };
 
+
 	char buf[1024];
+    const char *p = str.c_str();
+    size_t pos = 0;
     // 加载人物
     char role_file[256];
     float scale, base_angle;
-    while (fgets(buf, 1024, f))
-        if (3 == sscanf(buf, "%s%f%f", role_file, &scale, &base_angle))
+    for(pos = str.find('\n', pos);
+        pos != string::npos;
+        pos++, pos = str.find('\n', pos))
+        if (3 == sscanf(p+pos, "%s%f%f", role_file, &scale, &base_angle))
             break;
     initWithFile(role_file);
     setScale(scale);
@@ -108,18 +113,19 @@ bool Soldier::load_config(char *path) {
     int start_frame, end_frame;
     float fps;
     for (int i = 0; i < 5; i++) {
-        while (fgets(buf, 256, f))
-        if (4 == sscanf(buf, "%s%d%d%f", act_file, &start_frame, &end_frame, &fps))
-            break;
+        for(pos = str.find('\n', pos);
+            pos != string::npos;
+            pos++, pos = str.find('\n', pos))
+            if (4 == sscanf(p+pos, "%s%d%d%f", act_file, &start_frame, &end_frame, &fps))
+                break;
         *anim[i] = Animate3D::createWithFrames(Animation3D::create(act_file), start_frame, end_frame, fps);
     }
-    fclose(f);
 	return true;
 }
 
 void Soldier::set_blood(float blood) {
     _blood = blood;
-    _blood_bar->setPercent(_blood / s_full_blood * 100.f);
+    blood_bar()->setPercent(_blood / s_full_blood * 100.f);
 }
 
 void Soldier::load_ui() {

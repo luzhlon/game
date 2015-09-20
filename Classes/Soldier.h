@@ -133,7 +133,6 @@ protected:
 
     //UI
     BillBoard *_billboard = nullptr;
-    LoadingBar *_blood_bar;
 
     Action *_cur_action = nullptr;  //当前的动作
     PUParticleSystem3D *_cur_action_pu = nullptr;  //当前动作所使用的粒子系统
