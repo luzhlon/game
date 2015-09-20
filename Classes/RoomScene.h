@@ -22,6 +22,7 @@ public:
 private:
     //
     Layout *_layout_member[MAX_ROOM_MEMBERS];
+    CheckBox *_check_team = nullptr;
 };
 
 #endif // __ROOMSCENE_H__

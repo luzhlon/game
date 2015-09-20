@@ -20,7 +20,7 @@ bool RoomScene::init() {
     auto layer = load_layer("room_scene.csb");
     auto layout = get_layout(layer);
         
-    CC_ASSERT(layout); //load layout failure
+    _check_team = static_cast<CheckBox *>(Helper::seekWidgetByName(layout, "check_team"));
 
     setClickCallback(layout, "check_ready_me", CC_CALLBACK_1(RoomScene::onReadyClick, this));
     setClickCallback(layout, "check_team", CC_CALLBACK_1(RoomScene::onTeamClick, this));
@@ -86,6 +86,8 @@ void RoomScene::onEnter() {
         memcpy(NetRoom::_members, pkg->data, sizeof(room_member)* MAX_ROOM_MEMBERS);
         NetRoom::_self_id = pkg->arg2; //Self id
         update_room_member();
+
+        _check_team->setSelectedState(NetRoom::_self_id % 2);
         //HANDLER(authentication) = nullptr; // ÷√ø’£¨∑¿÷π÷ÿ∏¥µ˜”√
     });
     HANDLER(start_game) = Client::handler([this](net_pkg *pkg) {
@@ -106,12 +108,12 @@ void RoomScene::onExit() {
 
 void RoomScene::onReadyClick(Ref *ref) {
     auto btn = static_cast<CheckBox *>(ref);
-    Client::getInstance()->sendMsg(MESSAGE::set_ready, (msg_arg)btn->getSelectedState());
+    Client::getInstance()->sendMsg(MESSAGE::set_ready, (msg_arg)!btn->getSelectedState());
 }
 
 void RoomScene::onTeamClick(Ref *ref) {
     auto btn = static_cast<CheckBox *>(ref);
-    Client::getInstance()->sendMsg(MESSAGE::set_team, (msg_arg)btn->getSelectedState());
+    Client::getInstance()->sendMsg(MESSAGE::set_team, (msg_arg)!btn->getSelectedState());
 }
 
 void RoomScene::load_layouts(Layout *layout) {

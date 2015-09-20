@@ -99,9 +99,9 @@ bool Soldier::load_config(char *path) {
     // 加载人物
     char role_file[256];
     float scale, base_angle;
-    for(pos = str.find('\n', pos);
-        pos != string::npos;
-        pos++, pos = str.find('\n', pos))
+    for(;pos != string::npos;
+        pos = str.find('\n', pos),
+        pos++ /* Jump '\n' */)
         if (3 == sscanf(p+pos, "%s%f%f", role_file, &scale, &base_angle))
             break;
     initWithFile(role_file);
@@ -113,9 +113,9 @@ bool Soldier::load_config(char *path) {
     int start_frame, end_frame;
     float fps;
     for (int i = 0; i < 5; i++) {
-        for(pos = str.find('\n', pos);
+        for(pos = str.find('\n', pos), pos++;
             pos != string::npos;
-            pos++, pos = str.find('\n', pos))
+            pos = str.find('\n', pos), pos++)
             if (4 == sscanf(p+pos, "%s%d%d%f", act_file, &start_frame, &end_frame, &fps))
                 break;
         *anim[i] = Animate3D::createWithFrames(Animation3D::create(act_file), start_frame, end_frame, fps);
