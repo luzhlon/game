@@ -195,7 +195,11 @@ void Soldier::updatePosition(float dt) {
     else {
         player_h += getHeightOffset();
         playerPos.y = player_h;
-        setPosition3D(playerPos);
+        if (World::getInstance()->is_collision(playerPos)) {
+            return;
+        } else {
+            setPosition3D(playerPos);
+        }
     }
 }
 

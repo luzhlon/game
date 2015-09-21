@@ -71,7 +71,6 @@ bool GameScene::init()
 
     //g_quat_root = new QuatNode(nullptr, Vec2(-722, -686), Vec2(677, 639));
     //g_quat_root->DrawOutline();
-    g_quat_root = QuatNode::Import("root.txt");
 
     g_draw = DrawNode3D::create();
     g_world->add_thing(g_draw);

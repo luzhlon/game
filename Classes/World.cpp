@@ -8,6 +8,7 @@ Vec3 World::s_camera_offset = Vec3(0.f, 120.f, 90.f);
 
 extern Director *g_director;
 extern Size g_win_size;
+extern World *g_world;
 
 void _LogSize(const char *desc, const Size& size) {
     string str = desc;
@@ -27,8 +28,10 @@ QuatNode::QuatNode() {
     _child[1][0] = nullptr; // ud
     _child[1][1] = nullptr; // uu
 
+#ifdef VIEW_TEST
     _draw_node = DrawNode3D::create();
-    World::getInstance()->add_thing(_draw_node);
+    g_world->add_thing(_draw_node);
+#endif
 }
 
 QuatNode::QuatNode(QuatNode *parent, Vec2& d, Vec2& u) {
@@ -43,12 +46,16 @@ QuatNode::QuatNode(QuatNode *parent, Vec2& d, Vec2& u) {
     uu.x = MAX(d.x, u.x);
     uu.y = MAX(d.y, u.y);
 
+#ifdef VIEW_TEST
     _draw_node = DrawNode3D::create();
-    World::getInstance()->add_thing(_draw_node);
+    g_world->add_thing(_draw_node);
+#endif
 }
 
 QuatNode::~QuatNode() {
+#ifdef VIEW_TEST
     _draw_node->removeFromParent();
+#endif
     // 移除子节点
     for (int i = 0; i < 4; i++) {
         auto ch = _child[i / 2][i % 2];
@@ -132,7 +139,9 @@ int QuatNode::Parse(const char *str) {
     if (4 == sscanf(p, "dduu (%g,%g) (%g,%g)", &DD.x, &DD.y, &UU.x, &UU.y)) {
         dd = DD;
         uu = UU;
+#ifdef VIEW_TEST
         DrawOutline();
+#endif
     }
 
     for (; *p; p++) 
@@ -143,10 +152,14 @@ int QuatNode::Parse(const char *str) {
 
     if (1 == sscanf(p, "block %d", &block)) {
         _block = block;
+#ifdef VIEW_TEST
         DrawBlock();
+#endif
     } else if (2 == sscanf(p, "split (%g,%g)", &split.x, &split.y)) {
         Split(split);
+#ifdef VIEW_TEST
         DrawSplit();
+#endif
     }
 
     for (; *p; p++) 
@@ -204,6 +217,7 @@ bool QuatNode::contained(Vec2& pos) {
     return false;
 }
 
+#ifdef VIEW_TEST
 Color4F QuatNode::s_color = Color4F(1, 1, 0, 0);
 
 void QuatNode::DrawBlock(float height) {
@@ -239,8 +253,10 @@ void QuatNode::DrawHeight(DrawNode3D *draw) {
         draw->drawLine(Vec3(uu.x, -300, i), Vec3(uu.x, height, i), color);
     }
 }
+#endif
 
 World::World() {
+    g_world = this;
     {
         _drawNode = DrawNode3D::create();
         addChild(_drawNode);
@@ -284,6 +300,13 @@ World::World() {
     load_goods("goods/plant/config2");
 
     setCameraMask((unsigned short)CAMERA_FIX);
+
+    load_collision("root.txt");
+}
+
+void World::load_collision(char *file) {
+    _colli_root = QuatNode::Import(file);
+    CC_ASSERT(_colli_root);
 }
 
 bool World::conv2space(Vec3& v) {
@@ -320,6 +343,21 @@ void World::draw_grid(float cell, float height) {
     //draw y
     _drawNode->drawLine(Vec3(0, -distance, 0), Vec3(0, distance, 0), Color4F(0, 1, 0, 1));
     _drawNode->setGlobalZOrder(_terrain->getGlobalZOrder() + 1);
+}
+
+bool World::is_collision(Vec2& pos) {
+    static QuatNode *last = _colli_root;
+
+    auto col = last->getChild(pos);
+    // 找到包含Pos的区域
+    while (!col->contained(pos)) {
+        col = col->Parent;
+        // 不在根结点表示的范围内
+        if (!col) return true; 
+    }
+
+    last = col->getChild(pos);
+    return last->block();
 }
 
 World *World::getInstance() {

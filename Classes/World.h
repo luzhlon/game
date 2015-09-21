@@ -7,52 +7,7 @@
 
 USING_NS_CC;
 
-class World : public Node
-{
-public:
-    enum {
-        CAMERA_FREE = (int)CameraFlag::USER1,  // 自由视角摄像机
-        CAMERA_FIX = (int)CameraFlag::USER2   // 固定视角摄像机
-    };
-
-    static Vec3 s_camera_offset;
-	static World *getInstance();
-
-    inline Terrain *terrain() {
-        return _terrain;
-    }
-    inline float height(float x, float z) {
-        return _terrain->getHeight(x, z);
-    }
-    inline DrawNode3D *draw_node() {
-        return _drawNode;
-    }
-
-    void draw_grid(float cell = 10.f, float height = 0.f);
-    void add_skybox();
-
-    void camera_zoom(float factor);
-    void camera_move(Vec2& factor);
-    void camera_follow(Node *node);
-
-    bool load_goods(char *file);
-
-    void add_thing(Node *node, float x = 0.f, float z = 0.f);
-
-    void show_click(const Vec3& v);
-    bool conv2space(Vec3& v); //ignore v.z
-    Camera *camera();
-
-private:
-	World();
-
-    Terrain *_terrain;
-    Camera *_camera_free;
-    Camera *_camera_fix;
-
-    DrawNode3D *_drawNode;
-    PUParticleSystem3D *_pu_click_point;
-};
+#define VIEW_TEST
 
 class QuatNode {
 public:
@@ -88,6 +43,7 @@ public:
     QuatNode *Parent = nullptr; // 
     QuatNode *_child[2][2];  // x,y
 
+#ifdef VIEW_TEST
     void DrawBlock(float height = 0);
     void DrawSplit(float height = 0);
     void DrawOutline(float height = 0);
@@ -99,6 +55,68 @@ public:
 
     static Color4F s_color;
     DrawNode3D *_draw_node = nullptr;
+#endif
+};
+
+class World : public Node
+{
+public:
+    enum {
+        CAMERA_FREE = (int)CameraFlag::USER1,  // 自由视角摄像机
+        CAMERA_FIX = (int)CameraFlag::USER2   // 固定视角摄像机
+    };
+
+    static Vec3 s_camera_offset;
+	static World *getInstance();
+
+    inline Terrain *terrain() {
+        return _terrain;
+    }
+    inline float height(float x, float z) {
+        return _terrain->getHeight(x, z);
+    }
+    inline DrawNode3D *draw_node() {
+        return _drawNode;
+    }
+
+    void draw_grid(float cell = 10.f, float height = 0.f);
+    void add_skybox();
+
+    void camera_zoom(float factor);
+    void camera_move(Vec2& factor);
+    void camera_follow(Node *node);
+
+    bool load_goods(char *file);
+    void load_collision(char *file);
+
+    bool is_collision(Vec2& pos);
+    void add_thing(Node *node, float x = 0.f, float z = 0.f);
+
+    inline bool is_collision(Vec3& pos) {
+        return is_collision(Vec2(pos.x, pos.z));
+    }
+    inline void add_thing(Node *node, Vec2& pos) {
+        return add_thing(node, pos.x, pos.y);
+    }
+    inline void add_thing(Node *node, Vec3& pos) {
+        return add_thing(node, pos.x, pos.z);
+    }
+
+
+    void show_click(const Vec3& v);
+    bool conv2space(Vec3& v); //ignore v.z
+    Camera *camera();
+
+private:
+	World();
+
+    Terrain *_terrain;
+    Camera *_camera_free;
+    Camera *_camera_fix;
+    QuatNode *_colli_root; // 根碰撞区域
+
+    DrawNode3D *_drawNode;
+    PUParticleSystem3D *_pu_click_point;
 };
 
 
