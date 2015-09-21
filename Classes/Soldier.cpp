@@ -131,7 +131,9 @@ void Soldier::update(float dt) {
     AT_STATE(SOLDIER_STATE_MOVE) {
         updateRotation();
         //判断和目标位置的距离
-        if ((getPosition3D() - _target_point).length() < 1.f) { move_stop(); }
+        auto pos = getPosition3D();
+        auto size = (Vec2(pos.x, pos.z) - Vec2(_target_point.x, _target_point.z)).length();
+        if (size < 1.f) { move_stop(); }
         else { updatePosition(dt); }
         //updateHeight();
         break;

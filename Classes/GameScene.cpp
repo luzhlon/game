@@ -15,9 +15,17 @@ extern Director *g_director;
 extern FileUtils *g_file;
 extern Soldier *g_self;
 
+QuatNode *g_quat_root = nullptr;
+QuatNode *g_cur_sel = nullptr;
+
+DrawNode3D *g_draw = nullptr;
+
 enum {
-OP_STATE_SECLET = 0,
-OP_STATE_SOLDIER,
+OP_STATE_SOLDIER = 0,
+OP_STATE_SPLIT,
+OP_STATE_BLOCK,
+OP_STATE_CLEAR,
+OP_STATE_SELECT,
 
 OP_STATE_NUM_MAX 
 };
@@ -43,7 +51,6 @@ void GameScene::load_world() {
     addChild(g_world);
 }
 
-
 // on "init" you need to initialize your instance
 bool GameScene::init()
 {
@@ -61,6 +68,13 @@ bool GameScene::init()
     sol->begin_fight();
     g_world->add_thing(sol);
     Player::getInstance(sol);
+
+    //g_quat_root = new QuatNode(nullptr, Vec2(-722, -686), Vec2(677, 639));
+    //g_quat_root->DrawOutline();
+    g_quat_root = QuatNode::Import("root.txt");
+
+    g_draw = DrawNode3D::create();
+    g_world->add_thing(g_draw);
 
     return true;
 }
@@ -92,24 +106,79 @@ void GameScene::load_ui() {
 
 	//setTouchCallback(layout, "button_direction", CC_CALLBACK_2(GameScene::onDirectionTouched, this));
     setClickCallback(layout, "button_1", [this](Ref *ref) {
+        auto btn = static_cast<Button *>(ref);
         g_op_state++;
         if (g_op_state == OP_STATE_NUM_MAX) g_op_state = 0;
+        char *show = "Unkown";
+        switch (g_op_state) {
+            case OP_STATE_SPLIT:
+                show = "Split";
+                break;
+            case OP_STATE_BLOCK:
+                show = "Block";
+                break;
+            case OP_STATE_SOLDIER:
+                show = "Soldier";
+                break;
+            case OP_STATE_CLEAR:
+                show = "Clear";
+                break;
+            case OP_STATE_SELECT:
+                show = "Select";
+                break;
+        }
+        btn->setTitleText(show);
 	});
+    setClickCallback(layout, "button_6", [this](Ref *ref) {
+        auto btn = static_cast<Button *>(ref);
+        btn->setTitleText("Select");
+        g_op_state = OP_STATE_SELECT;
+    });
+    setClickCallback(layout, "button_7", [this](Ref *ref) {
+        auto btn = static_cast<Button *>(ref);
+        btn->setTitleText("Soldier");
+        g_op_state = OP_STATE_SOLDIER;
+    });
+    setClickCallback(layout, "button_5", [this](Ref *ref) {
+        auto btn = static_cast<Button *>(ref);
+        g_op_state = OP_STATE_SPLIT;
+        btn->setTitleText("Split");
+    });
+    setClickCallback(layout, "button_4", [this](Ref *ref) {
+        auto btn = static_cast<Button *>(ref);
+        g_op_state = OP_STATE_CLEAR;
+        btn->setTitleText("Clear");
+    });
     setClickCallback(layout, "button_2", [this](Ref *ref) {
 		auto s = (WomanSoldier *)g_self;
-        g_self->show_blood_decline(35.f);
+        auto btn = static_cast<Button *>(ref);
+        g_op_state = OP_STATE_BLOCK;
+        btn->setTitleText("Block");
 		//s->action_walk();
 	});
     setClickCallback(layout, "button_3", [this](Ref *ref) {
-		auto s = (WomanSoldier *)g_self;
-        //draw cube
+        auto btn = static_cast<Button *>(ref);
+        btn->setTitleText("Parent");
+        if (g_cur_sel) {
+            g_cur_sel = g_cur_sel->Parent;
+            if (g_cur_sel) {
+                g_draw->clear();
+                g_cur_sel->DrawOutline();
+                g_cur_sel->DrawHeight(g_draw);
+            }
+        }
+        /*
         Vec3 v[8];
         g_self->getAABB().getCorners(v);
         _drawNode->clear();
-        _drawNode->drawCube(v, Color4F(0, 1, 0, 1));
+        _drawNode->drawCube(v, Color4F(0, 1, 0, 1)); // */
 	});
     setClickCallback(layout, "button_reset", [this](Ref *ref) {
 		World::s_camera_offset = Vec3(0, 120, 90);
+	});
+    setClickCallback(layout, "button_export", [this](Ref *ref) {
+        //Export
+        g_quat_root->Export("root.txt");
 	});
     setClickCallback(layout, "button_camera", [this](Ref *ref) {
         //g_player->draw_circle(100.f);
@@ -158,13 +227,23 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
             }
 
             switch (g_op_state) {
-            case OP_STATE_SECLET:
+            case OP_STATE_SPLIT:
             {
-                auto ps = point;
-                auto pe = point;
-                ps.y = 100.f;
-                pe.y = -100.f;
-                g_world->draw_node()->drawLine(ps, pe, Color4F(0,0,0,0));
+                Vec2 pot(point.x, point.z);
+                auto p_quat = g_cur_sel;
+                if (!p_quat) break;
+                p_quat->Split(pot);
+                p_quat->DrawSplit();
+                g_op_state = OP_STATE_SELECT;
+                break;
+            }
+            case OP_STATE_BLOCK:
+            {
+                auto p_quat = g_cur_sel;
+                if (!p_quat) break;
+                p_quat->block(true);
+                p_quat->DrawBlock();
+                g_op_state = OP_STATE_SELECT;
                 break;
             }
             case OP_STATE_SOLDIER:
@@ -175,6 +254,28 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
                 sprintf(buf, "%g %g", point.x, point.z);
                 _output->setString(buf);
                 break;
+            case OP_STATE_CLEAR:
+            {
+                 auto p_quat = g_cur_sel;
+                 if (p_quat) p_quat = p_quat->Parent;
+                 if (p_quat) {
+                     p_quat->unSplit();
+                     p_quat->DrawOutline();
+                 }
+                 g_op_state = OP_STATE_SELECT;
+                 break;
+            }
+            case OP_STATE_SELECT:
+            {
+                g_draw->clear();
+                Vec2 pot(point.x, point.z);
+                auto p_quat = g_quat_root->getChild(pot);
+                g_cur_sel = p_quat;
+                if (p_quat) {
+                    p_quat->DrawOutline();
+                    p_quat->DrawHeight(g_draw);
+                }
+            }
             }
         }
     }

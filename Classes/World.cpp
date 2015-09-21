@@ -21,22 +21,241 @@ void _LogVec3(const char *desc, Vec3& v3) {
     log(str.c_str(), v3.x, v3.y, v3.z);
 }
 
+QuatNode::QuatNode() {
+    _child[0][0] = nullptr; // dd 
+    _child[0][1] = nullptr; // du
+    _child[1][0] = nullptr; // ud
+    _child[1][1] = nullptr; // uu
+
+    _draw_node = DrawNode3D::create();
+    World::getInstance()->add_thing(_draw_node);
+}
+
+QuatNode::QuatNode(QuatNode *parent, Vec2& d, Vec2& u) {
+    _child[0][0] = nullptr; // dd 
+    _child[0][1] = nullptr; // du
+    _child[1][0] = nullptr; // ud
+    _child[1][1] = nullptr; // uu
+
+    Parent = parent;
+    dd.x = MIN(d.x, u.x);
+    dd.y = MIN(d.y, u.y);
+    uu.x = MAX(d.x, u.x);
+    uu.y = MAX(d.y, u.y);
+
+    _draw_node = DrawNode3D::create();
+    World::getInstance()->add_thing(_draw_node);
+}
+
+QuatNode::~QuatNode() {
+    _draw_node->removeFromParent();
+    // 移除子节点
+    for (int i = 0; i < 4; i++) {
+        auto ch = _child[i / 2][i % 2];
+        if (ch) delete ch;
+    }
+    if (!Parent) return;
+    // 从父节点移除自己
+}
+
+bool QuatNode::Split(Vec2& sp) {
+    if (!contained(sp)) return false;
+    if (split()) unSplit();
+
+    _child[0][0] = new QuatNode(this, dd, sp); // dd
+    _child[0][1] = new QuatNode(this, Vec2(dd.x, uu.y), sp); // du
+    _child[1][0] = new QuatNode(this, Vec2(uu.x, dd.y), sp); // ud
+    _child[1][1] = new QuatNode(this, uu, sp); // uu
+
+    _split = sp;
+
+    return true;
+}
+
+void QuatNode::unSplit() {
+    if (!split()) return;
+
+    for (int i = 0; i < 4; i++) {
+        int ix = i / 2;
+        int iy = i % 2;
+        auto ch = _child[ix][iy];
+        if (ch) {
+            delete ch;
+            _child[ix][iy] = nullptr;
+        }
+    }
+
+    Clear();
+}
+
+bool QuatNode::Export(char *file) {
+    FILE *f = fopen(file, "w+");
+    if (!f) return false;
+
+    Export(f);
+
+    fclose(f);
+    return true;
+}
+
+void QuatNode::Export(FILE *f) {
+    fprintf(f, "{\n");
+    fprintf(f, "dduu (%g,%g) (%g,%g)\n", dd.x, dd.y, uu.x, uu.y);
+
+    if (block()) {
+        fprintf(f, "block %d\n", block());
+    }
+    if (split()) {
+        fprintf(f, "split (%g,%g)\n", _split.x, _split.y);
+
+        for (int i = 0; i < 4; i++) {
+            auto child = _child[i / 2][i % 2];
+            if (child) child->Export(f);
+        }
+    }
+
+    fprintf(f, "}\n");
+}
+
+int QuatNode::Parse(const char *str) {
+    Vec2 DD, UU, split;
+    // 加载
+    int block;
+    const char *p = str;
+
+    for (; *p; p++) 
+        if (*p == '\n') break;
+    p++;
+
+    if (*p == '}') return p - str + 1;
+
+    if (4 == sscanf(p, "dduu (%g,%g) (%g,%g)", &DD.x, &DD.y, &UU.x, &UU.y)) {
+        dd = DD;
+        uu = UU;
+        DrawOutline();
+    }
+
+    for (; *p; p++) 
+        if (*p == '\n') break;
+    p++;
+
+    if (*p == '}') return p - str + 1;
+
+    if (1 == sscanf(p, "block %d", &block)) {
+        _block = block;
+        DrawBlock();
+    } else if (2 == sscanf(p, "split (%g,%g)", &split.x, &split.y)) {
+        Split(split);
+        DrawSplit();
+    }
+
+    for (; *p; p++) 
+        if (*p == '\n') break;
+    p++;
+
+    if (*p == '}') return p - str + 1;
+
+    if (*p == '{') p += _child[0][0]->Parse(p);
+    for (; *p; p++) 
+        if (*p == '\n') break;
+    p++;
+    if (*p == '{') p += _child[0][1]->Parse(p);
+    for (; *p; p++) 
+        if (*p == '\n') break;
+    p++;
+    if (*p == '{') p += _child[1][0]->Parse(p);
+    for (; *p; p++) 
+        if (*p == '\n') break;
+    p++;
+    if (*p == '{') p += _child[1][1]->Parse(p);
+
+    for (; *p; p++) 
+        if (*p == '\n') break;
+    p++;
+
+    return p - str + 1;
+}
+
+QuatNode *QuatNode::Import(char *file) {
+    //
+    auto str = FileUtils::getInstance()->getStringFromFile(file);
+    auto quat = new QuatNode();
+    quat->Parse(str.c_str());
+    return quat;
+}
+
+QuatNode *QuatNode::getChild(Vec2& pos) {     // 递归获得
+    if (auto ret = getChildOnce(pos))
+        return ret->getChild(pos);
+    else
+        return this;
+}
+
+QuatNode *QuatNode::getChildOnce(Vec2& pos) { // 不递归
+    int ix = pos.x > _split.x ? 1 : 0; // x -> d : u
+    int iy = pos.y > _split.y ? 1 : 0; // y -> d : u
+    return _child[ix][iy];
+}
+
+bool QuatNode::contained(Vec2& pos) {
+    if (pos.x < uu.x && pos.x > dd.x
+        && pos.y < uu.y && pos.y > dd.y)
+        return true;
+    return false;
+}
+
+Color4F QuatNode::s_color = Color4F(1, 1, 0, 0);
+
+void QuatNode::DrawBlock(float height) {
+    for (float x = dd.x; x < uu.x; x += 3.f) {
+        _draw_node->drawLine(Vec3(x, height, dd.y), Vec3(x, height, uu.y), s_color);
+    }
+}
+void QuatNode::DrawSplit(float height) {
+    if (_split.isZero()) return;
+    _draw_node->drawLine(Vec3(_split.x, height, dd.y), Vec3(_split.x, height, uu.y), s_color);
+    _draw_node->drawLine(Vec3(dd.x, height, _split.y), Vec3(uu.x, height, _split.y), s_color);
+}
+void QuatNode::DrawOutline(float height) {
+    _draw_node->drawLine(Vec3(dd.x, height, dd.y), Vec3(uu.x, height, dd.y), s_color);
+    _draw_node->drawLine(Vec3(dd.x, height, dd.y), Vec3(dd.x, height, uu.y), s_color);
+    _draw_node->drawLine(Vec3(uu.x, height, uu.y), Vec3(dd.x, height, uu.y), s_color);
+    _draw_node->drawLine(Vec3(uu.x, height, uu.y), Vec3(uu.x, height, dd.y), s_color);
+}
+void QuatNode::DrawHeight(DrawNode3D *draw) {
+    float height = 300;
+    auto color = Color4F(0, 0, 1, 0);
+    if (block()) color = Color4F(1, 0, 0, 0);
+    for (float i = dd.x; i < uu.x; i += 3) {
+        draw->drawLine(Vec3(i, -300, dd.y), Vec3(i, height, dd.y), color);
+    }
+    for (float i = dd.x; i < uu.x; i += 3) {
+        draw->drawLine(Vec3(i, -300, uu.y), Vec3(i, height, uu.y), color);
+    }
+    for (float i = dd.y; i < uu.y; i += 3) {
+        draw->drawLine(Vec3(dd.x, -300, i), Vec3(dd.x, height, i), color);
+    }
+    for (float i = dd.y; i < uu.y; i += 3) {
+        draw->drawLine(Vec3(uu.x, -300, i), Vec3(uu.x, height, i), color);
+    }
+}
+
 World::World() {
     {
         _drawNode = DrawNode3D::create();
         addChild(_drawNode);
     }
     {
-        Terrain::DetailMap r("TerrainTest/dirt.jpg"), g("TerrainTest/Grass2.jpg", 10), b("TerrainTest/road.jpg"), a("TerrainTest/GreenSkin.jpg", 20);
+        Terrain::DetailMap r("TerrainTest/water.jpg"), g("TerrainTest/grass.jpg", 10), b("TerrainTest/road.jpg"), a("TerrainTest/greenskin.jpg", 20);
 
-        Terrain::TerrainData data("TerrainTest/ground.jpg", "TerrainTest/alphamap.png", r, g, b, a, Size(32, 32), 330.0f, 6.f);
+        Terrain::TerrainData data("TerrainTest/ground.jpg", "TerrainTest/alphamap.jpg", r, g, b, a, Size(32, 32), 330.0f, 6.f);
         _terrain = Terrain::create(data, Terrain::CrackFixedType::SKIRT);
         _terrain->setMaxDetailMapAmount(4);
         _terrain->setDrawWire(false);
         _terrain->setSkirtHeightRatio(3);
         _terrain->setLODDistance(64, 128, 192);
         addChild(_terrain);
-        _LogSize("[World]:Terrain size: ", _terrain->getContentSize());
+        //_LogSize("[World]:Terrain size: ", _terrain->getContentSize());
         //_LogVec3("[World]:Terrain center: ", _terrain->getAABB().getCenter());
     }
 
@@ -48,8 +267,8 @@ World::World() {
 
         _camera_fix = Camera::createPerspective(60, g_win_size.width / g_win_size.height, 0.1f, 2000.f);
         _camera_fix->setCameraFlag((CameraFlag)CAMERA_FIX);
-        _camera_fix->setPosition3D(s_camera_offset);
-        _camera_fix->lookAt(Vec3::ZERO);
+        _camera_fix->setPosition3D(Vec3(0, 800, 0));
+        _camera_fix->lookAt(Vec3::ZERO, Vec3(0,0,-1));
         addChild(_camera_fix);
     }
 
@@ -62,6 +281,7 @@ World::World() {
     add_skybox();
 
     load_goods("goods/plant/config");
+    load_goods("goods/plant/config2");
 
     setCameraMask((unsigned short)CAMERA_FIX);
 }
