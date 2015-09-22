@@ -27,11 +27,11 @@ public:
     typedef std::function<void (net_pkg *)> handler;
     typedef unsigned int data_size_t;
     static Client *getInstance();
-    static int s_serverPort;
     static handler s_handlers[MESSAGE::Max_number];
     static net_pkg s_pkg;
-    static std::list<net_pkg *> s_send_list;
+    //static std::list<net_pkg *> s_send_list;
     static std::list<net_pkg *> s_recv_list;
+    static bool s_lock; // lock the recv_list
     static std::function<void()> onDisconnect;
 
     void dispatchMsg(float );
@@ -79,10 +79,11 @@ private:
     Client();
     std::thread *m_thread = nullptr;
     ODSocket *m_sock = nullptr;
-    net_pkg m_pkg_send;
+    //net_pkg m_pkg_send;
     net_pkg m_pkg_recv;
-    bool m_handled = true;
+    //bool m_handled = true;
     bool m_connect = false;
+    int  m_recv_count = 0;
     /*
     net_pkg *m_msgs[MAX_BLOCK_MSG_NUM] = { nullptr };
     int m_get_ptr = 0;

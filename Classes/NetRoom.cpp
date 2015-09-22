@@ -72,6 +72,9 @@ void NetRoom::register_handlers() {
     HANDLER(on_attacked) = Client::handler([](net_pkg *pkg) {
         auto sol = g_soldiers[pkg->arg1]; //Soldier be attacked
         SkillBase *skill = (SkillBase *)pkg->data;
+
+        if (sol->death()) return;
+
         sol->on_skill(skill);
         sol->show_blood_decline(skill->_blood);
 
@@ -91,18 +94,21 @@ void NetRoom::create_soldiers() {
         g_soldiers[i] = Soldier::create(meb); // 创建
         g_soldiers[i]->name_text()->setString(meb->m_name); // 玩家名称
         g_soldiers[i]->name_text()->setColor( i % 2 ?
-                                                Color3B(255, 0, 0) :  // 红队
-                                                Color3B(0, 0, 255));  // 蓝队
+                                                Color3B(255, 0, 0) :  // 蓝队
+                                                Color3B(0, 0, 255));  // 红队
         g_world->add_thing(g_soldiers[i]); // 添加到世界中
+        //g_world->set_position(g_soldiers[i], i % 2 ? 
+                                            //Vec2(103.f, -503.f) :
+                                            //Vec2(246.f, 484.f));
     }
 
     if (_self_id % 2) {  // 蓝队
-        _house_pos = Vec2(103.f, -503);
+        _house_pos = Vec2(103.f, -503.f);
     } else { // 红队
         _house_pos = Vec2(246.f, 484.f);
     }
+
     auto self = g_soldiers[NetRoom::_self_id];
-    g_world->set_position(self, _house_pos);
     g_player = Player::getInstance(self); // 初始化Player
     g_world->addChild(g_player); // 加到景中才能触发定时器
 }

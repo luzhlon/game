@@ -63,7 +63,7 @@ struct room_member {
 }; //房间成员
 
 //最小的包长度
-#define NET_PKG_SIZE (sizeof(mini_net_pkg))
+#define NET_PKG_SIZE (sizeof(mini_net_pkg))  // 12
 //只有一个参数的包的长度
 #define NET_PKG_SIZE_1 (sizeof(unsigned short) * 2 + sizeof(int) * 1)
 //有两个参数的包的长度
@@ -87,7 +87,6 @@ namespace MESSAGE {
         update_angle, //           11
         update_speed,   //           12
         update_blood,      //          13
-        update_visible,    //        14
 
         action_move,   //           14
         action_stop,   //           15

@@ -106,7 +106,7 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
     m_handlers[MESSAGE::update_blood] = handler_update;
 
     m_handlers[MESSAGE::update_position] = handler_update;
-    m_handlers[MESSAGE::update_rotation] = handler_update;
+    m_handlers[MESSAGE::update_angle] = handler_update;
 
     m_handlers[MESSAGE::action_move] = handler_update;
     m_handlers[MESSAGE::action_stop] = handler_update;
@@ -129,32 +129,36 @@ void MsgHandler::onDisconnected() {
 }
 
 void MsgHandler::handle() {
-    auto p = &m_buf;
+    auto pkg = &m_buf;
 
-    auto rest = m_bytes_to_recv;
+    int len = 0;
+    auto rest = m_bytes_to_recv < 0 ? -m_bytes_to_recv : 0;
 
-    do {
-        // 将后续的包移到前面
-        if(rest < 0) {
-            int count = -rest;
-            char *buf = (char *)p;
-            for(int i = 0; i < count; i++)  buf[i] = buf[p->len + i];
-        }
+    // 粘包处理
+    while(true) {
+        rest -= len;
 
         // 处理包
-        if(p->msg < MESSAGE::Max_number) {
-            auto handler = m_handlers[p->msg];
-            if(handler) handler(this, p); //交由子类处理器处理
-            qDebug() << p->msg;
+        if(pkg->msg < MESSAGE::Max_number) {
+            auto handler = m_handlers[pkg->msg];
+            if(handler) handler(this, pkg); //交由子类处理器处理
         } else {
             qDebug() << "[Error message]"
                  << m_socket->peerName();
-            m_socket->disconnectFromHost();
+            //m_socket->disconnectFromHost();
             break;
         }
 
-        rest += p->len; // 待处理的字节数
-    } while(rest < 0);
+        len = pkg->len;
+
+        if (rest > 0) {
+            int len = pkg->len;
+            char *buf = (char *)pkg;
+            for (int i = 0; i < rest; i++) buf[i] = buf[i + len];
+            pkg = (net_pkg *)(buf + len);
+        } else
+            break;
+    }
 }
 
 //异步回调式的完整性接收处理

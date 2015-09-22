@@ -1,6 +1,8 @@
 ﻿#include "Client.h"
 
-int                     Client::s_serverPort = 4321;
+#define SERVER_PORT 4321
+
+bool                    Client::s_lock = false;
 std::list<net_pkg *>    Client::s_recv_list;
 net_pkg                 Client::s_pkg;
 Client::handler         Client::s_handlers[MESSAGE::Max_number];
@@ -25,7 +27,7 @@ bool Client::connect_server() {
     m_sock->Create(AF_INET, SOCK_STREAM, 0);
 
     for(int i = 0; i < 5; i++) {
-        if(m_sock->Connect(g_server_ip, s_serverPort)) {
+        if(m_sock->Connect(g_server_ip, SERVER_PORT)) {
             m_connect = true;
             return true;
         }
@@ -45,10 +47,16 @@ void Client::start() {
 }
 
 void Client::dispatchMsg(float dt) {
-    if (s_recv_list.empty()) return;
+    if (s_lock) return;
+    s_lock = true;
+    if (s_recv_list.empty()) {
+        s_lock = false;
+        return;
+    }
     // 从消息队列前面提取消息
     auto pkg = s_recv_list.front();
     s_recv_list.pop_front();
+    s_lock = false;
     //dispatch
     if (pkg->msg >= MESSAGE::Max_number) return;
 
@@ -74,12 +82,37 @@ bool Client::send(char *buf, int size) {
 
 void Client::threadRecv() {
     connect_server();
+
     while(recv_data()) {
-        char *buf = new char[m_pkg_recv.len];
-        memcpy(buf, &m_pkg_recv, m_pkg_recv.len);
-        s_recv_list.push_back((net_pkg *)buf);
+        int len = 0,
+            rest = m_recv_count - m_pkg_recv.len;
+        auto pkg = &m_pkg_recv;
+
+        while (true) { // 处理粘包
+            rest -= len;
+
+            char *buf = new char[pkg->len];
+            memcpy(buf, pkg, pkg->len);
+            /////////////////////////////////////
+            while (s_lock);
+            s_lock = true;
+            s_recv_list.push_back((net_pkg *)buf);
+            s_lock = false;
+            ////////////////////////////////////
+
+            len = pkg->len;
+
+            if (rest > 0) {
+                int len = pkg->len;
+                char *buf = (char *)pkg;
+                for (int i = 0; i < rest; i++) buf[i] = buf[i + len];
+                pkg = (net_pkg *)(buf + len);
+            } else
+                break;
+        }
+
     }
-QUIT:
+//QUIT:
     cocos2d::log("recv failure");
     delete m_sock;
     m_sock = nullptr;
@@ -92,6 +125,9 @@ bool Client::recv_data() {
     int rev_size = m_sock->Recv(buf, sizeof(net_pkg), 0);
     if(rev_size <= 0) return false;
 
+    m_recv_count = rev_size;
+
+    // 断包处理
     char *p = buf;
     for(int n = m_pkg_recv.len - rev_size; n > 0; ) {
         rev_size = m_sock->Recv((p += rev_size), n);

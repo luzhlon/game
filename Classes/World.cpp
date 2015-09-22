@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Vec3 World::s_camera_offset = Vec3(0.f, 120.f, 90.f); 
+Vec3 World::s_camera_offset = Vec3(0.f, 130.f, 100.f); 
 
 extern Director *g_director;
 extern Size g_win_size;
@@ -501,7 +501,7 @@ void World::camera_move(Vec2& factor) {
             s_camera_offset.y = v_yz.x;
             s_camera_offset.z = v_yz.y; // */
             auto height = s_camera_offset.y + factor.y * 0.1;
-            if (height < 60.f) break;
+            if (height < 80.f) break;
             s_camera_offset.y = height;
         }
         break;
@@ -512,7 +512,13 @@ void World::camera_move(Vec2& factor) {
 void World::camera_follow(Node *node) {
     if (getCameraMask() == CAMERA_FREE) {
         _camera_free->setPosition3D(node->getPosition3D() + s_camera_offset);
-        _camera_free->lookAt(node->getPosition3D());
+        auto pos = node->getPosition3D();
+        auto delta3 = _camera_free->getPosition3D() - pos;
+        Vec2 delta(delta3.x, delta3.z);
+        delta.rotate(Vec2::ZERO, CC_DEGREES_TO_RADIANS(180.f));
+        pos.x += delta.x;
+        pos.z += delta.y;
+        _camera_free->lookAt(pos);
     }
 }
 

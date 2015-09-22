@@ -4,7 +4,7 @@
 
 USING_NS_CC;
 
-class Skill;
+struct Skill;
 
 namespace NetRoom {
     extern int         _self_id;

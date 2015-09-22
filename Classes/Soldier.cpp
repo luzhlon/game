@@ -1,7 +1,7 @@
 ﻿#include "Soldier.h"
 #include "Dialog.h"
 #include "World.h"
-#include "AppDelegate.h"
+//#include "AppDelegate.h"
 #include "ManSoldier.h"
 #include "Man2Soldier.h"
 #include "WomanSoldier.h"
@@ -44,7 +44,7 @@ bool Soldier::do_skill(SkillBase* skill) {
         break;
     case SkillBase::SKILL_SPEED:
         _buff = BUFF_SPEED;
-        move_by(100.f);
+        move_by(80.f);
         break;
     }
 
@@ -91,7 +91,7 @@ bool Soldier::load_config(char *path) {
     };
 
 
-	char buf[1024];
+	//char buf[1024];
     const char *p = str.c_str();
     size_t pos = 0;
     // 加载人物
@@ -132,7 +132,7 @@ void Soldier::set_blood(float blood) {
 }
 
 void Soldier::load_ui() {
-    _billboard = BillBoard::create();
+    _billboard = BillBoard::create(BillBoard::Mode::VIEW_PLANE_ORIENTED);
 
     auto node = CSLoader::createNode("soldier_head_info.csb");
     auto layout = static_cast<Layout *>(node->getChildByTag(1));
@@ -161,13 +161,12 @@ void Soldier::update(float dt) {
 
     do {
     AT_STATE(SOLDIER_STATE_MOVE) {
-        updateRotation();
         //判断和目标位置的距离
         auto pos = getPosition3D();
         auto size = (Vec2(pos.x, pos.z) - Vec2(_target_point.x, _target_point.z)).length();
         if (size < 2.f) { switch_state(SOLDIER_STATE_IDLE); }
         else { updatePosition(dt); }
-        //updateHeight();
+
         break;
     }
     AT_STATE(SOLDIER_STATE_SKILL) {
@@ -201,8 +200,6 @@ void Soldier::updatePosition(float dt) {
     playerPos.x += spd * angle.x * dt;
     playerPos.z += spd * angle.y * dt;
 
-    //auto playerModelMat = getParent()->getNodeToWorldTransform();
-    //playerModelMat.transformPoint(&playerPos);
     Vec3 Normal;
     float player_h = World::getInstance()->terrain()->getHeight(playerPos.x, playerPos.z, &Normal);
     //检测人物是否在地形里
@@ -319,6 +316,8 @@ void Soldier::switch_state(State state, void *data) {
         _target_point.x = (*(Vec2 *)data).x;
         _target_point.z = (*(Vec2 *)data).y;
         _target_point.y = World::getInstance()->terrain()->getHeight(*(Vec2 *)data);
+
+        updateRotation();
 
         AT_STATE(SOLDIER_STATE_MOVE) break;
         _state = SOLDIER_STATE_MOVE;

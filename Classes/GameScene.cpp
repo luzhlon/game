@@ -65,12 +65,13 @@ bool GameScene::init()
 
     NetRoom::init();
 
+    /* Have BUG
     Client::onDisconnect = [this]() {
         Dialog::getInstance()->setCallback(Dialog::Callback([](Dialog *dlg, bool ok) {
             Director::getInstance()->popScene();
         }));
         Dialog::getInstance()->Popup_t(this, "ERROR", "与服务器失去连接");
-    };
+    }; // */
 
     return true;
 }
@@ -178,6 +179,16 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
             } else {
                 log("[World] get Space coordinate failure.");
             }
+        } else {
+            // 自由视角下设置人物朝向
+            if (g_world->getCameraMask() == World::CAMERA_FREE &&
+                g_self->state() == Soldier::SOLDIER_STATE_IDLE) {
+
+                Vec2 delta(World::s_camera_offset.x, World::s_camera_offset.z);
+                auto angle = CC_RADIANS_TO_DEGREES(delta.getAngle());
+                angle += 180.f;
+                NetRoom::set_angle(angle);
+            }
         }
     }
     break;
@@ -187,17 +198,6 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
         auto dt = pos_cur - pos_last;
 
         g_world->camera_move(dt);
-
-        // 自由视角下设置人物朝向
-        if (g_world->getCameraMask() == World::CAMERA_FREE &&
-            fabs(dt.x) > fabs(dt.y) &&
-            g_self->state() == Soldier::SOLDIER_STATE_IDLE) {
-
-            Vec2 delta(World::s_camera_offset.x, World::s_camera_offset.z);
-            auto angle = CC_RADIANS_TO_DEGREES(delta.getAngle());
-            angle += 180.f;
-            NetRoom::set_angle(angle);
-        }
 
         pos_last = pos_cur;
     }
