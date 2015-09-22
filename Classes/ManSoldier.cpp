@@ -2,8 +2,7 @@
 
 bool ManSoldier::init_soldier() {
     initWithFile("man/man.c3b");
-    setScale(0.1f);
-    _height_offset = 0.f;
+
     _name = "Man";
     _role_id = SOLDIER_TYPE_MAN;
 

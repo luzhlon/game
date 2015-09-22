@@ -16,7 +16,7 @@ public:
     MsgHandler(QTcpSocket *);
     ~MsgHandler();
 
-    void handle(net_pkg *p = 0); //总的 处理消息
+    void handle(); //总的 处理消息
     void loopHandle(); //开始循环处理用户消息
     inline bool endHandle() { //结束处理？
         return m_end;

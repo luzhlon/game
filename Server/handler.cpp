@@ -100,12 +100,17 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
     auto handler_update = [](MsgHandler *self, net_pkg *pkg) {
         self->member()->room()->broadcast(pkg, pkg->len);
     };
+
     m_handlers[MESSAGE::update_state] = handler_update;
     m_handlers[MESSAGE::update_speed] = handler_update;
     m_handlers[MESSAGE::update_blood] = handler_update;
+
     m_handlers[MESSAGE::update_position] = handler_update;
+    m_handlers[MESSAGE::update_rotation] = handler_update;
+
     m_handlers[MESSAGE::action_move] = handler_update;
     m_handlers[MESSAGE::action_stop] = handler_update;
+
     m_handlers[MESSAGE::do_skill] = handler_update;
     m_handlers[MESSAGE::on_attacked] = handler_update;
 }
@@ -123,15 +128,33 @@ void MsgHandler::onDisconnected() {
     delete this;
 }
 
-void MsgHandler::handle(net_pkg *p) {
-    p = p ? p : &m_buf;
-    if(p->msg < MESSAGE::Max_number) {
-        auto handler = m_handlers[p->msg];
-        if(handler) handler(this, p); //交由子类处理器处理
-    } else {
-        qDebug() << "[Error message]"
+void MsgHandler::handle() {
+    auto p = &m_buf;
+
+    auto rest = m_bytes_to_recv;
+
+    do {
+        // 将后续的包移到前面
+        if(rest < 0) {
+            int count = -rest;
+            char *buf = (char *)p;
+            for(int i = 0; i < count; i++)  buf[i] = buf[p->len + i];
+        }
+
+        // 处理包
+        if(p->msg < MESSAGE::Max_number) {
+            auto handler = m_handlers[p->msg];
+            if(handler) handler(this, p); //交由子类处理器处理
+            qDebug() << p->msg;
+        } else {
+            qDebug() << "[Error message]"
                  << m_socket->peerName();
-    }
+            m_socket->disconnectFromHost();
+            break;
+        }
+
+        rest += p->len; // 待处理的字节数
+    } while(rest < 0);
 }
 
 //异步回调式的完整性接收处理
@@ -142,21 +165,21 @@ bool MsgHandler::Recv() {
 
     bool isHead = m_bytes_to_recv <= 0; //是否为接收头信息
 
+
     if(isHead) {
         to_recv = MAX_PKG_LENGTH + NET_PKG_SIZE;
         m_buf_to_recv = (char *)pkg;
-    } else {
+    } else { // 断包情况处理
         to_recv = m_bytes_to_recv;
         m_buf_to_recv += m_bytes_to_recv;
     }
 
     rev_size = m_socket->read(m_buf_to_recv, to_recv);
-    Q_ASSERT(rev_size > 0);
 
     if(isHead) {
         Q_ASSERT(pkg->len < MAX_PKG_LENGTH);
         m_bytes_to_recv = pkg->len - rev_size;
-    } else {
+    } else { // 断包情况处理
         m_bytes_to_recv -= rev_size;
     }
 

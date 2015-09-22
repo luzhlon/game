@@ -2,12 +2,13 @@
 #include "AppDelegate.h"
 
 bool WomanSoldier::init_soldier() {
-    _height_offset = 0.f;
-    _name = "Woman";
-    _role_id = SOLDIER_TYPE_WOMAN;
 
     string path = FileUtils::getInstance()->fullPathForFilename("girl/config");
     CC_ASSERT(load_config((char *)path.c_str()));
+
+    _name = "Woman";
+    _role_id = SOLDIER_TYPE_WOMAN;
+
     //load_actions();
 
     return true;

@@ -73,22 +73,27 @@ struct room_member {
 namespace MESSAGE {
     enum {
         authentication = 0,
-        room_list, //房间列表
-        create_room, //创建房间
-        join_room , //加入房间
-        quit_room , //退出房间
-        room_members, //房间成员信息
-        start_game, //开始游戏
-        set_ready, //设置准备状态
-        set_team, //设置队伍
-        update_state,
-        update_position,
-        update_speed,
-        update_blood,
-        action_move,
-        action_stop,
-        do_skill,
-        on_attacked,
+        room_list, //房间列表      1
+        create_room, //创建房间    2
+        join_room , //加入房间     3
+        quit_room , //退出房间     4
+        room_members, //房间成员信息    5
+        start_game, //开始游戏     6
+        set_ready, //设置准备状态    7
+        set_team, //设置队伍          8
+
+        update_state,               // 9
+        update_position,  //          10
+        update_angle, //           11
+        update_speed,   //           12
+        update_blood,      //          13
+        update_visible,    //        14
+
+        action_move,   //           14
+        action_stop,   //           15
+
+        do_skill,  //                16
+        on_attacked,  //             17
 
         Max_number //消息的最大数目
     }; //主连接消息

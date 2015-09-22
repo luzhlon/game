@@ -1,6 +1,5 @@
 ﻿#include "Soldier.h"
 #include "Dialog.h"
-#include "Skill.h"
 #include "World.h"
 #include "AppDelegate.h"
 #include "ManSoldier.h"
@@ -8,11 +7,7 @@
 #include "WomanSoldier.h"
 
 Soldier *Soldier::s_followed = nullptr;
-const float Soldier::s_full_blood = 100.f;
 extern World *g_world;
-
-#define ACTION_MOVE 0
-#define ACTION_WALK 1
 
 Soldier *Soldier::create(int type_id) {
     switch (type_id) {
@@ -30,26 +25,29 @@ Soldier *Soldier::create(int type_id) {
 
 bool Soldier::do_skill(SkillBase* skill) {
     move_stop();
+
     switch (skill->_type) {
     case SkillBase::SKILL_BOXING:
         stopAllActions();
         runAction(m_act_boxing);
+        _state = SOLDIER_STATE_SKILL;
         break;
     case SkillBase::SKILL_KICK:
         stopAllActions();
         runAction(m_act_kick);
+        _state = SOLDIER_STATE_SKILL;
         break;
     case SkillBase::SKILL_SPECIAL:
         stopAllActions();
         runAction(m_act_special);
+        _state = SOLDIER_STATE_SKILL;
+        break;
+    case SkillBase::SKILL_SPEED:
+        _buff = BUFF_SPEED;
+        move_by(100.f);
         break;
     }
-    return true;
-}
 
-bool Soldier::be_injured(SkillBase *skill) {
-    _blood -= skill->_dec_blood;
-    set_blood(_blood);
     return true;
 }
 
@@ -125,7 +123,12 @@ bool Soldier::load_config(char *path) {
 
 void Soldier::set_blood(float blood) {
     _blood = blood;
-    blood_bar()->setPercent(_blood / s_full_blood * 100.f);
+    if (_blood > _full_blood) _blood = _full_blood;
+    if (_blood < 0.f) _blood = 0.f;
+
+    if(0.f == _blood) switch_state(SOLDIER_STATE_DEATH);
+
+    blood_bar()->setPercent(_blood / _full_blood * 100.f);
 }
 
 void Soldier::load_ui() {
@@ -140,7 +143,7 @@ void Soldier::load_ui() {
     _billboard->setPosition3D(Vec3(0.f, 270.f, 0.f));
     add_thing(_billboard);
 
-    blood_bar()->setPercent(_blood * 100.f / s_full_blood);
+    blood_bar()->setPercent(_blood * 100.f / _full_blood);
     blood_dec_text()->setVisible(false);
 }
 
@@ -149,24 +152,27 @@ void Soldier::begin_fight() {
     scheduleUpdate();
 }
 
-#define AT_STATE(_state) if(atState(_state))
+//#define AT_STATE(_state) if(atState(_state))
+#define AT_STATE(STATE) if(this->_state == STATE)
 
 void Soldier::update(float dt) {
     auto world = World::getInstance();
-    auto terrain = world->getTerrain();
+    auto terrain = world->terrain();
 
     do {
     AT_STATE(SOLDIER_STATE_MOVE) {
         updateRotation();
         //判断和目标位置的距离
-        if ((getPosition3D() - _target_point).length() < 1.f) { move_stop(); }
+        auto pos = getPosition3D();
+        auto size = (Vec2(pos.x, pos.z) - Vec2(_target_point.x, _target_point.z)).length();
+        if (size < 2.f) { switch_state(SOLDIER_STATE_IDLE); }
         else { updatePosition(dt); }
         //updateHeight();
         break;
     }
-    AT_STATE(SOLDIER_STATE_ACTION) {
-        if (_cur_action->isDone()) {
-            rmState(SOLDIER_STATE_ACTION);
+    AT_STATE(SOLDIER_STATE_SKILL) {
+        if (!getNumberOfRunningActions()) { // 动作已经做完了
+            switch_state(SOLDIER_STATE_IDLE);
         }
         break;
     }
@@ -179,25 +185,8 @@ void Soldier::updateRotation() {
     Vec3 rota = getRotation3D();
     auto delta = _target_point - getPosition3D();
     rota.y = CC_RADIANS_TO_DEGREES(Vec2(delta.x, delta.z).getAngle()) + _base_angle;
+
     setRotation3D(rota);
-}
-
-void Soldier::updateHeight() {
-    auto playerPos = getPosition3D();
-
-    auto playerModelMat = getParent()->getNodeToWorldTransform();
-    playerModelMat.transformPoint(&playerPos);
-    Vec3 Normal;
-    float player_h = World::getInstance()->getTerrain()->getHeight(playerPos.x, playerPos.z, &Normal);
-    //check the player whether is out of the terrain
-    if (Normal.isZero()) {
-        move_stop();
-    }
-    else {
-        player_h += getHeightOffset();
-        playerPos.y = player_h;
-        setPosition3D(playerPos);
-    }
 }
 
 void Soldier::updatePosition(float dt) {
@@ -207,22 +196,33 @@ void Soldier::updatePosition(float dt) {
     Vec2 angle(delta.x, delta.z);
     angle.normalize();
 
-    playerPos.x += speed() * angle.x * dt;
-    playerPos.z += speed() * angle.y * dt;
+    auto spd = _buff == BUFF_SPEED ? 300.f : speed();
+
+    playerPos.x += spd * angle.x * dt;
+    playerPos.z += spd * angle.y * dt;
 
     //auto playerModelMat = getParent()->getNodeToWorldTransform();
     //playerModelMat.transformPoint(&playerPos);
     Vec3 Normal;
-    float player_h = World::getInstance()->getTerrain()->getHeight(playerPos.x, playerPos.z, &Normal);
-    //check the player whether is out of the terrain
+    float player_h = World::getInstance()->terrain()->getHeight(playerPos.x, playerPos.z, &Normal);
+    //检测人物是否在地形里
     if (Normal.isZero()) {
         player_h = playerPos.y;
-    }
-    else {
-        player_h += getHeightOffset();
+    } else {
         playerPos.y = player_h;
-        setPosition3D(playerPos);
+        // 碰撞检测
+        if (World::getInstance()->is_collision(playerPos)) {
+            return;
+        }
+        else {
+            setPosition3D(playerPos);
+        }
     }
+}
+
+bool Soldier::on_skill(SkillBase *skill) { // 受到某个技能攻击时
+    add_blood(skill->_blood);
+    return true;
 }
 
 void Soldier::show_blood_decline(float dec) {
@@ -273,6 +273,38 @@ Text *Soldier::name_text() {
     return textName;
 }
 
+Skill *Soldier::get_skill(Skill::Type type) {
+    auto skill = new Skill();
+    skill->_type = type;
+
+    switch (type) {
+    case Skill::SKILL_BOXING:
+        skill->_blood = -5.f;
+        skill->_cool_time = 3.f;
+        skill->_distance = 70.f;
+        break;
+    case Skill::SKILL_KICK:
+        skill->_blood = -8.f;
+        skill->_cool_time = 4.f;
+        skill->_distance = 60.f;
+        break;
+    case Skill::SKILL_SPECIAL:
+        skill->_blood = -13.f;
+        skill->_cool_time = 5.f;
+        skill->_distance = 50.f;
+        skill->_magic_dec = -15.f;
+        break;
+    case Skill::SKILL_SPEED:
+        //skill->_blood = -5.f;
+        skill->_cool_time = 5.f;
+        skill->_magic_dec = -10.f;
+        //skill->_distance = 30.f;
+        break;
+    }
+
+    return skill;
+}
+
 Text *Soldier::blood_dec_text() {
     auto layout = static_cast<Layout *>(_billboard->getChildByTag(1));
     auto text = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_dec_blood"));
@@ -280,33 +312,47 @@ Text *Soldier::blood_dec_text() {
     return text;
 }
 
-void Soldier::move_stop() {
-    switch_state(SOLDIER_STATE_IDLE);
-}
-
-void Soldier::move(Vec3& target) {
-    switch_state(SOLDIER_STATE_MOVE, &target);
-}
-
 void Soldier::switch_state(State state, void *data) {
     switch (state) {
     case Soldier::SOLDIER_STATE_MOVE:
     {
-        _target_point = *(Vec3 *)data;
-        if (atState(SOLDIER_STATE_MOVE)) break;
-        addState(SOLDIER_STATE_MOVE);
-        rmState(SOLDIER_STATE_IDLE);
+        _target_point.x = (*(Vec2 *)data).x;
+        _target_point.z = (*(Vec2 *)data).y;
+        _target_point.y = World::getInstance()->terrain()->getHeight(*(Vec2 *)data);
+
+        AT_STATE(SOLDIER_STATE_MOVE) break;
+        _state = SOLDIER_STATE_MOVE;
+
         stopAllActions();
         runAction(m_act_walk);
         break;
     }
     case Soldier::SOLDIER_STATE_IDLE:
     {
-        rmState(SOLDIER_STATE_MOVE);
-        addState(SOLDIER_STATE_IDLE);
+        _buff = BUFF_NULL;
+        _state = SOLDIER_STATE_IDLE;
+
         stopAllActions();
         runAction(m_act_idle);
         break;
     }
+    case Soldier::SOLDIER_STATE_SKILL:
+        _state = SOLDIER_STATE_SKILL;
+        break;
+    case Soldier::SOLDIER_STATE_DEATH:
+        _state = SOLDIER_STATE_DEATH;
+        if (_on_death) _on_death(this);
+        break;
     }
+}
+
+void Soldier::move_by(float distance) {
+    Vec2 v(distance, 0);
+
+    v.rotate(Vec2::ZERO, CC_DEGREES_TO_RADIANS(this->angle()));
+
+    _target_point.x += v.x;
+    _target_point.z += v.y;
+
+    _state = SOLDIER_STATE_MOVE;
 }

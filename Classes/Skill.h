@@ -13,64 +13,26 @@ public:
         SKILL_BOXING = 0,
         SKILL_KICK,
         SKILL_SPECIAL,
+        SKILL_SPEED,
 
         NUMBER_SKILL
     };
-    SkillBase(Type type, float dec_blood, float dec_distance)
-        : _type(type), _dec_blood(dec_blood), _dec_distance(dec_distance) {}
 
-    float _dec_blood = 0.f; // 伤害
-    float _dec_distance = 0.f; // 距离
+    float _blood = 0.f; // 对血量的影响
     float _delay_time = 0.f; // 伤害延时
     Type _type = (Type)(-1);
 };
 
-class Skill : public SkillBase {
-public:
-    Skill(Type type, float dec_blood, float cool_time, float dec_distance)
-        : SkillBase(type, dec_blood, dec_distance), _cool_time(cool_time) {}
-
+struct Skill : public SkillBase {
+    float _distance = 0.f; // 造成伤害的距离范围
+    float _angle = 45.f; // 造成伤害的角度范围
     float _cool_time = 0.f;  // 冷却时间
-};
+    float _magic_dec = 0.f; // 魔力值消耗
+    void cooling(); // 冷却
+    bool is_cooling(); // 是否正在冷却
 
-class SkillUi : public Skill {
-public:
-    SkillUi(Type type, float dec_blood, float cool_time, float dec_distance, Button *button)
-        : Skill(type, dec_blood, cool_time, dec_distance), _button(button) {
-        CC_ASSERT(_button);
-    }
 
-    void cooling(float time); // 冷却
-    bool cooling(); // 是否正在冷却
-
-    virtual void onSkillClicked(Ref *ref) {};
-
-    Button *_button;
-};
-
-class SkillBoxing : public SkillUi {
-public:
-    SkillBoxing(Button *button)
-        : SkillUi(SKILL_BOXING, 5.f, 3.f, 30.f, button) {
-        button->addClickEventListener(CC_CALLBACK_1(SkillBoxing::onSkillClicked, this));
-    }
-    void onSkillClicked(Ref *ref) override;
-};
-class SkillKick : public SkillUi {
-public:
-    SkillKick(Button *button)
-        : SkillUi(SKILL_KICK, 8.f, 4.f, 40.f, button) {
-        button->addClickEventListener(CC_CALLBACK_1(SkillKick::onSkillClicked, this));
-    }
-    void onSkillClicked(Ref *ref) override;
-};
-class SkillSpecial : public SkillUi {
-public:
-    SkillSpecial(Button *button)
-        : SkillUi(SKILL_SPECIAL, 13.f, 5.f, 20.f, button) {
-        button->addClickEventListener(CC_CALLBACK_1(SkillSpecial::onSkillClicked, this));
-    }
-    void onSkillClicked(Ref *ref) override;
+    Button *_button = nullptr;
 };
 
 #endif /* __SKILL_H__ */

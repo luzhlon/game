@@ -1,14 +1,13 @@
 #include "Man2Soldier.h"
 
 bool Man2Soldier::init_soldier() {
-    initWithFile("man2/man2.c3b");
-    setScale(0.1f);
-    _height_offset = 0.f;
+    //initWithFile("man2/man2.c3b");
+    string path = FileUtils::getInstance()->fullPathForFilename("man2/config");
+    CC_ASSERT(load_config((char *)path.c_str()));
+
     _name = "Man2";
     _role_id = SOLDIER_TYPE_MAN2;
 
-    string path = FileUtils::getInstance()->fullPathForFilename("man2/config");
-    CC_ASSERT(load_config((char *)path.c_str()));
     //load_actions();
 
     return true;

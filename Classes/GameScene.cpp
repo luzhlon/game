@@ -1,6 +1,7 @@
 ﻿#include "World.h"
 #include "Skill.h"
 #include "Client.h"
+#include "Dialog.h"
 #include "Player.h"
 #include "AppDelegate.h"
 #include "GameScene.h"
@@ -22,6 +23,13 @@ extern Soldier *g_self;
 Soldier *g_soldiers[MAX_ROOM_MEMBERS];
 
 ImageView *GameScene::s_image_direction = nullptr; // 小地图中的方向图标
+LoadingBar *GameScene::s_load_magic = nullptr;
+Button *GameScene::s_btn_boxing = nullptr;
+Button *GameScene::s_btn_kick = nullptr;
+Button *GameScene::s_btn_special = nullptr;
+Button *GameScene::s_btn_speed = nullptr;
+Text *GameScene::s_text_score_red = nullptr;
+Text *GameScene::s_text_score_blue = nullptr;
 
 Scene* GameScene::createScene() {
     auto scene = Scene::create();
@@ -50,12 +58,19 @@ bool GameScene::init()
     g_world = World::getInstance();
     g_client = Client::getInstance();
 
-    _node_editor = CSLoader::createNode("game_scene.csb");
+    auto node = CSLoader::createNode("game_scene.csb");
 
     load_world();
-    load_ui();
-    //create_soldiers();
+    load_ui(node);
+
     NetRoom::init();
+
+    Client::onDisconnect = [this]() {
+        Dialog::getInstance()->setCallback(Dialog::Callback([](Dialog *dlg, bool ok) {
+            Director::getInstance()->popScene();
+        }));
+        Dialog::getInstance()->Popup_t(this, "ERROR", "与服务器失去连接");
+    };
 
     return true;
 }
@@ -63,23 +78,39 @@ bool GameScene::init()
 extern void _LogSize(const char *desc, const Size& size);
 extern void _LogVec3(const char *desc, Vec3& v3);
 
-void GameScene::load_ui() {
-    m_layer_ui = load_layer(_node_editor, 2);
-    CC_ASSERT(m_layer_ui);
-    m_layer_ui->removeFromParent();
+void GameScene::load_ui(Node *root) {
+    auto layer_ui = load_layer(root, 2);
+    //CC_ASSERT(m_layer_ui);
+    layer_ui->removeFromParent();
+    addChild(layer_ui);
 
-    auto layout = get_layout(m_layer_ui);
+    auto layout = get_layout(layer_ui);
 
 	setTouchCallback(layout, "layout_layer", CC_CALLBACK_2(GameScene::onLayerTouched, this));
 	setTouchCallback(layout, "layout_scroll", CC_CALLBACK_2(GameScene::onScrollTouched, this));
 
 	_output = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_output"));
 	_input = static_cast<TextField *>(Helper::seekWidgetByName(layout, "edit_input"));
-    CC_ASSERT(_output);
-    CC_ASSERT(_input);
-
+    //CC_ASSERT(_output);
+    //CC_ASSERT(_input);
     s_image_direction = static_cast<ImageView *>(Helper::seekWidgetByName(layout, "image_direction"));
-    CC_ASSERT(s_image_direction);
+    //CC_ASSERT(s_image_direction);
+    s_btn_kick = static_cast<Button *>(Helper::seekWidgetByName(layout,  "button_skill_kick"));
+    s_btn_kick->addClickEventListener(Player::onSkillClicked);
+    s_btn_boxing = static_cast<Button *>(Helper::seekWidgetByName(layout,  "button_skill_boxing"));
+    s_btn_boxing->addClickEventListener(Player::onSkillClicked);
+    s_btn_special = static_cast<Button *>(Helper::seekWidgetByName(layout,  "button_skill_special"));
+    s_btn_special->addClickEventListener(Player::onSkillClicked);
+    s_btn_speed = static_cast<Button *>(Helper::seekWidgetByName(layout,  "button_skill_speed"));
+    s_btn_speed->addClickEventListener(Player::onSkillClicked);
+
+    s_load_magic = static_cast<LoadingBar *>(Helper::seekWidgetByName(layout,  "loadbar_magic"));
+    CC_ASSERT(s_load_magic);
+    s_text_score_red = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_score_red"));
+    CC_ASSERT(s_text_score_red);
+    s_text_score_blue = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_score_blue"));
+    CC_ASSERT(s_text_score_blue);
+
     //鼠标监听
     auto mouse_listener = EventListenerMouse::create();
     mouse_listener->onMouseScroll = CC_CALLBACK_1(GameScene::onMouseScroll, this);
@@ -89,12 +120,10 @@ void GameScene::load_ui() {
     setClickCallback(layout, "button_1", [this](Ref *ref) {
 	});
     setClickCallback(layout, "button_2", [this](Ref *ref) {
-		auto s = (WomanSoldier *)g_self;
         g_self->show_blood_decline(35.f);
 		//s->action_walk();
 	});
     setClickCallback(layout, "button_3", [this](Ref *ref) {
-		auto s = (WomanSoldier *)g_self;
         //draw cube
         Vec3 v[8];
         g_self->getAABB().getCorners(v);
@@ -106,21 +135,16 @@ void GameScene::load_ui() {
 	});
     setClickCallback(layout, "button_camera", [this](Ref *ref) {
         //g_player->draw_circle(100.f);
-        if (g_world->getCameraMask() == World::CAMERA_I) {
+        if (g_world->getCameraMask() == World::CAMERA_FREE) {
             g_world->setCameraMask(World::CAMERA_FIX);
         }
         else {
-            g_world->setCameraMask(World::CAMERA_I);
+            g_world->setCameraMask(World::CAMERA_FREE);
             auto pos = g_self->getPosition3D();
             log("[Soldier pos] %g %g %g", pos.x, pos.y, pos.z);
         }
 	});
 
-    Player::skill_kick = new SkillKick(static_cast<Button *>(Helper::seekWidgetByName(layout,  "button_skill_kick")));
-    Player::skill_boxing = new SkillBoxing(static_cast<Button *>(Helper::seekWidgetByName(layout,  "button_skill_boxing")));
-    Player::skill_special = new SkillSpecial(static_cast<Button *>(Helper::seekWidgetByName(layout,  "button_skill_special")));
-
-    addChild(m_layer_ui);
 }
 
 void GameScene::ui2gl(Vec2& v) {
@@ -148,9 +172,9 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
             ui2gl(pos);
             Vec3 point(pos.x, pos.y, 0.f);
             if (g_world->conv2space(point)){
-                NetRoom::action_move(point);
+                NetRoom::action_move(Vec2(point.x, point.z));
                 point.y += 1.f;
-                g_world->show_point(point);
+                g_world->show_click(point);
             } else {
                 log("[World] get Space coordinate failure.");
             }
@@ -163,6 +187,17 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
         auto dt = pos_cur - pos_last;
 
         g_world->camera_move(dt);
+
+        // 自由视角下设置人物朝向
+        if (g_world->getCameraMask() == World::CAMERA_FREE &&
+            fabs(dt.x) > fabs(dt.y) &&
+            g_self->state() == Soldier::SOLDIER_STATE_IDLE) {
+
+            Vec2 delta(World::s_camera_offset.x, World::s_camera_offset.z);
+            auto angle = CC_RADIANS_TO_DEGREES(delta.getAngle());
+            angle += 180.f;
+            NetRoom::set_angle(angle);
+        }
 
         pos_last = pos_cur;
     }
@@ -210,5 +245,5 @@ void GameScene::onMouseScroll(Event* event) {
 }
 
 void GameScene::set_small_direction(float angle) {
-    s_image_direction->runAction(RotateTo::create(0.3f, angle));
+    s_image_direction->runAction(RotateTo::create(0.1f, angle));
 }

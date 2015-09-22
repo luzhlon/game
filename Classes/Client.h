@@ -32,6 +32,7 @@ public:
     static net_pkg s_pkg;
     static std::list<net_pkg *> s_send_list;
     static std::list<net_pkg *> s_recv_list;
+    static std::function<void()> onDisconnect;
 
     void dispatchMsg(float );
 

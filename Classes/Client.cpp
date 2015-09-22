@@ -5,6 +5,8 @@ std::list<net_pkg *>    Client::s_recv_list;
 net_pkg                 Client::s_pkg;
 Client::handler         Client::s_handlers[MESSAGE::Max_number];
 
+std::function<void()> Client::onDisconnect;
+
 Client::Client() {
     ODSocket::Init();
 }
@@ -82,6 +84,7 @@ QUIT:
     delete m_sock;
     m_sock = nullptr;
     m_connect = false;
+    if (onDisconnect) onDisconnect();
 }
 
 bool Client::recv_data() {
