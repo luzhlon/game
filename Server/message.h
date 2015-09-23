@@ -94,6 +94,10 @@ namespace MESSAGE {
         do_skill,  //                16
         on_attacked,  //             17
 
+        update_grass, //           18
+        add_goods,     //       19
+        dec_goods,        //     20
+
         Max_number //消息的最大数目
     }; //主连接消息
 }

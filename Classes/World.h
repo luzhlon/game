@@ -1,6 +1,7 @@
 #ifndef __WORLD_H__
 #define __WORLD_H__
 
+#include <functional>
 #include "cocos2d.h"
 #include "DrawNode3D.h"
 #include "Particle3D/PU/CCPUParticleSystem3D.h"
@@ -58,6 +59,34 @@ public:
 #endif
 };
 
+struct Goods {
+    enum Type {
+        GRASS = 0,
+
+        TYPE_NUMBER
+    };
+    Goods(Type t) { type = t; }
+    Goods() {};
+
+    virtual Vec2 get_position() { return Vec2::ZERO; }
+
+    Type type;
+    int  count;
+    int  index;
+};
+
+struct GoodsGrass : public Goods {
+    GoodsGrass();
+    ~GoodsGrass();
+
+    Vec2 get_position() override {
+        auto p3 = _sprite->getPosition3D();
+        return Vec2(p3.x, p3.z);
+    }
+
+    Sprite3D *_sprite = nullptr;
+};
+
 class World : public Node
 {
 public:
@@ -102,7 +131,17 @@ public:
     inline void add_thing(Node *node, Vec3& pos) {
         return add_thing(node, pos.x, pos.z);
     }
+    inline void on_gen_goods(std::function<void(Goods*)> cb) {
+        _on_gen_goods = cb;
+    }
 
+    void update_goods(float dt); // 更新物品
+
+    int goods_count();
+    void dec_goods(Goods *good); // 
+    void add_goods(Goods *good); 
+
+    bool get_goods(Vec2& pos, Goods *);
 
     void show_click(const Vec3& v);
     bool conv2space(Vec3& v); //ignore v.z
@@ -118,7 +157,9 @@ private:
 
     DrawNode3D *_drawNode;
     PUParticleSystem3D *_pu_click_point;
-};
+
+    Goods *_goods[20];
+    std::function<void(Goods *)> _on_gen_goods  = nullptr;
 
 
 #endif /* __WORLD_H__ */

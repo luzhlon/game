@@ -24,11 +24,16 @@ namespace NetRoom {
 void NetRoom::init() {
     register_handlers();
     create_soldiers();
+
+    g_world->on_gen_goods([](Goods *goods) {
+        add_goods(goods);
+    });
 }
 
 void NetRoom::register_handlers() {
     HANDLER(update_state) = Client::handler([](net_pkg *pkg) {
         auto sol = g_soldiers[pkg->arg1];
+        sol->switch_state((Soldier::State)pkg->arg2);
         //sol->target_point(*(Vec3 *)(pkg->data));
         //sol->addState((Soldier::State)pkg->arg2);
     });
@@ -55,7 +60,6 @@ void NetRoom::register_handlers() {
     });
     HANDLER(action_move) = Client::handler([](net_pkg *pkg) {
         auto sol = g_soldiers[pkg->arg1];
-        //sol->switch_state(Soldier::SOLDIER_STATE_MOVE, pkg->data);
         sol->move_to(*(Vec2 *)pkg->data);
 
         if(pkg->arg1 == _self_id) 
@@ -81,6 +85,17 @@ void NetRoom::register_handlers() {
         if (pkg->arg1 == _self_id) {
             set_blood(sol->blood()); // 在房间里更新自己的血量
         }
+    });
+    HANDLER(update_grass) = Client::handler([](net_pkg *pkg) {
+        auto sol = g_soldiers[pkg->arg1]; 
+        if (pkg->arg1 == _self_id) g_player->set_grass(pkg->arg2);
+        else  sol->grass(pkg->arg2);
+    });
+    HANDLER(add_goods) = Client::handler([](net_pkg *pkg) {
+        g_world->add_goods((Goods *)pkg->data);
+    });
+    HANDLER(dec_goods) = Client::handler([](net_pkg *pkg) {
+        g_world->dec_goods((Goods *)pkg->data);
     });
 }
 
@@ -111,6 +126,7 @@ void NetRoom::create_soldiers() {
     auto self = g_soldiers[NetRoom::_self_id];
     g_player = Player::getInstance(self); // 初始化Player
     g_world->addChild(g_player); // 加到景中才能触发定时器
+    set_grass(self->grass());
 }
 
 void NetRoom::action_move(Vec2& pos) {
@@ -167,6 +183,8 @@ void NetRoom::do_skill(Skill *skill) {
         if (!s) continue;
         if (s->member()->is_empty()) continue;
 
+        if (s->death()) continue; // 对方已经死亡
+
         auto self = g_soldiers[_self_id];
         auto delta3 = s->getPosition3D() - self->getPosition3D();
         Vec2 delta(delta3.x, delta3.z);
@@ -175,9 +193,38 @@ void NetRoom::do_skill(Skill *skill) {
         auto angle = CC_RADIANS_TO_DEGREES(delta.getAngle()) - self->angle(); 
         angle = fabs(angle); // 相差角度
 
-        if (distance <= skill->_distance && angle <= skill->_angle) {
+        if (distance <= skill->_distance && angle <= skill->_angle) { //在技能的攻击范围内
             _pkg.arg1 = i;
             g_client->sendMsg(&_pkg, sizeof(mini_net_pkg)+sizeof(SkillBase)); // 发动攻击
         }
     }
+}
+
+void NetRoom::set_state(Soldier::State state) {
+    _pkg.msg = MESSAGE::update_state;
+    _pkg.arg1 = _self_id;
+    _pkg.arg2 = state;
+    //*(float *)_pkg.data = blood;
+    g_client->sendMsg(&_pkg, sizeof(mini_net_pkg));
+}
+
+void NetRoom::set_grass(int count) {
+    _pkg.msg = MESSAGE::update_grass;
+    _pkg.arg1 = _self_id;
+    _pkg.arg2 = count;
+    //*(float *)_pkg.data = blood;
+    g_client->sendMsg(&_pkg, sizeof(mini_net_pkg));
+}
+
+void NetRoom::add_goods(Goods *good) {
+    _pkg.msg = MESSAGE::add_goods;
+    _pkg.arg1 = _self_id;
+    memcpy(_pkg.data, good, sizeof(Goods));
+    g_client->sendMsg(&_pkg, sizeof(mini_net_pkg)+sizeof(Goods));
+}
+void NetRoom::dec_goods(Goods *good) {
+    _pkg.msg = MESSAGE::dec_goods;
+    _pkg.arg1 = _self_id;
+    memcpy(_pkg.data, good, sizeof(Goods));
+    g_client->sendMsg(&_pkg, sizeof(mini_net_pkg)+sizeof(Goods));
 }

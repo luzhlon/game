@@ -126,7 +126,8 @@ void Soldier::set_blood(float blood) {
     if (_blood > _full_blood) _blood = _full_blood;
     if (_blood < 0.f) _blood = 0.f;
 
-    if(0.f == _blood) switch_state(SOLDIER_STATE_DEATH);
+    if(0.f == _blood) 
+        if (_on_death) _on_death(this);
 
     blood_bar()->setPercent(_blood / _full_blood * 100.f);
 }
@@ -340,18 +341,28 @@ void Soldier::switch_state(State state, void *data) {
         break;
     case Soldier::SOLDIER_STATE_DEATH:
         _state = SOLDIER_STATE_DEATH;
-        if (_on_death) _on_death(this);
+        setVisible(false);
+        break;
+    case SOLDIER_STATE_REVIVE:
+        setVisible(true);
+        switch_state(SOLDIER_STATE_IDLE);
         break;
     }
 }
 
 void Soldier::move_by(float distance) {
-    Vec2 v(distance, 0);
-
-    v.rotate(Vec2::ZERO, CC_DEGREES_TO_RADIANS(this->angle()));
-
-    _target_point.x += v.x;
-    _target_point.z += v.y;
+    Vec2 point = get_point(angle(), distance);
+    _target_point.x = point.x;
+    _target_point.z = point.y;
 
     _state = SOLDIER_STATE_MOVE;
+}
+
+Vec2 Soldier::get_point(float angle, float distance) {
+    auto pos = getPosition3D();
+    Vec2 v(distance, 0);
+    v.rotate(Vec2::ZERO, CC_DEGREES_TO_RADIANS(angle));
+
+    v += Vec2(pos.x, pos.z);
+    return v;
 }

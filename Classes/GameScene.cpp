@@ -22,7 +22,11 @@ extern Soldier *g_self;
 
 Soldier *g_soldiers[MAX_ROOM_MEMBERS];
 
+GameScene *GameScene::Instance = nullptr;
+Layout *GameScene::s_layout_ui = nullptr;
 ImageView *GameScene::s_image_direction = nullptr; // 小地图中的方向图标
+ImageView *GameScene::s_image_progress = nullptr; // 读条
+LoadingBar *GameScene::s_load_progress = nullptr;
 LoadingBar *GameScene::s_load_magic = nullptr;
 Button *GameScene::s_btn_boxing = nullptr;
 Button *GameScene::s_btn_kick = nullptr;
@@ -30,6 +34,7 @@ Button *GameScene::s_btn_special = nullptr;
 Button *GameScene::s_btn_speed = nullptr;
 Text *GameScene::s_text_score_red = nullptr;
 Text *GameScene::s_text_score_blue = nullptr;
+Text *GameScene::s_text_grass = nullptr;
 
 Scene* GameScene::createScene() {
     auto scene = Scene::create();
@@ -48,10 +53,28 @@ void GameScene::load_world() {
     addChild(g_world);
 }
 
+void GameScene::set_score_red(int score) {
+    char buf[16];
+    sprintf(buf, "%u", score);
+    s_text_score_red->setString(buf);
+}
+
+void GameScene::set_score_blue(int score) {
+    char buf[16];
+    sprintf(buf, "%u", score);
+    s_text_score_blue->setString(buf);
+}
+
+void GameScene::set_score(int score) {
+    char buf[16];
+    sprintf(buf, "%u", score);
+    s_text_grass->setString(buf);
+}
 
 // on "init" you need to initialize your instance
 bool GameScene::init()
 {
+    Instance = this;
     if ( !Layer::init() ) {
         return false;
     }
@@ -86,6 +109,7 @@ void GameScene::load_ui(Node *root) {
     addChild(layer_ui);
 
     auto layout = get_layout(layer_ui);
+    s_layout_ui = layout;
 
 	setTouchCallback(layout, "layout_layer", CC_CALLBACK_2(GameScene::onLayerTouched, this));
 	setTouchCallback(layout, "layout_scroll", CC_CALLBACK_2(GameScene::onScrollTouched, this));
@@ -111,12 +135,19 @@ void GameScene::load_ui(Node *root) {
     CC_ASSERT(s_text_score_red);
     s_text_score_blue = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_score_blue"));
     CC_ASSERT(s_text_score_blue);
+    s_text_grass = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_grass_num"));
+    CC_ASSERT(s_text_grass);
+    s_image_progress = static_cast<ImageView *>(Helper::seekWidgetByName(layout, "image_progress"));
+    CC_ASSERT(s_image_progress);
+    s_load_progress = static_cast<LoadingBar *>(Helper::seekWidgetByName(layout, "loadbar_progress"));
+    CC_ASSERT(s_load_progress);
 
     //鼠标监听
     auto mouse_listener = EventListenerMouse::create();
     mouse_listener->onMouseScroll = CC_CALLBACK_1(GameScene::onMouseScroll, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(mouse_listener, this);
 
+    setClickCallback(layout, "image_pick_up", CC_CALLBACK_1(GameScene::onPickUpClicked, this));
 	//setTouchCallback(layout, "button_direction", CC_CALLBACK_2(GameScene::onDirectionTouched, this));
     setClickCallback(layout, "button_1", [this](Ref *ref) {
 	});
@@ -138,8 +169,7 @@ void GameScene::load_ui(Node *root) {
         //g_player->draw_circle(100.f);
         if (g_world->getCameraMask() == World::CAMERA_FREE) {
             g_world->setCameraMask(World::CAMERA_FIX);
-        }
-        else {
+        } else {
             g_world->setCameraMask(World::CAMERA_FREE);
             auto pos = g_self->getPosition3D();
             log("[Soldier pos] %g %g %g", pos.x, pos.y, pos.z);
@@ -246,4 +276,41 @@ void GameScene::onMouseScroll(Event* event) {
 
 void GameScene::set_small_direction(float angle) {
     s_image_direction->runAction(RotateTo::create(0.1f, angle));
+}
+
+void GameScene::onPickUpClicked(Ref *ref) {
+    auto pos3 = g_self->getPosition3D();
+    Goods good;
+    Vec2 pos(pos3.x, pos3.z);
+    if (g_world->get_goods(pos, &good)) {
+        g_player->on_get_goods(&good);
+    }
+}
+
+void GameScene::begain_progress(float seconds,
+    std::function<void(float dt, bool end)> cb) {
+    //s_image_progress->setVisible(true);
+    set_progress(0.f);
+    show_progress(true);
+    _prog_second = fabs(seconds);
+    _cur_second = 0.f;
+    _prog_cb = cb;
+    schedule(schedule_selector(GameScene::update_progress), 0.2f);
+}
+
+void GameScene::break_progress() {
+    show_progress(false);
+    unschedule(schedule_selector(GameScene::update_progress));
+}
+
+void GameScene::update_progress(float dt) {
+    _cur_second += dt;
+    if (_cur_second > _prog_second) { // 读条完毕
+        break_progress();
+        if (_prog_cb) _prog_cb(dt, true);
+        _prog_cb = nullptr;
+    } else{
+        set_progress(_cur_second / _prog_second * 100.f);
+        _prog_cb(dt, false);
+    }
 }

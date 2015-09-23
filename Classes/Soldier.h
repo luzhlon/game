@@ -24,6 +24,7 @@ public:
         SOLDIER_STATE_MOVE,
         SOLDIER_STATE_SKILL,
         SOLDIER_STATE_DEATH,
+        SOLDIER_STATE_REVIVE,
 
         STATE_NUMBER
     };
@@ -77,6 +78,12 @@ public:
     }
     inline void speed(float s) {
         _speed = s;
+    }
+    inline int grass() {
+        return _grass;
+    }
+    inline void grass(int count) {
+        _grass = count;
     }
     inline float blood() {
         return _blood;
@@ -144,6 +151,7 @@ public:
         switch_state(SOLDIER_STATE_MOVE, &target);
     }
     void move_by(float distance);
+    Vec2 get_point(float angle, float distance);
 
     Vec3 get_head_pos(); //
     void show_blood_decline(float); //显示减血效果
@@ -169,6 +177,7 @@ protected:
 
     float _full_blood = 300.f; // 满血
     float _blood = 300.f; //血量
+    int _grass = 10;  // 初始粮草数
 
     Vec3  _target_point; //要移动到的目标点
     float _base_angle = 90.f; // 基准角度
@@ -177,8 +186,10 @@ protected:
     BillBoard *_billboard = nullptr;
 
     // 受到攻击时待处理的技能
-    list<SkillBase *> _skill_list;
-    Callback _on_death; // 
+    //list<SkillBase *> _skill_list;
+    Callback _on_death = [](Soldier *sol) {
+        sol->switch_state(SOLDIER_STATE_DEATH);
+    }; // 
 
     PUParticleSystem3D *_cur_action_pu = nullptr;  //当前动作所使用的粒子系统
 

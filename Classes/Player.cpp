@@ -1,5 +1,7 @@
 #include "Player.h"
 #include "Client.h"
+#include "World.h"
+#include "GameScene.h"
 #include "NetRoom.h"
 
 Soldier::Type Player::s_type = Soldier::SOLDIER_TYPE_WOMAN;
@@ -12,16 +14,6 @@ Skill *Player::skill_special = nullptr;
 Skill *Player::skill_speed = nullptr;
 
 const float Player::s_full_magic = 100.f;
-
-extern class GameScene {
-public:
-    static LoadingBar *s_load_magic;
-
-    static Button *s_btn_boxing;
-    static Button *s_btn_kick;
-    static Button *s_btn_special;
-    static Button *s_btn_speed;
-};
 
 Player *Player::getInstance(Soldier *soldier) {
     static Player *player = nullptr;
@@ -49,7 +41,9 @@ Player::Player(Soldier *self) {
     show_circle();
 
     self->onDeath([this](Soldier *sol) {
-        scheduleOnce(schedule_selector(Player::revive), 8.f); // 8秒复活
+        NetRoom::set_state(Soldier::SOLDIER_STATE_DEATH);
+        //scheduleOnce(schedule_selector(Player::revive), 8.f); // 8秒复活
+        GameScene::Instance->begain_progress(20.f, std::bind(&Player::revive, this));
     });
 
     schedule(schedule_selector(Player::update_per_second), 1.f);
@@ -156,8 +150,45 @@ void Player::update_per_second(float dt) {
     } while (false);
 }
 
-void Player::revive(float dt) {
+void Player::revive() {
     _soldier->_state = Soldier::SOLDIER_STATE_IDLE;
     NetRoom::set_position(NetRoom::_house_pos);
     NetRoom::set_blood(_soldier->_full_blood * 0.8f);
+    NetRoom::set_state(Soldier::SOLDIER_STATE_REVIVE);
+}
+
+void Player::on_get_goods(Goods *good) {
+    static Goods s_good;
+
+    s_good = *good;
+
+    GameScene::Instance->begain_progress(3.f, [this](float dt, bool end) {
+        if (!end) { // 读条未结束时
+            //必须处于IDLE状态
+            if (_soldier->state() != Soldier::SOLDIER_STATE_IDLE)
+                GameScene::Instance->break_progress();
+        }
+        switch (s_good.type) {
+        case Goods::GRASS:
+            NetRoom::set_grass(_soldier->grass() + s_good.count);
+            break;
+        }
+    });
+}
+
+extern Soldier *g_soldiers[MAX_ROOM_MEMBERS];
+
+void Player::set_grass(int count) {
+    _soldier->grass(count);
+    GameScene::set_score(count);
+    // 统计两队Grass
+    int score[2] = { 0 };
+    for (int i = 0; i < MAX_ROOM_MEMBERS; i += 1) {
+        auto sol = g_soldiers[i];
+        if (sol) score[i % 2] += sol->grass();
+    }
+    GameScene::set_score_red(score[0]);
+    GameScene::set_score_blue(score[1]);
+    //判断获胜
+    /*   */
 }

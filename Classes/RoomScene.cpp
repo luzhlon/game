@@ -97,6 +97,8 @@ void RoomScene::onEnter() {
         NetRoom::_room_name = g_room_name;
 
         g_director->pushScene(GameScene::createScene());
+
+        HANDLER(start_game) = nullptr; // ·ÀÖ¹ÖØÈë
     });
     Client::getInstance()->sendMsg(MESSAGE::room_members);
 }

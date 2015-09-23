@@ -10,6 +10,29 @@ extern Director *g_director;
 extern Size g_win_size;
 extern World *g_world;
 
+Vec2 g_points[20] = {
+    Vec2(591, -44),
+    Vec2(-486, 565),
+    Vec2(-469, 234),
+    Vec2(-639, 280),
+    Vec2(-178, 547),
+    Vec2(329, 619),
+    Vec2(234, 247),
+    Vec2(-133, 36),
+    Vec2(-45, 126),
+    Vec2(289, 70),
+    Vec2(444, 137),
+    Vec2(591, 215),
+    Vec2(561, 80),
+    Vec2(531, 540),
+    Vec2(653, 483),
+    Vec2(391, -312),
+    Vec2(-424, -418),
+    Vec2(-42, -477),
+    Vec2(-177, -118),
+    Vec2(114, -228)
+};
+
 void _LogSize(const char *desc, const Size& size) {
     string str = desc;
     str += "%g, %g";
@@ -304,6 +327,9 @@ World::World() {
     load_collision("root.txt");
 
     setCameraMask((unsigned short)CAMERA_FREE);
+
+    for (int i = 0; i < 20; i++) _goods[i] = 0;
+    schedule(schedule_selector(World::update_goods), 3.f); // 每隔3秒检测并生成一次goods
 }
 
 void World::load_collision(char *file) {
@@ -484,7 +510,7 @@ void World::camera_move(Vec2& factor) {
     }
     case CAMERA_FREE:
     {
-        auto v = factor;
+        auto v = factor * 0.1f;
         //Rotate X-Z coordinate
         if (fabs(v.x) > fabs(v.y)) {
             Vec2 v_xz(s_camera_offset.x, s_camera_offset.z);
@@ -528,4 +554,74 @@ void World::set_position(Node *node, Vec2& pos) {
     p3.z = pos.y;
     p3.y = _terrain->getHeight(pos);
     node->setPosition3D(p3);
+}
+
+GoodsGrass::GoodsGrass()
+    : Goods(GRASS) {
+    _sprite = Sprite3D::create("goods/plant/caoyuanche.c3b");
+}
+
+GoodsGrass::~GoodsGrass() {
+    _sprite->removeFromParent();
+}
+
+float g_random(float scale = 1.f) {
+    timeval psv;
+    gettimeofday(&psv, 0);
+    unsigned int tsrans = psv.tv_sec * 1000 + psv.tv_usec / 1000;
+    srand(tsrans);
+    return CCRANDOM_0_1() * scale;
+}
+
+void World::update_goods(float dt) {
+    if (goods_count() > 7) return;
+    int index;
+    do {
+        index = g_random(20);
+    } while (_goods[index]);
+
+    Goods good;
+    good.type = (Goods::Type)(int)g_random(Goods::TYPE_NUMBER);
+    good.count = g_random(20);
+
+    if (_on_gen_goods) _on_gen_goods(&good);
+}
+
+int World::goods_count() {
+    int count = 0;
+    for (int i = 0; i < 20; i++)
+    if (_goods[i]) count++;
+    return count;
+}
+
+void World::dec_goods(Goods* good) {
+    auto gd = _goods[good->index];
+    if (gd) delete gd;
+    _goods[good->index] = nullptr;
+}
+
+void World::add_goods(Goods* good) {
+    Goods *gd;
+    switch (good->type) {
+    case Goods::GRASS:
+        gd = new GoodsGrass();
+        gd->count = good->count;
+        add_thing(((GoodsGrass *)gd)->_sprite, g_points[good->index]);
+        break;
+    }
+    if (_goods[good->index]) delete _goods[good->index];
+    _goods[good->index] = gd;
+}
+//
+bool World::get_goods(Vec2& pos, Goods *good) {
+    for (auto gd : _goods) {
+        if (!gd) continue;
+
+        auto delta = g_points[gd->index] - pos;
+        if (delta.length() < 20) {
+            memcpy(gd, good, sizeof(Goods));
+            return true;
+        }
+    }
+    return false;
 }

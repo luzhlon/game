@@ -3,6 +3,8 @@
 
 #include "Soldier.h"
 
+class Goods;
+
 class Player : public Node {
 public:
     static Soldier::Type s_type;
@@ -20,12 +22,14 @@ public:
     bool do_skill(Skill *skill);
 
     void update_per_second(float dt);
-    void revive(float dt); // 复活
+    void revive(); // 复活
 
     void set_magic(float magic); // 设置魔力值 && UI
     inline void add_magic(float magic) { // + 
         set_magic(_magic + magic);
     }
+    void set_grass(int count); 
+    void on_get_goods(Goods *);
     
     static void onSkillClicked(Ref *ref);
 
