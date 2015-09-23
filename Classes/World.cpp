@@ -406,30 +406,33 @@ bool World::load_goods(char *file) {
     auto str = FileUtils::getInstance()->getStringFromFile(file);
     if (str.empty()) return false;
 
+    String content(str);
+    Array *lines = content.componentsSeparatedByString("\n");
+
     const char *format = "{ Vec3(%g, %g, %g), Vec3(%g, %g, %g), %g },";
     const char *p = str.c_str();
     static string cur_file;
-    size_t pos = 0;
     Vec3 pos3, rota;
     float scale;
-    // ╪сть
-    for(;pos != string::npos;
-        pos = str.find('\n', pos),
-        pos++ /* Jump '\n' */)
-    if (7 == sscanf(p + pos, format, &pos3.x, &pos3.y, &pos3.z, &rota.x, &rota.y, &rota.z, &scale)) {
-        auto spr = Sprite3D::create(cur_file);
-        spr->setRotation3D(rota);
-        spr->setPosition3D(pos3);
-        spr->setScale(scale);
-        add_thing(spr, pos3.x, pos3.z);
+
+    Ref *obj;
+    CCARRAY_FOREACH(lines, obj) {
+        String *line = (String *)obj;
+
+        if (7 == sscanf(line->getCString(), format, &pos3.x, &pos3.y, &pos3.z, &rota.x, &rota.y, &rota.z, &scale)) {
+            auto spr = Sprite3D::create(cur_file);
+            spr->setRotation3D(rota);
+            spr->setPosition3D(pos3);
+            spr->setScale(scale);
+            add_thing(spr, pos3.x, pos3.z);
+        }
+        else{
+            cur_file = line->_string;
+            cur_file += ".c3b";
+            cur_file = "goods/plant/" + cur_file;
+        }
     }
-    else{
-        auto end = str.find('\n', pos);
-        if (end == string::npos) break;
-        cur_file = str.substr(pos, end - pos);
-        cur_file += ".c3b";
-        cur_file = "goods/plant/" + cur_file;
-    }
+
     return true;
 }
 

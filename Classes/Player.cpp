@@ -15,6 +15,9 @@ Skill *Player::skill_speed = nullptr;
 
 const float Player::s_full_magic = 100.f;
 
+extern Soldier *g_soldiers[MAX_ROOM_MEMBERS];
+extern World *g_world;
+
 Player *Player::getInstance(Soldier *soldier) {
     static Player *player = nullptr;
     if (!player) {
@@ -160,7 +163,7 @@ void Player::revive() {
 void Player::on_get_goods(Goods *good) {
     switch (good->type) {
     case Goods::GRASS:
-        NetRoom::set_grass(_soldier->grass() + s_good.count);
+        NetRoom::set_grass(_soldier->grass() + good->count);
         break;
     }
 
@@ -175,7 +178,6 @@ void Player::on_pick_goods() {
     Vec2 pos(pos3.x, pos3.z);
     if (!g_world->get_goods(pos, &s_good)) return; // pick failure
 
-    g_player->on_get_goods(&good);
     GameScene::Instance->begain_progress(3.f, [this](float dt, bool end) {
         if (!end) { // 读条未结束时
             //必须处于IDLE状态
@@ -186,8 +188,6 @@ void Player::on_pick_goods() {
         }
     });
 }
-
-extern Soldier *g_soldiers[MAX_ROOM_MEMBERS];
 
 void Player::set_grass(int count) {
     _soldier->grass(count);
