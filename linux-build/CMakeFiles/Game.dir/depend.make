@@ -909,7 +909,6 @@ CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../Classes/Player.h
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../Classes/SceneLayer.h
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../Classes/Skill.h
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../Classes/Soldier.h
-CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../Classes/WomanSoldier.h
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../Server/message.h
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: /usr/local/include/GLFW/glfw3native.h
@@ -2427,7 +2426,6 @@ CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../Classes/Player.h
 CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../Classes/SceneLayer.h
 CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../Classes/Skill.h
 CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../Classes/Soldier.h
-CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../Classes/WomanSoldier.h
 CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../Classes/World.h
 CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../Server/message.h
 CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -2806,11 +2804,16 @@ CMakeFiles/Game.dir/Classes/Player.cpp.o: ../cocos2d/external/json/msinttypes/in
 CMakeFiles/Game.dir/Classes/Player.cpp.o: ../cocos2d/external/json/msinttypes/stdint.h
 CMakeFiles/Game.dir/Classes/Player.cpp.o: ../cocos2d/external/json/rapidjson.h
 CMakeFiles/Game.dir/Classes/Player.cpp.o: ../cocos2d/external/json/reader.h
+CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/Client.h
+CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/DrawNode3D.h
+CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/GameScene.h
+CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/NetRoom.h
+CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/ODSocket.h
 CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/Player.cpp
 CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/Player.h
-CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/Skill.h
+CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/SceneLayer.h
 CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/Soldier.h
-CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/WomanSoldier.h
+CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/World.h
 CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Server/message.h
 CMakeFiles/Game.dir/Classes/Player.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/Game.dir/Classes/Player.cpp.o: /usr/local/include/GLFW/glfw3native.h

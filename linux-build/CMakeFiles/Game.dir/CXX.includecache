@@ -4115,12 +4115,18 @@ arpa/inet.h
 /home/john/cmake_proj/game/Classes/Player.cpp
 Player.h
 /home/john/cmake_proj/game/Classes/Player.h
+Client.h
+/home/john/cmake_proj/game/Classes/Client.h
+World.h
+/home/john/cmake_proj/game/Classes/World.h
+GameScene.h
+/home/john/cmake_proj/game/Classes/GameScene.h
+NetRoom.h
+/home/john/cmake_proj/game/Classes/NetRoom.h
 
 /home/john/cmake_proj/game/Classes/Player.h
-WomanSoldier.h
-/home/john/cmake_proj/game/Classes/WomanSoldier.h
-Skill.h
-/home/john/cmake_proj/game/Classes/Skill.h
+Soldier.h
+/home/john/cmake_proj/game/Classes/Soldier.h
 
 /home/john/cmake_proj/game/Classes/RoleScene.cpp
 RoomListScene.h

@@ -910,7 +910,6 @@ CMakeFiles/Game.dir/Classes/GameScene.cpp.o
  /home/john/cmake_proj/game/Classes/SceneLayer.h
  /home/john/cmake_proj/game/Classes/Skill.h
  /home/john/cmake_proj/game/Classes/Soldier.h
- /home/john/cmake_proj/game/Classes/WomanSoldier.h
  /home/john/cmake_proj/game/Server/message.h
  /usr/local/include/GLFW/glfw3.h
  /usr/local/include/GLFW/glfw3native.h
@@ -2428,7 +2427,6 @@ CMakeFiles/Game.dir/Classes/NetRoom.cpp.o
  /home/john/cmake_proj/game/Classes/SceneLayer.h
  /home/john/cmake_proj/game/Classes/Skill.h
  /home/john/cmake_proj/game/Classes/Soldier.h
- /home/john/cmake_proj/game/Classes/WomanSoldier.h
  /home/john/cmake_proj/game/Classes/World.h
  /home/john/cmake_proj/game/Server/message.h
  /usr/local/include/GLFW/glfw3.h
@@ -2807,11 +2805,16 @@ CMakeFiles/Game.dir/Classes/Player.cpp.o
  ../cocos2d/external/json/msinttypes/stdint.h
  ../cocos2d/external/json/rapidjson.h
  ../cocos2d/external/json/reader.h
+ /home/john/cmake_proj/game/Classes/Client.h
+ /home/john/cmake_proj/game/Classes/DrawNode3D.h
+ /home/john/cmake_proj/game/Classes/GameScene.h
+ /home/john/cmake_proj/game/Classes/NetRoom.h
+ /home/john/cmake_proj/game/Classes/ODSocket.h
  /home/john/cmake_proj/game/Classes/Player.cpp
  /home/john/cmake_proj/game/Classes/Player.h
- /home/john/cmake_proj/game/Classes/Skill.h
+ /home/john/cmake_proj/game/Classes/SceneLayer.h
  /home/john/cmake_proj/game/Classes/Soldier.h
- /home/john/cmake_proj/game/Classes/WomanSoldier.h
+ /home/john/cmake_proj/game/Classes/World.h
  /home/john/cmake_proj/game/Server/message.h
  /usr/local/include/GLFW/glfw3.h
  /usr/local/include/GLFW/glfw3native.h

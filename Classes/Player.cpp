@@ -158,20 +158,31 @@ void Player::revive() {
 }
 
 void Player::on_get_goods(Goods *good) {
+    switch (good->type) {
+    case Goods::GRASS:
+        NetRoom::set_grass(_soldier->grass() + s_good.count);
+        break;
+    }
+
+    // remove this good from world
+    NetRoom::dec_goods(good);
+}
+
+void Player::on_pick_goods() {
     static Goods s_good;
 
-    s_good = *good;
+    auto pos3 = g_self->getPosition3D();
+    Vec2 pos(pos3.x, pos3.z);
+    if (!g_world->get_goods(pos, &s_good)) return; // pick failure
 
+    g_player->on_get_goods(&good);
     GameScene::Instance->begain_progress(3.f, [this](float dt, bool end) {
         if (!end) { // 读条未结束时
             //必须处于IDLE状态
             if (_soldier->state() != Soldier::SOLDIER_STATE_IDLE)
                 GameScene::Instance->break_progress();
-        }
-        switch (s_good.type) {
-        case Goods::GRASS:
-            NetRoom::set_grass(_soldier->grass() + s_good.count);
-            break;
+
+            on_get_goods(&s_good);
         }
     });
 }

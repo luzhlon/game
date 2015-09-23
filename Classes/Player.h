@@ -30,6 +30,7 @@ public:
     }
     void set_grass(int count); 
     void on_get_goods(Goods *);
+    void on_pick_goods();
     
     static void onSkillClicked(Ref *ref);
 

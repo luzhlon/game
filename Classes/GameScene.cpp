@@ -147,7 +147,7 @@ void GameScene::load_ui(Node *root) {
     mouse_listener->onMouseScroll = CC_CALLBACK_1(GameScene::onMouseScroll, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(mouse_listener, this);
 
-    setClickCallback(layout, "image_pick_up", CC_CALLBACK_1(GameScene::onPickUpClicked, this));
+    setClickCallback(layout, "button_pick_up", CC_CALLBACK_1(GameScene::onPickUpClicked, this));
 	//setTouchCallback(layout, "button_direction", CC_CALLBACK_2(GameScene::onDirectionTouched, this));
     setClickCallback(layout, "button_1", [this](Ref *ref) {
 	});
@@ -280,12 +280,7 @@ void GameScene::set_small_direction(float angle) {
 }
 
 void GameScene::onPickUpClicked(Ref *ref) {
-    auto pos3 = g_self->getPosition3D();
-    Goods good;
-    Vec2 pos(pos3.x, pos3.z);
-    if (g_world->get_goods(pos, &good)) {
-        g_player->on_get_goods(&good);
-    }
+    g_player->on_pick_goods();
 }
 
 void GameScene::begain_progress(float seconds,
@@ -312,6 +307,6 @@ void GameScene::update_progress(float dt) {
         _prog_cb = nullptr;
     } else{
         set_progress(_cur_second / _prog_second * 100.f);
-        _prog_cb(dt, false);
+        if (_prog_cb) _prog_cb(dt, false);
     }
 }
