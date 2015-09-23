@@ -76,7 +76,11 @@ bool Room::remove(Member *meb) {
         return false;
     }
     m_members[r_id] = nullptr;
-    broad_members(); //广播房间中的成员信息
+
+    // 告诉其他成员自己退出房间
+    mini_net_pkg pkg;
+    pkg.msg = MESSAGE::quit_room;
+    broadcast((net_pkg *)&pkg, r_id);
     qDebug() << "Room:" << m_name << "," << meb->m_name << " quited.";
     return true;
 }
@@ -86,8 +90,11 @@ void Room::broad_members() {
     room_member meb[MAX_ROOM_MEMBERS];
 
     pkg.msg = MESSAGE::room_members;
-    pkg.arg1 = 0; //房间成员数
-    pkg.arg2 = 0; //自己的Room ID
+    pkg.arg1 = -1; //房主Room ID
+    pkg.arg2 = -1; //自己的Room ID
+
+    int &master_id = pkg.arg1;
+    int &self_id = pkg.arg2;
 
     //size_t size = sizeof(room_member) * MAX_ROOM_MEMBERS;
     for(int i = 0; i < MAX_ROOM_MEMBERS; i++) {
@@ -106,10 +113,14 @@ void Room::broad_members() {
     //broadcast
     for(int i = 0; i < MAX_ROOM_MEMBERS; i++) {
         auto m = m_members[i] ;
-        pkg.arg2 = i; //对应客户端自己的ID
+        // 检测设置房主ID
+        if(master_id < 0 && m && !m->is_empty())
+            master_id = i;
+        // 设置成员的ID
+        self_id = i;
+        //pkg.arg2 = i; //对应客户端自己的ID
         if(m) m->handler()->Reply(&pkg, meb, sizeof(meb));
     }
-    //broadcast(&pkg, meb, size);
 }
 
 int Room::for_member_id(Member *meb) {

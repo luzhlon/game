@@ -9,6 +9,11 @@
 USING_NS_CC;
 
 //#define VIEW_TEST
+#define MAX_POINT_NUM 20
+#define MAX_GOODS_COUNT 8
+#define MAX_CAMERA_HEIGHT 500
+#define MIN_CAMERA_HEIGHT 80
+#define INTERVAL_GEN_GOODS 5.f
 
 class QuatNode {
 public:
@@ -59,32 +64,31 @@ public:
 #endif
 };
 
-struct Goods {
+struct GoodsBase {
     enum Type {
         GRASS = 0,
+        SHOES,
+        WEAPON,
 
         TYPE_NUMBER
     };
-    Goods(Type t) { type = t; }
-    Goods() {}
-
-    virtual Vec2 get_position() { return Vec2::ZERO; }
 
     Type type;
     int  count;
     int  index;
 };
 
-struct GoodsGrass : public Goods {
-    GoodsGrass();
-    ~GoodsGrass();
-
-    Vec2 get_position() override {
-        auto p3 = _sprite->getPosition3D();
+struct Goods : public GoodsBase {
+    Vec2 get_position() {
+        auto p3 = sprite->getPosition3D();
         return Vec2(p3.x, p3.z);
     }
 
-    Sprite3D *_sprite = nullptr;
+    Goods();
+    Goods(GoodsBase *);
+    ~Goods();
+
+    Sprite3D *sprite = nullptr;
 };
 
 class World : public Node
@@ -106,6 +110,9 @@ public:
     }
     inline DrawNode3D *draw_node() {
         return _drawNode;
+    }
+    inline void begin_gen_goods() { // 开始产生物品
+        schedule(schedule_selector(World::update_goods), INTERVAL_GEN_GOODS); // 每隔 秒检测并生成一次goods
     }
 
     void draw_grid(float cell = 10.f, float height = 0.f);
@@ -132,15 +139,15 @@ public:
     inline void add_thing(Node *node, Vec3& pos) {
         return add_thing(node, pos.x, pos.z);
     }
-    inline void on_gen_goods(std::function<void(Goods*)> cb) {
+    inline void on_gen_goods(std::function<void(GoodsBase*)> cb) {
         _on_gen_goods = cb;
     }
 
     void update_goods(float dt); // 更新物品
 
     int goods_count();
-    void dec_goods(Goods *good); // 
-    void add_goods(Goods *good); 
+    void dec_goods(int index); // 
+    void add_goods(GoodsBase *good); 
 
     bool get_goods(Vec2& pos, Goods *);
 
@@ -159,8 +166,8 @@ private:
     DrawNode3D *_drawNode;
     PUParticleSystem3D *_pu_click_point;
 
-    Goods *_goods[20];
-    std::function<void(Goods *)> _on_gen_goods  = nullptr;
+    Goods *_goods[MAX_POINT_NUM];
+    std::function<void(GoodsBase *)> _on_gen_goods  = nullptr;
 };
 
 #endif /* __WORLD_H__ */

@@ -84,7 +84,10 @@ void RoomScene::onEnter() {
     HANDLER(room_members) = Client::handler([this](net_pkg *pkg) {
         auto *meb = (room_member *)pkg->data;
         memcpy(NetRoom::_members, pkg->data, sizeof(room_member)* MAX_ROOM_MEMBERS);
+
+        NetRoom::_master_id = pkg->arg1; // master id
         NetRoom::_self_id = pkg->arg2; //Self id
+
         update_room_member();
 
         _check_team->setSelectedState(NetRoom::_self_id % 2);

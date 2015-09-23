@@ -27,7 +27,7 @@ struct Skill : public SkillBase {
     float _distance = 0.f; // 造成伤害的距离范围
     float _angle = 45.f; // 造成伤害的角度范围
     float _cool_time = 0.f;  // 冷却时间
-    float _magic_dec = 0.f; // 魔力值消耗
+    float _magic = 0.f; // 魔力值消耗
     void cooling(); // 冷却
     bool is_cooling(); // 是否正在冷却
 

@@ -118,6 +118,8 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
     m_handlers[MESSAGE::add_goods] = handler_update;
     m_handlers[MESSAGE::dec_goods] = handler_update;
 
+    m_handlers[MESSAGE::set_master] = handler_update;
+    m_handlers[MESSAGE::game_over] = handler_update;
 }
 
 MsgHandler::~MsgHandler() {

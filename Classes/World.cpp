@@ -10,7 +10,7 @@ extern Director *g_director;
 extern Size g_win_size;
 extern World *g_world;
 
-Vec2 g_points[20] = {
+Vec2 g_points[MAX_POINT_NUM] = {
     Vec2(591, -44),
     Vec2(-486, 565),
     Vec2(-469, 234),
@@ -32,18 +32,6 @@ Vec2 g_points[20] = {
     Vec2(-177, -118),
     Vec2(114, -228)
 };
-
-void _LogSize(const char *desc, const Size& size) {
-    string str = desc;
-    str += "%g, %g";
-    log(str.c_str(), size.width, size.height);
-}
-
-void _LogVec3(const char *desc, Vec3& v3) {
-    string str = desc;
-    str += "%g, %g, %g";
-    log(str.c_str(), v3.x, v3.y, v3.z);
-}
 
 QuatNode::QuatNode() {
     _child[0][0] = nullptr; // dd 
@@ -302,8 +290,6 @@ World::World() {
         _terrain->setSkirtHeightRatio(3);
         _terrain->setLODDistance(64, 128, 192);
         addChild(_terrain);
-        //_LogSize("[World]:Terrain size: ", _terrain->getContentSize());
-        //_LogVec3("[World]:Terrain center: ", _terrain->getAABB().getCenter());
     }
 
     {
@@ -314,7 +300,7 @@ World::World() {
 
         _camera_fix = Camera::createPerspective(60, g_win_size.width / g_win_size.height, 0.1f, 2000.f);
         _camera_fix->setCameraFlag((CameraFlag)CAMERA_FIX);
-        _camera_fix->setPosition3D(Vec3(0, 800, 0));
+        _camera_fix->setPosition3D(Vec3(0, MAX_CAMERA_HEIGHT, 0));
         _camera_fix->lookAt(Vec3::ZERO, Vec3(0,0,-1));
         addChild(_camera_fix);
     }
@@ -323,6 +309,8 @@ World::World() {
         _pu_click_point = PUParticleSystem3D::create("texiao_point.pu");
         addChild(_pu_click_point);
     }
+
+    for (int i = 0; i < MAX_POINT_NUM; i++) _goods[i] = 0;
 
     draw_grid(10.f, _terrain->getHeight(Vec2::ZERO));
     add_skybox();
@@ -333,9 +321,6 @@ World::World() {
     load_collision("root.txt");
 
     setCameraMask((unsigned short)CAMERA_FREE);
-
-    for (int i = 0; i < 20; i++) _goods[i] = 0;
-    schedule(schedule_selector(World::update_goods), 3.f); // 每隔3秒检测并生成一次goods
 }
 
 void World::load_collision(char *file) {
@@ -536,7 +521,8 @@ void World::camera_move(Vec2& factor) {
             s_camera_offset.y = v_yz.x;
             s_camera_offset.z = v_yz.y; // */
             auto height = s_camera_offset.y + factor.y * 0.1;
-            if (height < 80.f) break;
+            if (height > MAX_CAMERA_HEIGHT) break;
+            if (height < MIN_CAMERA_HEIGHT) break;
             s_camera_offset.y = height;
         }
         break;
@@ -565,72 +551,94 @@ void World::set_position(Node *node, Vec2& pos) {
     node->setPosition3D(p3);
 }
 
-GoodsGrass::GoodsGrass()
-    : Goods(GRASS) {
-    _sprite = Sprite3D::create("goods/plant/caoyuanche.c3b");
-    _sprite->setScale(0.15f);
+Goods::Goods() {}
+
+Goods::Goods(GoodsBase *gb) {
+    this->type = gb->type;
+    this->index = gb->index;
+    this->count = gb->count;
+
+    switch (gb->type) {
+    case Goods::GRASS:
+        sprite = Sprite3D::create("goods/plant/caoyuanche.c3b");
+        sprite->setScale(0.15f);
+        break;
+    case Goods::SHOES:
+        sprite = Sprite3D::create("goods/xie.c3b");
+        sprite->setScale(0.1f);
+    case Goods::WEAPON:
+        sprite = Sprite3D::create("goods/wuqi.c3b");
+        sprite->setScale(0.1f);
+        break;
+    }
+
+    g_world->add_thing(sprite, g_points[index]);
 }
 
-GoodsGrass::~GoodsGrass() {
-    _sprite->removeFromParent();
-}
-
-float g_random(float scale = 1.f) {
-    timeval psv;
-    gettimeofday(&psv, 0);
-    unsigned int tsrans = psv.tv_sec * 1000 + psv.tv_usec / 1000;
-    srand(tsrans);
-    return CCRANDOM_0_1() * scale;
+Goods::~Goods() {
+    if (sprite)
+        sprite->removeFromParent();
 }
 
 void World::update_goods(float dt) {
-    if (goods_count() > 7) return;
-    int index;
-    do {
-        index = g_random(20);
-    } while (_goods[index]);
+    // 当前的物品数已经够了
+    if (goods_count() > MAX_GOODS_COUNT) return;
 
-    Goods good;
-    good.type = (Goods::Type)(int)g_random(Goods::TYPE_NUMBER);
-    good.count = g_random(20);
+    int index;
+    GoodsBase good;
+
+    do {
+        index = random(0, MAX_POINT_NUM - 1);
+    } while (_goods[index]); // 在未被占用的位置产生一个物品
+
     good.index = index;
+    good.type = (Goods::Type)random(0, Goods::TYPE_NUMBER - 1);
+    switch (good.type) {
+    case Goods::GRASS:
+        good.count = random(10, 20);
+        break;
+    case Goods::SHOES:
+        good.count = random(1, 3);
+        break;
+    case Goods::WEAPON:
+        good.count = random(5, 10);
+        break;
+    }
 
     if (_on_gen_goods) _on_gen_goods(&good);
 }
 
 int World::goods_count() {
     int count = 0;
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < MAX_POINT_NUM; i++)
     if (_goods[i]) count++;
     return count;
 }
 
-void World::dec_goods(Goods* good) {
-    auto gd = _goods[good->index];
+void World::dec_goods(int index) {
+    auto gd = _goods[index];
+
     if (gd) delete gd;
-    _goods[good->index] = nullptr;
+
+    _goods[index] = nullptr;
 }
 
-void World::add_goods(Goods* good) {
-    Goods *gd;
-    switch (good->type) {
-    case Goods::GRASS:
-        gd = new GoodsGrass();
-        gd->count = good->count;
-        add_thing(((GoodsGrass *)gd)->_sprite, g_points[good->index]);
-        break;
-    }
+void World::add_goods(GoodsBase* good) {
+    Goods *gd = new Goods(good);
+
     if (_goods[good->index]) delete _goods[good->index];
+
     _goods[good->index] = gd;
 }
 //
 bool World::get_goods(Vec2& pos, Goods *good) {
-    for (auto gd : _goods) {
+	for (int i = 0; i < MAX_POINT_NUM; i++) {
+		auto gd = _goods[i];
         if (!gd) continue;
 
-        auto delta = g_points[gd->index] - pos;
-        if (delta.length() < 20) {
-            memcpy(gd, good, sizeof(Goods));
+        auto delta = g_points[i] - pos;
+        if (delta.length() < 50) {
+            memcpy(good, gd, sizeof(Goods));
             return true;
         }
     }

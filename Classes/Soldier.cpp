@@ -276,25 +276,25 @@ Skill *Soldier::get_skill(Skill::Type type) {
 
     switch (type) {
     case Skill::SKILL_BOXING:
-        skill->_blood = -5.f;
+        skill->_blood = -20.f;
         skill->_cool_time = 3.f;
         skill->_distance = 70.f;
         break;
     case Skill::SKILL_KICK:
-        skill->_blood = -8.f;
+        skill->_blood = -30.f;
         skill->_cool_time = 4.f;
         skill->_distance = 60.f;
         break;
     case Skill::SKILL_SPECIAL:
-        skill->_blood = -13.f;
+        skill->_blood = -50.f;
         skill->_cool_time = 5.f;
         skill->_distance = 50.f;
-        skill->_magic_dec = -15.f;
+        skill->_magic = -15.f;
         break;
     case Skill::SKILL_SPEED:
         //skill->_blood = -5.f;
-        skill->_cool_time = 5.f;
-        skill->_magic_dec = -10.f;
+        skill->_cool_time = 8.f;
+        skill->_magic = -10.f;
         //skill->_distance = 30.f;
         break;
     }

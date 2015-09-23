@@ -98,6 +98,9 @@ namespace MESSAGE {
         add_goods,     //       19
         dec_goods,        //     20
 
+        set_master,     // 21
+        game_over,       // 22
+
         Max_number //消息的最大数目
     }; //主连接消息
 }

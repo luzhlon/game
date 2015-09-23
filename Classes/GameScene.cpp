@@ -88,19 +88,16 @@ bool GameScene::init()
 
     NetRoom::init();
 
-    /* Have BUG
+    //* Have BUG
     Client::onDisconnect = [this]() {
         Dialog::getInstance()->setCallback(Dialog::Callback([](Dialog *dlg, bool ok) {
-            Director::getInstance()->popScene();
+            //Director::getInstance()->popScene();
         }));
         Dialog::getInstance()->Popup_t(this, "ERROR", "与服务器失去连接");
     }; // */
 
     return true;
 }
-
-extern void _LogSize(const char *desc, const Size& size);
-extern void _LogVec3(const char *desc, Vec3& v3);
 
 void GameScene::load_ui(Node *root) {
     auto layer_ui = load_layer(root, 2);
@@ -193,7 +190,6 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
     {
         pos_began = wig->getTouchBeganPosition();
         pos_last = pos_began;
-        _LogSize("[Positon:] ", Size(pos_began.x, pos_began.y));
     }
     break;
     case Widget::TouchEventType::ENDED:

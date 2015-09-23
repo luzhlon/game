@@ -17,6 +17,7 @@ const float Player::s_full_magic = 100.f;
 
 extern Soldier *g_soldiers[MAX_ROOM_MEMBERS];
 extern World *g_world;
+extern Player *g_player;
 
 Player *Player::getInstance(Soldier *soldier) {
     static Player *player = nullptr;
@@ -26,6 +27,8 @@ Player *Player::getInstance(Soldier *soldier) {
     }
     return player;
 }
+
+#define REVIVE_TIME 20.f
 
 Player::Player(Soldier *self) {
     _soldier = self;
@@ -45,16 +48,31 @@ Player::Player(Soldier *self) {
 
     self->onDeath([this](Soldier *sol) {
         NetRoom::set_state(Soldier::SOLDIER_STATE_DEATH);
-        //scheduleOnce(schedule_selector(Player::revive), 8.f); // 8秒复活
-        GameScene::Instance->begain_progress(20.f, std::bind(&Player::revive, this));
+        // 复活读条
+        GameScene::Instance->begain_progress(REVIVE_TIME, std::bind(&Player::revive, this));
+        // 掉1/3的草
+        int lost = _soldier->grass() / 3;
+        NetRoom::set_grass(_soldier->grass() - lost);
+        // 找到一个附近的人加草
+        int near_id = NetRoom::get_near_enemy(60.f);
+        if (near_id >= 0) {
+            NetRoom::set_grass(lost, near_id);
+        }
     });
 
     schedule(schedule_selector(Player::update_per_second), 1.f);
 }
 
 bool Player::do_skill(Skill *skill) {
-    if(skill->_magic_dec != 0.f)
-        add_magic(skill->_magic_dec);
+    if (g_player->_magic < fabs(skill->_magic))
+        return false; //魔力不足
+
+    //技能正在冷却
+    if (skill->is_cooling()) return false;
+
+    add_magic(skill->_magic); // 魔力消耗
+
+    skill->cooling(); // 冷却
 
     NetRoom::do_skill(skill);
     return true;
@@ -127,12 +145,7 @@ void Player::onSkillClicked(Ref *ref) {
         }
     } while (false);
 
-    //技能正在冷却
-    if (skill->is_cooling()) return;
-
-    skill->cooling();
-
-    Player::getInstance()->do_skill(skill);
+    g_player->do_skill(skill);
 };
 
 void Player::update_per_second(float dt) {
@@ -165,10 +178,28 @@ void Player::on_get_goods(Goods *good) {
     case Goods::GRASS:
         NetRoom::set_grass(_soldier->grass() + good->count);
         break;
+    case Goods::SHOES:
+        NetRoom::set_speed(_soldier->speed() + 1);
+        break;
+    case Goods::WEAPON:
+        //NetRoom::set_speed(_soldier->speed() + 1);
+        // 随机给某个技能加强属性
+        // Uncomplete
+        switch (random(0, 3)) {
+        case 0:
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        }
+        break;
     }
 
     // remove this good from world
-    NetRoom::dec_goods(good);
+    NetRoom::dec_goods(good->index);
 }
 
 void Player::on_pick_goods() {
@@ -183,9 +214,9 @@ void Player::on_pick_goods() {
             //必须处于IDLE状态
             if (_soldier->state() != Soldier::SOLDIER_STATE_IDLE)
                 GameScene::Instance->break_progress();
-
+		} else { //
             on_get_goods(&s_good);
-        }
+		}
     });
 }
 
@@ -193,13 +224,21 @@ void Player::set_grass(int count) {
     _soldier->grass(count);
     GameScene::set_score(count);
     // 统计两队Grass
-    int score[2] = { 0 };
-    for (int i = 0; i < MAX_ROOM_MEMBERS; i += 1) {
-        auto sol = g_soldiers[i];
-        if (sol) score[i % 2] += sol->grass();
-    }
-    GameScene::set_score_red(score[0]);
-    GameScene::set_score_blue(score[1]);
+    int score_red = 0,
+        score_blue = 0;
+    score_red = NetRoom::get_team_grass(0);
+    score_blue = NetRoom::get_team_grass(1);
+
+    GameScene::set_score_red(score_red);
+    GameScene::set_score_blue(score_blue);
     //判断获胜
-    /*   */
+    int self_score = NetRoom::get_team_grass();
+    if (self_score <= 3) {
+        NetRoom::declare_win(NetRoom::_self_id + 1);
+        return;
+    }
+    if (self_score >= 100) {
+        NetRoom::declare_win(NetRoom::_self_id);
+        return;
+    }
 }

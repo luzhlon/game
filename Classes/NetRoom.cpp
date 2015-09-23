@@ -1,6 +1,7 @@
 #include "NetRoom.h"
 #include "GameScene.h"
 #include "World.h"
+#include "Dialog.h"
 #include "Skill.h"
 #include "Player.h"
 #include "Client.h"
@@ -14,7 +15,9 @@ extern Client *g_client;
 extern Soldier *g_soldiers[MAX_ROOM_MEMBERS];
 
 namespace NetRoom {
-    int         _self_id;
+    int         _self_id = -1;
+    int         _master_id = -1;
+    bool        _game_over = false;
     std::string _room_name;
     room_member _members[MAX_ROOM_MEMBERS];
     net_pkg     _pkg;
@@ -22,10 +25,12 @@ namespace NetRoom {
 }
 
 void NetRoom::init() {
+    _game_over = false;
+
     register_handlers();
     create_soldiers();
 
-    g_world->on_gen_goods([](Goods *goods) {
+    g_world->on_gen_goods([](GoodsBase *goods) {
         add_goods(goods);
     });
 }
@@ -92,10 +97,36 @@ void NetRoom::register_handlers() {
         else  sol->grass(pkg->arg2);
     });
     HANDLER(add_goods) = Client::handler([](net_pkg *pkg) {
-        g_world->add_goods((Goods *)pkg->data);
+        g_world->add_goods((GoodsBase *)pkg->data);
     });
     HANDLER(dec_goods) = Client::handler([](net_pkg *pkg) {
-        g_world->dec_goods((Goods *)pkg->data);
+        g_world->dec_goods(pkg->arg1);
+    });
+
+    HANDLER(set_master) = Client::handler([](net_pkg *pkg) {
+        _master_id = pkg->arg1;
+        // 房主负责在世界里产生物品
+        if (_master_id == _self_id) {
+            g_world->begin_gen_goods();
+        }
+    });
+
+    HANDLER(quit_room) = Client::handler([](net_pkg *pkg) {
+        auto sol = g_soldiers[pkg->arg1];
+        if (sol) sol->removeFromParent();
+
+        g_soldiers[pkg->arg1] = nullptr;
+    });
+
+    HANDLER(game_over) = Client::handler([](net_pkg *pkg) {
+        static bool end = false; // 游戏结束
+        if (end) return;
+        end = true;
+        Dialog::getInstance()->setCallback([](Dialog *dlg, bool ok) {
+            Director::getInstance()->popScene();
+        });
+        Dialog::getInstance()->Popup_t(GameScene::Instance, "Game Over",
+                                            pkg->arg1 ? "蓝方胜" : "红方胜");
     });
 }
 
@@ -115,6 +146,10 @@ void NetRoom::create_soldiers() {
         //g_world->set_position(g_soldiers[i], i % 2 ? 
                                             //Vec2(103.f, -503.f) :
                                             //Vec2(246.f, 484.f));
+        // 房主负责在世界里产生物品
+        if (_master_id == _self_id) {
+            g_world->begin_gen_goods();
+        }
     }
 
     if (_self_id % 2) {  // 蓝队
@@ -204,27 +239,56 @@ void NetRoom::set_state(Soldier::State state) {
     _pkg.msg = MESSAGE::update_state;
     _pkg.arg1 = _self_id;
     _pkg.arg2 = state;
-    //*(float *)_pkg.data = blood;
     g_client->sendMsg(&_pkg, sizeof(mini_net_pkg));
 }
 
-void NetRoom::set_grass(int count) {
+void NetRoom::set_grass(int count, int room_id) {
     _pkg.msg = MESSAGE::update_grass;
-    _pkg.arg1 = _self_id;
+    _pkg.arg1 = room_id;
     _pkg.arg2 = count;
-    //*(float *)_pkg.data = blood;
     g_client->sendMsg(&_pkg, sizeof(mini_net_pkg));
 }
 
-void NetRoom::add_goods(Goods *good) {
+void NetRoom::add_goods(GoodsBase *good) {
     _pkg.msg = MESSAGE::add_goods;
     _pkg.arg1 = _self_id;
-    memcpy(_pkg.data, good, sizeof(Goods));
-    g_client->sendMsg(&_pkg, sizeof(mini_net_pkg)+sizeof(Goods));
+    memcpy(_pkg.data, good, sizeof(GoodsBase));
+    g_client->sendMsg(&_pkg, sizeof(mini_net_pkg)+sizeof(GoodsBase));
 }
-void NetRoom::dec_goods(Goods *good) {
-    _pkg.msg = MESSAGE::dec_goods;
-    _pkg.arg1 = _self_id;
-    memcpy(_pkg.data, good, sizeof(Goods));
-    g_client->sendMsg(&_pkg, sizeof(mini_net_pkg)+sizeof(Goods));
+
+void NetRoom::dec_goods(int index) {
+    g_client->sendMsg(MESSAGE::dec_goods, index);
+}
+
+int NetRoom::get_near_enemy(float distance) {
+    auto self = g_soldiers[_self_id];
+    //从对方队伍里寻找离自己近的人
+    for (int i = (_self_id % 2 + 1) % 2;
+        i < MAX_ROOM_MEMBERS; i += 2) {
+        auto s = g_soldiers[i];
+        if (!s) continue;
+
+        //if (s->member()->is_empty()) continue;
+        if (s->death()) continue; // 对方已经死亡
+
+        auto delta3 = s->getPosition3D() - self->getPosition3D();
+        Vec2 delta(delta3.x, delta3.z);
+
+        if(delta.length() < distance) return i; // 相差距离
+    }
+    // 给定距离内没有敌人
+    return -1;
+}
+
+int NetRoom::get_team_grass(int room_id) {
+    int score = 0;
+    for (int i = room_id % 2; i < MAX_ROOM_MEMBERS; i += 2) {
+        auto sol = g_soldiers[i];
+        if (sol) score += sol->grass();
+    }
+    return score;
+}
+
+void NetRoom::declare_win(int team) {
+    g_client->sendMsg(MESSAGE::game_over, team % 2);
 }
