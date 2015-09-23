@@ -3,6 +3,8 @@
 
 QHash<QString, Member *> Member::g_member;
 
+extern const char *g_check_name(char *name);
+
 Member::Member(char *name, MsgHandler *handler) {
 
     if(strlen(name) >= MAX_MEMBER_NAME_LEN) {

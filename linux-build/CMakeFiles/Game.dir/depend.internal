@@ -900,6 +900,7 @@ CMakeFiles/Game.dir/Classes/GameScene.cpp.o
  ../cocos2d/external/json/reader.h
  /home/john/cmake_proj/game/Classes/AppDelegate.h
  /home/john/cmake_proj/game/Classes/Client.h
+ /home/john/cmake_proj/game/Classes/Dialog.h
  /home/john/cmake_proj/game/Classes/DrawNode3D.h
  /home/john/cmake_proj/game/Classes/GameScene.cpp
  /home/john/cmake_proj/game/Classes/GameScene.h
@@ -5462,13 +5463,11 @@ CMakeFiles/Game.dir/Classes/Soldier.cpp.o
  ../cocos2d/external/json/msinttypes/stdint.h
  ../cocos2d/external/json/rapidjson.h
  ../cocos2d/external/json/reader.h
- /home/john/cmake_proj/game/Classes/AppDelegate.h
  /home/john/cmake_proj/game/Classes/Dialog.h
  /home/john/cmake_proj/game/Classes/DrawNode3D.h
  /home/john/cmake_proj/game/Classes/Man2Soldier.h
  /home/john/cmake_proj/game/Classes/ManSoldier.h
  /home/john/cmake_proj/game/Classes/SceneLayer.h
- /home/john/cmake_proj/game/Classes/Skill.h
  /home/john/cmake_proj/game/Classes/Soldier.cpp
  /home/john/cmake_proj/game/Classes/Soldier.h
  /home/john/cmake_proj/game/Classes/WomanSoldier.h

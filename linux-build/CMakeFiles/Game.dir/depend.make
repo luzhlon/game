@@ -899,6 +899,7 @@ CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../cocos2d/external/json/rapidjson.
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../cocos2d/external/json/reader.h
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../Classes/AppDelegate.h
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../Classes/Client.h
+CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../Classes/Dialog.h
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../Classes/DrawNode3D.h
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../Classes/GameScene.cpp
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../Classes/GameScene.h
@@ -5461,13 +5462,11 @@ CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../cocos2d/external/json/msinttypes/i
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../cocos2d/external/json/msinttypes/stdint.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../cocos2d/external/json/rapidjson.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../cocos2d/external/json/reader.h
-CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/AppDelegate.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/Dialog.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/DrawNode3D.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/Man2Soldier.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/ManSoldier.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/SceneLayer.h
-CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/Skill.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/Soldier.cpp
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/Soldier.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/WomanSoldier.h

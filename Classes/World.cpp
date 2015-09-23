@@ -92,9 +92,15 @@ bool QuatNode::Split(Vec2& sp) {
     if (!contained(sp)) return false;
     if (split()) unSplit();
 
+    Vec2 v2;
+
     _child[0][0] = new QuatNode(this, dd, sp); // dd
-    _child[0][1] = new QuatNode(this, Vec2(dd.x, uu.y), sp); // du
-    _child[1][0] = new QuatNode(this, Vec2(uu.x, dd.y), sp); // ud
+    v2.x = dd.x;
+    v2.y = uu.y;
+    _child[0][1] = new QuatNode(this, v2, sp); // du
+    v2.x = uu.x;
+    v2.y = dd.y;
+    _child[1][0] = new QuatNode(this, v2, sp); // ud
     _child[1][1] = new QuatNode(this, uu, sp); // uu
 
     _split = sp;
@@ -559,6 +565,7 @@ void World::set_position(Node *node, Vec2& pos) {
 GoodsGrass::GoodsGrass()
     : Goods(GRASS) {
     _sprite = Sprite3D::create("goods/plant/caoyuanche.c3b");
+    _sprite->setScale(0.15f);
 }
 
 GoodsGrass::~GoodsGrass() {
@@ -583,6 +590,7 @@ void World::update_goods(float dt) {
     Goods good;
     good.type = (Goods::Type)(int)g_random(Goods::TYPE_NUMBER);
     good.count = g_random(20);
+    good.index = index;
 
     if (_on_gen_goods) _on_gen_goods(&good);
 }

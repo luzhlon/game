@@ -102,16 +102,4 @@ namespace MESSAGE {
     }; //主连接消息
 }
 
-static const char *g_check_name(char *name) {
-    std::string str = name;
-    if(str.empty()) {
-        return "Empty name";
-    }
-    if((str.find(' ') != std::string::npos) ||
-            (str.find("　") != std::string::npos)) {
-        return "Contain space character";
-    }
-    return nullptr;
-}
-
 #endif //

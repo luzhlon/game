@@ -5,6 +5,19 @@
 
 QHash<QString, Room *> Room::g_room;
 
+const char *g_check_name(char *name) {
+    std::string str = name;
+    if(str.empty()) {
+        return "Empty name";
+    }
+    if((str.find(' ') != std::string::npos) ||
+            (str.find("　") != std::string::npos)) {
+        return "Contain space character";
+    }
+    return nullptr;
+}
+
+
 Room::Room(char *name) {
     if(strlen(name) >= MAX_ROOM_NAME_LEN) {
         m_err = "room name is too long";

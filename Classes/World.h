@@ -66,7 +66,7 @@ struct Goods {
         TYPE_NUMBER
     };
     Goods(Type t) { type = t; }
-    Goods() {};
+    Goods() {}
 
     virtual Vec2 get_position() { return Vec2::ZERO; }
 
@@ -119,11 +119,12 @@ public:
     void load_collision(char *file);
 
     void set_position(Node*, Vec2& pos);
-    bool is_collision(Vec2& pos);
     void add_thing(Node *node, float x = 0.f, float z = 0.f);
 
+    bool is_collision(Vec2 &pos);
     inline bool is_collision(Vec3& pos) {
-        return is_collision(Vec2(pos.x, pos.z));
+        Vec2 v2(pos.x, pos.z);
+        return is_collision(v2);
     }
     inline void add_thing(Node *node, Vec2& pos) {
         return add_thing(node, pos.x, pos.y);
@@ -160,6 +161,6 @@ private:
 
     Goods *_goods[20];
     std::function<void(Goods *)> _on_gen_goods  = nullptr;
-
+};
 
 #endif /* __WORLD_H__ */

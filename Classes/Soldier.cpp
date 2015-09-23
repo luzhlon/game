@@ -1,7 +1,6 @@
 ﻿#include "Soldier.h"
 #include "Dialog.h"
 #include "World.h"
-//#include "AppDelegate.h"
 #include "ManSoldier.h"
 #include "Man2Soldier.h"
 #include "WomanSoldier.h"
