@@ -73,6 +73,7 @@ Player::Player(Soldier *self) {
 
 void Player::on_skill(SkillBase *skill) {
     g_play_effect(_soldier->m_eff_aida);
+    _soldier->on_skill(skill);
     NetRoom::set_blood(_soldier->blood()); // 在房间里更新自己的血量
 }
 
