@@ -532,7 +532,11 @@ void World::camera_move(Vec2& factor) {
 
 void World::camera_follow(Node *node) {
     if (getCameraMask() == CAMERA_FREE) {
-        _camera_free->setPosition3D(node->getPosition3D() + s_camera_offset);
+        auto cam_pos = node->getPosition3D() + s_camera_offset;
+        Vec2 cam_pos2(cam_pos.x, cam_pos.z);
+        if (!_colli_root->contained(cam_pos2)) return; //不在地图范围内
+
+        _camera_free->setPosition3D(cam_pos);
         auto pos = node->getPosition3D();
         auto delta3 = _camera_free->getPosition3D() - pos;
         Vec2 delta(delta3.x, delta3.z);

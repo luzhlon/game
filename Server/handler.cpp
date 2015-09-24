@@ -21,8 +21,9 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
             self->Reply(pkg, 1);
             qDebug() << "[New member]:" << self->member()->name();
         } else {
-            self->Reply(pkg, 0, self->error());
-            self->endHandle();
+            if(self->member())
+                self->Reply(pkg, 0, self->error());
+            self->endHandle(true);
             qDebug() << "<Member>:"
                      << self->socket()->peerName()
                      << "authentication failure.";
@@ -98,7 +99,8 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
     };
 
     auto handler_update = [](MsgHandler *self, net_pkg *pkg) {
-        self->member()->room()->broadcast(pkg, pkg->len);
+        auto m = self->member();
+        if(m && m->room()) m->room()->broadcast(pkg, pkg->len);
     };
 
     m_handlers[MESSAGE::update_state] = handler_update;
@@ -159,10 +161,8 @@ void MsgHandler::handle() {
         len = pkg->len;
 
         if (rest > 0) {
-            int len = pkg->len;
             char *buf = (char *)pkg;
             for (int i = 0; i < rest; i++) buf[i] = buf[i + len];
-            pkg = (net_pkg *)(buf + len);
         } else
             break;
     }
@@ -210,6 +210,7 @@ void MsgHandler::onReadyRead() {
                  << (m_member ? member()->name() : m_socket->peerName())
                  << "endHandle.";
         m_socket->disconnectFromHost();
+        return;
     }
     if(Recv()) handle(); //数据接收完整后处理
 }

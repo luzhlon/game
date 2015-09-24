@@ -95,6 +95,24 @@ void NetRoom::register_handlers() {
         auto sol = g_soldiers[pkg->arg1]; 
         if (pkg->arg1 == _self_id) g_player->set_grass(pkg->arg2);
         else  sol->grass(pkg->arg2);
+        // 统计两队Grass
+        int score_red = 0,
+            score_blue = 0;
+        score_red = NetRoom::get_team_grass(0);
+        score_blue = NetRoom::get_team_grass(1);
+
+        GameScene::set_score_red(score_red);
+        GameScene::set_score_blue(score_blue);
+        //判断获胜
+        int self_score = NetRoom::get_team_grass();
+        if (self_score <= 3) {
+            NetRoom::declare_win(NetRoom::_self_id + 1);
+            return;
+        }
+        if (self_score >= 100) {
+            NetRoom::declare_win(NetRoom::_self_id);
+            return;
+        }
     });
     HANDLER(add_goods) = Client::handler([](net_pkg *pkg) {
         g_world->add_goods((GoodsBase *)pkg->data);
@@ -123,7 +141,8 @@ void NetRoom::register_handlers() {
         if (end) return;
         end = true;
         Dialog::getInstance()->setCallback([](Dialog *dlg, bool ok) {
-            Director::getInstance()->popScene();
+            //Director::getInstance()->popScene();
+            Director::getInstance()->end();
         });
         Dialog::getInstance()->Popup_t(GameScene::Instance, "Game Over",
                                             pkg->arg1 ? "蓝方胜" : "红方胜");
@@ -140,8 +159,8 @@ void NetRoom::create_soldiers() {
         g_soldiers[i] = Soldier::create(meb); // 创建
         g_soldiers[i]->name_text()->setString(meb->m_name); // 玩家名称
         g_soldiers[i]->name_text()->setColor( i % 2 ?
-                                                Color3B(255, 0, 0) :  // 蓝队
-                                                Color3B(0, 0, 255));  // 红队
+                                                Color3B(0, 0, 255) :  // 蓝队
+                                                Color3B(255, 0, 0));  // 红队
         g_world->add_thing(g_soldiers[i]); // 添加到世界中
         //g_world->set_position(g_soldiers[i], i % 2 ? 
                                             //Vec2(103.f, -503.f) :

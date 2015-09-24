@@ -49,14 +49,18 @@ Player::Player(Soldier *self) {
     self->onDeath([this](Soldier *sol) {
         NetRoom::set_state(Soldier::SOLDIER_STATE_DEATH);
         // 复活读条
-        GameScene::Instance->begain_progress(REVIVE_TIME, std::bind(&Player::revive, this));
+        //GameScene::Instance->begain_progress(REVIVE_TIME, std::bind(&Player::revive, this));
+        GameScene::Instance->begain_progress(REVIVE_TIME, [this](float dt, bool end) {
+            if (end)
+                revive();
+        });
         // 掉1/3的草
         int lost = _soldier->grass() / 3;
         NetRoom::set_grass(_soldier->grass() - lost);
         // 找到一个附近的人加草
         int near_id = NetRoom::get_near_enemy(60.f);
         if (near_id >= 0) {
-            NetRoom::set_grass(lost, near_id);
+            NetRoom::set_grass(g_soldiers[near_id]->grass() + lost, near_id);
         }
     });
 
@@ -223,22 +227,4 @@ void Player::on_pick_goods() {
 void Player::set_grass(int count) {
     _soldier->grass(count);
     GameScene::set_score(count);
-    // 统计两队Grass
-    int score_red = 0,
-        score_blue = 0;
-    score_red = NetRoom::get_team_grass(0);
-    score_blue = NetRoom::get_team_grass(1);
-
-    GameScene::set_score_red(score_red);
-    GameScene::set_score_blue(score_blue);
-    //判断获胜
-    int self_score = NetRoom::get_team_grass();
-    if (self_score <= 3) {
-        NetRoom::declare_win(NetRoom::_self_id + 1);
-        return;
-    }
-    if (self_score >= 100) {
-        NetRoom::declare_win(NetRoom::_self_id);
-        return;
-    }
 }

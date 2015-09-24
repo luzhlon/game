@@ -83,7 +83,7 @@ public:
         return _grass;
     }
     inline void grass(int count) {
-        _grass = count;
+        _grass = count < 0 ? 0 : count;
     }
     inline float blood() {
         return _blood;

@@ -103,10 +103,8 @@ void Client::threadRecv() {
             len = pkg->len;
 
             if (rest > 0) {
-                int len = pkg->len;
                 char *buf = (char *)pkg;
                 for (int i = 0; i < rest; i++) buf[i] = buf[i + len];
-                pkg = (net_pkg *)(buf + len);
             } else
                 break;
         }

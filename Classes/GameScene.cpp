@@ -180,6 +180,8 @@ void GameScene::ui2gl(Vec2& v) {
     v.y = size.height - v.y;
 }
 
+#define TOUCH_IGNORE_SIZE 50
+
 void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
     Widget *wig = dynamic_cast<Widget *>(ref);
     static Vec2 pos_began;
@@ -195,7 +197,8 @@ void GameScene::onLayerTouched(Ref *ref, Widget::TouchEventType type) {
     case Widget::TouchEventType::ENDED:
     {
         auto pos = wig->getTouchEndPosition();
-        if (pos == pos_began) { //Not moved
+        auto delta = pos - pos_began;
+        if (delta.length() < TOUCH_IGNORE_SIZE) {  // 滑动距离小
             ui2gl(pos);
             Vec3 point(pos.x, pos.y, 0.f);
             if (g_world->conv2space(point)){

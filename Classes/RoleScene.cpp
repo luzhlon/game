@@ -72,12 +72,12 @@ void RoleScene::onEnter() {
 		if (pkg->arg1) { // 成功，进入房间列表
             log("[Auth success]");
 			Director::getInstance()->pushScene(RoomListScene::createScene());
+            HANDLER(authentication) = nullptr; // 置空，防止重复调用
 		}
         else { // 失败，弹对话框
             //log("[Auth failure]: %s", pkg->data);
             Dialog::getInstance()->Popup_t(this, " 错误 ", pkg->data);
         }
-        HANDLER(authentication) = nullptr; // 置空，防止重复调用
     });
 }
 
