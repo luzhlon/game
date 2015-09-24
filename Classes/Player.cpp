@@ -183,7 +183,7 @@ void Player::on_get_goods(Goods *good) {
         NetRoom::set_grass(_soldier->grass() + good->count);
         break;
     case Goods::SHOES:
-        NetRoom::set_speed(_soldier->speed() + 1);
+        NetRoom::set_speed(_soldier->speed() + good->count);
         break;
     case Goods::WEAPON:
         //NetRoom::set_speed(_soldier->speed() + 1);
@@ -191,10 +191,13 @@ void Player::on_get_goods(Goods *good) {
         // Uncomplete
         switch (random(0, 3)) {
         case 0:
+            skill_boxing->_blood -= good->count;
             break;
         case 1:
+            skill_kick->_blood -= good->count;
             break;
         case 2:
+            skill_special->_blood -= good->count;
             break;
         case 3:
             break;

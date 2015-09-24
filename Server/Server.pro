@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     handler.cpp \
     server.cpp \
     room.cpp \
-    member.cpp
+    member.cpp \
+    message.cpp
 
 HEADERS  += dialog.h \
     handler.h \

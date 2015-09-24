@@ -18,6 +18,7 @@ public:
 
     void handle(); //总的 处理消息
     void loopHandle(); //开始循环处理用户消息
+
     inline bool endHandle() { //结束处理？
         return m_end;
     }
@@ -79,10 +80,12 @@ public:
         return true;
     }
 
+    void on_package(char *buf, int size);
+
 public slots:
     void onDisconnected();
     void onReadyRead();
-    void onStateChange(QAbstractSocket::SocketState state);
+    //void onStateChange(QAbstractSocket::SocketState state);
 
 private:
     QTcpSocket *m_socket = nullptr; //此处理器持有的socket
@@ -90,10 +93,9 @@ private:
     Member * m_member = nullptr; //此处理器对应的用户
     bool     m_end = false; //表明是否要结束处理
     const char *   m_err = nullptr;
+
+    PackageCache *m_pkg_cache = nullptr;
     net_pkg  m_buf; //接收的数据包缓冲区
-    //
-    int m_bytes_to_recv = 0;
-    char *m_buf_to_recv = nullptr;
 };
 
 #define HANDLER(MSG) m_handlers[MESSAGE::MSG] = [](MsgHandler *self, net_pkg *pkg)

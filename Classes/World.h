@@ -11,9 +11,9 @@ USING_NS_CC;
 //#define VIEW_TEST
 #define MAX_POINT_NUM 20
 #define MAX_GOODS_COUNT 8
-#define MAX_CAMERA_HEIGHT 500
+#define MAX_CAMERA_HEIGHT 300
 #define MIN_CAMERA_HEIGHT 80
-#define INTERVAL_GEN_GOODS 5.f
+#define INTERVAL_GEN_GOODS 9.f
 
 class QuatNode {
 public:

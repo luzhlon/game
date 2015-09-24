@@ -6,15 +6,66 @@
 
 extern Dialog *g_dialog;
 
+namespace MESSAGE {
+    const char *name[] = {
+        "authentication",
+        "room_list", //房间列表      1
+        "create_room", //创建房间    2
+        "join_room ", //加入房间     3
+        "quit_room ", //退出房间     4
+        "room_members", //房间成员信息    5
+        "start_game", //开始游戏     6
+        "set_ready", //设置准备状态    7
+        "set_team", //设置队伍          8
+
+        "update_state",               // 9
+        "update_position",  //          10
+        "update_angle", //           11
+        "update_speed",   //           12
+        "update_blood",      //          13
+
+        "action_move",   //           14
+        "action_stop",   //           15
+
+        "do_skill",  //                16
+        "on_attacked",  //             17
+
+        "update_grass", //           18
+        "add_goods",     //       19
+        "dec_goods",        //     20
+
+        "set_master",     // 21
+        "game_over",       // 22
+
+        ""
+    };
+}
+
 MsgHandler::MsgHandler(QTcpSocket *sock) {
     m_socket = sock;
     connect(m_socket, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
     connect(m_socket, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
-    connect(m_socket, SIGNAL(stateChanged(QAbstractSocket::SocketState)),
-            this, SLOT(onStateChange(QAbstractSocket::SocketState)));
+    //connect(m_socket, SIGNAL(stateChanged(QAbstractSocket::SocketState)),
+            //this, SLOT(onStateChange(QAbstractSocket::SocketState)));
 
     m_handlers = new Handler[MESSAGE::Max_number]; //分配处理器Vector
     for(int i = 0; i < MESSAGE::Max_number; i++) { m_handlers[i] = nullptr; }
+
+    m_pkg_cache = new PackageCache([this](char *buf, int size) {
+        auto pkg = &m_buf;
+        memcpy(pkg, buf, size);
+        // 处理包
+        if(pkg->msg < MESSAGE::Max_number) {
+        auto handler = m_handlers[pkg->msg];
+        qDebug() << "[MESSAGE:]" << MESSAGE::name[pkg->msg];
+
+        if(handler) handler(this, pkg); //交由子类处理器处理
+        } else {
+        qDebug() << "[Error message]"
+         << m_socket->peerName();
+        //m_socket->disconnectFromHost();
+        //break;
+    }});
 
     HANDLER(authentication) { //
         if(self->setMember(pkg->data, pkg->arg1)) {
@@ -74,13 +125,14 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
     HANDLER(start_game) { //通知各客户端开始游戏
         self->member()->room()->start_game();
     };
-    HANDLER(set_ready) { //设置准备状态
+    HANDLER(set_ready) {  //设置准备状态
         auto room = self->member()->room();
         if(!room) return;
         if(pkg->arg1) {
             self->member()->set_ready_1();
-            if(room->checkAllReady()) {
+            if(room->check_team_ready()) {
                 //start game
+                room->start_game();
             }
         } else {
             self->member()->set_ready_0();
@@ -137,66 +189,6 @@ void MsgHandler::onDisconnected() {
     delete this;
 }
 
-void MsgHandler::handle() {
-    auto pkg = &m_buf;
-
-    int len = 0;
-    auto rest = m_bytes_to_recv < 0 ? -m_bytes_to_recv : 0;
-
-    // 粘包处理
-    while(true) {
-        rest -= len;
-
-        // 处理包
-        if(pkg->msg < MESSAGE::Max_number) {
-            auto handler = m_handlers[pkg->msg];
-            if(handler) handler(this, pkg); //交由子类处理器处理
-        } else {
-            qDebug() << "[Error message]"
-                 << m_socket->peerName();
-            //m_socket->disconnectFromHost();
-            break;
-        }
-
-        len = pkg->len;
-
-        if (rest > 0) {
-            char *buf = (char *)pkg;
-            for (int i = 0; i < rest; i++) buf[i] = buf[i + len];
-        } else
-            break;
-    }
-}
-
-//异步回调式的完整性接收处理
-bool MsgHandler::Recv() {
-    auto pkg = &m_buf;
-    int rev_size = 0;
-    int to_recv = 0;
-
-    bool isHead = m_bytes_to_recv <= 0; //是否为接收头信息
-
-
-    if(isHead) {
-        to_recv = MAX_PKG_LENGTH + NET_PKG_SIZE;
-        m_buf_to_recv = (char *)pkg;
-    } else { // 断包情况处理
-        to_recv = m_bytes_to_recv;
-        m_buf_to_recv += m_bytes_to_recv;
-    }
-
-    rev_size = m_socket->read(m_buf_to_recv, to_recv);
-
-    if(isHead) {
-        Q_ASSERT(pkg->len < MAX_PKG_LENGTH);
-        m_bytes_to_recv = pkg->len - rev_size;
-    } else { // 断包情况处理
-        m_bytes_to_recv -= rev_size;
-    }
-
-    return m_bytes_to_recv <= 0; //条件成立则数据已接收完
-}
-
 int MsgHandler::_Reply(net_pkg *p, int size) {
     p->len = size;
     int ret = m_socket->write((const char *)p, (qint64)size);
@@ -212,9 +204,12 @@ void MsgHandler::onReadyRead() {
         m_socket->disconnectFromHost();
         return;
     }
-    if(Recv()) handle(); //数据接收完整后处理
+    char buf[10240];
+    int size = m_socket->read(buf, 10240);
+    m_pkg_cache->write_data(buf, size);
 }
 
+/*
 void MsgHandler::onStateChange(QAbstractSocket::SocketState state) {
     switch(state) {
     case QAbstractSocket::UnconnectedState:
@@ -232,4 +227,4 @@ void MsgHandler::onStateChange(QAbstractSocket::SocketState state) {
     case QAbstractSocket::ListeningState:
         break;
     }
-}
+} // */

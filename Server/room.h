@@ -33,7 +33,7 @@ public:
     bool set_team(Member *, int ); //设置属于哪一队
     bool start_game();
 
-    bool checkAllReady();
+    bool check_team_ready();
 
     void broad_members(); //广播成员列表
 

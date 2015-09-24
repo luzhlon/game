@@ -39,8 +39,6 @@ void NetRoom::register_handlers() {
     HANDLER(update_state) = Client::handler([](net_pkg *pkg) {
         auto sol = g_soldiers[pkg->arg1];
         sol->switch_state((Soldier::State)pkg->arg2);
-        //sol->target_point(*(Vec3 *)(pkg->data));
-        //sol->addState((Soldier::State)pkg->arg2);
     });
     HANDLER(update_blood) = Client::handler([](net_pkg *pkg) {
         auto sol = g_soldiers[pkg->arg1];

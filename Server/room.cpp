@@ -17,7 +17,6 @@ const char *g_check_name(char *name) {
     return nullptr;
 }
 
-
 Room::Room(char *name) {
     if(strlen(name) >= MAX_ROOM_NAME_LEN) {
         m_err = "room name is too long";
@@ -59,8 +58,8 @@ bool Room::add(Member *meb) {
 }
 
 bool Room::start_game() {
-    //if(m_started)
-        //return false;  //DEBUG
+    if(m_started)
+        return false;  //DEBUG
 
     mini_net_pkg pkg;
     pkg.msg = MESSAGE::start_game;
@@ -133,15 +132,20 @@ int Room::for_member_id(Member *meb) {
     m_err = "no this member";
 }
 
-bool Room::checkAllReady() {
-    bool all = true;
+bool Room::check_team_ready() {
+    bool team_red = true;
+    bool team_blue = true;
     for(int i = 0; i < MAX_ROOM_MEMBERS; i++) {
         auto m = m_members[i];
         if(m) {
-            all = all && m->get_ready();
+            if(i%2) {
+               team_blue = all && m->get_ready();
+            } else {
+               team_ready = all && m->get_ready();
+            }
         }
     }
-    if(all) return true;
+    if(team_blue && team_red) return true;
     else return false;
 }
 

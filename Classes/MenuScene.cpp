@@ -1,4 +1,5 @@
 ﻿#include "MenuScene.h"
+#include "HelpScene.h"
 #include "SettingScene.h"
 #include "RoleScene.h"
 #include "cocostudio/CocoStudio.h"
@@ -33,6 +34,10 @@ bool MenuScene::init() {
     setClickCallback(layout, "button_multi", CC_CALLBACK_1(MenuScene::onMultiClick, this));
     setClickCallback(layout, "button_setting", CC_CALLBACK_1(MenuScene::onSettingClick, this));
     setClickCallback(layout, "button_quit", CC_CALLBACK_1(MenuScene::onQuitClick, this));
+
+    setClickCallback(layout, "button_help", [](Ref *ref) {
+        Director::getInstance()->pushScene(HelpScene::createScene());
+    });
 
     return true;
 }

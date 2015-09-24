@@ -281,9 +281,9 @@ World::World() {
         addChild(_drawNode);
     }
     {
-        Terrain::DetailMap r("TerrainTest/water.jpg"), g("TerrainTest/grass.jpg", 10), b("TerrainTest/road.jpg"), a("TerrainTest/greenskin.jpg", 20);
+        Terrain::DetailMap r("terrain/water.jpg"), g("terrain/grass.jpg", 10), b("terrain/road.jpg"), a("terrain/greenskin.jpg", 20);
 
-        Terrain::TerrainData data("TerrainTest/ground.jpg", "TerrainTest/alphamap.jpg", r, g, b, a, Size(32, 32), 330.0f, 6.f);
+        Terrain::TerrainData data("terrain/ground.jpg", "terrain/alphamap.jpg", r, g, b, a, Size(32, 32), 330.0f, 6.f);
         _terrain = Terrain::create(data, Terrain::CrackFixedType::SKIRT);
         _terrain->setMaxDetailMapAmount(4);
         _terrain->setDrawWire(false);
@@ -312,7 +312,7 @@ World::World() {
 
     for (int i = 0; i < MAX_POINT_NUM; i++) _goods[i] = 0;
 
-    draw_grid(10.f, _terrain->getHeight(Vec2::ZERO));
+    //draw_grid(10.f, _terrain->getHeight(Vec2::ZERO));
     add_skybox();
 
     load_goods("goods/plant/config");
@@ -562,6 +562,8 @@ Goods::Goods(GoodsBase *gb) {
     this->index = gb->index;
     this->count = gb->count;
 
+    Vec3 pos;
+
     switch (gb->type) {
     case Goods::GRASS:
         sprite = Sprite3D::create("goods/plant/caoyuanche.c3b");
@@ -570,9 +572,15 @@ Goods::Goods(GoodsBase *gb) {
     case Goods::SHOES:
         sprite = Sprite3D::create("goods/xie.c3b");
         sprite->setScale(0.1f);
+        pos = sprite->getPosition3D();
+        pos.y += 50.f;
+        sprite->setPosition3D(pos);
     case Goods::WEAPON:
         sprite = Sprite3D::create("goods/wuqi.c3b");
         sprite->setScale(0.1f);
+        pos = sprite->getPosition3D();
+        pos.y += 30.f;
+        sprite->setPosition3D(pos);
         break;
     }
 
@@ -596,13 +604,14 @@ void World::update_goods(float dt) {
     } while (_goods[index]); // 在未被占用的位置产生一个物品
 
     good.index = index;
-    good.type = (Goods::Type)random(0, Goods::TYPE_NUMBER - 1);
+    // good.type = (Goods::Type)random(0, Goods::TYPE_NUMBER - 1);
+    good.type = (Goods::Type)0;
     switch (good.type) {
     case Goods::GRASS:
         good.count = random(10, 20);
         break;
     case Goods::SHOES:
-        good.count = random(1, 3);
+        good.count = random(5, 10);
         break;
     case Goods::WEAPON:
         good.count = random(5, 10);

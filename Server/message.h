@@ -105,4 +105,49 @@ namespace MESSAGE {
     }; //主连接消息
 }
 
+#include <functional>
+
+class PackageCache {
+public:
+    typedef std::function<void (char*, int)> Callback;
+
+    PackageCache(Callback cb, int length = 64 * 1024)
+        : i_length(length) {
+        m_cb = cb;
+        m_buf = new char[length];
+    }
+    ~PackageCache() {
+        delete m_buf;
+    }
+
+
+    void write_data(char *buf, int size);
+
+    inline void on_read_pkg(Callback cb) {
+        m_cb = cb;
+    }
+
+    inline int delta() { // 未处理的数据长度
+        return i_write - i_read;
+    }
+
+    inline void lock() { while(b_lock); // 先等待解锁
+                    b_lock = true; }
+    inline void unlock() { b_lock = false; }
+
+private:
+    int i_read = 0;
+    int i_write = 0;
+    int i_length = 0;
+    Callback m_cb = nullptr;
+    char *m_buf = nullptr;
+    bool b_lock = false;
+    bool b_last_pkg_end = true;
+
+    inline void write(char *buf, int size) {
+        memcpy(&m_buf[i_write], buf, size);
+        i_write += size;
+    }
+};
+
 #endif //

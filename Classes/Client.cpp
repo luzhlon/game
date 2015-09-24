@@ -91,6 +91,8 @@ void Client::threadRecv() {
         while (true) { // 处理粘包
             rest -= len;
 
+            len = pkg->len;
+
             char *buf = new char[pkg->len];
             memcpy(buf, pkg, pkg->len);
             /////////////////////////////////////
@@ -99,8 +101,6 @@ void Client::threadRecv() {
             s_recv_list.push_back((net_pkg *)buf);
             s_lock = false;
             ////////////////////////////////////
-
-            len = pkg->len;
 
             if (rest > 0) {
                 char *buf = (char *)pkg;

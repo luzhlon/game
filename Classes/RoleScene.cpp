@@ -52,7 +52,7 @@ bool RoleScene::load_pages() {
         //layout->setPositionPercent(Vec2(1.f, 1.f));
 
         auto s = Soldier::create(i);
-        s->setScale(1.f);
+        s->setScale(1.2f);
         layout->addChild(s);
         s->setPosition(Vec2(size.width / 2.f, size.height / 3.f));
 

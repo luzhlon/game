@@ -1,7 +1,5 @@
 ﻿#include "AppDelegate.h"
 #include "MenuScene.h"
-//#include "GameScene.h"
-//#include "RoleScene.h"
 
 USING_NS_CC;
 
@@ -97,12 +95,14 @@ bool AppDelegate::applicationDidFinishLaunching() {
         g_file->addSearchPath("scene/role_scene");
         g_file->addSearchPath("scene/setting_scene");
         g_file->addSearchPath("scene/game_scene");
+        g_file->addSearchPath("scene/help_scene");
 
         g_file->addSearchPath("Particle3D/materials");
         g_file->addSearchPath("Particle3D/scripts");
         g_file->addSearchPath("Particle3D/textures");
 
         g_file->addSearchPath("character");
+        g_file->addSearchPath("fonts");
     }
 
     // Enable Remote Console
@@ -111,8 +111,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
     auto scene = MenuScene::createScene();
-    //auto scene = GameScene::createScene();
-    //auto scene = RoleScene::createScene();
     // run
     g_director->runWithScene(scene);
 
