@@ -10,6 +10,10 @@
         <Image Name="bg_team.png" />
         <Image Name="btn4_normal.png" />
         <Image Name="btn4_press.png" />
+        <Image Name="blue.png" />
+        <Image Name="ready.png" />
+        <Image Name="red.png" />
+        <Image Name="unready.png" />
       </RootFolder>
     </Group>
   </SolutionFolder>
