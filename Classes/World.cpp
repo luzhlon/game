@@ -406,6 +406,7 @@ bool World::load_goods(char *file) {
 
         if (7 == sscanf(line->getCString(), format, &pos3.x, &pos3.y, &pos3.z, &rota.x, &rota.y, &rota.z, &scale)) {
             auto spr = Sprite3D::create(cur_file);
+            if(!spr) continue;
             spr->setRotation3D(rota);
             spr->setPosition3D(pos3);
             spr->setScale(scale);
@@ -413,6 +414,8 @@ bool World::load_goods(char *file) {
         }
         else{
             cur_file = line->_string;
+            int end = cur_file.find('\r');
+            if(end != string::npos) cur_file[end] = '\0';
             cur_file += ".c3b";
             cur_file = "goods/plant/" + cur_file;
         }

@@ -52,7 +52,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     g_win_size = g_director->getWinSize();
 
     // turn on display FPS
-    g_director->setDisplayStats(true);
+    //g_director->setDisplayStats(true);
 
     // set FPS. the default value is 1.0/60 if you don't call this
     g_director->setAnimationInterval(1.0 / 60);

@@ -15,6 +15,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Game.dir/Classes/RoomScene.cpp.o"
   "CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o"
   "CMakeFiles/Game.dir/Classes/SettingScene.cpp.o"
+  "CMakeFiles/Game.dir/Classes/HelpScene.cpp.o"
   "CMakeFiles/Game.dir/Classes/Skill.cpp.o"
   "CMakeFiles/Game.dir/Classes/Soldier.cpp.o"
   "CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o"

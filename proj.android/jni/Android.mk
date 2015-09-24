@@ -27,6 +27,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
     ../../Classes/RoomScene.cpp \
     ../../Classes/SceneLayer.cpp \
     ../../Classes/SettingScene.cpp \
+    ../../Classes/HelpScene.cpp \
     ../../Classes/Skill.cpp \
     ../../Classes/Soldier.cpp \
     ../../Classes/WomanSoldier.cpp \

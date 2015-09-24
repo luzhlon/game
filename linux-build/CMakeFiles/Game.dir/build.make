@@ -417,9 +417,32 @@ CMakeFiles/Game.dir/Classes/SettingScene.cpp.o.provides: CMakeFiles/Game.dir/Cla
 
 CMakeFiles/Game.dir/Classes/SettingScene.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/SettingScene.cpp.o
 
+CMakeFiles/Game.dir/Classes/HelpScene.cpp.o: CMakeFiles/Game.dir/flags.make
+CMakeFiles/Game.dir/Classes/HelpScene.cpp.o: ../Classes/HelpScene.cpp
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_17)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/HelpScene.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/HelpScene.cpp.o -c /home/john/cmake_proj/game/Classes/HelpScene.cpp
+
+CMakeFiles/Game.dir/Classes/HelpScene.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Game.dir/Classes/HelpScene.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/john/cmake_proj/game/Classes/HelpScene.cpp > CMakeFiles/Game.dir/Classes/HelpScene.cpp.i
+
+CMakeFiles/Game.dir/Classes/HelpScene.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Game.dir/Classes/HelpScene.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/john/cmake_proj/game/Classes/HelpScene.cpp -o CMakeFiles/Game.dir/Classes/HelpScene.cpp.s
+
+CMakeFiles/Game.dir/Classes/HelpScene.cpp.o.requires:
+.PHONY : CMakeFiles/Game.dir/Classes/HelpScene.cpp.o.requires
+
+CMakeFiles/Game.dir/Classes/HelpScene.cpp.o.provides: CMakeFiles/Game.dir/Classes/HelpScene.cpp.o.requires
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/HelpScene.cpp.o.provides.build
+.PHONY : CMakeFiles/Game.dir/Classes/HelpScene.cpp.o.provides
+
+CMakeFiles/Game.dir/Classes/HelpScene.cpp.o.provides.build: CMakeFiles/Game.dir/Classes/HelpScene.cpp.o
+
 CMakeFiles/Game.dir/Classes/Skill.cpp.o: CMakeFiles/Game.dir/flags.make
 CMakeFiles/Game.dir/Classes/Skill.cpp.o: ../Classes/Skill.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_17)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_18)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/Skill.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/Skill.cpp.o -c /home/john/cmake_proj/game/Classes/Skill.cpp
 
@@ -442,7 +465,7 @@ CMakeFiles/Game.dir/Classes/Skill.cpp.o.provides.build: CMakeFiles/Game.dir/Clas
 
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: CMakeFiles/Game.dir/flags.make
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/Soldier.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_18)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_19)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/Soldier.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/Soldier.cpp.o -c /home/john/cmake_proj/game/Classes/Soldier.cpp
 
@@ -465,7 +488,7 @@ CMakeFiles/Game.dir/Classes/Soldier.cpp.o.provides.build: CMakeFiles/Game.dir/Cl
 
 CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o: CMakeFiles/Game.dir/flags.make
 CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o: ../Classes/WomanSoldier.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_19)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_20)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o -c /home/john/cmake_proj/game/Classes/WomanSoldier.cpp
 
@@ -488,7 +511,7 @@ CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o.provides.build: CMakeFiles/Game.d
 
 CMakeFiles/Game.dir/Classes/World.cpp.o: CMakeFiles/Game.dir/flags.make
 CMakeFiles/Game.dir/Classes/World.cpp.o: ../Classes/World.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_20)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_21)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/Classes/World.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/Classes/World.cpp.o -c /home/john/cmake_proj/game/Classes/World.cpp
 
@@ -511,7 +534,7 @@ CMakeFiles/Game.dir/Classes/World.cpp.o.provides.build: CMakeFiles/Game.dir/Clas
 
 CMakeFiles/Game.dir/proj.linux/main.cpp.o: CMakeFiles/Game.dir/flags.make
 CMakeFiles/Game.dir/proj.linux/main.cpp.o: ../proj.linux/main.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_21)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/john/cmake_proj/game/linux-build/CMakeFiles $(CMAKE_PROGRESS_22)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/Game.dir/proj.linux/main.cpp.o"
 	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/Game.dir/proj.linux/main.cpp.o -c /home/john/cmake_proj/game/proj.linux/main.cpp
 
@@ -550,6 +573,7 @@ Game_OBJECTS = \
 "CMakeFiles/Game.dir/Classes/RoomScene.cpp.o" \
 "CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o" \
 "CMakeFiles/Game.dir/Classes/SettingScene.cpp.o" \
+"CMakeFiles/Game.dir/Classes/HelpScene.cpp.o" \
 "CMakeFiles/Game.dir/Classes/Skill.cpp.o" \
 "CMakeFiles/Game.dir/Classes/Soldier.cpp.o" \
 "CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o" \
@@ -575,6 +599,7 @@ bin/Game: CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o
 bin/Game: CMakeFiles/Game.dir/Classes/RoomScene.cpp.o
 bin/Game: CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o
 bin/Game: CMakeFiles/Game.dir/Classes/SettingScene.cpp.o
+bin/Game: CMakeFiles/Game.dir/Classes/HelpScene.cpp.o
 bin/Game: CMakeFiles/Game.dir/Classes/Skill.cpp.o
 bin/Game: CMakeFiles/Game.dir/Classes/Soldier.cpp.o
 bin/Game: CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o
@@ -627,6 +652,7 @@ CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/RoomListScene.cpp.o.re
 CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/RoomScene.cpp.o.requires
 CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/SceneLayer.cpp.o.requires
 CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/SettingScene.cpp.o.requires
+CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/HelpScene.cpp.o.requires
 CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/Skill.cpp.o.requires
 CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/Soldier.cpp.o.requires
 CMakeFiles/Game.dir/requires: CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o.requires

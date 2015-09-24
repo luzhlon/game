@@ -58,8 +58,7 @@ bool Room::add(Member *meb) {
 }
 
 bool Room::start_game() {
-    if(m_started)
-        return false;  //DEBUG
+    //if(m_started) return false;  //DEBUG
 
     mini_net_pkg pkg;
     pkg.msg = MESSAGE::start_game;
@@ -139,9 +138,9 @@ bool Room::check_team_ready() {
         auto m = m_members[i];
         if(m) {
             if(i%2) {
-               team_blue = all && m->get_ready();
+               team_blue = team_blue && m->get_ready();
             } else {
-               team_ready = all && m->get_ready();
+               team_red= team_red && m->get_ready();
             }
         }
     }

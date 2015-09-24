@@ -106,6 +106,7 @@ namespace MESSAGE {
 }
 
 #include <functional>
+#include <string.h>
 
 class PackageCache {
 public:

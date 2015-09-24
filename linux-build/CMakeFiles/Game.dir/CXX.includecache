@@ -4036,6 +4036,18 @@ SceneLayer.h
 DrawNode3D.h
 /home/john/cmake_proj/game/Classes/DrawNode3D.h
 
+/home/john/cmake_proj/game/Classes/HelpScene.cpp
+HelpScene.h
+/home/john/cmake_proj/game/Classes/HelpScene.h
+cocostudio/CocoStudio.h
+/home/john/cmake_proj/game/Classes/cocostudio/CocoStudio.h
+
+/home/john/cmake_proj/game/Classes/HelpScene.h
+cocos2d.h
+/home/john/cmake_proj/game/Classes/cocos2d.h
+ui/CocosGUI.h
+/home/john/cmake_proj/game/Classes/ui/CocosGUI.h
+
 /home/john/cmake_proj/game/Classes/Man2Soldier.cpp
 Man2Soldier.h
 /home/john/cmake_proj/game/Classes/Man2Soldier.h
@@ -4275,6 +4287,10 @@ Particle3D/PU/CCPUParticleSystem3D.h
 /home/john/cmake_proj/game/Classes/Particle3D/PU/CCPUParticleSystem3D.h
 
 /home/john/cmake_proj/game/Server/message.h
+functional
+-
+string.h
+-
 
 /home/john/cmake_proj/game/proj.linux/main.cpp
 ../Classes/AppDelegate.h

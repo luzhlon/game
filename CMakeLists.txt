@@ -143,6 +143,7 @@ set(GAME_SRC
     Classes/RoomScene.cpp
     Classes/SceneLayer.cpp
     Classes/SettingScene.cpp
+    Classes/HelpScene.cpp
     Classes/Skill.cpp
     Classes/Soldier.cpp
     Classes/WomanSoldier.cpp

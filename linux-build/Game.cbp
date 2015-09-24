@@ -692,6 +692,8 @@
       </Unit>
       <Unit filename="/home/john/cmake_proj/game/Classes/GameScene.cpp">
       </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/HelpScene.cpp">
+      </Unit>
       <Unit filename="/home/john/cmake_proj/game/Classes/Man2Soldier.cpp">
       </Unit>
       <Unit filename="/home/john/cmake_proj/game/Classes/ManSoldier.cpp">
@@ -2205,6 +2207,8 @@
       <Unit filename="/home/john/cmake_proj/game/Classes/DrawNode3D.h">
       </Unit>
       <Unit filename="/home/john/cmake_proj/game/Classes/GameScene.h">
+      </Unit>
+      <Unit filename="/home/john/cmake_proj/game/Classes/HelpScene.h">
       </Unit>
       <Unit filename="/home/john/cmake_proj/game/Classes/Man2Soldier.h">
       </Unit>

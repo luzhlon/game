@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/john/cmake_proj/game/Classes/Dialog.cpp" "/home/john/cmake_proj/game/linux-build/CMakeFiles/Game.dir/Classes/Dialog.cpp.o"
   "/home/john/cmake_proj/game/Classes/DrawNode3D.cpp" "/home/john/cmake_proj/game/linux-build/CMakeFiles/Game.dir/Classes/DrawNode3D.cpp.o"
   "/home/john/cmake_proj/game/Classes/GameScene.cpp" "/home/john/cmake_proj/game/linux-build/CMakeFiles/Game.dir/Classes/GameScene.cpp.o"
+  "/home/john/cmake_proj/game/Classes/HelpScene.cpp" "/home/john/cmake_proj/game/linux-build/CMakeFiles/Game.dir/Classes/HelpScene.cpp.o"
   "/home/john/cmake_proj/game/Classes/Man2Soldier.cpp" "/home/john/cmake_proj/game/linux-build/CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o"
   "/home/john/cmake_proj/game/Classes/ManSoldier.cpp" "/home/john/cmake_proj/game/linux-build/CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o"
   "/home/john/cmake_proj/game/Classes/MenuScene.cpp" "/home/john/cmake_proj/game/linux-build/CMakeFiles/Game.dir/Classes/MenuScene.cpp.o"

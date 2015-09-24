@@ -351,6 +351,30 @@ Classes/GameScene.cpp.s:
 	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/GameScene.cpp.s
 .PHONY : Classes/GameScene.cpp.s
 
+Classes/HelpScene.o: Classes/HelpScene.cpp.o
+.PHONY : Classes/HelpScene.o
+
+# target to build an object file
+Classes/HelpScene.cpp.o:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/HelpScene.cpp.o
+.PHONY : Classes/HelpScene.cpp.o
+
+Classes/HelpScene.i: Classes/HelpScene.cpp.i
+.PHONY : Classes/HelpScene.i
+
+# target to preprocess a source file
+Classes/HelpScene.cpp.i:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/HelpScene.cpp.i
+.PHONY : Classes/HelpScene.cpp.i
+
+Classes/HelpScene.s: Classes/HelpScene.cpp.s
+.PHONY : Classes/HelpScene.s
+
+# target to generate assembly for a file
+Classes/HelpScene.cpp.s:
+	$(MAKE) -f CMakeFiles/Game.dir/build.make CMakeFiles/Game.dir/Classes/HelpScene.cpp.s
+.PHONY : Classes/HelpScene.cpp.s
+
 Classes/Man2Soldier.o: Classes/Man2Soldier.cpp.o
 .PHONY : Classes/Man2Soldier.o
 
@@ -768,6 +792,9 @@ help:
 	@echo "... Classes/GameScene.o"
 	@echo "... Classes/GameScene.i"
 	@echo "... Classes/GameScene.s"
+	@echo "... Classes/HelpScene.o"
+	@echo "... Classes/HelpScene.i"
+	@echo "... Classes/HelpScene.s"
 	@echo "... Classes/Man2Soldier.o"
 	@echo "... Classes/Man2Soldier.i"
 	@echo "... Classes/Man2Soldier.s"

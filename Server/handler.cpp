@@ -132,7 +132,7 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
             self->member()->set_ready_1();
             if(room->check_team_ready()) {
                 //start game
-                room->start_game();
+                //room->start_game();
             }
         } else {
             self->member()->set_ready_0();
@@ -179,6 +179,7 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
 MsgHandler::~MsgHandler() {
     if(m_member) delete m_member;
     delete[] m_handlers;
+    delete m_pkg_cache;
 }
 
 void MsgHandler::onDisconnected() {
