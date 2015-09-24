@@ -19,15 +19,15 @@ public:
 
     void updateRoomList();
 
+    void output(const char *format, ...);
+
 private slots:
-    void on_button_create_clicked();
-
-    void on_check_switch_toggled(bool checked);
-
     void on_list_room_itemClicked(QListWidgetItem *item);
 
 private:
     Ui::Dialog *ui;
 };
+
+extern Dialog *g_dialog;
 
 #endif // DIALOG_H

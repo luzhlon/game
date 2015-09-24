@@ -4,9 +4,13 @@
 #include "ManSoldier.h"
 #include "Man2Soldier.h"
 #include "WomanSoldier.h"
+#include "SimpleAudioEngine.h"
+
+using namespace CocosDenshion;
 
 Soldier *Soldier::s_followed = nullptr;
 extern World *g_world;
+extern SimpleAudioEngine *g_audio;
 
 Soldier *Soldier::create(int type_id) {
     switch (type_id) {
@@ -22,22 +26,36 @@ Soldier *Soldier::create(int type_id) {
     }
 }
 
+void g_play_effect(char *file) {
+    char buf[32];
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+    sprintf(buf, "%s.%s", file, "wav");
+#else
+//#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    sprintf(buf, "%s.%s", file, "ogg");
+#endif
+    g_audio->playEffect(buf);
+}
+
 bool Soldier::do_skill(SkillBase* skill) {
     move_stop();
 
     switch (skill->_type) {
     case SkillBase::SKILL_BOXING:
         stopAllActions();
+        g_play_effect(m_eff_boxing);
         runAction(m_act_boxing);
         _state = SOLDIER_STATE_SKILL;
         break;
     case SkillBase::SKILL_KICK:
         stopAllActions();
+        g_play_effect(m_eff_kick);
         runAction(m_act_kick);
         _state = SOLDIER_STATE_SKILL;
         break;
     case SkillBase::SKILL_SPECIAL:
         stopAllActions();
+        g_play_effect(m_eff_special);
         runAction(m_act_special);
         _state = SOLDIER_STATE_SKILL;
         break;
@@ -79,7 +97,34 @@ bool Soldier::init() {
 }
 
 bool Soldier::load_config(char *path) {
-    string str = FileUtils::getInstance()->getStringFromFile(path);
+    auto str = FileUtils::getInstance()->getStringFromFile(path);
+    if (str.empty()) return false;
+
+    String content(str);
+    Array *lines = content.componentsSeparatedByString("\n");
+
+    Ref *obj;
+    int count = lines->count();
+    int cur_i = 0;
+
+    // 加载人物
+    char role_file[256];
+    float scale, base_angle;
+    for (; cur_i < count; cur_i++) {
+        obj = lines->getObjectAtIndex(cur_i);
+        String *line = (String *)obj;
+        if (3 == sscanf(line->_string.c_str(), "%s%f%f", role_file, &scale, &base_angle))
+            break;
+    }
+    CCARRAY_FOREACH(lines, obj) {
+        String *line = (String *)obj;
+        if (3 == sscanf(line->_string.c_str(), "%s%f%f", role_file, &scale, &base_angle))
+            break;
+    }
+    initWithFile(role_file);
+    setScale(scale);
+    _base_angle = base_angle;
+    setRotation3D(Vec3(180.f, _base_angle, 180.f));
 
     ActionInterval **anim[5] = {
         &m_act_walk,
@@ -88,35 +133,19 @@ bool Soldier::load_config(char *path) {
         &m_act_special,
         &m_act_idle
     };
-
-
-	//char buf[1024];
-    const char *p = str.c_str();
-    size_t pos = 0;
-    // 加载人物
-    char role_file[256];
-    float scale, base_angle;
-    for(;pos != string::npos;
-        pos = str.find('\n', pos),
-        pos++ /* Jump '\n' */)
-        if (3 == sscanf(p+pos, "%s%f%f", role_file, &scale, &base_angle))
-            break;
-    initWithFile(role_file);
-    setScale(scale);
-    _base_angle = base_angle;
-    setRotation3D(Vec3(180.f, _base_angle, 180.f));
     // 加载动作
     char act_file[256]; 
     int start_frame, end_frame;
     float fps;
-    for (int i = 0; i < 5; i++) {
-        for(pos = str.find('\n', pos), pos++;
-            pos != string::npos;
-            pos = str.find('\n', pos), pos++)
-            if (4 == sscanf(p+pos, "%s%d%d%f", act_file, &start_frame, &end_frame, &fps))
-                break;
-        *anim[i] = Animate3D::createWithFrames(Animation3D::create(act_file), start_frame, end_frame, fps);
+    for (int i = 0; cur_i < count && i < 5; cur_i++) {
+        obj = lines->getObjectAtIndex(cur_i);
+        String *line = (String *)obj;
+        if (4 == sscanf(line->_string.c_str(), "%s%d%d%f", act_file, &start_frame, &end_frame, &fps)) {
+            *anim[i] = Animate3D::createWithFrames(Animation3D::create(act_file), start_frame, end_frame, fps);
+            i++;
+        }
     }
+
 	return true;
 }
 
@@ -125,8 +154,9 @@ void Soldier::set_blood(float blood) {
     if (_blood > _full_blood) _blood = _full_blood;
     if (_blood < 0.f) _blood = 0.f;
 
-    if(0.f == _blood) 
+    if (0.f == _blood) {
         if (_on_death) _on_death(this);
+    }
 
     blood_bar()->setPercent(_blood / _full_blood * 100.f);
 }

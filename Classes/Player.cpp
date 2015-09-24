@@ -1,4 +1,4 @@
-#include "Player.h"
+ï»¿#include "Player.h"
 #include "Client.h"
 #include "World.h"
 #include "GameScene.h"
@@ -30,6 +30,8 @@ Player *Player::getInstance(Soldier *soldier) {
 
 #define REVIVE_TIME 20.f
 
+extern void g_play_effect(char *file);
+
 Player::Player(Soldier *self) {
     _soldier = self;
     g_self = self;
@@ -47,17 +49,19 @@ Player::Player(Soldier *self) {
     show_circle();
 
     self->onDeath([this](Soldier *sol) {
+        g_play_effect(_soldier->m_eff_death);
+
         NetRoom::set_state(Soldier::SOLDIER_STATE_DEATH);
-        // ¸´»î¶ÁÌõ
+        // å¤æ´»è¯»æ¡
         //GameScene::Instance->begain_progress(REVIVE_TIME, std::bind(&Player::revive, this));
         GameScene::Instance->begain_progress(REVIVE_TIME, [this](float dt, bool end) {
             if (end)
                 revive();
         });
-        // µô1/3µÄ²İ
+        // æ‰1/3çš„è‰
         int lost = _soldier->grass() / 3;
         NetRoom::set_grass(_soldier->grass() - lost);
-        // ÕÒµ½Ò»¸ö¸½½üµÄÈË¼Ó²İ
+        // æ‰¾åˆ°ä¸€ä¸ªé™„è¿‘çš„äººåŠ è‰
         int near_id = NetRoom::get_near_enemy(60.f);
         if (near_id >= 0) {
             NetRoom::set_grass(g_soldiers[near_id]->grass() + lost, near_id);
@@ -67,16 +71,21 @@ Player::Player(Soldier *self) {
     schedule(schedule_selector(Player::update_per_second), 1.f);
 }
 
+void Player::on_skill(SkillBase *skill) {
+    g_play_effect(_soldier->m_eff_aida);
+    NetRoom::set_blood(_soldier->blood()); // åœ¨æˆ¿é—´é‡Œæ›´æ–°è‡ªå·±çš„è¡€é‡
+}
+
 bool Player::do_skill(Skill *skill) {
     if (g_player->_magic < fabs(skill->_magic))
-        return false; //Ä§Á¦²»×ã
+        return false; //é­”åŠ›ä¸è¶³
 
-    //¼¼ÄÜÕıÔÚÀäÈ´
+    //æŠ€èƒ½æ­£åœ¨å†·å´
     if (skill->is_cooling()) return false;
 
-    add_magic(skill->_magic); // Ä§Á¦ÏûºÄ
+    add_magic(skill->_magic); // é­”åŠ›æ¶ˆè€—
 
-    skill->cooling(); // ÀäÈ´
+    skill->cooling(); // å†·å´
 
     NetRoom::do_skill(skill);
     return true;
@@ -126,7 +135,7 @@ void Player::set_magic(float magic) {
 
 void Player::onSkillClicked(Ref *ref) {
 
-    if (g_self->death()) return; // ËÀÍö×´Ì¬
+    if (g_self->death()) return; // æ­»äº¡çŠ¶æ€
 
     auto btn = static_cast<Button *>(ref);
     Skill *skill;
@@ -155,13 +164,13 @@ void Player::onSkillClicked(Ref *ref) {
 void Player::update_per_second(float dt) {
     do {
     if (Soldier::SOLDIER_STATE_IDLE == _soldier->_state) {
-        if (_magic < s_full_magic) add_magic(1);     // »ØÄ§
+        if (_magic < s_full_magic) add_magic(1);     // å›é­”
 
         if (_soldier->_blood < _soldier->_full_blood) 
-            NetRoom::set_blood(_soldier->_blood + _soldier->_vitality); // »ØÑª
+            NetRoom::set_blood(_soldier->_blood + _soldier->_vitality); // å›è¡€
         break;
     }
-    if (Soldier::SOLDIER_STATE_MOVE == _soldier->_state) { // Ã¿ÃëÍ¬²½Ò»ÏÂÎ»ÖÃ, 
+    if (Soldier::SOLDIER_STATE_MOVE == _soldier->_state) { // æ¯ç§’åŒæ­¥ä¸€ä¸‹ä½ç½®, 
         auto p3 = _soldier->getPosition3D();
         Vec2 pos(p3.x, p3.z);
         NetRoom::set_position(pos);
@@ -187,7 +196,7 @@ void Player::on_get_goods(Goods *good) {
         break;
     case Goods::WEAPON:
         //NetRoom::set_speed(_soldier->speed() + 1);
-        // Ëæ»ú¸øÄ³¸ö¼¼ÄÜ¼ÓÇ¿ÊôĞÔ
+        // éšæœºç»™æŸä¸ªæŠ€èƒ½åŠ å¼ºå±æ€§
         // Uncomplete
         switch (random(0, 3)) {
         case 0:
@@ -211,17 +220,22 @@ void Player::on_get_goods(Goods *good) {
 
 void Player::on_pick_goods() {
     static Goods s_good;
+    static Vec2 s_pos;
 
     auto pos3 = g_self->getPosition3D();
-    Vec2 pos(pos3.x, pos3.z);
-    if (!g_world->get_goods(pos, &s_good)) return; // pick failure
+    s_pos.x = pos3.x;
+    s_pos.y = pos3.z;
+    if (!g_world->get_goods(s_pos, &s_good)) return; // pick failure
 
     GameScene::Instance->begain_progress(3.f, [this](float dt, bool end) {
-        if (!end) { // ¶ÁÌõÎ´½áÊøÊ±
-            //±ØĞë´¦ÓÚIDLE×´Ì¬
+        if (!end) { // è¯»æ¡æœªç»“æŸæ—¶
+            //å¿…é¡»å¤„äºIDLEçŠ¶æ€
             if (_soldier->state() != Soldier::SOLDIER_STATE_IDLE)
                 GameScene::Instance->break_progress();
-		} else { //
+		} else { // è¯»æ¡ç»“æŸåå¦‚æœpickæˆåŠŸï¼Œåˆ™ä¸ºçœŸæ­£çš„è·å–åˆ°
+            if (!g_world->get_goods(s_pos, &s_good))
+                return; // pick failure
+
             on_get_goods(&s_good);
 		}
     });

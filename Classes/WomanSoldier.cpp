@@ -9,6 +9,12 @@ bool WomanSoldier::init_soldier() {
     _name = "Woman";
     _role_id = SOLDIER_TYPE_WOMAN;
 
+    m_eff_death = "girl_death";
+    m_eff_aida = "girl_aida";
+    m_eff_boxing = "girl_boxing";
+    m_eff_kick = "girl_kick";
+    m_eff_special = "girl_special";
+
     //load_actions();
 
     return true;

@@ -1,10 +1,13 @@
 #include "SettingScene.h"
+#include "SimpleAudioEngine.h"
 #include "cocostudio/CocoStudio.h"
 
 using namespace cocostudio;
+using namespace CocosDenshion;
 
 extern int   g_volume;
 extern char  g_server_ip[32];
+extern SimpleAudioEngine *g_audio;
 
 Scene *SettingScene::createScene() {
     auto scene = Scene::create();
@@ -20,6 +23,9 @@ void SettingScene::load_settings() {
     g_volume = store->getIntegerForKey("game_volume", 50);
     auto str = store->getStringForKey("sever_ip", "127.0.0.1");
     strncpy(g_server_ip, str.c_str(), sizeof(g_server_ip));
+    // 设置游戏声音大小
+    g_audio->setBackgroundMusicVolume(((float)g_volume) / 100.f);
+    g_audio->setEffectsVolume(((float)g_volume) / 100.f);
 }
 
 bool SettingScene::init() {

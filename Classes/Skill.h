@@ -1,4 +1,4 @@
-#ifndef __SKILL_H__
+ï»¿#ifndef __SKILL_H__
 #define __SKILL_H__
 
 #include "cocos2d.h"
@@ -18,18 +18,18 @@ public:
         NUMBER_SKILL
     };
 
-    float _blood = 0.f; // ¶ÔÑªÁ¿µÄÓ°Ïì
-    float _delay_time = 0.f; // ÉËº¦ÑÓÊ±
+    float _blood = 0.f; // å¯¹è¡€é‡çš„å½±å“
+    float _delay_time = 0.f; // ä¼¤å®³å»¶æ—¶
     Type _type = (Type)(-1);
 };
 
 struct Skill : public SkillBase {
-    float _distance = 0.f; // Ôì³ÉÉËº¦µÄ¾àÀë·¶Î§
-    float _angle = 45.f; // Ôì³ÉÉËº¦µÄ½Ç¶È·¶Î§
-    float _cool_time = 0.f;  // ÀäÈ´Ê±¼ä
-    float _magic = 0.f; // Ä§Á¦ÖµÏûºÄ
-    void cooling(); // ÀäÈ´
-    bool is_cooling(); // ÊÇ·ñÕıÔÚÀäÈ´
+    float _distance = 0.f; // é€ æˆä¼¤å®³çš„è·ç¦»èŒƒå›´
+    float _angle = 45.f; // é€ æˆä¼¤å®³çš„è§’åº¦èŒƒå›´
+    float _cool_time = 0.f;  // å†·å´æ—¶é—´
+    float _magic = 0.f; // é­”åŠ›å€¼æ¶ˆè€—
+    void cooling(); // å†·å´
+    bool is_cooling(); // æ˜¯å¦æ­£åœ¨å†·å´
 
 
     Button *_button = nullptr;

@@ -1,4 +1,5 @@
 ﻿#include <QDebug>
+#include "dialog.h"
 #include "member.h"
 #include "room.h"
 #include "handler.h"
@@ -47,7 +48,7 @@ bool Room::add(Member *meb) {
             m_members[i] = meb;
             meb->m_room_id = i;
             meb->m_room = this; //设置成员的所属房间为自己
-            qDebug() << "Room:" << m_name << "," << meb->m_name << "joined.";
+            g_dialog->output("[LOG] ROOM %s: %s joined.", m_name, meb->m_name);
             broad_members(); //广播房间中的成员信息
             return true;
         }
@@ -79,7 +80,8 @@ bool Room::remove(Member *meb) {
     mini_net_pkg pkg;
     pkg.msg = MESSAGE::quit_room;
     broadcast((net_pkg *)&pkg, r_id);
-    qDebug() << "Room:" << m_name << "," << meb->m_name << " quited.";
+
+    g_dialog->output("[LOG] ROOM %s: %s quited.", m_name, meb->m_name);
     return true;
 }
 

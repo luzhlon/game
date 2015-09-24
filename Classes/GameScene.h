@@ -56,10 +56,8 @@ private:
     Node *m_layer_map;
     Layer *m_layer_ui; // */
 
-	Text *_output = nullptr;
-	TextField *_input = nullptr;
-
-    DrawNode3D *_drawNode;
+	//Text *_output = nullptr;
+	//TextField *_input = nullptr;
 
 public:
     //

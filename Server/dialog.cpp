@@ -41,17 +41,6 @@ void Dialog::updateRoomList() {
     }
 }
 
-void Dialog::on_button_create_clicked() {
-
-}
-
-void Dialog::on_check_switch_toggled(bool checked) {
-    if(checked) {
-        startWork();
-        return;
-    }
-}
-
 void Dialog::on_list_room_itemClicked(QListWidgetItem *item)
 {
     for(QListWidgetItem *itm; itm = ui->list_member->takeItem(0);)
@@ -64,4 +53,17 @@ void Dialog::on_list_room_itemClicked(QListWidgetItem *item)
         if(mem)
             ui->list_member->addItem(mem->name());
     }
+}
+
+void Dialog::output(const char *format, ...) {
+    va_list vl;
+    va_start(vl, format);
+
+    char buf[10240];
+    vsprintf(buf, format, vl);
+
+    qDebug() << buf;
+
+    ui->text_output->append(buf);
+    //ui->text_output->append("\n");
 }

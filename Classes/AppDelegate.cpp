@@ -1,7 +1,9 @@
 ﻿#include "AppDelegate.h"
 #include "MenuScene.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
+using namespace CocosDenshion;
 
 /*
 static Size designResolutionSize = cocos2d::Size(960, 640);
@@ -13,8 +15,8 @@ Director *      g_director;
 FileUtils *     g_file;
 Size            g_win_size;
 Size            g_vis_size;
-//Settings
-//char            g_server_ip[32] = "127.0.0.1";
+SimpleAudioEngine *g_audio;
+
 char            g_server_ip[32] = "192.168.191.3";
 int             g_volume = 50;
 
@@ -41,6 +43,39 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
     g_director = Director::getInstance();
     g_file = FileUtils::getInstance();
+    g_audio = SimpleAudioEngine::getInstance();
+
+    g_audio->preloadBackgroundMusic("bg1.mp3");
+    g_audio->preloadBackgroundMusic("bg2.mp3");
+    const char *sound_file[] = {
+        "girl_aida",
+        "girl_boxing",
+        "girl_death",
+        "girl_kick",
+        "girl_special",
+
+        "man_aida",
+        "man_boxing",
+        "man_death",
+        "man_kick",
+        "man_special",
+
+        "man2_aida",
+        "man2_boxing",
+        "man2_death",
+        "man2_kick",
+        "man2_special"
+    };
+    for (int i = 0; i < 15; i++) {
+        char buf[32];
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+        sprintf(buf, "%s.%s", sound_file[i], "ogg");
+#endif
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+        sprintf(buf, "%s.%s", sound_file[i], "wav");
+#endif
+        g_audio->preloadEffect(buf);
+    }
 
     auto glview = g_director->getOpenGLView();
     if(!glview) {
@@ -103,6 +138,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
         g_file->addSearchPath("character");
         g_file->addSearchPath("fonts");
+        g_file->addSearchPath("sound");
     }
 
     // Enable Remote Console

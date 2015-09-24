@@ -1,4 +1,4 @@
-#include "NetRoom.h"
+ï»¿#include "NetRoom.h"
 #include "GameScene.h"
 #include "World.h"
 #include "Dialog.h"
@@ -59,14 +59,14 @@ void NetRoom::register_handlers() {
         g_world->set_position(sol, *v2);
 
         if(pkg->arg1 == _self_id) 
-            GameScene::set_small_direction(sol->angle()); // Ğ¡µØÍ¼·½Ïò¼ıÍ·
+            GameScene::set_small_direction(sol->angle()); // å°åœ°å›¾æ–¹å‘ç®­å¤´
     });
     HANDLER(action_move) = Client::handler([](net_pkg *pkg) {
         auto sol = g_soldiers[pkg->arg1];
         sol->move_to(*(Vec2 *)pkg->data);
 
         if(pkg->arg1 == _self_id) 
-            GameScene::set_small_direction(sol->angle()); // Ğ¡µØÍ¼·½Ïò¼ıÍ·
+            GameScene::set_small_direction(sol->angle()); // å°åœ°å›¾æ–¹å‘ç®­å¤´
     });
     HANDLER(action_stop) = Client::handler([](net_pkg *pkg) {
         auto sol = g_soldiers[pkg->arg1];
@@ -82,18 +82,18 @@ void NetRoom::register_handlers() {
 
         if (sol->death()) return;
 
-        sol->on_skill(skill);
-        sol->show_blood_decline(skill->_blood);
-
         if (pkg->arg1 == _self_id) {
-            set_blood(sol->blood()); // ÔÚ·¿¼äÀï¸üĞÂ×Ô¼ºµÄÑªÁ¿
+            g_player->on_skill(skill);
+        } else {
+            sol->on_skill(skill);
+            sol->show_blood_decline(skill->_blood);
         }
     });
     HANDLER(update_grass) = Client::handler([](net_pkg *pkg) {
         auto sol = g_soldiers[pkg->arg1]; 
         if (pkg->arg1 == _self_id) g_player->set_grass(pkg->arg2);
         else  sol->grass(pkg->arg2);
-        // Í³¼ÆÁ½¶ÓGrass
+        // ç»Ÿè®¡ä¸¤é˜ŸGrass
         int score_red = 0,
             score_blue = 0;
         score_red = NetRoom::get_team_grass(0);
@@ -101,7 +101,7 @@ void NetRoom::register_handlers() {
 
         GameScene::set_score_red(score_red);
         GameScene::set_score_blue(score_blue);
-        //ÅĞ¶Ï»ñÊ¤
+        //åˆ¤æ–­è·èƒœ
         int self_score = NetRoom::get_team_grass();
         if (self_score <= 3) {
             NetRoom::declare_win(NetRoom::_self_id + 1);
@@ -121,7 +121,7 @@ void NetRoom::register_handlers() {
 
     HANDLER(set_master) = Client::handler([](net_pkg *pkg) {
         _master_id = pkg->arg1;
-        // ·¿Ö÷¸ºÔğÔÚÊÀ½çÀï²úÉúÎïÆ·
+        // æˆ¿ä¸»è´Ÿè´£åœ¨ä¸–ç•Œé‡Œäº§ç”Ÿç‰©å“
         if (_master_id == _self_id) {
             g_world->begin_gen_goods();
         }
@@ -135,7 +135,7 @@ void NetRoom::register_handlers() {
     });
 
     HANDLER(game_over) = Client::handler([](net_pkg *pkg) {
-        static bool end = false; // ÓÎÏ·½áÊø
+        static bool end = false; // æ¸¸æˆç»“æŸ
         if (end) return;
         end = true;
         Dialog::getInstance()->setCallback([](Dialog *dlg, bool ok) {
@@ -143,7 +143,7 @@ void NetRoom::register_handlers() {
             Director::getInstance()->end();
         });
         Dialog::getInstance()->Popup_t(GameScene::Instance, "Game Over",
-                                            pkg->arg1 ? "À¶·½Ê¤" : "ºì·½Ê¤");
+                                            pkg->arg1 ? "è“æ–¹èƒœ" : "çº¢æ–¹èƒœ");
     });
 }
 
@@ -154,30 +154,30 @@ void NetRoom::create_soldiers() {
             g_soldiers[i] = nullptr;
             continue;
         }
-        g_soldiers[i] = Soldier::create(meb); // ´´½¨
-        g_soldiers[i]->name_text()->setString(meb->m_name); // Íæ¼ÒÃû³Æ
+        g_soldiers[i] = Soldier::create(meb); // åˆ›å»º
+        g_soldiers[i]->name_text()->setString(meb->m_name); // ç©å®¶åç§°
         g_soldiers[i]->name_text()->setColor( i % 2 ?
-                                                Color3B(0, 0, 255) :  // À¶¶Ó
-                                                Color3B(255, 0, 0));  // ºì¶Ó
-        g_world->add_thing(g_soldiers[i]); // Ìí¼Óµ½ÊÀ½çÖĞ
-        //g_world->set_position(g_soldiers[i], i % 2 ? 
-                                            //Vec2(103.f, -503.f) :
-                                            //Vec2(246.f, 484.f));
-        // ·¿Ö÷¸ºÔğÔÚÊÀ½çÀï²úÉúÎïÆ·
+                                                Color3B(0, 0, 255) :  // è“é˜Ÿ
+                                                Color3B(255, 0, 0));  // çº¢é˜Ÿ
+        g_world->add_thing(g_soldiers[i]); // æ·»åŠ åˆ°ä¸–ç•Œä¸­
+        g_world->set_position(g_soldiers[i], i % 2 ? 
+                                            Vec2(103.f, -503.f) :
+                                            Vec2(246.f, 484.f));
+        // æˆ¿ä¸»è´Ÿè´£åœ¨ä¸–ç•Œé‡Œäº§ç”Ÿç‰©å“
         if (_master_id == _self_id) {
             g_world->begin_gen_goods();
         }
     }
 
-    if (_self_id % 2) {  // À¶¶Ó
+    if (_self_id % 2) {  // è“é˜Ÿ
         _house_pos = Vec2(103.f, -503.f);
-    } else { // ºì¶Ó
+    } else { // çº¢é˜Ÿ
         _house_pos = Vec2(246.f, 484.f);
     }
 
     auto self = g_soldiers[NetRoom::_self_id];
-    g_player = Player::getInstance(self); // ³õÊ¼»¯Player
-    g_world->addChild(g_player); // ¼Óµ½¾°ÖĞ²ÅÄÜ´¥·¢¶¨Ê±Æ÷
+    g_player = Player::getInstance(self); // åˆå§‹åŒ–Player
+    g_world->addChild(g_player); // åŠ åˆ°æ™¯ä¸­æ‰èƒ½è§¦å‘å®šæ—¶å™¨
     set_grass(self->grass());
 }
 
@@ -229,25 +229,25 @@ void NetRoom::do_skill(Skill *skill) {
     g_client->sendMsg(&_pkg, sizeof(mini_net_pkg)+sizeof(SkillBase));
 
     _pkg.msg = MESSAGE::on_attacked;
-    //´Ó¶Ô·½¶ÓÎéÀïÑ°ÕÒÀë×Ô¼º½üµÄÈË
+    //ä»å¯¹æ–¹é˜Ÿä¼é‡Œå¯»æ‰¾ç¦»è‡ªå·±è¿‘çš„äºº
     for (int i = (_self_id % 2 + 1) % 2; i < MAX_ROOM_MEMBERS; i += 2) {
         auto s = g_soldiers[i];
         if (!s) continue;
         if (s->member()->is_empty()) continue;
 
-        if (s->death()) continue; // ¶Ô·½ÒÑ¾­ËÀÍö
+        if (s->death()) continue; // å¯¹æ–¹å·²ç»æ­»äº¡
 
         auto self = g_soldiers[_self_id];
         auto delta3 = s->getPosition3D() - self->getPosition3D();
         Vec2 delta(delta3.x, delta3.z);
 
-        auto distance = delta.length(); // Ïà²î¾àÀë
+        auto distance = delta.length(); // ç›¸å·®è·ç¦»
         auto angle = CC_RADIANS_TO_DEGREES(delta.getAngle()) - self->angle(); 
-        angle = fabs(angle); // Ïà²î½Ç¶È
+        angle = fabs(angle); // ç›¸å·®è§’åº¦
 
-        if (distance <= skill->_distance && angle <= skill->_angle) { //ÔÚ¼¼ÄÜµÄ¹¥»÷·¶Î§ÄÚ
+        if (distance <= skill->_distance && angle <= skill->_angle) { //åœ¨æŠ€èƒ½çš„æ”»å‡»èŒƒå›´å†…
             _pkg.arg1 = i;
-            g_client->sendMsg(&_pkg, sizeof(mini_net_pkg)+sizeof(SkillBase)); // ·¢¶¯¹¥»÷
+            g_client->sendMsg(&_pkg, sizeof(mini_net_pkg)+sizeof(SkillBase)); // å‘åŠ¨æ”»å‡»
         }
     }
 }
@@ -279,21 +279,21 @@ void NetRoom::dec_goods(int index) {
 
 int NetRoom::get_near_enemy(float distance) {
     auto self = g_soldiers[_self_id];
-    //´Ó¶Ô·½¶ÓÎéÀïÑ°ÕÒÀë×Ô¼º½üµÄÈË
+    //ä»å¯¹æ–¹é˜Ÿä¼é‡Œå¯»æ‰¾ç¦»è‡ªå·±è¿‘çš„äºº
     for (int i = (_self_id % 2 + 1) % 2;
         i < MAX_ROOM_MEMBERS; i += 2) {
         auto s = g_soldiers[i];
         if (!s) continue;
 
         //if (s->member()->is_empty()) continue;
-        if (s->death()) continue; // ¶Ô·½ÒÑ¾­ËÀÍö
+        if (s->death()) continue; // å¯¹æ–¹å·²ç»æ­»äº¡
 
         auto delta3 = s->getPosition3D() - self->getPosition3D();
         Vec2 delta(delta3.x, delta3.z);
 
-        if(delta.length() < distance) return i; // Ïà²î¾àÀë
+        if(delta.length() < distance) return i; // ç›¸å·®è·ç¦»
     }
-    // ¸ø¶¨¾àÀëÄÚÃ»ÓĞµĞÈË
+    // ç»™å®šè·ç¦»å†…æ²¡æœ‰æ•Œäºº
     return -1;
 }
 

@@ -1,4 +1,4 @@
-#include "World.h"
+ï»¿#include "World.h"
 #include "DrawNode3D.h"
 #include <string>
 
@@ -67,13 +67,13 @@ QuatNode::~QuatNode() {
 #ifdef VIEW_TEST
     _draw_node->removeFromParent();
 #endif
-    // ÒÆ³ı×Ó½Úµã
+    // ç§»é™¤å­èŠ‚ç‚¹
     for (int i = 0; i < 4; i++) {
         auto ch = _child[i / 2][i % 2];
         if (ch) delete ch;
     }
     if (!Parent) return;
-    // ´Ó¸¸½ÚµãÒÆ³ı×Ô¼º
+    // ä»çˆ¶èŠ‚ç‚¹ç§»é™¤è‡ªå·±
 }
 
 bool QuatNode::Split(Vec2& sp) {
@@ -145,7 +145,7 @@ void QuatNode::Export(FILE *f) {
 
 int QuatNode::Parse(const char *str) {
     Vec2 DD, UU, split;
-    // ¼ÓÔØ
+    // åŠ è½½
     int block;
     const char *p = str;
 
@@ -216,14 +216,14 @@ QuatNode *QuatNode::Import(char *file) {
     return quat;
 }
 
-QuatNode *QuatNode::getChild(Vec2& pos) {     // µİ¹é»ñµÃ
+QuatNode *QuatNode::getChild(Vec2& pos) {     // é€’å½’è·å¾—
     if (auto ret = getChildOnce(pos))
         return ret->getChild(pos);
     else
         return this;
 }
 
-QuatNode *QuatNode::getChildOnce(Vec2& pos) { // ²»µİ¹é
+QuatNode *QuatNode::getChildOnce(Vec2& pos) { // ä¸é€’å½’
     int ix = pos.x > _split.x ? 1 : 0; // x -> d : u
     int iy = pos.y > _split.y ? 1 : 0; // y -> d : u
     return _child[ix][iy];
@@ -368,10 +368,10 @@ bool World::is_collision(Vec2& pos) {
     static QuatNode *last = _colli_root;
 
     auto col = last->getChild(pos);
-    // ÕÒµ½°üº¬PosµÄÇøÓò
+    // æ‰¾åˆ°åŒ…å«Posçš„åŒºåŸŸ
     while (!col->contained(pos)) {
         col = col->Parent;
-        // ²»ÔÚ¸ù½áµã±íÊ¾µÄ·¶Î§ÄÚ
+        // ä¸åœ¨æ ¹ç»“ç‚¹è¡¨ç¤ºçš„èŒƒå›´å†…
         if (!col) return true; 
     }
 
@@ -537,7 +537,7 @@ void World::camera_follow(Node *node) {
     if (getCameraMask() == CAMERA_FREE) {
         auto cam_pos = node->getPosition3D() + s_camera_offset;
         Vec2 cam_pos2(cam_pos.x, cam_pos.z);
-        if (!_colli_root->contained(cam_pos2)) return; //²»ÔÚµØÍ¼·¶Î§ÄÚ
+        if (!_colli_root->contained(cam_pos2)) return; //ä¸åœ¨åœ°å›¾èŒƒå›´å†…
 
         _camera_free->setPosition3D(cam_pos);
         auto pos = node->getPosition3D();
@@ -596,7 +596,7 @@ Goods::~Goods() {
 }
 
 void World::update_goods(float dt) {
-    // µ±Ç°µÄÎïÆ·ÊıÒÑ¾­¹»ÁË
+    // å½“å‰çš„ç‰©å“æ•°å·²ç»å¤Ÿäº†
     if (goods_count() > MAX_GOODS_COUNT) return;
 
     int index;
@@ -604,7 +604,7 @@ void World::update_goods(float dt) {
 
     do {
         index = random(0, MAX_POINT_NUM - 1);
-    } while (_goods[index]); // ÔÚÎ´±»Õ¼ÓÃµÄÎ»ÖÃ²úÉúÒ»¸öÎïÆ·
+    } while (_goods[index]); // åœ¨æœªè¢«å ç”¨çš„ä½ç½®äº§ç”Ÿä¸€ä¸ªç‰©å“
 
     good.index = index;
     // good.type = (Goods::Type)random(0, Goods::TYPE_NUMBER - 1);

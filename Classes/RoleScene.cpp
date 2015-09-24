@@ -48,13 +48,11 @@ bool RoleScene::load_pages() {
         //Layout *layout;
         Layout* layout = (Layout *)_layout->clone();
         m_pageSprite->addPage(layout);
-        layout->setSizePercent(Vec2(1.f, 1.f));
-        //layout->setPositionPercent(Vec2(1.f, 1.f));
 
         auto s = Soldier::create(i);
         s->setScale(1.2f);
         layout->addChild(s);
-        s->setPosition(Vec2(size.width / 2.f, size.height / 3.f));
+        s->setPosition(Vec2(size.width / 2.f, size.height / 4.f));
 
         auto role_name = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_role_name"));
         role_name->setPositionPercent(Vec2(0.5f, 0.05f));

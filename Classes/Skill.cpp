@@ -1,4 +1,4 @@
-#include "Skill.h"
+ï»¿#include "Skill.h"
 #include "Soldier.h"
 #include "NetRoom.h"
 
@@ -8,7 +8,7 @@ extern Soldier *g_self;
 
 void Skill::cooling() {
     ProgressTimer *prog = static_cast<ProgressTimer *>(_button->getChildByTag(PROGRESS_TAG));
-    //ÅÐ¶ÏÖ®Ç°ÊÇ·ñÒÑ¾­ÉèÖÃÁËÀäÈ´Ð§¹û
+    //åˆ¤æ–­ä¹‹å‰æ˜¯å¦å·²ç»è®¾ç½®äº†å†·å´æ•ˆæžœ
     if (!prog) {
         prog = ProgressTimer::create(Sprite::create("image/1.png"));
         prog->setType( ProgressTimer::Type::RADIAL);
@@ -16,14 +16,14 @@ void Skill::cooling() {
         _button->addChild(prog);
         prog->setAnchorPoint(Vec2(0.f, 0.f));
         prog->setPosition(0.f, 0.f);
-        prog->setScale(_button->getContentSize().width / prog->getContentSize().width); //µ÷Õûµ½ºÍÍ¼±êÒ»Ñù´óÐ¡ 
+        prog->setScale(_button->getContentSize().width / prog->getContentSize().width); //è°ƒæ•´åˆ°å’Œå›¾æ ‡ä¸€æ ·å¤§å° 
     }
 
     auto to1 = Sequence::createWithTwoActions(ProgressTo::create(0, 100.f), ProgressTo::create(_cool_time, 0.f));
     prog->runAction(to1);
 }
 
-//¼¼ÄÜÊÇ·ñÕýÔÚÀäÈ´
+//æŠ€èƒ½æ˜¯å¦æ­£åœ¨å†·å´
 bool Skill::is_cooling() {
     auto prog = _button->getChildByTag(PROGRESS_TAG);
     return (prog && (prog->getNumberOfRunningActions() > 0));

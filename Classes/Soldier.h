@@ -199,6 +199,12 @@ protected:
 	ActionInterval *m_act_special = nullptr;
 	ActionInterval *m_act_boxing = nullptr;
 	ActionInterval *m_act_kick = nullptr;
+    // 音效文件
+    char *m_eff_boxing = nullptr;
+    char *m_eff_kick = nullptr;
+    char *m_eff_aida = nullptr;
+    char *m_eff_death = nullptr;
+    char *m_eff_special = nullptr;
 };
 
 #endif

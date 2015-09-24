@@ -38,8 +38,8 @@
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="110" G="110" B="110" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="text_content" ActionTag="-1957054931" Tag="23" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="86.7360" RightMargin="293.2640" TopMargin="95.7760" BottomMargin="204.2240" FontSize="20" LabelText="Text Label" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                    <Size X="100.0000" Y="20.0000" />
+                  <AbstractNodeData Name="text_content" ActionTag="-1957054931" Tag="23" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="86.7360" RightMargin="293.2640" TopMargin="95.7760" BottomMargin="204.2240" FontSize="36" LabelText="Text Label" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="180.0000" Y="36.0000" />
                     <AnchorPoint ScaleY="1.0000" />
                     <Position X="121.4304" Y="313.9136" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
@@ -49,7 +49,7 @@
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="110" G="110" B="110" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="edit_content" ActionTag="-1027463788" Tag="24" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="86.7360" RightMargin="105.2640" TopMargin="127.7760" BottomMargin="128.2240" TouchEnable="True" FontSize="20" IsCustomSize="True" LabelText="" PlaceHolderText="Text Field" MaxLengthText="10" ctype="TextFieldObjectData">
+                  <AbstractNodeData Name="edit_content" ActionTag="-1027463788" Tag="24" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="86.7360" RightMargin="105.2640" TopMargin="127.7760" BottomMargin="128.2240" TouchEnable="True" FontSize="36" IsCustomSize="True" LabelText="" PlaceHolderText="Text Field" MaxLengthText="10" ctype="TextFieldObjectData">
                     <Size X="403.2000" Y="89.6000" />
                     <AnchorPoint />
                     <Position X="121.4304" Y="179.5136" />

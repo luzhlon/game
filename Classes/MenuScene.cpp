@@ -2,9 +2,13 @@
 #include "HelpScene.h"
 #include "SettingScene.h"
 #include "RoleScene.h"
+#include "SimpleAudioEngine.h"
 #include "cocostudio/CocoStudio.h"
 
 using namespace cocostudio;
+using namespace CocosDenshion;
+
+extern SimpleAudioEngine *g_audio;
 
 Scene *MenuScene::createScene() {
     auto scene = Scene::create();
@@ -38,6 +42,9 @@ bool MenuScene::init() {
     setClickCallback(layout, "button_help", [](Ref *ref) {
         Director::getInstance()->pushScene(HelpScene::createScene());
     });
+
+    // 循环播放背景音乐
+    g_audio->playBackgroundMusic("bg1.mp3", true);
 
     return true;
 }

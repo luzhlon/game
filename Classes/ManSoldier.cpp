@@ -9,6 +9,11 @@ bool ManSoldier::init_soldier() {
     string path = FileUtils::getInstance()->fullPathForFilename("man/config");
     CC_ASSERT(load_config((char *)path.c_str()));
     //load_actions();
+    m_eff_death = "man_death";
+    m_eff_aida = "man_aida";
+    m_eff_boxing = "man_boxing";
+    m_eff_kick = "man_kick";
+    m_eff_special = "man_special";
 
     return true;
 }

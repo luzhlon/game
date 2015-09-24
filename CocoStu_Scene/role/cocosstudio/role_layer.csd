@@ -44,7 +44,7 @@
               <AbstractNodeData Name="edit_name" ActionTag="1954766141" Tag="11" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="175.3279" RightMargin="496.6721" TopMargin="525.8320" BottomMargin="50.1679" TouchEnable="True" FontSize="36" IsCustomSize="True" LabelText="" PlaceHolderText="&lt;昵称&gt;" MaxLengthText="10" ctype="TextFieldObjectData">
                 <Size X="288.0000" Y="64.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="319.3279" Y="82.1679" />
+                <Position X="319.2960" Y="82.1760" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="0" />
                 <PrePosition X="0.3326" Y="0.1284" />
@@ -65,7 +65,7 @@
               <AbstractNodeData Name="page_sprite" ActionTag="1220741963" Tag="15" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="24.0000" RightMargin="24.0000" TopMargin="26.1120" BottomMargin="229.8880" TouchEnable="True" ClipAble="True" BackColorAlpha="134" ColorAngle="90.0000" ScrollDirectionType="0" ctype="PageViewObjectData">
                 <Size X="912.0000" Y="384.0000" />
                 <Children>
-                  <AbstractNodeData Name="layout_sprite" ActionTag="1815883492" Tag="45" IconVisible="False" LeftMargin="912.0000" RightMargin="-912.0000" TouchEnable="True" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
+                  <AbstractNodeData Name="layout_sprite" ActionTag="1815883492" Tag="45" IconVisible="False" TouchEnable="True" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
                     <Size X="912.0000" Y="384.0000" />
                     <Children>
                       <AbstractNodeData Name="image_bg" ActionTag="360124946" Tag="43" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" Scale9Width="360" Scale9Height="448" ctype="ImageViewObjectData">
@@ -78,10 +78,10 @@
                         <PreSize X="1.0000" Y="1.0000" />
                         <FileData Type="Normal" Path="bg4.png" Plist="" />
                       </AbstractNodeData>
-                      <AbstractNodeData Name="text_role_name" ActionTag="-266922220" Tag="44" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="390.0000" RightMargin="390.0000" TopMargin="343.8001" BottomMargin="16.1999" FontSize="24" LabelText="&lt;ROLE NAME&gt;" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                      <AbstractNodeData Name="text_role_name" ActionTag="-266922220" VisibleForFrame="False" Tag="44" IconVisible="False" HorizontalEdge="BothEdge" VerticalEdge="BothEdge" LeftMargin="390.0000" RightMargin="390.0000" TopMargin="343.8001" BottomMargin="16.1999" FontSize="24" LabelText="&lt;ROLE NAME&gt;" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                         <Size X="132.0000" Y="24.0000" />
                         <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                        <Position X="456.0000" Y="28.1999" />
+                        <Position X="456.0000" Y="28.1856" />
                         <Scale ScaleX="1.0000" ScaleY="1.0000" />
                         <CColor A="255" R="255" G="255" B="0" />
                         <PrePosition X="0.5000" Y="0.0734" />
@@ -94,7 +94,7 @@
                     <Position />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="1.0000" />
+                    <PrePosition />
                     <PreSize X="1.0000" Y="1.0000" />
                     <SingleColor A="255" R="150" G="200" B="255" />
                     <FirstColor A="255" R="150" G="200" B="255" />

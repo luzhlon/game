@@ -8,7 +8,11 @@ bool Man2Soldier::init_soldier() {
     _name = "Man2";
     _role_id = SOLDIER_TYPE_MAN2;
 
-    //load_actions();
+    m_eff_death = "man2_death";
+    m_eff_aida = "man2_aida";
+    m_eff_boxing = "man2_boxing";
+    m_eff_kick = "man2_kick";
+    m_eff_special = "man2_special";
 
     return true;
 }

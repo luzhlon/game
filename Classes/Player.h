@@ -1,4 +1,4 @@
-#ifndef __PLAYER_H__
+ï»¿#ifndef __PLAYER_H__
 #define __PLAYER_H__
 
 #include "Soldier.h"
@@ -15,22 +15,24 @@ public:
     static Skill *skill_special;
     static Skill *skill_speed;
 
-    void show_circle(bool show = true); //ÏÔÊ¾Ğı×ªµÄÈ¦È¦
-    void draw_circle(float radius, Color4F& color); //ÔÚ½Åµ×»­È¦È¦,ÓÃÓÚÏÔÊ¾·¶Î§
+    void show_circle(bool show = true); //æ˜¾ç¤ºæ—‹è½¬çš„åœˆåœˆ
+    void draw_circle(float radius, Color4F& color); //åœ¨è„šåº•ç”»åœˆåœˆ,ç”¨äºæ˜¾ç¤ºèŒƒå›´
     inline void draw_clear() { _draw->clear(); }
 
     bool do_skill(Skill *skill);
 
     void update_per_second(float dt);
-    void revive(); // ¸´»î
+    void revive(); // å¤æ´»
 
-    void set_magic(float magic); // ÉèÖÃÄ§Á¦Öµ && UI
+    void set_magic(float magic); // è®¾ç½®é­”åŠ›å€¼ && UI
     inline void add_magic(float magic) { // + 
         set_magic(_magic + magic);
     }
     void set_grass(int count); 
     void on_get_goods(Goods *);
     void on_pick_goods();
+
+    void on_skill(SkillBase *);
     
     static void onSkillClicked(Ref *ref);
 

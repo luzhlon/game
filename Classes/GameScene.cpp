@@ -6,11 +6,13 @@
 #include "AppDelegate.h"
 #include "GameScene.h"
 #include "NetRoom.h"
+#include "SimpleAudioEngine.h"
 #include "cocostudio/CocoStudio.h"
 #include "Soldier.h"
 #include "../Server/message.h"
 
 using namespace cocostudio;
+using namespace CocosDenshion;
 
 World *g_world;
 Player *g_player;
@@ -19,6 +21,7 @@ Client *g_client;
 extern Director *g_director;
 extern FileUtils *g_file;
 extern Soldier *g_self;
+extern SimpleAudioEngine *g_audio;
 
 Soldier *g_soldiers[MAX_ROOM_MEMBERS];
 
@@ -46,10 +49,6 @@ Scene* GameScene::createScene() {
 }
 
 void GameScene::load_world() {
-    _drawNode = DrawNode3D::create();
-    g_world->add_thing(_drawNode);
-    _drawNode->setPosition3D(Vec3::ZERO);
-
     addChild(g_world);
 }
 
@@ -96,6 +95,9 @@ bool GameScene::init()
         Dialog::getInstance()->Popup_t(this, "ERROR", "与服务器失去连接");
     }; // */
 
+    // 循环播放背景音乐
+    g_audio->playBackgroundMusic("bg2.mp3", true);
+
     return true;
 }
 
@@ -111,8 +113,8 @@ void GameScene::load_ui(Node *root) {
 	setTouchCallback(layout, "layout_layer", CC_CALLBACK_2(GameScene::onLayerTouched, this));
 	setTouchCallback(layout, "layout_scroll", CC_CALLBACK_2(GameScene::onScrollTouched, this));
 
-	_output = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_output"));
-	_input = static_cast<TextField *>(Helper::seekWidgetByName(layout, "edit_input"));
+	//_output = static_cast<Text *>(Helper::seekWidgetByName(layout, "text_output"));
+	//_input = static_cast<TextField *>(Helper::seekWidgetByName(layout, "edit_input"));
     //CC_ASSERT(_output);
     //CC_ASSERT(_input);
     s_image_direction = static_cast<ImageView *>(Helper::seekWidgetByName(layout, "image_direction"));
@@ -154,10 +156,6 @@ void GameScene::load_ui(Node *root) {
 	});
     setClickCallback(layout, "button_3", [this](Ref *ref) {
         //draw cube
-        Vec3 v[8];
-        g_self->getAABB().getCorners(v);
-        _drawNode->clear();
-        _drawNode->drawCube(v, Color4F(0, 1, 0, 1));
 	});
     setClickCallback(layout, "button_reset", [this](Ref *ref) {
 		World::s_camera_offset = Vec3(0, 120, 90);
@@ -261,7 +259,7 @@ void GameScene::onScrollTouched(Ref *ref, Widget::TouchEventType type) {
 		char buf[64];
 		auto v3 = World::s_camera_offset;
 		sprintf(buf, "%g %g %g", v3.x, v3.y, v3.z);
-		_output->setString(buf);
+		//_output->setString(buf);
 
         pos_last = pos_cur;
     }

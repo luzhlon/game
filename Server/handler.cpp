@@ -45,8 +45,6 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
     m_socket = sock;
     connect(m_socket, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
     connect(m_socket, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
-    //connect(m_socket, SIGNAL(stateChanged(QAbstractSocket::SocketState)),
-            //this, SLOT(onStateChange(QAbstractSocket::SocketState)));
 
     m_handlers = new Handler[MESSAGE::Max_number]; //分配处理器Vector
     for(int i = 0; i < MESSAGE::Max_number; i++) { m_handlers[i] = nullptr; }
@@ -57,27 +55,23 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
         // 处理包
         if(pkg->msg < MESSAGE::Max_number) {
         auto handler = m_handlers[pkg->msg];
-        qDebug() << "[MESSAGE:]" << MESSAGE::name[pkg->msg];
 
         if(handler) handler(this, pkg); //交由子类处理器处理
         } else {
-        qDebug() << "[Error message]"
-         << m_socket->peerName();
-        //m_socket->disconnectFromHost();
-        //break;
-    }});
+            g_dialog->output("[Error] Unrecognizied message %d", pkg->msg);
+            //break;
+        }
+    });
 
     HANDLER(authentication) { //
         if(self->setMember(pkg->data, pkg->arg1)) {
             self->Reply(pkg, 1);
-            qDebug() << "[New member]:" << self->member()->name();
+            g_dialog->output("[LOG] New member: %s",
+                             self->member()->name());
         } else {
             if(self->member())
                 self->Reply(pkg, 0, self->error());
             self->endHandle(true);
-            qDebug() << "<Member>:"
-                     << self->socket()->peerName()
-                     << "authentication failure.";
         }
     };
     HANDLER(room_list) { //房间列表
@@ -97,10 +91,9 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
             delete room;
         } else {
             self->Reply(pkg, 1);
-            qDebug() << "[Room]:"
-                     << room->name()
-                     << " created by "
-                     << self->member()->name();
+            g_dialog->output("[LOG] Room: %s created by %s",
+                             room->name(),
+                             self->member()->name());
         }
         g_dialog->updateRoomList();
     };
@@ -132,7 +125,7 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
             self->member()->set_ready_1();
             if(room->check_team_ready()) {
                 //start game
-                //room->start_game();
+                room->start_game();
             }
         } else {
             self->member()->set_ready_0();
@@ -183,9 +176,9 @@ MsgHandler::~MsgHandler() {
 }
 
 void MsgHandler::onDisconnected() {
-    qDebug() << "[Connect:] "
-             << (m_member ? member()->name() : m_socket->peerName())
-             << "disconnected.";
+    g_dialog->output("[LOG] Connect: %s disconnected.",
+                     (m_member ? member()->name() : m_socket->peerName()));
+
     if(m_member) m_member->quit_room();
     delete this;
 }
@@ -199,9 +192,6 @@ int MsgHandler::_Reply(net_pkg *p, int size) {
 //数据到达时调用
 void MsgHandler::onReadyRead() {
     if(endHandle()) {
-        qDebug() << "[Connect:] "
-                 << (m_member ? member()->name() : m_socket->peerName())
-                 << "endHandle.";
         m_socket->disconnectFromHost();
         return;
     }
@@ -209,23 +199,3 @@ void MsgHandler::onReadyRead() {
     int size = m_socket->read(buf, 10240);
     m_pkg_cache->write_data(buf, size);
 }
-
-/*
-void MsgHandler::onStateChange(QAbstractSocket::SocketState state) {
-    switch(state) {
-    case QAbstractSocket::UnconnectedState:
-        break;
-    case QAbstractSocket::HostLookupState:
-        break;
-    case QAbstractSocket::ConnectingState:
-        break;
-    case QAbstractSocket::ConnectedState:
-        break;
-    case QAbstractSocket::BoundState:
-        break;
-    case QAbstractSocket::ClosingState:
-        break;
-    case QAbstractSocket::ListeningState:
-        break;
-    }
-} // */

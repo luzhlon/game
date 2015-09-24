@@ -1,4 +1,4 @@
-#include <string>
+ï»¿#include <string>
 #include "cocos2d.h"
 #include "../Server/message.h"
 #include "Soldier.h"
@@ -16,7 +16,7 @@ namespace NetRoom {
     extern std::string _room_name;
     extern room_member _members[MAX_ROOM_MEMBERS];
     extern net_pkg     _pkg;
-    extern Vec2        _house_pos;  // ÓªµØÎ»ÖÃ
+    extern Vec2        _house_pos;  // è¥åœ°ä½ç½®
 
     void init();
     void create_soldiers();
@@ -38,7 +38,7 @@ namespace NetRoom {
 
     void declare_win(int team);
 
-    // »ñµÃ¸½½üµÄµĞÈËµÄID£¬Ã»ÓĞ·µ»Ø-1
+    // è·å¾—é™„è¿‘çš„æ•Œäººçš„IDï¼Œæ²¡æœ‰è¿”å›-1
     int get_near_enemy(float distance = 50.f);
 
     void do_skill(Skill *);

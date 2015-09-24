@@ -1,4 +1,4 @@
-#include "Soldier.h"
+Ôªø#include "Soldier.h"
 #include "RoomScene.h"
 #include "GameScene.h"
 #include "NetRoom.h"
@@ -53,30 +53,27 @@ void RoomScene::set_member_info(int index, room_member *meb) {
     auto lay = _layout_member[index];
     auto ready = static_cast<CheckBox *>(Helper::seekWidgetByName(lay, "check_ready"));
     auto name = static_cast<Text *>(Helper::seekWidgetByName(lay, "text_member"));
+    auto sprite = static_cast<ImageView *>(Helper::seekWidgetByName(lay, "image_sprite"));
+    CC_ASSERT(sprite);
 
     if (meb->is_empty()) {
         ready->setSelectedState(false);
         name->setString("");
+        sprite->setVisible(false);
         return;
     }
 
+    const char *role_texture[] = {
+        "image/girl.png",
+        "image/man.png",
+        "image/man2.png"
+    };
+
     ready->setSelectedState(meb->get_ready());
     name->setString(meb->m_name);
-    //load sprite
-    auto spr = static_cast<Soldier *>(lay->getChildByName("_SOLDIER"));
-    if (spr) {
-        if (spr->role_id() == meb->m_role_id)
-            return;
-        else
-            spr->removeFromParent();
-    } else {
-        spr = Soldier::create(meb->m_role_id);
-        spr->setName("_SOLDIER");
-        spr->setScale(0.5f);
-        lay->addChild(spr);
-        auto size = lay->getContentSize();
-        spr->setPosition(Vec2(size.width / 2.f, size.height / 3.f));
-    }
+    name->setColor(meb->m_room_id % 2 ? Color3B(0, 0, 255) : Color3B(255, 0, 0));
+    if (meb->m_role_id < 3) sprite->loadTexture(role_texture[meb->m_role_id]);
+    sprite->setVisible(true);
 }
 
 void RoomScene::onEnter() {
@@ -91,17 +88,17 @@ void RoomScene::onEnter() {
         update_room_member();
 
         _check_team->setSelectedState(NetRoom::_self_id % 2);
-        //HANDLER(authentication) = nullptr; // ÷√ø’£¨∑¿÷π÷ÿ∏¥µ˜”√
+        //HANDLER(authentication) = nullptr; // ÁΩÆÁ©∫ÔºåÈò≤Ê≠¢ÈáçÂ§çË∞ÉÁî®
     });
     HANDLER(start_game) = Client::handler([this](net_pkg *pkg) {
         for (int i = 0; i < MAX_ROOM_MEMBERS; i++)
-            NetRoom::_members[i].m_room_id = i; // »∑»œ“ªœ¬room id
+            NetRoom::_members[i].m_room_id = i; // Á°ÆËÆ§‰∏Ä‰∏ãroom id
 
         NetRoom::_room_name = g_room_name;
 
         g_director->pushScene(GameScene::createScene());
 
-        HANDLER(start_game) = nullptr; // ∑¿÷π÷ÿ»Î
+        HANDLER(start_game) = nullptr; // Èò≤Ê≠¢ÈáçÂÖ•
     });
     Client::getInstance()->sendMsg(MESSAGE::room_members);
 }
@@ -144,7 +141,7 @@ void RoomScene::load_layouts(Layout *layout) {
         auto name = static_cast<Text *>(Helper::seekWidgetByName(lay, "text_member"));
         auto ready = static_cast<CheckBox *>(Helper::seekWidgetByName(lay, "check_ready"));
 
-        layout->addChild(lay); // º”µΩœ‡”¶teamµƒlayout¿Ô
+        layout->addChild(lay); // Âä†Âà∞Áõ∏Â∫îteamÁöÑlayoutÈáå
         auto size = layout->getContentSize();
         lay->setPosition(Vec2(0.f, (1.f - i / 2 * 0.333) * size.height));
 
