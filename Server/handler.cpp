@@ -177,7 +177,7 @@ MsgHandler::~MsgHandler() {
 
 void MsgHandler::onDisconnected() {
     g_dialog->output("[LOG] Connect: %s disconnected.",
-                     (m_member ? member()->name() : m_socket->peerName()));
+                     (m_member ? member()->name() : m_socket->peerName().toStdString().c_str()));
 
     if(m_member) m_member->quit_room();
     delete this;

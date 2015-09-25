@@ -148,6 +148,9 @@ void NetRoom::register_handlers() {
 }
 
 void NetRoom::create_soldiers() {
+    Vec2 base_pos_red(246.f, 484.f);
+    Vec2 base_pos_blue(103.f, -503.f);
+
     for (int i = 0; i < MAX_ROOM_MEMBERS; i++) {
         room_member *meb = &NetRoom::_members[i];
         if (meb->is_empty()) {
@@ -160,9 +163,9 @@ void NetRoom::create_soldiers() {
                                                 Color3B(0, 0, 255) :  // 蓝队
                                                 Color3B(255, 0, 0));  // 红队
         g_world->add_thing(g_soldiers[i]); // 添加到世界中
-        g_world->set_position(g_soldiers[i], i % 2 ? 
-                                            Vec2(103.f, -503.f) :
-                                            Vec2(246.f, 484.f));
+        g_world->set_position(g_soldiers[i], i % 2 ?
+                                            base_pos_blue :
+                                            base_pos_red);
         // 房主负责在世界里产生物品
         if (_master_id == _self_id) {
             g_world->begin_gen_goods();
@@ -170,9 +173,9 @@ void NetRoom::create_soldiers() {
     }
 
     if (_self_id % 2) {  // 蓝队
-        _house_pos = Vec2(103.f, -503.f);
+        _house_pos = base_pos_blue;
     } else { // 红队
-        _house_pos = Vec2(246.f, 484.f);
+        _house_pos = base_pos_red;
     }
 
     auto self = g_soldiers[NetRoom::_self_id];

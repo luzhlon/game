@@ -744,6 +744,14 @@ unordered_map
 base/ccTypes.h
 ../cocos2d/cocos/3d/base/ccTypes.h
 
+../cocos2d/cocos/audio/include/Export.h
+FBaseConfig.h
+-
+
+../cocos2d/cocos/audio/include/SimpleAudioEngine.h
+Export.h
+../cocos2d/cocos/audio/include/Export.h
+
 ../cocos2d/cocos/base/CCAsyncTaskPool.h
 platform/CCPlatformMacros.h
 ../cocos2d/cocos/base/platform/CCPlatformMacros.h
@@ -3963,6 +3971,8 @@ error/error.h
 /home/john/cmake_proj/game/Classes/AppDelegate.cpp
 MenuScene.h
 /home/john/cmake_proj/game/Classes/MenuScene.h
+SimpleAudioEngine.h
+/home/john/cmake_proj/game/Classes/SimpleAudioEngine.h
 
 /home/john/cmake_proj/game/Classes/AppDelegate.h
 cocos2d.h
@@ -4023,6 +4033,8 @@ GameScene.h
 /home/john/cmake_proj/game/Classes/GameScene.h
 NetRoom.h
 /home/john/cmake_proj/game/Classes/NetRoom.h
+SimpleAudioEngine.h
+/home/john/cmake_proj/game/Classes/SimpleAudioEngine.h
 cocostudio/CocoStudio.h
 /home/john/cmake_proj/game/Classes/cocostudio/CocoStudio.h
 Soldier.h
@@ -4035,6 +4047,8 @@ SceneLayer.h
 /home/john/cmake_proj/game/Classes/SceneLayer.h
 DrawNode3D.h
 /home/john/cmake_proj/game/Classes/DrawNode3D.h
+functional
+-
 
 /home/john/cmake_proj/game/Classes/HelpScene.cpp
 HelpScene.h
@@ -4065,10 +4079,14 @@ Soldier.h
 /home/john/cmake_proj/game/Classes/Soldier.h
 
 /home/john/cmake_proj/game/Classes/MenuScene.cpp
+HelpScene.h
+/home/john/cmake_proj/game/Classes/HelpScene.h
 SettingScene.h
 /home/john/cmake_proj/game/Classes/SettingScene.h
 RoleScene.h
 /home/john/cmake_proj/game/Classes/RoleScene.h
+SimpleAudioEngine.h
+/home/john/cmake_proj/game/Classes/SimpleAudioEngine.h
 cocostudio/CocoStudio.h
 /home/john/cmake_proj/game/Classes/cocostudio/CocoStudio.h
 
@@ -4077,12 +4095,12 @@ SceneLayer.h
 /home/john/cmake_proj/game/Classes/SceneLayer.h
 
 /home/john/cmake_proj/game/Classes/NetRoom.cpp
-NetRoom.h
-/home/john/cmake_proj/game/Classes/NetRoom.h
 GameScene.h
 /home/john/cmake_proj/game/Classes/GameScene.h
 World.h
 /home/john/cmake_proj/game/Classes/World.h
+Dialog.h
+/home/john/cmake_proj/game/Classes/Dialog.h
 Skill.h
 /home/john/cmake_proj/game/Classes/Skill.h
 Player.h
@@ -4093,12 +4111,12 @@ Soldier.h
 /home/john/cmake_proj/game/Classes/Soldier.h
 
 /home/john/cmake_proj/game/Classes/NetRoom.h
-string
--
 cocos2d.h
 /home/john/cmake_proj/game/Classes/cocos2d.h
 ../Server/message.h
 /home/john/cmake_proj/game/Server/message.h
+Soldier.h
+/home/john/cmake_proj/game/Classes/Soldier.h
 
 /home/john/cmake_proj/game/Classes/ODSocket.cpp
 
@@ -4125,8 +4143,6 @@ arpa/inet.h
 -
 
 /home/john/cmake_proj/game/Classes/Player.cpp
-Player.h
-/home/john/cmake_proj/game/Classes/Player.h
 Client.h
 /home/john/cmake_proj/game/Classes/Client.h
 World.h
@@ -4177,8 +4193,6 @@ SceneLayer.h
 /home/john/cmake_proj/game/Classes/SceneLayer.h
 
 /home/john/cmake_proj/game/Classes/RoomScene.cpp
-Soldier.h
-/home/john/cmake_proj/game/Classes/Soldier.h
 RoomScene.h
 /home/john/cmake_proj/game/Classes/RoomScene.h
 GameScene.h
@@ -4211,6 +4225,8 @@ ui/CocosGUI.h
 /home/john/cmake_proj/game/Classes/SettingScene.cpp
 SettingScene.h
 /home/john/cmake_proj/game/Classes/SettingScene.h
+SimpleAudioEngine.h
+/home/john/cmake_proj/game/Classes/SimpleAudioEngine.h
 cocostudio/CocoStudio.h
 /home/john/cmake_proj/game/Classes/cocostudio/CocoStudio.h
 
@@ -4219,8 +4235,6 @@ SceneLayer.h
 /home/john/cmake_proj/game/Classes/SceneLayer.h
 
 /home/john/cmake_proj/game/Classes/Skill.cpp
-Skill.h
-/home/john/cmake_proj/game/Classes/Skill.h
 Soldier.h
 /home/john/cmake_proj/game/Classes/Soldier.h
 NetRoom.h
@@ -4243,9 +4257,15 @@ Man2Soldier.h
 /home/john/cmake_proj/game/Classes/Man2Soldier.h
 WomanSoldier.h
 /home/john/cmake_proj/game/Classes/WomanSoldier.h
+SimpleAudioEngine.h
+/home/john/cmake_proj/game/Classes/SimpleAudioEngine.h
 
 /home/john/cmake_proj/game/Classes/Soldier.h
 string
+-
+list
+-
+functional
 -
 cocos2d.h
 /home/john/cmake_proj/game/Classes/cocos2d.h
@@ -4257,6 +4277,8 @@ cocostudio/CocoStudio.h
 /home/john/cmake_proj/game/Classes/cocostudio/CocoStudio.h
 Particle3D/PU/CCPUParticleSystem3D.h
 /home/john/cmake_proj/game/Classes/Particle3D/PU/CCPUParticleSystem3D.h
+Skill.h
+/home/john/cmake_proj/game/Classes/Skill.h
 
 /home/john/cmake_proj/game/Classes/WomanSoldier.cpp
 WomanSoldier.h
@@ -4269,8 +4291,6 @@ Soldier.h
 /home/john/cmake_proj/game/Classes/Soldier.h
 
 /home/john/cmake_proj/game/Classes/World.cpp
-World.h
-/home/john/cmake_proj/game/Classes/World.h
 DrawNode3D.h
 /home/john/cmake_proj/game/Classes/DrawNode3D.h
 string

@@ -87,6 +87,8 @@ CMakeFiles/Game.dir/Classes/AppDelegate.cpp.o: ../cocos2d/cocos/3d/CCSprite3D.h
 CMakeFiles/Game.dir/Classes/AppDelegate.cpp.o: ../cocos2d/cocos/3d/CCSprite3DMaterial.h
 CMakeFiles/Game.dir/Classes/AppDelegate.cpp.o: ../cocos2d/cocos/3d/CCTerrain.h
 CMakeFiles/Game.dir/Classes/AppDelegate.cpp.o: ../cocos2d/cocos/3d/CCTextureCube.h
+CMakeFiles/Game.dir/Classes/AppDelegate.cpp.o: ../cocos2d/cocos/audio/include/Export.h
+CMakeFiles/Game.dir/Classes/AppDelegate.cpp.o: ../cocos2d/cocos/audio/include/SimpleAudioEngine.h
 CMakeFiles/Game.dir/Classes/AppDelegate.cpp.o: ../cocos2d/cocos/base/CCAsyncTaskPool.h
 CMakeFiles/Game.dir/Classes/AppDelegate.cpp.o: ../cocos2d/cocos/base/CCAutoreleasePool.h
 CMakeFiles/Game.dir/Classes/AppDelegate.cpp.o: ../cocos2d/cocos/base/CCConfiguration.h
@@ -612,6 +614,8 @@ CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../cocos2d/cocos/3d/CCSprite3D.h
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../cocos2d/cocos/3d/CCSprite3DMaterial.h
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../cocos2d/cocos/3d/CCTerrain.h
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../cocos2d/cocos/3d/CCTextureCube.h
+CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../cocos2d/cocos/audio/include/Export.h
+CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../cocos2d/cocos/audio/include/SimpleAudioEngine.h
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../cocos2d/cocos/base/CCAsyncTaskPool.h
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../cocos2d/cocos/base/CCAutoreleasePool.h
 CMakeFiles/Game.dir/Classes/GameScene.cpp.o: ../cocos2d/cocos/base/CCConfiguration.h
@@ -1660,6 +1664,7 @@ CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o: ../cocos2d/external/json/rapidjso
 CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o: ../cocos2d/external/json/reader.h
 CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o: ../Classes/Man2Soldier.cpp
 CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o: ../Classes/Man2Soldier.h
+CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o: ../Classes/Skill.h
 CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o: ../Classes/Soldier.h
 CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o: ../Server/message.h
 CMakeFiles/Game.dir/Classes/Man2Soldier.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -2038,6 +2043,7 @@ CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o: ../cocos2d/external/json/rapidjson
 CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o: ../cocos2d/external/json/reader.h
 CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o: ../Classes/ManSoldier.cpp
 CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o: ../Classes/ManSoldier.h
+CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o: ../Classes/Skill.h
 CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o: ../Classes/Soldier.h
 CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o: ../Server/message.h
 CMakeFiles/Game.dir/Classes/ManSoldier.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -2129,6 +2135,8 @@ CMakeFiles/Game.dir/Classes/MenuScene.cpp.o: ../cocos2d/cocos/3d/CCSprite3D.h
 CMakeFiles/Game.dir/Classes/MenuScene.cpp.o: ../cocos2d/cocos/3d/CCSprite3DMaterial.h
 CMakeFiles/Game.dir/Classes/MenuScene.cpp.o: ../cocos2d/cocos/3d/CCTerrain.h
 CMakeFiles/Game.dir/Classes/MenuScene.cpp.o: ../cocos2d/cocos/3d/CCTextureCube.h
+CMakeFiles/Game.dir/Classes/MenuScene.cpp.o: ../cocos2d/cocos/audio/include/Export.h
+CMakeFiles/Game.dir/Classes/MenuScene.cpp.o: ../cocos2d/cocos/audio/include/SimpleAudioEngine.h
 CMakeFiles/Game.dir/Classes/MenuScene.cpp.o: ../cocos2d/cocos/base/CCAsyncTaskPool.h
 CMakeFiles/Game.dir/Classes/MenuScene.cpp.o: ../cocos2d/cocos/base/CCAutoreleasePool.h
 CMakeFiles/Game.dir/Classes/MenuScene.cpp.o: ../cocos2d/cocos/base/CCConfiguration.h
@@ -2412,6 +2420,7 @@ CMakeFiles/Game.dir/Classes/MenuScene.cpp.o: ../cocos2d/external/json/msinttypes
 CMakeFiles/Game.dir/Classes/MenuScene.cpp.o: ../cocos2d/external/json/msinttypes/stdint.h
 CMakeFiles/Game.dir/Classes/MenuScene.cpp.o: ../cocos2d/external/json/rapidjson.h
 CMakeFiles/Game.dir/Classes/MenuScene.cpp.o: ../cocos2d/external/json/reader.h
+CMakeFiles/Game.dir/Classes/MenuScene.cpp.o: ../Classes/HelpScene.h
 CMakeFiles/Game.dir/Classes/MenuScene.cpp.o: ../Classes/MenuScene.cpp
 CMakeFiles/Game.dir/Classes/MenuScene.cpp.o: ../Classes/RoleScene.h
 CMakeFiles/Game.dir/Classes/MenuScene.cpp.o: ../Classes/SceneLayer.h
@@ -2791,10 +2800,10 @@ CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../cocos2d/external/json/msinttypes/s
 CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../cocos2d/external/json/rapidjson.h
 CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../cocos2d/external/json/reader.h
 CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../Classes/Client.h
+CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../Classes/Dialog.h
 CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../Classes/DrawNode3D.h
 CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../Classes/GameScene.h
 CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../Classes/NetRoom.cpp
-CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../Classes/NetRoom.h
 CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../Classes/ODSocket.h
 CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../Classes/Player.h
 CMakeFiles/Game.dir/Classes/NetRoom.cpp.o: ../Classes/SceneLayer.h
@@ -3184,8 +3193,8 @@ CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/GameScene.h
 CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/NetRoom.h
 CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/ODSocket.h
 CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/Player.cpp
-CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/Player.h
 CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/SceneLayer.h
+CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/Skill.h
 CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/Soldier.h
 CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Classes/World.h
 CMakeFiles/Game.dir/Classes/Player.cpp.o: ../Server/message.h
@@ -3569,6 +3578,7 @@ CMakeFiles/Game.dir/Classes/RoleScene.cpp.o: ../Classes/ODSocket.h
 CMakeFiles/Game.dir/Classes/RoleScene.cpp.o: ../Classes/RoleScene.cpp
 CMakeFiles/Game.dir/Classes/RoleScene.cpp.o: ../Classes/RoomListScene.h
 CMakeFiles/Game.dir/Classes/RoleScene.cpp.o: ../Classes/SceneLayer.h
+CMakeFiles/Game.dir/Classes/RoleScene.cpp.o: ../Classes/Skill.h
 CMakeFiles/Game.dir/Classes/RoleScene.cpp.o: ../Classes/Soldier.h
 CMakeFiles/Game.dir/Classes/RoleScene.cpp.o: ../Server/message.h
 CMakeFiles/Game.dir/Classes/RoleScene.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -4334,6 +4344,7 @@ CMakeFiles/Game.dir/Classes/RoomScene.cpp.o: ../Classes/ODSocket.h
 CMakeFiles/Game.dir/Classes/RoomScene.cpp.o: ../Classes/RoomScene.cpp
 CMakeFiles/Game.dir/Classes/RoomScene.cpp.o: ../Classes/RoomScene.h
 CMakeFiles/Game.dir/Classes/RoomScene.cpp.o: ../Classes/SceneLayer.h
+CMakeFiles/Game.dir/Classes/RoomScene.cpp.o: ../Classes/Skill.h
 CMakeFiles/Game.dir/Classes/RoomScene.cpp.o: ../Classes/Soldier.h
 CMakeFiles/Game.dir/Classes/RoomScene.cpp.o: ../Server/message.h
 CMakeFiles/Game.dir/Classes/RoomScene.cpp.o: /usr/local/include/GLFW/glfw3.h
@@ -4800,6 +4811,8 @@ CMakeFiles/Game.dir/Classes/SettingScene.cpp.o: ../cocos2d/cocos/3d/CCSprite3D.h
 CMakeFiles/Game.dir/Classes/SettingScene.cpp.o: ../cocos2d/cocos/3d/CCSprite3DMaterial.h
 CMakeFiles/Game.dir/Classes/SettingScene.cpp.o: ../cocos2d/cocos/3d/CCTerrain.h
 CMakeFiles/Game.dir/Classes/SettingScene.cpp.o: ../cocos2d/cocos/3d/CCTextureCube.h
+CMakeFiles/Game.dir/Classes/SettingScene.cpp.o: ../cocos2d/cocos/audio/include/Export.h
+CMakeFiles/Game.dir/Classes/SettingScene.cpp.o: ../cocos2d/cocos/audio/include/SimpleAudioEngine.h
 CMakeFiles/Game.dir/Classes/SettingScene.cpp.o: ../cocos2d/cocos/base/CCAsyncTaskPool.h
 CMakeFiles/Game.dir/Classes/SettingScene.cpp.o: ../cocos2d/cocos/base/CCAutoreleasePool.h
 CMakeFiles/Game.dir/Classes/SettingScene.cpp.o: ../cocos2d/cocos/base/CCConfiguration.h
@@ -5554,6 +5567,8 @@ CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../cocos2d/cocos/3d/CCSprite3D.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../cocos2d/cocos/3d/CCSprite3DMaterial.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../cocos2d/cocos/3d/CCTerrain.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../cocos2d/cocos/3d/CCTextureCube.h
+CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../cocos2d/cocos/audio/include/Export.h
+CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../cocos2d/cocos/audio/include/SimpleAudioEngine.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../cocos2d/cocos/base/CCAsyncTaskPool.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../cocos2d/cocos/base/CCAutoreleasePool.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../cocos2d/cocos/base/CCConfiguration.h
@@ -5844,6 +5859,7 @@ CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/DrawNode3D.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/Man2Soldier.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/ManSoldier.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/SceneLayer.h
+CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/Skill.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/Soldier.cpp
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/Soldier.h
 CMakeFiles/Game.dir/Classes/Soldier.cpp.o: ../Classes/WomanSoldier.h
@@ -6224,6 +6240,7 @@ CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o: ../cocos2d/external/json/msintty
 CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o: ../cocos2d/external/json/rapidjson.h
 CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o: ../cocos2d/external/json/reader.h
 CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o: ../Classes/AppDelegate.h
+CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o: ../Classes/Skill.h
 CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o: ../Classes/Soldier.h
 CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o: ../Classes/WomanSoldier.cpp
 CMakeFiles/Game.dir/Classes/WomanSoldier.cpp.o: ../Classes/WomanSoldier.h
@@ -6471,11 +6488,8 @@ CMakeFiles/Game.dir/Classes/World.cpp.o: ../cocos2d/cocos/renderer/CCVertexIndex
 CMakeFiles/Game.dir/Classes/World.cpp.o: ../cocos2d/cocos/renderer/CCVertexIndexData.h
 CMakeFiles/Game.dir/Classes/World.cpp.o: ../cocos2d/cocos/renderer/ccGLStateCache.h
 CMakeFiles/Game.dir/Classes/World.cpp.o: ../cocos2d/cocos/renderer/ccShaders.h
-CMakeFiles/Game.dir/Classes/World.cpp.o: ../cocos2d/extensions/Particle3D/CCParticleSystem3D.h
-CMakeFiles/Game.dir/Classes/World.cpp.o: ../cocos2d/extensions/Particle3D/PU/CCPUParticleSystem3D.h
 CMakeFiles/Game.dir/Classes/World.cpp.o: ../Classes/DrawNode3D.h
 CMakeFiles/Game.dir/Classes/World.cpp.o: ../Classes/World.cpp
-CMakeFiles/Game.dir/Classes/World.cpp.o: ../Classes/World.h
 CMakeFiles/Game.dir/Classes/World.cpp.o: /usr/local/include/GLFW/glfw3.h
 CMakeFiles/Game.dir/Classes/World.cpp.o: /usr/local/include/GLFW/glfw3native.h
 
