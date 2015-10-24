@@ -21,9 +21,9 @@ const char *g_check_name(char *name) {
 Room::Room(char *name) {
     if(strlen(name) >= MAX_ROOM_NAME_LEN) {
         m_err = "room name is too long";
-        return;
-    } //房间名称太长
-    if(Room::getRoom(name)) { //房间已经存在
+        return;                             //房间名称太长
+    }
+    if(Room::getRoom(name)) {               //房间已经存在
         m_err = "room existed";
         return;
     }
@@ -119,7 +119,8 @@ void Room::broad_members() {
         // 设置成员的ID
         self_id = i;
         //pkg.arg2 = i; //对应客户端自己的ID
-        if(m) m->handler()->Reply(&pkg, meb, sizeof(meb));
+        if(m)
+            m->handler()->Reply(&pkg, meb, sizeof(meb));
     }
 }
 
@@ -134,20 +135,23 @@ int Room::for_member_id(Member *meb) {
 }
 
 bool Room::check_team_ready() {
-    bool team_red = true;
-    bool team_blue = true;
+    int team_red = 0;
+    int team_blue = 0;
     for(int i = 0; i < MAX_ROOM_MEMBERS; i++) {
         auto m = m_members[i];
         if(m) {
             if(i%2) {
-               team_blue = team_blue && m->get_ready();
+               team_blue += m->get_ready();
             } else {
-               team_red= team_red && m->get_ready();
+               team_red += m->get_ready();
             }
         }
     }
-    if(team_blue && team_red) return true;
-    else return false;
+
+    if(team_blue && team_red)
+        return true;
+    else
+        return false;
 }
 
 bool Room::set_team(Member *meb, int team) {
@@ -155,7 +159,8 @@ bool Room::set_team(Member *meb, int team) {
     if(error()) {
         return false;
     }
-    if(r_id % 2 == team % 2) return true; // 已经在team队伍
+    if(r_id % 2 == team % 2)
+        return true; // 已经在team队伍
     //偶数为红队，奇数为蓝队
     for(int i = team % 2; i < MAX_ROOM_MEMBERS; i += 2) {
         if(!m_members[i]) {

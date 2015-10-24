@@ -21,7 +21,7 @@ Dialog::Dialog(QWidget *parent) :
     startWork();
     g_dialog = this;
 
-    new Room("DEBUG");
+    new Room((char *)"DEBUG");
     updateRoomList();
 }
 

@@ -40,41 +40,43 @@ void AppDelegate::initGLContextAttrs()
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
-    // initialize director
+    // initialize global objects
     g_director = Director::getInstance();
     g_file = FileUtils::getInstance();
     g_audio = SimpleAudioEngine::getInstance();
 
-    g_audio->preloadBackgroundMusic("bg1.mp3");
-    g_audio->preloadBackgroundMusic("bg2.mp3");
-    const char *sound_file[] = {
-        "girl_aida",
-        "girl_boxing",
-        "girl_death",
-        "girl_kick",
-        "girl_special",
+    {
+        g_audio->preloadBackgroundMusic("bg1.mp3");
+        g_audio->preloadBackgroundMusic("bg2.mp3");
+        const char *sound_file[] = {
+            "girl_aida",
+            "girl_boxing",
+            "girl_death",
+            "girl_kick",
+            "girl_special",
 
-        "man_aida",
-        "man_boxing",
-        "man_death",
-        "man_kick",
-        "man_special",
+            "man_aida",
+            "man_boxing",
+            "man_death",
+            "man_kick",
+            "man_special",
 
-        "man2_aida",
-        "man2_boxing",
-        "man2_death",
-        "man2_kick",
-        "man2_special"
-    };
-    for (int i = 0; i < 15; i++) {
-        char buf[32];
+            "man2_aida",
+            "man2_boxing",
+            "man2_death",
+            "man2_kick",
+            "man2_special"
+        };
+        for (int i = 0; i < 15; i++) {
+            char buf[32];
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-        sprintf(buf, "%s.%s", sound_file[i], "ogg");
+            sprintf(buf, "%s.%s", sound_file[i], "ogg");
 #endif
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-        sprintf(buf, "%s.%s", sound_file[i], "wav");
+            sprintf(buf, "%s.%s", sound_file[i], "wav");
 #endif
-        g_audio->preloadEffect(buf);
+            g_audio->preloadEffect(buf);
+        }
     }
 
     auto glview = g_director->getOpenGLView();
@@ -95,8 +97,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto screenSize = glview->getFrameSize();
     auto designSize = Size(960, 640);
 
-    if (screenSize.height > 320)
-    {
+    if (screenSize.height > 320) {
         auto resourceSize = Size(960, 640);
         g_director->setContentScaleFactor(resourceSize.height/designSize.height);
     }
@@ -146,9 +147,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     console->listenOnTCP(5678);
 
     // create a scene. it's an autorelease object
-    auto scene = MenuScene::createScene();
-    // run
-    g_director->runWithScene(scene);
+    g_director->runWithScene(MenuScene::createScene());
 
     return true;
 }
