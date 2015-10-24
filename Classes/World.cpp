@@ -306,6 +306,8 @@ World::World() {
 
 void World::load_collision(char *file) {
     _colli_root = QuatNode::Import(file);
+    extern QuatNode *g_quat_root;
+    g_quat_root = _colli_root;
     CC_ASSERT(_colli_root);
 }
 

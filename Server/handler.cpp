@@ -107,7 +107,7 @@ MsgHandler::MsgHandler(QTcpSocket *sock) {
     m_handlers[MESSAGE::action_move] = handler_update;
     m_handlers[MESSAGE::action_stop] = handler_update;
     m_handlers[MESSAGE::do_skill] = handler_update;
-    m_handlers[MESSAGE::on_attacked] = handler_update;
+    m_handlers[MESSAGE::on_skill] = handler_update;
 }
 
 MsgHandler::~MsgHandler() {

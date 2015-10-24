@@ -88,7 +88,7 @@ namespace MESSAGE {
         action_move,
         action_stop,
         do_skill,
-        on_attacked,
+        on_skill,
 
         Max_number //消息的最大数目
     }; //主连接消息
