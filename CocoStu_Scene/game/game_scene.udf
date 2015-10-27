@@ -28,5 +28,15 @@
         <EnableHTML5Advanced Value="False" />
       </Value>
     </Item>
+    <Item Key="TabsParamsKey">
+      <Value ctype="TabsInfo">
+        <OpenedDocuments>
+          <FilePathData Path="game_layer_ui.csd" />
+          <FilePathData Path="soldier_head_info.csd" />
+          <FilePathData Path="game_scene.csd" />
+        </OpenedDocuments>
+        <ActiveDocument Path="game_layer_ui.csd" />
+      </Value>
+    </Item>
   </Properties>
 </UserData>
